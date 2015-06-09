@@ -22,7 +22,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     var list: EntryItemList?
     var selectedIndexPath: NSIndexPath?
     
-    let headerHeight: CGFloat = 21.0
+    let headerHeight: CGFloat = 30.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,38 +112,38 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             let item = list[indexPath.section]
             
             if item.type == "text" {
-                return 48.0
+                return 58.0
             } else if item.type == "title" {
-                return 48.0
+                return 58.0
             } else if item.type == "textarea" || item.type == "embed" {
                 if indexPath.row == 0 {
                     return headerHeight
                 } else {
-                    return 79.0
+                    return 90.0
                 }
             } else if item.type == "checkbox" {
-                return 48.0
+                return 58.0
             } else if item.type == "url" {
-                return 48.0
+                return 58.0
             } else if item.type == "datetime" || item.type == "date" || item.type == "time"  {
-                return 48.0
+                return 58.0
             } else if item.type == "select" {
-                return 48.0
+                return 58.0
             } else if item.type == "radio" {
-                return 48.0
+                return 58.0
             } else if item.type == "image" {
                 if indexPath.row == 0 {
                     return headerHeight
                 } else {
-                    return 125.0
+                    return 90.0
                 }
             } else if item.type == "status" {
-                return 44.0
+                return 53.0
             } else if item.type == "category" || item.type == "folder" {
-                return 48.0
+                return 58.0
             }
             
-            return 48.0
+            return 58.0
         }
         
         return 0.0
@@ -183,11 +183,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     var c = tableView.dequeueReusableCellWithIdentifier("EntryTextAreaTableViewCell", forIndexPath: indexPath) as! EntryTextAreaTableViewCell
                     var text = item.dispValue()
                     if text.isEmpty {
-                        c.textareaLabel?.text = (item as! EntryTextAreaItem).placeholder()
-                        c.textareaLabel?.textColor = Color.placeholderText
+                        c.placeholderLabel?.text = (item as! EntryTextAreaItem).placeholder()
+                        c.placeholderLabel.hidden = false
+                        c.textareaLabel.hidden = true
                     } else {
                         c.textareaLabel?.text = Utils.removeHTMLTags(text)
-                        c.textareaLabel?.textColor = Color.black
+                        c.placeholderLabel.hidden = true
+                        c.textareaLabel.hidden = false
                     }
                     cell = c
                 }

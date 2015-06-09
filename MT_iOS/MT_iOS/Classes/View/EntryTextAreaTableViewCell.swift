@@ -11,6 +11,8 @@ import UIKit
 class EntryTextAreaTableViewCell: UITableViewCell {
 
     @IBOutlet weak var textareaLabel: UILabel!
+    @IBOutlet weak var placeholderLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

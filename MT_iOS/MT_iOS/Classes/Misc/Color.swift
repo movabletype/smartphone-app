@@ -86,7 +86,7 @@ class Color {
     }
     
     class var placeholderText: UIColor {
-        return colorize(0x838383)
+        return colorize(0x9b9b9b)
     }
     
 }

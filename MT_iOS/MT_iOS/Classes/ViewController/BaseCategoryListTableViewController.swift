@@ -155,29 +155,6 @@ class BaseCategoryListTableViewController: BaseTableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedItem = self.list[indexPath.row] as! Category
-
-        if object is EntryCategoryItem {
-            if let sel = selected[selectedItem.id] {
-                selected[selectedItem.id] = !sel
-            } else {
-                selected[selectedItem.id] = true
-            }
-            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
-        } else {
-            if let sel = selected[selectedItem.id] {
-                selected[selectedItem.id] = !sel
-            } else {
-                selected[selectedItem.id] = true
-            }
-            for item in self.list.items {
-                if item.id != selectedItem.id {
-                    selected[item.id] = false
-                }
-            }
-            self.tableView.reloadData()
-        }
-        
     }
     
     /*

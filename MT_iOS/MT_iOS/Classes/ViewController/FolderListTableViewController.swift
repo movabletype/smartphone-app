@@ -139,5 +139,21 @@ class FolderListTableViewController: BaseCategoryListTableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedItem = self.list[indexPath.row] as! Folder
+        
+        if let sel = selected[selectedItem.id] {
+            selected[selectedItem.id] = !sel
+        } else {
+            selected[selectedItem.id] = true
+        }
+        for item in self.list.items {
+            if item.id != selectedItem.id {
+                selected[item.id] = false
+            }
+        }
+        self.tableView.reloadData()
+    }
 
 }

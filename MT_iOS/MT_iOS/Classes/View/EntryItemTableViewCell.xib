@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="EntryItemTableViewCell" customModule="MT_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kV3-Se-oBX">
+                        <rect key="frame" x="1" y="8" width="28" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="MoD-ce-8sH"/>
+                        </constraints>
+                        <state key="normal" image="ico_on">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="visibleButtonPushed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NCX-nv-7SY"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBr-tv-EwD">
+                        <rect key="frame" x="37" y="11" width="282" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hBr-tv-EwD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="2nl-BM-edp"/>
+                    <constraint firstItem="hBr-tv-EwD" firstAttribute="leading" secondItem="kV3-Se-oBX" secondAttribute="trailing" constant="8" symbolic="YES" id="Maf-hh-dU4"/>
+                    <constraint firstItem="hBr-tv-EwD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fOM-2e-N61"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="kV3-Se-oBX" secondAttribute="bottom" constant="-0.5" id="fpS-v2-FEr"/>
+                    <constraint firstItem="kV3-Se-oBX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-7" id="ir4-3q-vPE"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="hBr-tv-EwD" secondAttribute="trailing" constant="-7" id="qAp-to-Osn"/>
+                    <constraint firstItem="kV3-Se-oBX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="shC-ik-jFx"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="titleLabel" destination="hBr-tv-EwD" id="fe2-RI-Fey"/>
+                <outlet property="visibleButton" destination="kV3-Se-oBX" id="61w-rj-hQ2"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ico_on" width="20" height="20"/>
+    </resources>
+</document>

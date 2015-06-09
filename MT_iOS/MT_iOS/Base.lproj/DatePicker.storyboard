@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9y3-Ho-AqF">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Date Picker View Controller-->
+        <scene sceneID="Nd0-JY-0dK">
+            <objects>
+                <viewController id="9y3-Ho-AqF" customClass="DatePickerViewController" customModule="MT_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VoT-Kw-qkW"/>
+                        <viewControllerLayoutGuide type="bottom" id="iDz-Ds-yLA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="w3x-8Z-9ca">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015/6/2 10:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfz-j9-uba">
+                                <rect key="frame" x="16" y="28" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="mf3-or-EtR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="s03-AJ-wMI">
+                                <rect key="frame" x="16" y="57" width="288" height="29"/>
+                                <segments>
+                                    <segment title="Date"/>
+                                    <segment title="Time"/>
+                                </segments>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="segmentValueChanged:" destination="9y3-Ho-AqF" eventType="valueChanged" id="Zgc-Op-zVX"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5FZ-Wh-3oe">
+                                <rect key="frame" x="0.0" y="93" width="320" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Set now">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="setNowButtonPushed:" destination="9y3-Ho-AqF" eventType="touchUpInside" id="1dB-yt-po6"/>
+                                </connections>
+                            </button>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gqZ-5H-PSL">
+                                <rect key="frame" x="0.0" y="131" width="320" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="454919562.10135102">
+                                    <!--2015-06-02 06:32:42 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="datePickerValueChanged:" destination="9y3-Ho-AqF" eventType="valueChanged" id="MQp-8k-dkG"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="s03-AJ-wMI" firstAttribute="top" secondItem="cfz-j9-uba" secondAttribute="bottom" constant="8" symbolic="YES" id="A2g-HO-mZ7"/>
+                            <constraint firstItem="s03-AJ-wMI" firstAttribute="centerX" secondItem="5FZ-Wh-3oe" secondAttribute="centerX" id="AVp-C8-QJ5"/>
+                            <constraint firstItem="gqZ-5H-PSL" firstAttribute="top" secondItem="5FZ-Wh-3oe" secondAttribute="bottom" constant="8" symbolic="YES" id="JS0-fX-NZA"/>
+                            <constraint firstItem="s03-AJ-wMI" firstAttribute="leading" secondItem="w3x-8Z-9ca" secondAttribute="leadingMargin" id="S5o-eh-b9c"/>
+                            <constraint firstItem="5FZ-Wh-3oe" firstAttribute="leading" secondItem="gqZ-5H-PSL" secondAttribute="leading" id="XVh-4i-761"/>
+                            <constraint firstItem="cfz-j9-uba" firstAttribute="top" secondItem="VoT-Kw-qkW" secondAttribute="bottom" constant="8" symbolic="YES" id="fQ4-Rp-fBl"/>
+                            <constraint firstItem="5FZ-Wh-3oe" firstAttribute="leading" secondItem="w3x-8Z-9ca" secondAttribute="leading" id="ftd-ZS-0dM"/>
+                            <constraint firstItem="gqZ-5H-PSL" firstAttribute="trailing" secondItem="5FZ-Wh-3oe" secondAttribute="trailing" id="mvZ-XD-e8d"/>
+                            <constraint firstItem="s03-AJ-wMI" firstAttribute="trailing" secondItem="cfz-j9-uba" secondAttribute="trailing" id="pMI-mr-gfp"/>
+                            <constraint firstItem="5FZ-Wh-3oe" firstAttribute="top" secondItem="s03-AJ-wMI" secondAttribute="bottom" constant="8" symbolic="YES" id="pkO-R9-htP"/>
+                            <constraint firstItem="s03-AJ-wMI" firstAttribute="leading" secondItem="cfz-j9-uba" secondAttribute="leading" id="t0u-Xy-3ep"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ExR-1d-exQ"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="datePicker" destination="gqZ-5H-PSL" id="2y7-JS-KPQ"/>
+                        <outlet property="dateTimeLabel" destination="cfz-j9-uba" id="69c-g2-SBC"/>
+                        <outlet property="dateTimeSegmentedControl" destination="s03-AJ-wMI" id="nwk-dn-a9N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wsq-0c-wQm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-676" y="328"/>
+        </scene>
+    </scenes>
+</document>

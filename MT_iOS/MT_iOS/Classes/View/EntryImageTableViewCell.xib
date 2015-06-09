@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="125" id="KGk-i7-Jjw" customClass="EntryImageTableViewCell" customModule="MT_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Vh-Ca-IHQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="124.5"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="0Vh-Ca-IHQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HeK-4u-UE1"/>
+                    <constraint firstItem="0Vh-Ca-IHQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lzj-P5-Mrl"/>
+                    <constraint firstAttribute="bottom" secondItem="0Vh-Ca-IHQ" secondAttribute="bottom" id="oFK-om-urS"/>
+                    <constraint firstAttribute="trailing" secondItem="0Vh-Ca-IHQ" secondAttribute="trailing" id="yrq-kz-GAR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="assetImageView" destination="0Vh-Ca-IHQ" id="J6z-SE-7JP"/>
+            </connections>
+            <point key="canvasLocation" x="310" y="267.5"/>
+        </tableViewCell>
+    </objects>
+</document>

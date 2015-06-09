@@ -1,0 +1,11 @@
+platform :ios, "8.0"
+use_frameworks!
+
+pod 'Alamofire'
+pod 'SwiftyJSON'
+pod 'SVProgressHUD'
+pod 'Reachability'
+pod 'SDWebImage'
+pod 'LUKeychainAccess'
+pod 'NSDate-Escort'
+pod 'ZSSRichTextEditor'

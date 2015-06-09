@@ -1,0 +1,135 @@
+//
+//  CommonWebViewController.swift
+//  SenseiNote
+//
+//  Created by CHEEBOW on 2015/01/09.
+//  Copyright (c) 2015年 LOUPE,Inc. All rights reserved.
+//
+
+import UIKit
+
+class CommonWebViewController: BaseViewController, UIWebViewDelegate {
+    var webView: UIWebView!
+    var urlString: String = ""
+    var filePath: String = ""
+    var indicator: UIActivityIndicatorView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+        self.webView = UIWebView(frame: self.view.bounds)
+        self.view.addSubview(self.webView)
+        self.webView.delegate = self;
+        self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.webView.backgroundColor = Color.bg
+        
+        let leading: NSLayoutConstraint = NSLayoutConstraint(
+            item: self.webView,
+            attribute: .Leading,
+            relatedBy: .Equal,
+            toItem: self.view,
+            attribute: .Leading,
+            multiplier: 1.0,
+            constant: 0.0)
+        
+        let trailing: NSLayoutConstraint = NSLayoutConstraint(
+            item: self.webView,
+            attribute: .Trailing,
+            relatedBy: .Equal,
+            toItem: self.view,
+            attribute: .Trailing,
+            multiplier: 1.0,
+            constant: 0.0)
+        
+        let top: NSLayoutConstraint = NSLayoutConstraint(
+            item: self.webView,
+            attribute: .Top,
+            relatedBy: .Equal,
+            toItem: self.topLayoutGuide,
+            attribute: .Bottom,
+            multiplier: 1.0,
+            constant: 0.0)
+        
+        let bottom: NSLayoutConstraint = NSLayoutConstraint(
+            item: self.webView,
+            attribute: .Bottom,
+            relatedBy: .Equal,
+            toItem: self.bottomLayoutGuide,
+            attribute: .Top,
+            multiplier: 1.0,
+            constant: 0.0)
+        
+        self.view.addConstraints([leading, trailing, top, bottom])
+        
+        var url = NSURL(string: urlString)
+        if !filePath.isEmpty {
+            url = NSURL(fileURLWithPath: filePath)
+        }
+        
+        var request = NSMutableURLRequest(URL: url!)
+        
+        self.webView.loadRequest(request)
+        
+        self.indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        self.webView.addSubview(self.indicator)
+        self.indicator.center = self.webView.center
+        var rect = self.indicator.frame
+        if (self.navigationController != nil) {
+            rect.origin.y -= self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height
+        }
+        self.indicator.frame = rect
+        self.indicator.startAnimating()
+        
+        self.title = NSLocalizedString("Loading...", comment: "Loading...")
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
+    
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+    
+    // MARK: --
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        return true
+    }
+    
+    func webViewDidStartLoad(webView: UIWebView) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        self.indicator.removeFromSuperview()
+        var title = webView.stringByEvaluatingJavaScriptFromString("document.title")
+        self.title = title
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
+    
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+        self.indicator.removeFromSuperview()
+        if error.code != -999 {
+            self.title = NSLocalizedString("Error", comment: "Error")
+        }
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
+}

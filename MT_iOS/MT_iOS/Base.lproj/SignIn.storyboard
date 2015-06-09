@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mX8-QR-wIL">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--Sign In View Controller-->
+        <scene sceneID="60J-gk-ANh">
+            <objects>
+                <viewController id="mX8-QR-wIL" customClass="SignInViewController" customModule="MT_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MA5-Zz-G8O"/>
+                        <viewControllerLayoutGuide type="bottom" id="ACs-Kr-ZId"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9bp-VO-YeZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="K2J-ph-6q7">
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DH-xL-6Lz">
+                                <rect key="frame" x="16" y="302" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="p44-Mz-PMm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.10588236149999999" green="0.28627452250000002" blue="0.47058826679999999" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="K2J-ph-6q7" secondAttribute="centerX" id="1uz-kd-C1e"/>
+                            <constraint firstAttribute="trailing" secondItem="1DH-xL-6Lz" secondAttribute="trailing" constant="16" id="VTN-pr-2DZ"/>
+                            <constraint firstAttribute="centerY" secondItem="K2J-ph-6q7" secondAttribute="centerY" id="WQ3-3Z-9uq"/>
+                            <constraint firstItem="1DH-xL-6Lz" firstAttribute="leading" secondItem="9bp-VO-YeZ" secondAttribute="leading" constant="16" id="ym6-7Z-CTR"/>
+                            <constraint firstItem="1DH-xL-6Lz" firstAttribute="top" secondItem="K2J-ph-6q7" secondAttribute="bottom" constant="8" id="zhO-RV-a47"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IIQ-1F-d58" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="626" y="234"/>
+        </scene>
+    </scenes>
+</document>

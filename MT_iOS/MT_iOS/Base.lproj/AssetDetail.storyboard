@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qpo-Ro-avl">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Asset Detail View Controller-->
+        <scene sceneID="AR4-cN-UgC">
+            <objects>
+                <viewController id="qpo-Ro-avl" customClass="AssetDetailViewController" customModule="MT_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kde-0C-jhw"/>
+                        <viewControllerLayoutGuide type="bottom" id="4wN-Ao-nph"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="T2N-Zw-QKO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eBb-AK-eRF">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="409"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Akz-5M-prJ">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="LUP-u0-N6D"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="OJ6-iF-XfO"/>
+                                    <barButtonItem systemItem="trash" id="D85-vz-00n">
+                                        <connections>
+                                            <action selector="deleteButtonPushed:" destination="qpo-Ro-avl" id="Q4j-0A-RGq"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdp-vI-hLq">
+                                <rect key="frame" x="0.0" y="386" width="320" height="136"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size：1000 x 1000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZI-ed-rol">
+                                        <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="dvB-H0-zBA"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author：xxx" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQY-Un-f5M">
+                                        <rect key="frame" x="8" y="37" width="304" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="uqi-2x-eGp"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created：2015/5/29 11:38" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUu-uP-MCp">
+                                        <rect key="frame" x="8" y="66" width="304" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="MQY-Un-f5M" firstAttribute="trailing" secondItem="yZI-ed-rol" secondAttribute="trailing" id="2Hh-Iy-SId"/>
+                                    <constraint firstAttribute="bottom" secondItem="eUu-uP-MCp" secondAttribute="bottom" constant="49" id="3gn-bw-R1y"/>
+                                    <constraint firstItem="eUu-uP-MCp" firstAttribute="top" secondItem="MQY-Un-f5M" secondAttribute="bottom" constant="8" symbolic="YES" id="FTO-fm-YoL"/>
+                                    <constraint firstItem="MQY-Un-f5M" firstAttribute="leading" secondItem="yZI-ed-rol" secondAttribute="leading" id="J8z-74-kbu"/>
+                                    <constraint firstItem="yZI-ed-rol" firstAttribute="trailing" secondItem="gdp-vI-hLq" secondAttribute="trailingMargin" id="MXx-Mu-EFF"/>
+                                    <constraint firstItem="MQY-Un-f5M" firstAttribute="trailing" secondItem="eUu-uP-MCp" secondAttribute="trailing" id="W40-Wx-nH8"/>
+                                    <constraint firstItem="eUu-uP-MCp" firstAttribute="leading" secondItem="MQY-Un-f5M" secondAttribute="leading" id="WrT-MT-BF9"/>
+                                    <constraint firstItem="yZI-ed-rol" firstAttribute="top" secondItem="gdp-vI-hLq" secondAttribute="topMargin" id="crK-RP-wG6"/>
+                                    <constraint firstItem="eUu-uP-MCp" firstAttribute="leading" secondItem="gdp-vI-hLq" secondAttribute="leadingMargin" id="hMa-ui-rQw"/>
+                                    <constraint firstItem="MQY-Un-f5M" firstAttribute="top" secondItem="yZI-ed-rol" secondAttribute="bottom" constant="8" symbolic="YES" id="vwI-EW-ibw"/>
+                                    <constraint firstAttribute="height" constant="136" id="zoo-4Z-kIx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Akz-5M-prJ" firstAttribute="top" secondItem="eBb-AK-eRF" secondAttribute="bottom" constant="115" id="2KE-GA-FpC"/>
+                            <constraint firstItem="Akz-5M-prJ" firstAttribute="top" secondItem="gdp-vI-hLq" secondAttribute="bottom" constant="2" id="BRc-O8-unP"/>
+                            <constraint firstItem="4wN-Ao-nph" firstAttribute="top" secondItem="Akz-5M-prJ" secondAttribute="bottom" id="Qhq-fR-a0O"/>
+                            <constraint firstItem="eBb-AK-eRF" firstAttribute="leading" secondItem="T2N-Zw-QKO" secondAttribute="leading" id="Sgv-Zn-mr9"/>
+                            <constraint firstItem="gdp-vI-hLq" firstAttribute="leading" secondItem="T2N-Zw-QKO" secondAttribute="leading" id="Vd3-w3-ZXq"/>
+                            <constraint firstAttribute="trailing" secondItem="gdp-vI-hLq" secondAttribute="trailing" id="jef-1l-GZ7"/>
+                            <constraint firstItem="eBb-AK-eRF" firstAttribute="top" secondItem="T2N-Zw-QKO" secondAttribute="top" id="rUV-2Y-kyr"/>
+                            <constraint firstAttribute="trailing" secondItem="eBb-AK-eRF" secondAttribute="trailing" id="ucH-be-i3B"/>
+                            <constraint firstItem="Akz-5M-prJ" firstAttribute="leading" secondItem="T2N-Zw-QKO" secondAttribute="leading" id="wUM-0l-7Id"/>
+                            <constraint firstAttribute="trailing" secondItem="Akz-5M-prJ" secondAttribute="trailing" id="yeh-mb-0yx"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="AuthorLabel" destination="MQY-Un-f5M" id="5U2-ex-fvB"/>
+                        <outlet property="CreatedAtLabel" destination="eUu-uP-MCp" id="p5E-aI-Ngx"/>
+                        <outlet property="deleteButton" destination="D85-vz-00n" id="eyi-k7-Tlx"/>
+                        <outlet property="imageView" destination="eBb-AK-eRF" id="fXn-Cg-rKK"/>
+                        <outlet property="sizeLabel" destination="yZI-ed-rol" id="7vP-j8-Uq3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xdq-RU-aKN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="423" y="321"/>
+        </scene>
+    </scenes>
+</document>

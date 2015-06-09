@@ -101,6 +101,8 @@
 		791973B01B09DF2B003EA459 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 791973AF1B09DF2B003EA459 /* Images.xcassets */; };
 		791973B31B09DF2B003EA459 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791973B11B09DF2B003EA459 /* LaunchScreen.xib */; };
 		791973BF1B09DF2B003EA459 /* MT_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791973BE1B09DF2B003EA459 /* MT_iOSTests.swift */; };
+		7928D3031B26DAC30053457F /* BlockImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7928D3021B26DAC30053457F /* BlockImageItem.swift */; };
+		7928D3051B26DAD30053457F /* BlockTextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7928D3041B26DAD30053457F /* BlockTextItem.swift */; };
 		794854481B2522260074EF55 /* BaseCategoryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794854471B2522260074EF55 /* BaseCategoryListTableViewController.swift */; };
 		7948544C1B25225A0074EF55 /* CategoryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7948544B1B25225A0074EF55 /* CategoryListTableViewController.swift */; };
 		7948544E1B2522700074EF55 /* FolderListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7948544D1B2522700074EF55 /* FolderListTableViewController.swift */; };
@@ -315,6 +317,8 @@
 		791973B81B09DF2B003EA459 /* MT_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MT_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		791973BD1B09DF2B003EA459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		791973BE1B09DF2B003EA459 /* MT_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MT_iOSTests.swift; sourceTree = "<group>"; };
+		7928D3021B26DAC30053457F /* BlockImageItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockImageItem.swift; sourceTree = "<group>"; };
+		7928D3041B26DAD30053457F /* BlockTextItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextItem.swift; sourceTree = "<group>"; };
 		794854471B2522260074EF55 /* BaseCategoryListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCategoryListTableViewController.swift; sourceTree = "<group>"; };
 		7948544B1B25225A0074EF55 /* CategoryListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListTableViewController.swift; sourceTree = "<group>"; };
 		7948544D1B2522700074EF55 /* FolderListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderListTableViewController.swift; sourceTree = "<group>"; };
@@ -683,6 +687,8 @@
 			isa = PBXGroup;
 			children = (
 				795E20871B1DB17F00FA7857 /* BaseBlockItem.swift */,
+				7928D3021B26DAC30053457F /* BlockImageItem.swift */,
+				7928D3041B26DAD30053457F /* BlockTextItem.swift */,
 			);
 			name = BlockItem;
 			sourceTree = "<group>";
@@ -1202,6 +1208,7 @@
 				796DD50C1B14737100D14704 /* BlogSettingsTableViewController.swift in Sources */,
 				79592A4B1B200EE9004DDB4E /* EntryBasicTableViewCell.swift in Sources */,
 				797603C01B0EEB1600F9AC09 /* Page.swift in Sources */,
+				7928D3051B26DAD30053457F /* BlockTextItem.swift in Sources */,
 				797603A21B0D8F4800F9AC09 /* BlogInfoView.swift in Sources */,
 				79132B4D1B16ECAC002064C7 /* BaseViewController.swift in Sources */,
 				7904EBB71B0AF57700216EC9 /* BaseObject.swift in Sources */,
@@ -1280,6 +1287,7 @@
 				7948544E1B2522700074EF55 /* FolderListTableViewController.swift in Sources */,
 				796189711B1C54B40017747A /* GroupedHeaderView.swift in Sources */,
 				79E654AA1B0B0A50007E4D4C /* AuthInfo.swift in Sources */,
+				7928D3031B26DAC30053457F /* BlockImageItem.swift in Sources */,
 				798697551B1439A800DC7A18 /* Folder.swift in Sources */,
 				79592A531B200F2D004DDB4E /* EntryTextAreaTableViewCell.swift in Sources */,
 				79592A431B1FF5F3004DDB4E /* EntryAssetItem.swift in Sources */,

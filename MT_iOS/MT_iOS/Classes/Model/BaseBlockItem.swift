@@ -9,5 +9,11 @@
 import UIKit
 
 class BaseBlockItem: NSObject {
-   
+    func value()-> String {
+        return ""
+    }
+    
+    func dispValue()-> String {
+        return self.value()
+    }
 }

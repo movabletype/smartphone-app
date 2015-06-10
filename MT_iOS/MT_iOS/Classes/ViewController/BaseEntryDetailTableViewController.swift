@@ -115,7 +115,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 return 58.0
             } else if item.type == "title" {
                 return 58.0
-            } else if item.type == "textarea" || item.type == "embed" {
+            } else if item.type == "textarea" || item.type == "embed" || item.type == "blocks" {
                 if indexPath.row == 0 {
                     return headerHeight
                 } else {
@@ -194,6 +194,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     cell = c
                 }
 
+            } else if item.type == "blocks" {
+                //TODO:
             } else if item.type == "checkbox" {
                 var c = tableView.dequeueReusableCellWithIdentifier("EntryCheckboxTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
@@ -440,6 +442,9 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 } else {
                     self.showHTMLEditor(item as! EntryTextAreaItem)
                 }
+            } else if item.type == "blocks" {
+                //TODO:
+                LOG("blocks!!")
             } else if item.type == "checkbox" {
                 // Do nothing
             } else if item.type == "url" {

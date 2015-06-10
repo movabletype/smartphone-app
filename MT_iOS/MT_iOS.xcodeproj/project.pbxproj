@@ -109,6 +109,7 @@
 		794854511B2523C90074EF55 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7948544F1B2523C90074EF55 /* CategoryTableViewCell.swift */; };
 		794854521B2523C90074EF55 /* CategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 794854501B2523C90074EF55 /* CategoryTableViewCell.xib */; };
 		794854541B2574AB0074EF55 /* EntryTagItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794854531B2574AB0074EF55 /* EntryTagItem.swift */; };
+		7956DA621B27BFA50002B705 /* EntryBlocksItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956DA611B27BFA50002B705 /* EntryBlocksItem.swift */; };
 		79592A411B1FDBA8004DDB4E /* EntryItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79592A401B1FDBA8004DDB4E /* EntryItemList.swift */; };
 		79592A431B1FF5F3004DDB4E /* EntryAssetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79592A421B1FF5F3004DDB4E /* EntryAssetItem.swift */; };
 		79592A471B200EC4004DDB4E /* EntryTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79592A451B200EC4004DDB4E /* EntryTextTableViewCell.swift */; };
@@ -141,7 +142,6 @@
 		795E20821B1DAE3000FA7857 /* EntryEmbedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E20811B1DAE3000FA7857 /* EntryEmbedItem.swift */; };
 		795E20841B1DAE7100FA7857 /* EntryDateTimeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E20831B1DAE7100FA7857 /* EntryDateTimeItem.swift */; };
 		795E20861B1DAE8000FA7857 /* EntryTimeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E20851B1DAE8000FA7857 /* EntryTimeItem.swift */; };
-		795E20881B1DB17F00FA7857 /* BaseBlockItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E20871B1DB17F00FA7857 /* BaseBlockItem.swift */; };
 		795E208A1B1DB2FC00FA7857 /* EntryCategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E20891B1DB2FC00FA7857 /* EntryCategoryItem.swift */; };
 		795E208C1B1DB35C00FA7857 /* PageFolderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E208B1B1DB35C00FA7857 /* PageFolderItem.swift */; };
 		796189711B1C54B40017747A /* GroupedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796189701B1C54B40017747A /* GroupedHeaderView.swift */; };
@@ -325,6 +325,7 @@
 		7948544F1B2523C90074EF55 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		794854501B2523C90074EF55 /* CategoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryTableViewCell.xib; sourceTree = "<group>"; };
 		794854531B2574AB0074EF55 /* EntryTagItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTagItem.swift; sourceTree = "<group>"; };
+		7956DA611B27BFA50002B705 /* EntryBlocksItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryBlocksItem.swift; sourceTree = "<group>"; };
 		79592A401B1FDBA8004DDB4E /* EntryItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryItemList.swift; sourceTree = "<group>"; };
 		79592A421B1FF5F3004DDB4E /* EntryAssetItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryAssetItem.swift; sourceTree = "<group>"; };
 		79592A451B200EC4004DDB4E /* EntryTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTextTableViewCell.swift; sourceTree = "<group>"; };
@@ -357,7 +358,6 @@
 		795E20811B1DAE3000FA7857 /* EntryEmbedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryEmbedItem.swift; sourceTree = "<group>"; };
 		795E20831B1DAE7100FA7857 /* EntryDateTimeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDateTimeItem.swift; sourceTree = "<group>"; };
 		795E20851B1DAE8000FA7857 /* EntryTimeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTimeItem.swift; sourceTree = "<group>"; };
-		795E20871B1DB17F00FA7857 /* BaseBlockItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseBlockItem.swift; sourceTree = "<group>"; };
 		795E20891B1DB2FC00FA7857 /* EntryCategoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryCategoryItem.swift; sourceTree = "<group>"; };
 		795E208B1B1DB35C00FA7857 /* PageFolderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageFolderItem.swift; sourceTree = "<group>"; };
 		796189701B1C54B40017747A /* GroupedHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupedHeaderView.swift; sourceTree = "<group>"; };
@@ -686,7 +686,7 @@
 		795E206C1B1DA8CE00FA7857 /* BlockItem */ = {
 			isa = PBXGroup;
 			children = (
-				795E20871B1DB17F00FA7857 /* BaseBlockItem.swift */,
+				7956DA611B27BFA50002B705 /* EntryBlocksItem.swift */,
 				7928D3021B26DAC30053457F /* BlockImageItem.swift */,
 				7928D3041B26DAD30053457F /* BlockTextItem.swift */,
 			);
@@ -1234,6 +1234,7 @@
 				798697511B14384A00DC7A18 /* Author.swift in Sources */,
 				79CFBDCB1B1D3CD000283780 /* EntryDetailTableViewController.swift in Sources */,
 				795E208C1B1DB35C00FA7857 /* PageFolderItem.swift in Sources */,
+				7956DA621B27BFA50002B705 /* EntryBlocksItem.swift in Sources */,
 				795E20801B1DAE1500FA7857 /* EntryRadioItem.swift in Sources */,
 				797D8D781B1EE38A0073109E /* UIBarButtonItemExtention.swift in Sources */,
 				794854541B2574AB0074EF55 /* EntryTagItem.swift in Sources */,
@@ -1262,7 +1263,6 @@
 				795E20841B1DAE7100FA7857 /* EntryDateTimeItem.swift in Sources */,
 				795E20821B1DAE3000FA7857 /* EntryEmbedItem.swift in Sources */,
 				79BB89201B213DD4000BE6CD /* EntryTextEditorViewController.swift in Sources */,
-				795E20881B1DB17F00FA7857 /* BaseBlockItem.swift in Sources */,
 				795ABCC51B266E2700E46BB1 /* EntryItemTableViewCell.swift in Sources */,
 				7908810B1B159E1800F8E054 /* User.swift in Sources */,
 				796FA8151B1807AB00373DDE /* AssetDetailViewController.swift in Sources */,

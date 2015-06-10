@@ -8,14 +8,6 @@
 
 import UIKit
 
-class BlockTextItem: BaseBlockItem {
-    var text = ""
-    
-    override func value()-> String {
-        return text
-    }
-    
-    override func dispValue()-> String {
-        return self.value()
-    }
+class BlockTextItem: EntryTextAreaItem {
+
 }

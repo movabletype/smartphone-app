@@ -54,16 +54,25 @@ class EntryItemList: NSObject {
         statusItem.label = NSLocalizedString("Status", comment: "Status")
         
         var bodyItem = EntryTextAreaItem()
+        if object.id.isEmpty {
+            bodyItem = EntryBlocksItem()
+        }
         bodyItem.id = "body"
         bodyItem.label = NSLocalizedString("Body", comment: "Body")
         bodyItem.text = object.body
         
         var moreItem = EntryTextAreaItem()
+        if object.id.isEmpty {
+            moreItem = EntryBlocksItem()
+        }
         moreItem.id = "more"
         moreItem.label = NSLocalizedString("More", comment: "More")
         moreItem.text = object.more
         
         var excerptItem = EntryTextAreaItem()
+        if object.id.isEmpty {
+            excerptItem = EntryBlocksItem()
+        }
         excerptItem.id = "excerpt"
         excerptItem.label = NSLocalizedString("Excerpt", comment: "Excerpt")
         excerptItem.text = object.excerpt
@@ -105,6 +114,9 @@ class EntryItemList: NSObject {
                 entryItem = item
             } else if field.type == "textarea" {
                 var item = EntryTextAreaItem()
+                if object.id.isEmpty {
+                    item = EntryBlocksItem()
+                }
                 item.text = customFieldObject!.value
                 entryItem = item
             } else if field.type == "checkbox" {

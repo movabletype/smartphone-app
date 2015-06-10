@@ -9,9 +9,18 @@
 import UIKit
 
 class BlockImageItem: EntryImageItem {
+    enum Align: Int {
+        case none = 0,
+        Left,
+        Right,
+        Center
+    }
+    
+    
     var width = 0
     var height = 0
     var wrapStyle = ""
+    var align = Align.none
 
     override func asHtml()-> String {
         return "<a href=\"\(url)\">\(filename)</a>"

@@ -14,7 +14,6 @@ import SwiftyJSON
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //TODO:Assetの投稿
-    //TODO:ブロックエディタ
     //TODO:下書き対応
 
     var window: UIWindow?

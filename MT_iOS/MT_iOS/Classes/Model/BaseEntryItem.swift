@@ -27,4 +27,8 @@ class BaseEntryItem: NSObject {
     func makeParams()-> [String:AnyObject] {
         return [self.id:self.value()]
     }
+    
+    func clear() {
+        
+    }
 }

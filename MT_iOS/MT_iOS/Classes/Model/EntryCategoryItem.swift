@@ -36,4 +36,8 @@ class EntryCategoryItem: BaseEntryItem {
         }
         return ["categories":categories]
     }
+    
+    override func clear() {
+        selected.removeAll(keepCapacity: false)
+    }
 }

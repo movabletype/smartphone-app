@@ -10,7 +10,6 @@ import UIKit
 
 class EntryTextAreaItem: BaseEntryItem {
     var text = ""
-    //var blocks
 
     override init() {
         super.init()
@@ -28,5 +27,9 @@ class EntryTextAreaItem: BaseEntryItem {
     
     func placeholder()-> String {
         return NSLocalizedString("Input \(self.label)...", comment: "Input \(self.label)...")
+    }
+
+    override func clear() {
+        text = ""
     }
 }

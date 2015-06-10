@@ -28,5 +28,8 @@ class EntrySelectItem: BaseEntryItem {
     override func dispValue()-> String {
         return self.value()
     }
-    
+
+    override func clear() {
+        selected = ""
+    }
 }

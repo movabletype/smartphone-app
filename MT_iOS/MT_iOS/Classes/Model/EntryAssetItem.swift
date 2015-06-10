@@ -25,6 +25,10 @@ class EntryAssetItem: BaseEntryItem {
     }
     
     override func value()-> String {
+        if url.isEmpty {
+            return ""
+        }
+        
         var html = self.asHtml()
         var form = "<form mt:asset-id=\"\(self.assetID)\" class=\"mt-enclosure mt-enclosure-\(self.type)\" style=\"display: inline;\">\(html)</form>"
         
@@ -33,6 +37,12 @@ class EntryAssetItem: BaseEntryItem {
     
     override func dispValue()-> String {
         return url
+    }
+    
+    override func clear() {
+        self.url = ""
+        self.assetID = ""
+        self.asset = nil
     }
     
     func extractInfoFromHTML(html: String) {

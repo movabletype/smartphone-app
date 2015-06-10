@@ -41,4 +41,8 @@ class EntryStatusItem: BaseEntryItem {
         }
         return [self.id:self.value()]
     }
+    
+    override func clear() {
+        selected = NOTSELECTED
+    }
 }

@@ -19,6 +19,10 @@ class BlockImageItem: EntryImageItem {
     }
     
     override func value()-> String {
+        if url.isEmpty {
+            return ""
+        }
+        
         var html = self.asHtml()
         var form = "<form mt:asset-id=\"\(self.assetID)\" class=\"mt-enclosure mt-enclosure-image\" style=\"display: inline;\">\(html)</form>"
         

@@ -24,4 +24,8 @@ class EntryCheckboxItem: BaseEntryItem {
     override func dispValue()-> String {
         return self.value()
     }
+    
+    override func clear() {
+        checked = false
+    }
 }

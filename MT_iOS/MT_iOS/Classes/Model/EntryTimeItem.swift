@@ -40,5 +40,7 @@ class EntryTimeItem: BaseEntryItem {
         return [self.id:""]
     }
     
-
+    override func clear() {
+        time = nil
+    }
 }

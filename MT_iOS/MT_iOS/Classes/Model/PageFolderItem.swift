@@ -36,4 +36,8 @@ class PageFolderItem: BaseEntryItem {
         }
         return ["folders":folders]
     }
+    
+    override func clear() {
+        selected.removeAll(keepCapacity: false)
+    }
 }

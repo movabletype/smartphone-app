@@ -24,4 +24,8 @@ class EntryURLItem: BaseEntryItem {
     override func dispValue()-> String {
         return self.value()
     }
+
+    override func clear() {
+        url = ""
+    }
 }

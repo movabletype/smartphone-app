@@ -53,4 +53,8 @@ class EntryBlocksItem: EntryTextAreaItem {
         
         return false
     }
+    
+    override func clear() {
+        blocks.removeAll(keepCapacity: false)
+    }
 }

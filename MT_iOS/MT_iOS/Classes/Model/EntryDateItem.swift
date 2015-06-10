@@ -39,4 +39,8 @@ class EntryDateItem: BaseEntryItem {
         }
         return [self.id:""]
     }
+    
+    override func clear() {
+        date = nil
+    }
 }

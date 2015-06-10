@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import ZSSRichTextEditor
 
-class EntryRichTextViewController: ZSSRichTextEditor {
+class EntryRichTextViewController: MTRichTextEditor {
 
     var object: EntryTextAreaItem!
 

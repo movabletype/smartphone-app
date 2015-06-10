@@ -10,3 +10,4 @@
 #import <NSDate_Escort/NSDate+Escort.h>
 #import <ZSSRichTextEditor/ZSSRichTextEditor.h> 
 #import <ZSSRichTextEditor/ZSSTextView.h>
+#import "MTRichTextEditor.h"

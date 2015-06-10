@@ -179,6 +179,7 @@
 		797603BC1B0EEAEC00F9AC09 /* BaseEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797603BB1B0EEAEC00F9AC09 /* BaseEntry.swift */; };
 		797603BE1B0EEB0900F9AC09 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797603BD1B0EEB0900F9AC09 /* Entry.swift */; };
 		797603C01B0EEB1600F9AC09 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797603BF1B0EEB1600F9AC09 /* Page.swift */; };
+		797C05581B2833D700511BB2 /* MTRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 797C05571B2833D700511BB2 /* MTRichTextEditor.m */; };
 		797D8D781B1EE38A0073109E /* UIBarButtonItemExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797D8D771B1EE38A0073109E /* UIBarButtonItemExtention.swift */; };
 		798697511B14384A00DC7A18 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798697501B14384A00DC7A18 /* Author.swift */; };
 		798697531B14391500DC7A18 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798697521B14391500DC7A18 /* Category.swift */; };
@@ -405,6 +406,8 @@
 		797603BB1B0EEAEC00F9AC09 /* BaseEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEntry.swift; sourceTree = "<group>"; };
 		797603BD1B0EEB0900F9AC09 /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		797603BF1B0EEB1600F9AC09 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		797C05561B2833D700511BB2 /* MTRichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRichTextEditor.h; sourceTree = "<group>"; };
+		797C05571B2833D700511BB2 /* MTRichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRichTextEditor.m; sourceTree = "<group>"; };
 		797D8D771B1EE38A0073109E /* UIBarButtonItemExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtention.swift; sourceTree = "<group>"; };
 		798697501B14384A00DC7A18 /* Author.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 		798697521B14391500DC7A18 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -852,6 +855,8 @@
 		79BB891E1B213D91000BE6CD /* EntryEditor */ = {
 			isa = PBXGroup;
 			children = (
+				797C05561B2833D700511BB2 /* MTRichTextEditor.h */,
+				797C05571B2833D700511BB2 /* MTRichTextEditor.m */,
 				7956DA631B27CE2F0002B705 /* BlockEditorTableViewController.swift */,
 				79BB891F1B213DD4000BE6CD /* EntryTextEditorViewController.swift */,
 				79BB892A1B214725000BE6CD /* EntryHTMLEditorViewController.swift */,
@@ -1276,6 +1281,7 @@
 				798697531B14391500DC7A18 /* Category.swift in Sources */,
 				798697511B14384A00DC7A18 /* Author.swift in Sources */,
 				79CFBDCB1B1D3CD000283780 /* EntryDetailTableViewController.swift in Sources */,
+				797C05581B2833D700511BB2 /* MTRichTextEditor.m in Sources */,
 				795E208C1B1DB35C00FA7857 /* PageFolderItem.swift in Sources */,
 				7956DA621B27BFA50002B705 /* EntryBlocksItem.swift in Sources */,
 				795E20801B1DAE1500FA7857 /* EntryRadioItem.swift in Sources */,

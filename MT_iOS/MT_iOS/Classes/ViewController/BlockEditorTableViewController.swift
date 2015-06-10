@@ -225,11 +225,13 @@ class BlockEditorTableViewController: BaseTableViewController {
 
     @IBAction func editButtonPushed(sender: UIBarButtonItem) {
         self.tableView.setEditing(true, animated: true)
+        self.navigationItem.rightBarButtonItem?.enabled = false
         self.makeToolbarItems(true)
     }
 
     @IBAction func doneButtonPushed(sender: UIBarButtonItem) {
         self.tableView.setEditing(false, animated: true)
+        self.navigationItem.rightBarButtonItem?.enabled = true
         self.makeToolbarItems(false)
     }
     

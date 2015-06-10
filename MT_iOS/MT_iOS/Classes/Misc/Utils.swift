@@ -108,4 +108,31 @@ class Utils {
         var time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         dispatch_after(time, dispatch_get_main_queue(), block)
     }
+    
+    class func resizeImage(image: UIImage, width: CGFloat)-> UIImage {
+        var scale = width / image.size.width
+        if width == 0 {
+            //オリジナルサイズ
+            scale = 1.0
+        }
+        let h = image.size.height * scale
+        let size = CGSize(width: width, height: h)
+        UIGraphicsBeginImageContext(size)
+        image.drawInRect(CGRectMake(0, 0, size.width, size.height))
+        var resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return resizedImage
+    }
+    
+    class func convertImageToJPEG(image: UIImage, quality: CGFloat)-> NSData {
+        let imageData = UIImageJPEGRepresentation(image, quality)
+        return imageData
+    }
+    
+    class func makeJPEGFilename()-> String {
+        let date = NSDate()
+        let filename = String(format: "mt-%04d%02d%02d%02d%02d%02d.jpg", arguments: [date.year, date.month, date.day, date.hour, date.minute, date.seconds])
+        return filename
+    }
 }

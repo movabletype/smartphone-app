@@ -66,7 +66,7 @@ class AssetList: ItemList {
     }
 }
 
-class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate {
+class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate, AddAssetDelegate {
     var cameraButton: UIBarButtonItem!
     var searchBar: UISearchBar!
     
@@ -100,14 +100,14 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
         self.navigationController?.toolbar.barTintColor = Color.navBar
         self.navigationController?.toolbar.tintColor = Color.navBarTint
         
-        self.fetch()
-
         let defaultCenter = NSNotificationCenter.defaultCenter()
         defaultCenter.addObserver(self, selector: "assetDeleted:", name: MTIAssetDeletedNotification, object: nil)
         
         cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
         self.toolbarItems = [cameraButton]
         cameraButton.enabled = blog.canUpload()
+
+        self.fetch()
     }
     
     deinit {
@@ -242,8 +242,12 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
     }
     
     @IBAction func cameraButtonPushed(sender: AnyObject) {
-        //TODO:写真の追加
-        LOG("CAMERA!!")
+        let storyboard: UIStoryboard = UIStoryboard(name: "AddAsset", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nav.topViewController as! AddAssetTableViewController
+        vc.blog = blog
+        vc.delegate = self
+        self.presentViewController(nav, animated: true, completion: nil)
     }
     
     func assetDeleted(note: NSNotification) {
@@ -253,5 +257,13 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
                 self.tableView.reloadData()
             }
         }
+    }
+
+    func AddAssetDone(controller: AddAssetTableViewController) {
+        self.dismissViewControllerAnimated(false, completion:
+            {_ in
+                self.fetch()
+            }
+        )
     }
 }

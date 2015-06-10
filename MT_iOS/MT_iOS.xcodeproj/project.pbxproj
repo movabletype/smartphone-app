@@ -157,7 +157,6 @@
 		796DD50F1B14738900D14704 /* BlogSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 796DD50D1B14738900D14704 /* BlogSettings.storyboard */; };
 		796FA8131B18079300373DDE /* AssetDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 796FA8111B18079300373DDE /* AssetDetail.storyboard */; };
 		796FA8151B1807AB00373DDE /* AssetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FA8141B1807AB00373DDE /* AssetDetailViewController.swift */; };
-		796FA8181B1810D700373DDE /* AssetList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 796FA8161B1810D700373DDE /* AssetList.storyboard */; };
 		7976039C1B0D884300F9AC09 /* Blog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7976039A1B0D884300F9AC09 /* Blog.storyboard */; };
 		7976039E1B0D885E00F9AC09 /* BlogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976039D1B0D885E00F9AC09 /* BlogTableViewController.swift */; };
 		797603A01B0D8F3500F9AC09 /* BlogInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7976039F1B0D8F3500F9AC09 /* BlogInfoView.xib */; };
@@ -378,7 +377,6 @@
 		796DD50E1B14738900D14704 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/BlogSettings.storyboard; sourceTree = SOURCE_ROOT; };
 		796FA8121B18079300373DDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/AssetDetail.storyboard; sourceTree = SOURCE_ROOT; };
 		796FA8141B1807AB00373DDE /* AssetDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDetailViewController.swift; sourceTree = "<group>"; };
-		796FA8171B1810D700373DDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/AssetList.storyboard; sourceTree = SOURCE_ROOT; };
 		7976039B1B0D884300F9AC09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/Blog.storyboard; sourceTree = SOURCE_ROOT; };
 		7976039D1B0D885E00F9AC09 /* BlogTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogTableViewController.swift; sourceTree = "<group>"; };
 		7976039F1B0D8F3500F9AC09 /* BlogInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlogInfoView.xib; sourceTree = "<group>"; };
@@ -813,7 +811,6 @@
 		7986975B1B1458DE00DC7A18 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
-				796FA8161B1810D700373DDE /* AssetList.storyboard */,
 				7986975C1B14591900DC7A18 /* AssetListTableViewController.swift */,
 				796FA8111B18079300373DDE /* AssetDetail.storyboard */,
 				796FA8141B1807AB00373DDE /* AssetDetailViewController.swift */,
@@ -1101,7 +1098,6 @@
 				790B7D961B219C6C0083EBB4 /* ZSSquicklink@2x.png in Resources */,
 				790B7DA71B219C6C0083EBB4 /* ZSSundo.png in Resources */,
 				790B7D781B219C6C0083EBB4 /* ZSSh4@2x.png in Resources */,
-				796FA8181B1810D700373DDE /* AssetList.storyboard in Resources */,
 				79592A581B200F56004DDB4E /* EntryImageTableViewCell.xib in Resources */,
 				790B7D981B219C6C0083EBB4 /* ZSSredo@2x.png in Resources */,
 				790B7DAC1B219C6C0083EBB4 /* ZSSunorderedlist@2x.png in Resources */,
@@ -1380,14 +1376,6 @@
 				796FA8121B18079300373DDE /* Base */,
 			);
 			name = AssetDetail.storyboard;
-			sourceTree = "<group>";
-		};
-		796FA8161B1810D700373DDE /* AssetList.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				796FA8171B1810D700373DDE /* Base */,
-			);
-			name = AssetList.storyboard;
 			sourceTree = "<group>";
 		};
 		7976039A1B0D884300F9AC09 /* Blog.storyboard */ = {

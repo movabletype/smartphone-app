@@ -318,10 +318,7 @@ class BlogTableViewController: BaseTableViewController {
         case Section.Asset.rawValue:
             switch indexPath.row {
             case AssetItem.Assets.rawValue:
-//                let vc = AssetListTableViewController()
-                let storyboard: UIStoryboard = UIStoryboard(name: "AssetList", bundle: nil)
-                let vc = storyboard.instantiateInitialViewController() as! AssetListTableViewController
-
+                let vc = AssetListTableViewController()
                 let blog = self.blog
                 vc.blog = blog
                 self.navigationController?.pushViewController(vc, animated: true)

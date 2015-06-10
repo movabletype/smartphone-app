@@ -67,8 +67,7 @@ class AssetList: ItemList {
 }
 
 class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate {
-    @IBOutlet weak var cameraButton: UIBarButtonItem!
-    
+    var cameraButton: UIBarButtonItem!
     var searchBar: UISearchBar!
     
     var blog: Blog!
@@ -106,6 +105,8 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
         let defaultCenter = NSNotificationCenter.defaultCenter()
         defaultCenter.addObserver(self, selector: "assetDeleted:", name: MTIAssetDeletedNotification, object: nil)
         
+        cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
+        self.toolbarItems = [cameraButton]
         cameraButton.enabled = blog.canUpload()
     }
     

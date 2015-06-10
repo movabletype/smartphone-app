@@ -103,6 +103,8 @@
 		791973BF1B09DF2B003EA459 /* MT_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791973BE1B09DF2B003EA459 /* MT_iOSTests.swift */; };
 		7928D3031B26DAC30053457F /* BlockImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7928D3021B26DAC30053457F /* BlockImageItem.swift */; };
 		7928D3051B26DAD30053457F /* BlockTextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7928D3041B26DAD30053457F /* BlockTextItem.swift */; };
+		79456E4F1B282D5800570204 /* ImageAlignTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79456E4E1B282D5800570204 /* ImageAlignTableViewController.swift */; };
+		79456E521B282D6B00570204 /* ImageAlign.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79456E501B282D6B00570204 /* ImageAlign.storyboard */; };
 		794854481B2522260074EF55 /* BaseCategoryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794854471B2522260074EF55 /* BaseCategoryListTableViewController.swift */; };
 		7948544C1B25225A0074EF55 /* CategoryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7948544B1B25225A0074EF55 /* CategoryListTableViewController.swift */; };
 		7948544E1B2522700074EF55 /* FolderListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7948544D1B2522700074EF55 /* FolderListTableViewController.swift */; };
@@ -327,6 +329,8 @@
 		791973BE1B09DF2B003EA459 /* MT_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MT_iOSTests.swift; sourceTree = "<group>"; };
 		7928D3021B26DAC30053457F /* BlockImageItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockImageItem.swift; sourceTree = "<group>"; };
 		7928D3041B26DAD30053457F /* BlockTextItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextItem.swift; sourceTree = "<group>"; };
+		79456E4E1B282D5800570204 /* ImageAlignTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAlignTableViewController.swift; sourceTree = "<group>"; };
+		79456E511B282D6B00570204 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/ImageAlign.storyboard; sourceTree = SOURCE_ROOT; };
 		794854471B2522260074EF55 /* BaseCategoryListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCategoryListTableViewController.swift; sourceTree = "<group>"; };
 		7948544B1B25225A0074EF55 /* CategoryListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListTableViewController.swift; sourceTree = "<group>"; };
 		7948544D1B2522700074EF55 /* FolderListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderListTableViewController.swift; sourceTree = "<group>"; };
@@ -824,6 +828,8 @@
 				796FA8141B1807AB00373DDE /* AssetDetailViewController.swift */,
 				7956DAA11B280C590002B705 /* AddAssetTableViewController.swift */,
 				7956DAA31B280C6A0002B705 /* AddAsset.storyboard */,
+				79456E4E1B282D5800570204 /* ImageAlignTableViewController.swift */,
+				79456E501B282D6B00570204 /* ImageAlign.storyboard */,
 			);
 			name = Asset;
 			sourceTree = "<group>";
@@ -1135,6 +1141,7 @@
 				790B7D941B219C6C0083EBB4 /* ZSSpicker@2x.png in Resources */,
 				7956DA6D1B27D8D30002B705 /* ImageBlockTableViewCell.xib in Resources */,
 				790B7DAB1B219C6C0083EBB4 /* ZSSunorderedlist.png in Resources */,
+				79456E521B282D6B00570204 /* ImageAlign.storyboard in Resources */,
 				790B7DA91B219C6C0083EBB4 /* ZSSunlink.png in Resources */,
 				790B7D771B219C6C0083EBB4 /* ZSSh4.png in Resources */,
 				795ABCC91B266F0700E46BB1 /* EntryItemList.storyboard in Resources */,
@@ -1259,6 +1266,7 @@
 				795E206E1B1DAC1400FA7857 /* BaseEntryItem.swift in Sources */,
 				795E20861B1DAE8000FA7857 /* EntryTimeItem.swift in Sources */,
 				7986975F1B145AC600DC7A18 /* Asset.swift in Sources */,
+				79456E4F1B282D5800570204 /* ImageAlignTableViewController.swift in Sources */,
 				79CFBDD51B1D63EB00283780 /* EntrySettingTableViewController.swift in Sources */,
 				794854481B2522260074EF55 /* BaseCategoryListTableViewController.swift in Sources */,
 				79132B5A1B16F63B002064C7 /* LogoTableViewCell.swift in Sources */,
@@ -1368,6 +1376,14 @@
 			);
 			name = LaunchScreen.xib;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		79456E501B282D6B00570204 /* ImageAlign.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79456E511B282D6B00570204 /* Base */,
+			);
+			name = ImageAlign.storyboard;
 			sourceTree = "<group>";
 		};
 		7956DA9E1B2801910002B705 /* BlogUploadDir.storyboard */ = {

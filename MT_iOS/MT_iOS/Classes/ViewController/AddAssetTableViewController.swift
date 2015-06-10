@@ -15,7 +15,7 @@ protocol AddAssetDelegate {
     func AddAssetDone(controller: AddAssetTableViewController)
 }
 
-class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate {
     enum Section:Int {
         case Buttons = 0,
         Items,
@@ -26,6 +26,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         case UploadDir = 0,
         Size,
         Quality,
+        Align,
         _Num
     }
     
@@ -35,6 +36,9 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     var uploadDir = "/"
     var imageSize = Blog.ImageSize.M
     var imageQuality = Blog.ImageQuality.Normal
+    var imageAlign = Blog.ImageAlign.None
+    
+    var showAlign = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +79,11 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         case Section.Buttons.rawValue:
             return 1
         case Section.Items.rawValue:
-            return Item._Num.rawValue
+            if showAlign {
+                return Item._Num.rawValue
+            } else {
+                return Item._Num.rawValue - 1
+            }
         default:
             return 0
         }
@@ -128,6 +136,11 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
                 cell.textLabel?.text = NSLocalizedString("Image Quality", comment: "Image Quality")
                 cell.imageView?.image = UIImage(named: "ico_quality")
                 cell.detailTextLabel?.text = imageQuality.label()
+            case Item.Align.rawValue:
+                cell.textLabel?.text = NSLocalizedString("Align", comment: "Align")
+                //TODO:アイコン変える
+                cell.imageView?.image = UIImage(named: "ico_quality")
+                cell.detailTextLabel?.text = imageAlign.label()
             default:
                 cell.textLabel?.text = ""
             }
@@ -215,6 +228,12 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             vc.selected = imageQuality.rawValue
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
+        case Item.Align.rawValue:
+            let storyboard: UIStoryboard = UIStoryboard(name: "ImageAlign", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController() as! ImageAlignTableViewController
+            vc.selected = imageAlign.rawValue
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
         default:
             break
         }
@@ -246,6 +265,11 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     
     func blogUploadDirDone(controller: BlogUploadDirTableViewController, directory: String) {
         uploadDir = directory
+        self.tableView.reloadData()
+    }
+    
+    func imageAlignDone(controller: ImageAlignTableViewController, selected: Int) {
+        imageAlign = Blog.ImageAlign(rawValue: selected)!
         self.tableView.reloadData()
     }
     

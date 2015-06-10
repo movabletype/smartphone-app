@@ -247,6 +247,7 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
         let vc = nav.topViewController as! AddAssetTableViewController
         vc.blog = blog
         vc.delegate = self
+        vc.showAlign = false
         self.presentViewController(nav, animated: true, completion: nil)
     }
     

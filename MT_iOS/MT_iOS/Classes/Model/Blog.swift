@@ -112,6 +112,29 @@ class Blog: BaseObject {
         }
     }
     
+    enum ImageAlign: Int {
+        case None = 0,
+        Left,
+        Right,
+        Center,
+        _Num
+        
+        func label()-> String {
+            switch(self) {
+            case .None:
+                return NSLocalizedString("None", comment: "None")
+            case .Left:
+                return NSLocalizedString("Left", comment: "Left")
+            case .Right:
+                return NSLocalizedString("Right", comment: "Right")
+            case .Center:
+                return NSLocalizedString("Center", comment: "Center")
+            case ._Num:
+                return ""
+            }
+        }
+    }
+    
     var name: String = ""
     var url: String = ""
     
@@ -122,6 +145,7 @@ class Blog: BaseObject {
     var uploadDir: String = "/"
     var imageSize: ImageSize = .M
     var imageQuality: ImageQuality = .Normal
+    var imageAlign: ImageAlign = .None
     
     var endpoint = ""
    

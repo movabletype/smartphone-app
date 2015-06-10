@@ -678,6 +678,7 @@
 				795E20891B1DB2FC00FA7857 /* EntryCategoryItem.swift */,
 				795E208B1B1DB35C00FA7857 /* PageFolderItem.swift */,
 				794854531B2574AB0074EF55 /* EntryTagItem.swift */,
+				7956DA611B27BFA50002B705 /* EntryBlocksItem.swift */,
 				79592A401B1FDBA8004DDB4E /* EntryItemList.swift */,
 			);
 			name = EntryItem;
@@ -686,7 +687,6 @@
 		795E206C1B1DA8CE00FA7857 /* BlockItem */ = {
 			isa = PBXGroup;
 			children = (
-				7956DA611B27BFA50002B705 /* EntryBlocksItem.swift */,
 				7928D3021B26DAC30053457F /* BlockImageItem.swift */,
 				7928D3041B26DAD30053457F /* BlockTextItem.swift */,
 			);

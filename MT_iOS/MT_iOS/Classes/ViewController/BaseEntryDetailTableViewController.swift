@@ -97,7 +97,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         if let list = self.list {
             let item = list[section]
             
-            if item.type == "textarea" || item.type == "image" || item.type == "embed"  {
+            if item.type == "textarea" || item.type == "image" || item.type == "embed" || item.type == "blocks"  {
                 return 2
             } else {
                 return 1
@@ -193,9 +193,35 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     }
                     cell = c
                 }
-
             } else if item.type == "blocks" {
-                //TODO:
+                if indexPath.row == 0 {
+                    var c = tableView.dequeueReusableCellWithIdentifier("EntryHeaderTableViewCell", forIndexPath: indexPath) as! EntryHeaderTableViewCell
+                    c.textLabel?.text = item.label
+                    c.backgroundColor = Color.tableBg
+                    c.selectionStyle = UITableViewCellSelectionStyle.None
+                    cell = c
+                } else {
+                    let blockItem = item as! EntryBlocksItem
+                    if blockItem.isImageCell() {
+                        var c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
+                        c.assetImageView.sd_setImageWithURL(NSURL(string: blockItem.dispValue()))
+                        cell = c
+                    } else {
+                        var c = tableView.dequeueReusableCellWithIdentifier("EntryTextAreaTableViewCell", forIndexPath: indexPath) as! EntryTextAreaTableViewCell
+                        var text = blockItem.dispValue()
+                        if text.isEmpty {
+                            c.placeholderLabel?.text = blockItem.placeholder()
+                            c.placeholderLabel.hidden = false
+                            c.textareaLabel.hidden = true
+                        } else {
+                            c.textareaLabel?.text = Utils.removeHTMLTags(text)
+                            c.placeholderLabel.hidden = true
+                            c.textareaLabel.hidden = false
+                        }
+                        cell = c
+                    }
+                    
+                }
             } else if item.type == "checkbox" {
                 var c = tableView.dequeueReusableCellWithIdentifier("EntryCheckboxTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label

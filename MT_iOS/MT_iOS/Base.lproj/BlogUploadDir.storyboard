@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YeD-ge-Q0d">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--Blog Upload Dir Table View Controller-->
+        <scene sceneID="IqV-V2-IQP">
+            <objects>
+                <tableViewController id="YeD-ge-Q0d" customClass="BlogUploadDirTableViewController" customModule="MT_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Sd4-Xg-7uV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextFieldCell" id="ALS-mk-CbF">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ALS-mk-CbF" id="4rL-cp-gHC">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" tag="99" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZXq-L0-kD6">
+                                            <rect key="frame" x="15" y="7" width="290" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="URL"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ZXq-L0-kD6" firstAttribute="leading" secondItem="4rL-cp-gHC" secondAttribute="leading" constant="15" id="80V-mU-cN2"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZXq-L0-kD6" secondAttribute="trailing" constant="15" id="FrH-nQ-Ecg"/>
+                                        <constraint firstAttribute="bottom" secondItem="ZXq-L0-kD6" secondAttribute="bottom" constant="6.5" id="ZdX-Eq-w9z"/>
+                                        <constraint firstItem="ZXq-L0-kD6" firstAttribute="top" secondItem="4rL-cp-gHC" secondAttribute="top" constant="7" id="nHp-dx-HZR"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="YeD-ge-Q0d" id="05S-2b-6wZ"/>
+                            <outlet property="delegate" destination="YeD-ge-Q0d" id="dg2-oP-cAd"/>
+                        </connections>
+                    </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S8g-vT-H6o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="506" y="529"/>
+        </scene>
+    </scenes>
+</document>

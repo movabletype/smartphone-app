@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate {
+class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate {
     enum Item:Int {
         case UploadDir = 0,
         Size,
@@ -142,8 +142,11 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case Item.UploadDir.rawValue:
-            //TODO:
-            break
+            let storyboard: UIStoryboard = UIStoryboard(name: "BlogUploadDir", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController() as! BlogUploadDirTableViewController
+            vc.directory = uploadDir
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
         case Item.Size.rawValue:
             let storyboard: UIStoryboard = UIStoryboard(name: "BlogImageSize", bundle: nil)
             let vc = storyboard.instantiateInitialViewController() as! BlogImageSizeTableViewController
@@ -194,5 +197,11 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
         imageQuality = Blog.ImageQuality(rawValue: selected)!
         self.tableView.reloadData()
     }
+    
+    func blogUploadDirDone(controller: BlogUploadDirTableViewController, directory: String) {
+        uploadDir = directory
+        self.tableView.reloadData()
+    }
+
 
 }

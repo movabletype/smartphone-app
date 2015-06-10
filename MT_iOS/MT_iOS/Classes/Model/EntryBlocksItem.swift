@@ -17,6 +17,15 @@ class EntryBlocksItem: EntryTextAreaItem {
         type = "blocks"
     }
     
+    override func value() -> String {
+        var value = ""
+        for block in blocks {
+            value += block.value() + "\n"
+        }
+        
+        return value
+    }
+    
     override func dispValue()-> String {
         if blocks.count == 0 {
             return ""

@@ -16,7 +16,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="7Gv-LT-TmD">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="mt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="7Gv-LT-TmD">
                     <rect key="frame" x="35" y="256" width="250" height="55"/>
                 </imageView>
             </subviews>

@@ -385,6 +385,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
+    private func showBlockEditor(item: EntryBlocksItem) {
+        let vc = BlockEditorTableViewController()
+        vc.blog = blog
+        vc.object = item
+        vc.entry = self.object
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     private func showDatePicker(object: BaseEntryItem) {
         let storyboard: UIStoryboard = UIStoryboard(name: "DatePicker", bundle: nil)
@@ -469,8 +476,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     self.showHTMLEditor(item as! EntryTextAreaItem)
                 }
             } else if item.type == "blocks" {
-                //TODO:
-                LOG("blocks!!")
+                self.showBlockEditor(item as! EntryBlocksItem)
             } else if item.type == "checkbox" {
                 // Do nothing
             } else if item.type == "url" {

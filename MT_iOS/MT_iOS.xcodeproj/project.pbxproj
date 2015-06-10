@@ -110,6 +110,11 @@
 		794854521B2523C90074EF55 /* CategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 794854501B2523C90074EF55 /* CategoryTableViewCell.xib */; };
 		794854541B2574AB0074EF55 /* EntryTagItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794854531B2574AB0074EF55 /* EntryTagItem.swift */; };
 		7956DA621B27BFA50002B705 /* EntryBlocksItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956DA611B27BFA50002B705 /* EntryBlocksItem.swift */; };
+		7956DA641B27CE2F0002B705 /* BlockEditorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956DA631B27CE2F0002B705 /* BlockEditorTableViewController.swift */; };
+		7956DA681B27D8C30002B705 /* TextBlockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956DA661B27D8C30002B705 /* TextBlockTableViewCell.swift */; };
+		7956DA691B27D8C30002B705 /* TextBlockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7956DA671B27D8C30002B705 /* TextBlockTableViewCell.xib */; };
+		7956DA6C1B27D8D30002B705 /* ImageBlockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956DA6A1B27D8D30002B705 /* ImageBlockTableViewCell.swift */; };
+		7956DA6D1B27D8D30002B705 /* ImageBlockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7956DA6B1B27D8D30002B705 /* ImageBlockTableViewCell.xib */; };
 		79592A411B1FDBA8004DDB4E /* EntryItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79592A401B1FDBA8004DDB4E /* EntryItemList.swift */; };
 		79592A431B1FF5F3004DDB4E /* EntryAssetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79592A421B1FF5F3004DDB4E /* EntryAssetItem.swift */; };
 		79592A471B200EC4004DDB4E /* EntryTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79592A451B200EC4004DDB4E /* EntryTextTableViewCell.swift */; };
@@ -326,6 +331,11 @@
 		794854501B2523C90074EF55 /* CategoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryTableViewCell.xib; sourceTree = "<group>"; };
 		794854531B2574AB0074EF55 /* EntryTagItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTagItem.swift; sourceTree = "<group>"; };
 		7956DA611B27BFA50002B705 /* EntryBlocksItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryBlocksItem.swift; sourceTree = "<group>"; };
+		7956DA631B27CE2F0002B705 /* BlockEditorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockEditorTableViewController.swift; sourceTree = "<group>"; };
+		7956DA661B27D8C30002B705 /* TextBlockTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBlockTableViewCell.swift; sourceTree = "<group>"; };
+		7956DA671B27D8C30002B705 /* TextBlockTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextBlockTableViewCell.xib; sourceTree = "<group>"; };
+		7956DA6A1B27D8D30002B705 /* ImageBlockTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBlockTableViewCell.swift; sourceTree = "<group>"; };
+		7956DA6B1B27D8D30002B705 /* ImageBlockTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageBlockTableViewCell.xib; sourceTree = "<group>"; };
 		79592A401B1FDBA8004DDB4E /* EntryItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryItemList.swift; sourceTree = "<group>"; };
 		79592A421B1FF5F3004DDB4E /* EntryAssetItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryAssetItem.swift; sourceTree = "<group>"; };
 		79592A451B200EC4004DDB4E /* EntryTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTextTableViewCell.swift; sourceTree = "<group>"; };
@@ -636,6 +646,17 @@
 			name = "Category&Folder";
 			sourceTree = "<group>";
 		};
+		7956DA651B27D8990002B705 /* BlockEditor */ = {
+			isa = PBXGroup;
+			children = (
+				7956DA661B27D8C30002B705 /* TextBlockTableViewCell.swift */,
+				7956DA671B27D8C30002B705 /* TextBlockTableViewCell.xib */,
+				7956DA6A1B27D8D30002B705 /* ImageBlockTableViewCell.swift */,
+				7956DA6B1B27D8D30002B705 /* ImageBlockTableViewCell.xib */,
+			);
+			name = BlockEditor;
+			sourceTree = "<group>";
+		};
 		79592A441B200E6E004DDB4E /* Entry */ = {
 			isa = PBXGroup;
 			children = (
@@ -755,6 +776,7 @@
 				7948544F1B2523C90074EF55 /* CategoryTableViewCell.swift */,
 				794854501B2523C90074EF55 /* CategoryTableViewCell.xib */,
 				79592A441B200E6E004DDB4E /* Entry */,
+				7956DA651B27D8990002B705 /* BlockEditor */,
 			);
 			name = TableCell;
 			sourceTree = "<group>";
@@ -815,6 +837,7 @@
 		79BB891E1B213D91000BE6CD /* EntryEditor */ = {
 			isa = PBXGroup;
 			children = (
+				7956DA631B27CE2F0002B705 /* BlockEditorTableViewController.swift */,
 				79BB891F1B213DD4000BE6CD /* EntryTextEditorViewController.swift */,
 				79BB892A1B214725000BE6CD /* EntryHTMLEditorViewController.swift */,
 				790B7D101B215B1A0083EBB4 /* EntrySelectTableViewController.swift */,
@@ -1100,6 +1123,7 @@
 				79132B551B16F14D002064C7 /* ButtonTableViewCell.xib in Resources */,
 				79A715431B268632005A09ED /* Setting.storyboard in Resources */,
 				790B7D941B219C6C0083EBB4 /* ZSSpicker@2x.png in Resources */,
+				7956DA6D1B27D8D30002B705 /* ImageBlockTableViewCell.xib in Resources */,
 				790B7DAB1B219C6C0083EBB4 /* ZSSunorderedlist.png in Resources */,
 				790B7DA91B219C6C0083EBB4 /* ZSSunlink.png in Resources */,
 				790B7D771B219C6C0083EBB4 /* ZSSh4.png in Resources */,
@@ -1115,6 +1139,7 @@
 				797603B61B0ECEED00F9AC09 /* EntryTableViewCell.xib in Resources */,
 				790B7D7D1B219C6C0083EBB4 /* ZSShorizontalrule.png in Resources */,
 				790B7D831B219C6C0083EBB4 /* ZSSinsertkeyword.png in Resources */,
+				7956DA691B27D8C30002B705 /* TextBlockTableViewCell.xib in Resources */,
 				790B7D7B1B219C6C0083EBB4 /* ZSSh6.png in Resources */,
 				790B7DA31B219C6C0083EBB4 /* ZSStextcolor.png in Resources */,
 				790B7D9D1B219C6C0083EBB4 /* ZSSsubscript.png in Resources */,
@@ -1239,6 +1264,7 @@
 				797D8D781B1EE38A0073109E /* UIBarButtonItemExtention.swift in Sources */,
 				794854541B2574AB0074EF55 /* EntryTagItem.swift in Sources */,
 				797603B51B0ECEED00F9AC09 /* EntryTableViewCell.swift in Sources */,
+				7956DA681B27D8C30002B705 /* TextBlockTableViewCell.swift in Sources */,
 				79132B501B16EFD6002064C7 /* TextFieldTableViewCell.swift in Sources */,
 				790B7D151B2195860083EBB4 /* EntryRichTextViewController.swift in Sources */,
 				797603BC1B0EEAEC00F9AC09 /* BaseEntry.swift in Sources */,
@@ -1256,7 +1282,9 @@
 				79E654AC1B0B11AB007E4D4C /* BaseTableViewController.swift in Sources */,
 				795E20761B1DACCF00FA7857 /* EntryImageItem.swift in Sources */,
 				797603AB1B0DC05800F9AC09 /* Utils.swift in Sources */,
+				7956DA641B27CE2F0002B705 /* BlockEditorTableViewController.swift in Sources */,
 				79E654AE1B0B11F3007E4D4C /* BlogListTableViewController.swift in Sources */,
+				7956DA6C1B27D8D30002B705 /* ImageBlockTableViewCell.swift in Sources */,
 				79CFBDCD1B1D3CE100283780 /* PageDetailTableViewController.swift in Sources */,
 				797603BE1B0EEB0900F9AC09 /* Entry.swift in Sources */,
 				796DD5091B1460DA00D14704 /* AssetTableViewCell.swift in Sources */,

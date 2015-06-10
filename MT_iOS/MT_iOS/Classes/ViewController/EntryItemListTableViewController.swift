@@ -22,6 +22,8 @@ class EntryItemListTableViewController: BaseTableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         sortedList = list.items
         
+        self.title = NSLocalizedString("Sorting", comment: "Sorting")
+        
         self.tableView.registerNib(UINib(nibName: "EntryItemTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryItemTableViewCell")
 
         self.tableView.setEditing(true, animated: true)

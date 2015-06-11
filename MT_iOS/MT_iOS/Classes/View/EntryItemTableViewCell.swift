@@ -45,8 +45,10 @@ class EntryItemTableViewCell: UITableViewCell {
     @IBAction func visibleButtonPushed(sender: AnyObject) {
         if let entryItem = self._item {
             entryItem.visibled = !entryItem.visibled
-            if entryItem.id == "status" {
-                entryItem.visibled = true
+            if !entryItem.isCustomField {
+                if entryItem.id == "status" || entryItem.id == "title" || entryItem.id == "body" {
+                    entryItem.visibled = true
+                }
             }
             self.visibleButton.alpha = entryItem.visibled ? 1.0 : 0.4
         }

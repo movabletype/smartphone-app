@@ -388,7 +388,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     private func showBlockEditor(item: EntryBlocksItem) {
         let vc = BlockEditorTableViewController()
         vc.blog = blog
-        vc.object = item
+        vc.blocks = item
         vc.entry = self.object
         self.navigationController?.pushViewController(vc, animated: true)
     }

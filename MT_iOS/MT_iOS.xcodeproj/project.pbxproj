@@ -217,6 +217,9 @@
 		79E654B61B0B1D32007E4D4C /* Blog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E654B51B0B1D32007E4D4C /* Blog.swift */; };
 		79E654BB1B0B2697007E4D4C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E654BA1B0B2697007E4D4C /* Color.swift */; };
 		79E654C01B0B3349007E4D4C /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E654BF1B0B3349007E4D4C /* SettingTableViewController.swift */; };
+		79EEE94E1B291A9B007D9407 /* ImageSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEE94D1B291A9B007D9407 /* ImageSelectorTableViewController.swift */; };
+		79EEE9511B291ADB007D9407 /* ImageSelector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79EEE94F1B291ADB007D9407 /* ImageSelector.storyboard */; };
+		79EEE9531B292211007D9407 /* AssetSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEE9521B292211007D9407 /* AssetSelectorTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -446,6 +449,9 @@
 		79E654B51B0B1D32007E4D4C /* Blog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blog.swift; sourceTree = "<group>"; };
 		79E654BA1B0B2697007E4D4C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		79E654BF1B0B3349007E4D4C /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		79EEE94D1B291A9B007D9407 /* ImageSelectorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSelectorTableViewController.swift; sourceTree = "<group>"; };
+		79EEE9501B291ADB007D9407 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/ImageSelector.storyboard; sourceTree = SOURCE_ROOT; };
+		79EEE9521B292211007D9407 /* AssetSelectorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetSelectorTableViewController.swift; sourceTree = "<group>"; };
 		8BD41296E3EA0DAFD8BC50C7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD8FFE520DCD5B3F56881964 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -833,6 +839,9 @@
 				7956DAA31B280C6A0002B705 /* AddAsset.storyboard */,
 				79456E4E1B282D5800570204 /* ImageAlignTableViewController.swift */,
 				79456E501B282D6B00570204 /* ImageAlign.storyboard */,
+				79EEE94D1B291A9B007D9407 /* ImageSelectorTableViewController.swift */,
+				79EEE94F1B291ADB007D9407 /* ImageSelector.storyboard */,
+				79EEE9521B292211007D9407 /* AssetSelectorTableViewController.swift */,
 			);
 			name = Asset;
 			sourceTree = "<group>";
@@ -1090,6 +1099,7 @@
 				796189731B1C54D70017747A /* GroupedHeaderView.xib in Resources */,
 				796FA8131B18079300373DDE /* AssetDetail.storyboard in Resources */,
 				796DD50A1B1460DA00D14704 /* AssetTableViewCell.xib in Resources */,
+				79EEE9511B291ADB007D9407 /* ImageSelector.storyboard in Resources */,
 				79A715401B2685FD005A09ED /* BlogImageQuality.storyboard in Resources */,
 				790B7D741B219C6C0083EBB4 /* ZSSh2@2x.png in Resources */,
 				790B7D931B219C6C0083EBB4 /* ZSSpicker.png in Resources */,
@@ -1313,6 +1323,7 @@
 				797603BE1B0EEB0900F9AC09 /* Entry.swift in Sources */,
 				796DD5091B1460DA00D14704 /* AssetTableViewCell.swift in Sources */,
 				795E20841B1DAE7100FA7857 /* EntryDateTimeItem.swift in Sources */,
+				79EEE94E1B291A9B007D9407 /* ImageSelectorTableViewController.swift in Sources */,
 				7956DA9D1B28017D0002B705 /* BlogUploadDirTableViewController.swift in Sources */,
 				795E20821B1DAE3000FA7857 /* EntryEmbedItem.swift in Sources */,
 				79BB89201B213DD4000BE6CD /* EntryTextEditorViewController.swift in Sources */,
@@ -1333,6 +1344,7 @@
 				79132B5D1B170B0C002064C7 /* ResetPasswordTableViewController.swift in Sources */,
 				798697591B143CDE00DC7A18 /* CustomField.swift in Sources */,
 				799724081B189F9700FEE683 /* SignInViewController.swift in Sources */,
+				79EEE9531B292211007D9407 /* AssetSelectorTableViewController.swift in Sources */,
 				798697571B143AC000DC7A18 /* Tag.swift in Sources */,
 				79592A471B200EC4004DDB4E /* EntryTextTableViewCell.swift in Sources */,
 				79D2E9221B1C33CD0019E9EE /* CommonWebViewController.swift in Sources */,
@@ -1527,6 +1539,14 @@
 				79E654B01B0B1219007E4D4C /* Base */,
 			);
 			name = BlogList.storyboard;
+			sourceTree = "<group>";
+		};
+		79EEE94F1B291ADB007D9407 /* ImageSelector.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79EEE9501B291ADB007D9407 /* Base */,
+			);
+			name = ImageSelector.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -298,7 +298,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     }
     
     @IBAction func assetListButtonPushed(sender: UIButton) {
-        //TODO:
+        //Implement Subclass
     }
     
     private func uploadData(data: NSData, filename: String, path: String) {

@@ -8,10 +8,10 @@
 
 import UIKit
 
-class BlockEditorTableViewController: BaseTableViewController {
+class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate {
     var blog: Blog!
     var entry: BaseEntry!
-    var object: EntryBlocksItem!
+    var blocks: EntryBlocksItem!
     var items: [BaseEntryItem]!
 
     override func viewDidLoad() {
@@ -22,9 +22,9 @@ class BlockEditorTableViewController: BaseTableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        self.title = object.label
+        self.title = blocks.label
 
-        items = object.blocks
+        items = blocks.blocks
         
         self.tableView.registerNib(UINib(nibName: "TextBlockTableViewCell", bundle: nil), forCellReuseIdentifier: "TextBlockTableViewCell")
         self.tableView.registerNib(UINib(nibName: "ImageBlockTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageBlockTableViewCell")
@@ -167,6 +167,18 @@ class BlockEditorTableViewController: BaseTableViewController {
         }
     }
     
+    private func showAssetSelector(object: EntryImageItem) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ImageSelector", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nav.topViewController as! ImageSelectorTableViewController
+        vc.blog = blog
+        vc.delegate = self
+        vc.showAlign = true
+        vc.object = object
+        vc.entry = self.entry
+        self.presentViewController(nav, animated: true, completion: nil)
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -176,7 +188,7 @@ class BlockEditorTableViewController: BaseTableViewController {
             if item.type == "textarea"  {
                 self.showHTMLEditor(item as! EntryTextAreaItem)
             } else if item.type == "image" {
-                //TODO:
+                self.showAssetSelector(item as! EntryImageItem)
             }
         }
     }
@@ -192,7 +204,7 @@ class BlockEditorTableViewController: BaseTableViewController {
     */
     
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
-        object.blocks = self.items
+        blocks.blocks = self.items
         self.navigationController?.popViewControllerAnimated(true)
     }
 
@@ -233,10 +245,19 @@ class BlockEditorTableViewController: BaseTableViewController {
     }
     
     @IBAction func cameraButtonPushed(sender: UIBarButtonItem) {
-        //TODO:画像取得
         var item = BlockImageItem()
         item.label = NSLocalizedString("Image", comment: "Image")
         items.append(item)
+        self.tableView.reloadData()
+
+        self.showAssetSelector(item)
+    }
+    
+    func AddAssetDone(controller: AddAssetTableViewController, asset: Asset) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        let vc = controller as! ImageSelectorTableViewController
+        let item = vc.object
+        item.asset = asset
         self.tableView.reloadData()
     }
     

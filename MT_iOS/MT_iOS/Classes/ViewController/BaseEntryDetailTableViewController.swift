@@ -11,7 +11,7 @@ import ZSSRichTextEditor
 import SwiftyJSON
 import SVProgressHUD
 
-class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingDelegate, DatePickerViewControllerDelegate {
+class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingDelegate, DatePickerViewControllerDelegate, AddAssetDelegate {
     @IBOutlet weak var settingsButton: UIBarButtonItem!
     @IBOutlet weak var previewButton: UIBarButtonItem!
     @IBOutlet weak var editButton: UIBarButtonItem!
@@ -456,6 +456,59 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         }
     }
     
+    private func showAssetSelector(item: EntryImageItem) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ImageSelector", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nav.topViewController as! ImageSelectorTableViewController
+        vc.blog = blog
+        vc.delegate = self
+        vc.showAlign = true
+        vc.object = item
+        vc.entry = self.object
+        self.presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    private func imageAction(item: EntryImageItem) {
+        if item.dispValue().isEmpty {
+            self.showAssetSelector(item)
+        }
+        
+        let actionSheet: UIAlertController = UIAlertController(title:item.label,
+            message: nil,
+            preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
+            style: UIAlertActionStyle.Cancel,
+            handler:{
+                (action:UIAlertAction!) -> Void in
+                LOG("cancelAction")
+            }
+        )
+        
+        let selectAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Select Image", comment: "Select Image"),
+            style: UIAlertActionStyle.Default,
+            handler:{
+                (action:UIAlertAction!) -> Void in
+                self.showAssetSelector(item)
+            }
+        )
+        
+        let deleteAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Delete Image", comment: "Delete Image"),
+            style: UIAlertActionStyle.Destructive,
+            handler:{
+                (action:UIAlertAction!) -> Void in
+                item.clear()
+                self.tableView.reloadData()
+            }
+        )
+        
+        actionSheet.addAction(selectAction)
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(cancelAction)
+        
+        self.presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -488,7 +541,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             } else if item.type == "radio" {
                 self.showSelector(item as! EntrySelectItem)
             } else if item.type == "image" {
-                //TODO:
+                self.imageAction(item as! EntryImageItem)
             } else if item.type == "status" {
                 // Do nothing
             } else if item.type == "category" {
@@ -682,6 +735,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 self.deleteEntry(object)
             }
         )
-        
+    }
+    
+    func AddAssetDone(controller: AddAssetTableViewController, asset: Asset) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        let vc = controller as! ImageSelectorTableViewController
+        let item = vc.object
+        item.asset = asset
+        self.tableView.reloadData()
     }
 }

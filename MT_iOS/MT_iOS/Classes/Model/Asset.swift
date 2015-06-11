@@ -34,6 +34,32 @@ class Asset: BaseObject {
         blogID = json["blog"]["id"].stringValue
     }
     
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.label, forKey: "label")
+        aCoder.encodeObject(self.url, forKey: "url")
+        aCoder.encodeObject(self.filename, forKey: "filename")
+        aCoder.encodeInteger(self.fileSize, forKey: "fileSize")
+        aCoder.encodeInteger(self.width, forKey: "width")
+        aCoder.encodeInteger(self.height, forKey: "height")
+        aCoder.encodeObject(self.createdByName, forKey: "createdByName")
+        aCoder.encodeObject(self.createdDate, forKey: "createdDate")
+        aCoder.encodeObject(self.blogID, forKey: "blogID")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.label = aDecoder.decodeObjectForKey("label") as! String
+        self.url = aDecoder.decodeObjectForKey("url") as! String
+        self.filename = aDecoder.decodeObjectForKey("filename") as! String
+        self.fileSize = aDecoder.decodeIntegerForKey("fileSize")
+        self.width = aDecoder.decodeIntegerForKey("width")
+        self.height = aDecoder.decodeIntegerForKey("height")
+        self.createdByName = aDecoder.decodeObjectForKey("createdByName") as! String
+        self.createdDate = aDecoder.decodeObjectForKey("createdDate") as? NSDate
+        self.blogID = aDecoder.decodeObjectForKey("blogID") as! String
+    }
+    
     func dispName()-> String {
         if !self.label.isEmpty {
             return self.label

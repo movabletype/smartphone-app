@@ -21,4 +21,15 @@ class Page: BaseEntry {
             folders.append(folder)
         }
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.folders, forKey: "folders")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.folders = aDecoder.decodeObjectForKey("folders") as! [Folder]
+    }
+
 }

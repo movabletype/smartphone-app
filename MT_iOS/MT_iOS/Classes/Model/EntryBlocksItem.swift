@@ -17,6 +17,16 @@ class EntryBlocksItem: EntryTextAreaItem {
         type = "blocks"
     }
     
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.blocks, forKey: "blocks")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.blocks = aDecoder.decodeObjectForKey("blocks") as! [BaseEntryItem]
+    }
+    
     override func value() -> String {
         var value = ""
         for block in blocks {

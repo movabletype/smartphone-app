@@ -14,6 +14,14 @@ class EntryTagItem: EntryTextItem {
         
         type = "tags"
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 
     override func makeParams()-> [String : AnyObject] {
         let list = split(self.value()) { $0 == "," }

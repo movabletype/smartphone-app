@@ -27,7 +27,6 @@ class EntryAssetItem: BaseEntryItem {
         }
     }
     
-    
     var url = ""
     var assetID = ""
     var filename = ""
@@ -36,6 +35,22 @@ class EntryAssetItem: BaseEntryItem {
         super.init()
         
         type = "asset"
+    }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self._asset, forKey: "_asset")
+        aCoder.encodeObject(self.url, forKey: "url")
+        aCoder.encodeObject(self.assetID, forKey: "assetID")
+        aCoder.encodeObject(self.filename, forKey: "filename")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self._asset = aDecoder.decodeObjectForKey("_asset") as? Asset
+        self.url = aDecoder.decodeObjectForKey("url") as! String
+        self.assetID = aDecoder.decodeObjectForKey("assetID") as! String
+        self.filename = aDecoder.decodeObjectForKey("filename") as! String
     }
     
     func asHtml()-> String {

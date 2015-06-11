@@ -16,6 +16,16 @@ class EntryTextAreaItem: BaseEntryItem {
         
         type = "textarea"
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.text, forKey: "text")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.text = aDecoder.decodeObjectForKey("text") as! String
+    }
 
     override func value()-> String {
         return text

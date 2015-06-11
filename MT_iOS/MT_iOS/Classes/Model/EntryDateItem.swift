@@ -16,6 +16,16 @@ class EntryDateItem: BaseEntryItem {
         
         type = "date"
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.date, forKey: "date")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.date = aDecoder.decodeObjectForKey("date") as? NSDate
+    }
 
     override func value()-> String {
         if let date = self.date {

@@ -11,8 +11,15 @@ import UIKit
 class EntryTitleItem: EntryTextItem {
     override init() {
         super.init()
-        
+
         type = "title"
     }
     
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }

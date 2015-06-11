@@ -156,6 +156,18 @@ class Blog: BaseObject {
         url = json["url"].stringValue
     }
     
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.name, forKey: "name")
+        aCoder.encodeObject(self.url, forKey: "url")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.name = aDecoder.decodeObjectForKey("name") as! String
+        self.url = aDecoder.decodeObjectForKey("url") as! String
+    }
+
     func hasPermission(permission: String)-> Bool {
         return contains(permissions, permission)
     }
@@ -244,6 +256,18 @@ class Blog: BaseObject {
     
     func settingKey(name: String)-> String {
         return self.endpoint + "_blog\(id)_\(name)"
+    }
+    
+    func dataDirPath()-> String {
+        let dir = self.endpoint + "_blog\(id)"
+        return dir.stringByReplacingOccurrencesOfString("/", withString: "_", options: nil, range: nil)
+    }
+    
+    func draftDirPath(object: BaseEntry)-> String {
+        var path = self.dataDirPath()
+        path = path.stringByAppendingPathComponent(object is Entry ? "draft_entry" : "draft_page")
+        
+        return path
     }
     
     func loadSettings()-> [[String:AnyObject]]? {

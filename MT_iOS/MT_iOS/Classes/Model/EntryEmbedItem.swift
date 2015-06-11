@@ -14,4 +14,13 @@ class EntryEmbedItem: EntryTextAreaItem {
         
         type = "embed"
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
 }

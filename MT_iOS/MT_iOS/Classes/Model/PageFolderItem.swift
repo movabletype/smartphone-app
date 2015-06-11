@@ -17,6 +17,17 @@ class PageFolderItem: BaseEntryItem {
         type = "folder"
     }
     
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.selected, forKey: "selected")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.selected = aDecoder.decodeObjectForKey("selected") as! [Folder]
+    }
+
+    
     override func value()-> String {
         var array = [String]()
         for item in selected {

@@ -220,6 +220,9 @@
 		79EEE94E1B291A9B007D9407 /* ImageSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEE94D1B291A9B007D9407 /* ImageSelectorTableViewController.swift */; };
 		79EEE9511B291ADB007D9407 /* ImageSelector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79EEE94F1B291ADB007D9407 /* ImageSelector.storyboard */; };
 		79EEE9531B292211007D9407 /* AssetSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEE9521B292211007D9407 /* AssetSelectorTableViewController.swift */; };
+		79EEE9551B29867B007D9407 /* BaseDraftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEE9541B29867B007D9407 /* BaseDraftTableViewController.swift */; };
+		79EEE9571B2986A0007D9407 /* EntryDraftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEE9561B2986A0007D9407 /* EntryDraftTableViewController.swift */; };
+		79EEE9591B2986B1007D9407 /* PageDraftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEE9581B2986B1007D9407 /* PageDraftTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -452,6 +455,9 @@
 		79EEE94D1B291A9B007D9407 /* ImageSelectorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSelectorTableViewController.swift; sourceTree = "<group>"; };
 		79EEE9501B291ADB007D9407 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/ImageSelector.storyboard; sourceTree = SOURCE_ROOT; };
 		79EEE9521B292211007D9407 /* AssetSelectorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetSelectorTableViewController.swift; sourceTree = "<group>"; };
+		79EEE9541B29867B007D9407 /* BaseDraftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseDraftTableViewController.swift; sourceTree = "<group>"; };
+		79EEE9561B2986A0007D9407 /* EntryDraftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDraftTableViewController.swift; sourceTree = "<group>"; };
+		79EEE9581B2986B1007D9407 /* PageDraftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDraftTableViewController.swift; sourceTree = "<group>"; };
 		8BD41296E3EA0DAFD8BC50C7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD8FFE520DCD5B3F56881964 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -751,6 +757,9 @@
 				797603AF1B0ECE5B00F9AC09 /* BaseEntryListTableViewController.swift */,
 				797603B71B0EEA3F00F9AC09 /* EntryListTableViewController.swift */,
 				797603B91B0EEAB700F9AC09 /* PageListTableViewController.swift */,
+				79EEE9541B29867B007D9407 /* BaseDraftTableViewController.swift */,
+				79EEE9561B2986A0007D9407 /* EntryDraftTableViewController.swift */,
+				79EEE9581B2986B1007D9407 /* PageDraftTableViewController.swift */,
 				79CFBDC81B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift */,
 				79CFBDCE1B1D3DD500283780 /* EntryDetail.storyboard */,
 				79CFBDCA1B1D3CD000283780 /* EntryDetailTableViewController.swift */,
@@ -1272,6 +1281,7 @@
 				79592A571B200F56004DDB4E /* EntryImageTableViewCell.swift in Sources */,
 				795E208A1B1DB2FC00FA7857 /* EntryCategoryItem.swift in Sources */,
 				795E20701B1DAC5D00FA7857 /* EntryTextItem.swift in Sources */,
+				79EEE9591B2986B1007D9407 /* PageDraftTableViewController.swift in Sources */,
 				79CFBDC91B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift in Sources */,
 				794854511B2523C90074EF55 /* CategoryTableViewCell.swift in Sources */,
 				79E654BB1B0B2697007E4D4C /* Color.swift in Sources */,
@@ -1300,6 +1310,7 @@
 				797603B51B0ECEED00F9AC09 /* EntryTableViewCell.swift in Sources */,
 				7956DA681B27D8C30002B705 /* TextBlockTableViewCell.swift in Sources */,
 				79132B501B16EFD6002064C7 /* TextFieldTableViewCell.swift in Sources */,
+				79EEE9551B29867B007D9407 /* BaseDraftTableViewController.swift in Sources */,
 				790B7D151B2195860083EBB4 /* EntryRichTextViewController.swift in Sources */,
 				797603BC1B0EEAEC00F9AC09 /* BaseEntry.swift in Sources */,
 				79CFBDDD1B1D83A200283780 /* DatePickerViewController.swift in Sources */,
@@ -1310,6 +1321,7 @@
 				79592A4F1B200F14004DDB4E /* EntryStatusTableViewCell.swift in Sources */,
 				79592A621B203323004DDB4E /* EntryTitleItem.swift in Sources */,
 				795E207A1B1DADD200FA7857 /* EntryURLItem.swift in Sources */,
+				79EEE9571B2986A0007D9407 /* EntryDraftTableViewController.swift in Sources */,
 				79132B571B16F22F002064C7 /* LoginTableViewController.swift in Sources */,
 				79A715381B2685AA005A09ED /* BlogImageSizeTableViewController.swift in Sources */,
 				795E20721B1DAC7300FA7857 /* EntryTextAreaItem.swift in Sources */,

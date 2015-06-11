@@ -23,4 +23,21 @@ class Category: BaseObject {
         basename = json["basename"].stringValue
         parent = json["parent"].stringValue
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.label, forKey: "label")
+        aCoder.encodeObject(self.basename, forKey: "basename")
+        aCoder.encodeObject(self.parent, forKey: "parent")
+        aCoder.encodeInteger(self.level, forKey: "level")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.label = aDecoder.decodeObjectForKey("label") as! String
+        self.basename = aDecoder.decodeObjectForKey("basename") as! String
+        self.parent = aDecoder.decodeObjectForKey("parent") as! String
+        self.level = aDecoder.decodeIntegerForKey("level")
+    }
+
 }

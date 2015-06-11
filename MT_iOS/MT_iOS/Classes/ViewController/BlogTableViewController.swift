@@ -303,7 +303,11 @@ class BlogTableViewController: BaseTableViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
 
             case BlogItem.DraftEntries.rawValue:
-                break
+                let vc = EntryDraftTableViewController()
+                let blog = self.blog
+                vc.blog = blog
+                self.navigationController?.pushViewController(vc, animated: true)
+
             case BlogItem.Pages.rawValue:
                 let vc = PageListTableViewController()
                 let blog = self.blog
@@ -311,7 +315,11 @@ class BlogTableViewController: BaseTableViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
 
             case BlogItem.DraftPages.rawValue:
-                break
+                let vc = PageDraftTableViewController()
+                let blog = self.blog
+                vc.blog = blog
+                self.navigationController?.pushViewController(vc, animated: true)
+
             default:
                 break
             }

@@ -17,6 +17,16 @@ class EntryURLItem: BaseEntryItem {
         type = "url"
     }
     
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.url, forKey: "url")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.url = aDecoder.decodeObjectForKey("url") as! String
+    }
+    
     override func value()-> String {
         return url
     }

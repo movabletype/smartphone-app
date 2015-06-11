@@ -9,11 +9,31 @@
 import UIKit
 import SwiftyJSON
 
-class EntryItemList: NSObject {
+class EntryItemList: NSObject, NSCoding {
     var items = [BaseEntryItem]()
     var visibledItems = [BaseEntryItem]()
     var blog: Blog!
     var object: BaseEntry!
+    
+    var filename = ""
+    
+    override init() {
+        super.init()
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.items, forKey: "items")
+        aCoder.encodeObject(self.visibledItems, forKey: "visibledItems")
+        aCoder.encodeObject(self.blog, forKey: "blog")
+        aCoder.encodeObject(self.object, forKey: "object")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        self.items = aDecoder.decodeObjectForKey("items") as! [BaseEntryItem]
+        self.visibledItems = aDecoder.decodeObjectForKey("visibledItems") as! [BaseEntryItem]
+        self.blog = aDecoder.decodeObjectForKey("blog") as! Blog
+        self.object = aDecoder.decodeObjectForKey("object") as! BaseEntry
+    }
     
     convenience init(blog: Blog, object: BaseEntry) {
         self.init()
@@ -289,5 +309,61 @@ class EntryItemList: NSObject {
             }
         }
         return nil
+    }
+    
+    func dataDir()-> String {
+        let path = blog.draftDirPath(object)
+
+        return path
+    }
+    
+    func makeFilename()-> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
+        let filename = dateFormatter.stringFromDate(NSDate())
+        
+        return filename
+    }
+    
+    class func loadFromFile(path: String, filename: String)-> EntryItemList {
+        var list = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as! EntryItemList
+        list.filename = filename
+        
+        return list
+    }
+    
+    func saveToFile()-> Bool {
+        if self.filename.isEmpty {
+            self.filename = makeFilename()
+        }
+        
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        var path = paths[0].stringByAppendingPathComponent(self.dataDir())
+        
+        let fileManager = NSFileManager.defaultManager()
+        var err: NSErrorPointer = nil
+        fileManager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: err)
+        if err == nil {
+            path = path.stringByAppendingPathComponent(self.filename)
+            return NSKeyedArchiver.archiveRootObject(self, toFile: path)
+        }
+        
+        return false
+    }
+    
+    func removeDraftData()-> Bool {
+        if !self.filename.isEmpty {
+            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+            var path = paths[0].stringByAppendingPathComponent(self.dataDir())
+            path = path.stringByAppendingPathComponent(self.filename)
+            
+            let fileManager = NSFileManager.defaultManager()
+            var err: NSErrorPointer = nil
+            fileManager.removeItemAtPath(path, error: err)
+            
+            return (err == nil)
+        }
+        
+        return true
     }
 }

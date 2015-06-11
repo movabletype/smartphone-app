@@ -21,4 +21,15 @@ class Entry: BaseEntry {
             categories.append(category)
         }
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.categories, forKey: "categories")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.categories = aDecoder.decodeObjectForKey("categories") as! [Category]
+    }
+
 }

@@ -19,4 +19,17 @@ class User: BaseObject {
         displayName = json["displayName"].stringValue
         userpicUrl = json["userpicUrl"].stringValue
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.displayName, forKey: "displayName")
+        aCoder.encodeObject(self.userpicUrl, forKey: "userpicUrl")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.displayName = aDecoder.decodeObjectForKey("displayName") as! String
+        self.userpicUrl = aDecoder.decodeObjectForKey("userpicUrl") as! String
+    }
+
 }

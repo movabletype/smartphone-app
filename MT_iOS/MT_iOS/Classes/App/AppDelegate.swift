@@ -160,6 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard: UIStoryboard = UIStoryboard(name: "EntryDetail", bundle: nil)
         let vc = storyboard.instantiateInitialViewController() as! EntryDetailTableViewController
         vc.object = Entry(json: ["id":"", "status":"Draft"])
+        vc.object.date = NSDate()
         vc.blog = blog
         let nav = UINavigationController(rootViewController: vc)
         vc.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: vc, action: "closeButtonPushed:")
@@ -174,6 +175,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard: UIStoryboard = UIStoryboard(name: "PageDetail", bundle: nil)
         let vc = storyboard.instantiateInitialViewController() as! PageDetailTableViewController
         vc.object = Page(json: ["id":"", "status":"Draft"])
+        vc.object.date = NSDate()
         vc.blog = blog
         let nav = UINavigationController(rootViewController: vc)
         vc.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: vc, action: "closeButtonPushed:")

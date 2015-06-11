@@ -17,6 +17,16 @@ class EntryCategoryItem: BaseEntryItem {
         type = "category"
     }
     
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.selected, forKey: "selected")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.selected = aDecoder.decodeObjectForKey("selected") as! [Category]
+    }
+
     override func value()-> String {
         var array = [String]()
         for item in selected {

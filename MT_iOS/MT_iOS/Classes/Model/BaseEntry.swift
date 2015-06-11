@@ -112,6 +112,39 @@ class BaseEntry: BaseObject {
 
     }
     
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.title, forKey: "title")
+        aCoder.encodeObject(self.date, forKey: "date")
+        aCoder.encodeObject(self.unpublishedDate, forKey: "unpublishedDate")
+        aCoder.encodeObject(self.status, forKey: "status")
+        aCoder.encodeObject(self.blogID, forKey: "blogID")
+        aCoder.encodeObject(self.excerpt, forKey: "excerpt")
+        aCoder.encodeObject(self.keywords, forKey: "keywords")
+        aCoder.encodeObject(self.tags, forKey: "tags")
+        aCoder.encodeObject(self.author, forKey: "author")
+        aCoder.encodeObject(self.customFields, forKey: "customFields")
+        aCoder.encodeObject(self.permalink, forKey: "permalink")
+        aCoder.encodeObject(self.basename, forKey: "basename")
+        aCoder.encodeInteger(self.editMode.rawValue, forKey: "editMode")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.title = aDecoder.decodeObjectForKey("title") as! String
+        self.date = aDecoder.decodeObjectForKey("date") as? NSDate
+        self.unpublishedDate = aDecoder.decodeObjectForKey("date") as? NSDate
+        self.blogID = aDecoder.decodeObjectForKey("blogID") as! String
+        self.excerpt = aDecoder.decodeObjectForKey("excerpt") as! String
+        self.keywords = aDecoder.decodeObjectForKey("keywords") as! String
+        self.tags = aDecoder.decodeObjectForKey("tags") as! [Tag]
+        self.author = aDecoder.decodeObjectForKey("author") as! Author
+        self.customFields = aDecoder.decodeObjectForKey("customFields") as! [CustomField]
+        self.permalink = aDecoder.decodeObjectForKey("permalink") as! String
+        self.basename = aDecoder.decodeObjectForKey("basename") as! String
+        self.editMode = BaseEntry.EditMode(rawValue: aDecoder.decodeIntegerForKey("editMode"))!
+    }
+    
     func tagsString()-> String {
         var array = [String]()
         for tag in tags {

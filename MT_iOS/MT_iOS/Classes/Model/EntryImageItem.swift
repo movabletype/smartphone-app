@@ -15,6 +15,14 @@ class EntryImageItem: EntryAssetItem {
         type = "image"
     }
     
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
     override func asHtml()-> String {
         return super.asHtml()
     }

@@ -13,6 +13,24 @@ class BlockImageItem: EntryImageItem {
     var height = 0
     var align = Blog.ImageAlign.None
 
+    override init() {
+        super.init()
+    }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeInteger(self.width, forKey: "width")
+        aCoder.encodeInteger(self.height, forKey: "height")
+        aCoder.encodeInteger(self.align.rawValue, forKey: "align")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.width = aDecoder.decodeIntegerForKey("width")
+        self.height = aDecoder.decodeIntegerForKey("height")
+        self.align = Blog.ImageAlign(rawValue: aDecoder.decodeIntegerForKey("align"))!
+    }
+
     override func asHtml()-> String {
         var dimmensions = "width=\(self.asset!.width) height=\(self.asset!.height)"
         

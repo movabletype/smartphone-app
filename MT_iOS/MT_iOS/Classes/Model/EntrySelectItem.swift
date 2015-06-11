@@ -17,6 +17,18 @@ class EntrySelectItem: BaseEntryItem {
         
         type = "select"
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.list, forKey: "list")
+        aCoder.encodeObject(self.selected, forKey: "selected")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.list = aDecoder.decodeObjectForKey("list") as! [String]
+        self.selected = aDecoder.decodeObjectForKey("selected") as! String
+    }
 
     override func value()-> String {
         if selected.isEmpty || list.count == 0 {

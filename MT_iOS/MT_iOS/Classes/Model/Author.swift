@@ -13,4 +13,13 @@ class Author: User {
     override init(json: JSON) {
         super.init(json: json)
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
 }

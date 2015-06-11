@@ -22,6 +22,17 @@ class EntryStatusItem: BaseEntryItem {
         
         type = "status"
     }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeInteger(self.selected, forKey: "selected")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.selected = aDecoder.decodeIntegerForKey("selected")
+    }
+
 
     override func value()-> String {
         if selected == NOTSELECTED {

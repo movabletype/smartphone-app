@@ -16,5 +16,16 @@ class Tag: BaseObject {
         super.init(json: json)
         
         name = json.stringValue
-    }    
+    }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.name, forKey: "name")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.name = aDecoder.decodeObjectForKey("name") as! String
+    }
+
 }

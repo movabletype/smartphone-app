@@ -40,7 +40,9 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         
         self.tableView.backgroundColor = Color.tableBg
         
-        list = EntryItemList(blog: blog, object: object)
+        if list == nil {
+            list = EntryItemList(blog: blog, object: object)
+        }
     
         self.tableView.registerNib(UINib(nibName: "EntryTextTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryTextTableViewCell")
         self.tableView.registerNib(UINib(nibName: "EntryBasicTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryBasicTableViewCell")
@@ -57,6 +59,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.previewButton.enabled = !self.object.id.isEmpty
         
         leftMargin.width = -10.0
+        
+        LOG("filename:\(list?.makeFilename())")
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -628,6 +632,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
             
+            self.list!.removeDraftData()
+            
             var newObject: BaseEntry
             if isEntry {
                 newObject = Entry(json: result)
@@ -641,7 +647,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             self.previewButton.enabled = !self.object.id.isEmpty
             
             self.list = EntryItemList(blog: self.blog, object: self.object)
-
+            
             self.tableView.reloadData()
         }
         var failure: (JSON!-> Void) = {
@@ -700,7 +706,10 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             style: UIAlertActionStyle.Default,
             handler:{
                 (action:UIAlertAction!) -> Void in
-                //TODO:ローカル保存
+                let success = self.list!.saveToFile()
+                if !success {
+                    SVProgressHUD.showErrorWithStatus(NSLocalizedString("Save failed", comment: "Save failed"))
+                }
             }
         )
         

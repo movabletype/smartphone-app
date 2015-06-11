@@ -658,7 +658,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         }
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        SVProgressHUD.showWithStatus("Save...")
+        SVProgressHUD.showWithStatus(NSLocalizedString("Save...", comment: "Save..."))
 
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
@@ -680,6 +680,75 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         )
     }
     
+    private func checkModified() {
+        let id = self.object.id
+        if id.isEmpty {
+            self.saveEntry()
+        }
+        //TODO:下書きからの保存の時はサーバのエントリの変更時刻と比較して警告を出す
+        let blogID = blog.id
+        let isEntry = object is Entry
+
+        let api = DataAPI.sharedInstance
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        let authInfo = app.authInfo
+        
+        var success: (JSON!-> Void) = {
+            (result: JSON!)-> Void in
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            SVProgressHUD.dismiss()
+            
+            var newObject: BaseEntry
+            if isEntry {
+                newObject = Entry(json: result)
+            } else {
+                newObject = Page(json: result)
+            }
+            
+            if newObject.modifiedDate?.compare(self.object.modifiedDate!) != .OrderedSame {
+                let alertController = UIAlertController(
+                    title: NSLocalizedString("Confirm", comment: "Confirm"),
+                    message: NSLocalizedString("Data on the server seems to be new . Do you want to overwrite it ?", comment: "Data on the server seems to be new . Do you want to overwrite it ?"),
+                    preferredStyle: .Alert)
+                
+                let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Destructive) {
+                    action in
+                    self.saveEntry()
+                }
+                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .Cancel) {
+                    action in
+                }
+                
+                alertController.addAction(okAction)
+                alertController.addAction(cancelAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+            } else {
+                self.saveEntry()
+            }
+        }
+        var failure: (JSON!-> Void) = {
+            (error: JSON!)-> Void in
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
+            LOG(error.description)
+        }
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        SVProgressHUD.showWithStatus(NSLocalizedString("Check modified at...", comment: "Check modified at..."))
+        
+        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+            success:{_ in
+                if isEntry {
+                    api.getEntry(siteID: blogID, entryID: id, success: success, failure: failure)
+                } else {
+                    api.getPage(siteID: blogID, pageID: id, success: success, failure: failure)
+                }
+            },
+            failure: failure
+        )
+
+    }
+    
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
         let actionSheet: UIAlertController = UIAlertController(title:NSLocalizedString("Submit", comment: "Submit"),
             message: nil,
@@ -698,7 +767,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             handler:{
                 (action:UIAlertAction!) -> Void in
                 
-                self.saveEntry()
+                if self.object.id.isEmpty {
+                    self.saveEntry()
+                } else {
+                    self.checkModified()
+                }
             }
         )
         

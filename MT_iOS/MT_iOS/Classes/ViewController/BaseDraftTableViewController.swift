@@ -41,6 +41,7 @@ class BaseDraftTableViewController: BaseTableViewController {
                 files.append(path as! String)
             }
         }
+        files = files.reverse()
     }
     
     override func viewWillAppear(animated: Bool) {

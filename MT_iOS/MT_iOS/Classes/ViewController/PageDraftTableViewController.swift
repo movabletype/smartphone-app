@@ -95,6 +95,7 @@ class PageDraftTableViewController: BaseDraftTableViewController {
         let dir = self.dataDir()
         let path = dir.stringByAppendingPathComponent(filename)
         let item = EntryItemList.loadFromFile(path, filename: filename)
+        item.blog = blog
         
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let storyboard: UIStoryboard = UIStoryboard(name: "PageDetail", bundle: nil)

@@ -83,9 +83,13 @@ class BaseEntry: BaseObject {
         
         title = json["title"].stringValue
         let dateString = json["date"].stringValue
-        date = Utils.dateFromISO8601String(dateString)
+        if !dateString.isEmpty {
+            date = Utils.dateFromISO8601String(dateString)
+        }
         let unpublishedDateString = json["unpublishedDate"].stringValue
-        unpublishedDate = Utils.dateFromISO8601String(unpublishedDateString)
+        if !unpublishedDateString.isEmpty {
+            unpublishedDate = Utils.dateFromISO8601String(unpublishedDateString)
+        }
         status = json["status"].stringValue
         blogID = json["blog"]["id"].stringValue
         body = json["body"].stringValue

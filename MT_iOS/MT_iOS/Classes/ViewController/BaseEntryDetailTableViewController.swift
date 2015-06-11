@@ -706,6 +706,10 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             style: UIAlertActionStyle.Default,
             handler:{
                 (action:UIAlertAction!) -> Void in
+                if let titleItem = self.list!.itemWithID("title", isCustomField: false) {
+                    self.object.title = titleItem.value()
+                    self.title = titleItem.value()
+                }
                 let success = self.list!.saveToFile()
                 if !success {
                     SVProgressHUD.showErrorWithStatus(NSLocalizedString("Save failed", comment: "Save failed"))

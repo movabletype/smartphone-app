@@ -30,7 +30,10 @@ class Asset: BaseObject {
         width = json["meta"]["width"].stringValue.toInt()!
         height = json["meta"]["height"].stringValue.toInt()!
         createdByName = json["createdBy"]["displayName"].stringValue
-        createdDate = Utils.dateFromISO8601String(json["createdDate"].stringValue)
+        let dateString = json["createdDate"].stringValue
+        if !dateString.isEmpty {
+            createdDate = Utils.dateFromISO8601String(dateString)
+        }
         blogID = json["blog"]["id"].stringValue
     }
     

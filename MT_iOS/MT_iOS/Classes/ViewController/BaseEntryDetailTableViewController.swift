@@ -575,11 +575,21 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
             
-            if let titleItem = self.list!.itemWithID("title", isCustomField: false) {
-                self.object.title = titleItem.dispValue()
-                self.title = self.object.title
+            var newObject: BaseEntry
+            if isEntry {
+                newObject = Entry(json: result)
+            } else {
+                newObject = Page(json: result)
             }
+
+            self.object = newObject
+            
+            self.title = self.object.title
             self.previewButton.enabled = !self.object.id.isEmpty
+            
+            self.list = EntryItemList(blog: self.blog, object: self.object)
+
+            self.tableView.reloadData()
         }
         var failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in

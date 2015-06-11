@@ -775,10 +775,19 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         )
     }
     
+    private func deleteDraft() {
+        self.list!.removeDraftData()
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     func entrySettingDelete(controller: EntrySettingTableViewController, object: BaseEntry) {
         self.dismissViewControllerAnimated(false, completion:
             {_ in
-                self.deleteEntry(object)
+                if self.list!.filename.isEmpty {
+                    self.deleteEntry(object)
+                } else {
+                    self.deleteDraft()
+                }
             }
         )
     }

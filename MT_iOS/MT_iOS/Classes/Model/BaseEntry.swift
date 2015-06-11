@@ -63,6 +63,7 @@ class BaseEntry: BaseObject {
     
     var title = ""
     var date: NSDate?
+    var modifiedDate: NSDate?
     var unpublishedDate: NSDate?
     var status = ""
     var blogID = ""
@@ -85,6 +86,10 @@ class BaseEntry: BaseObject {
         let dateString = json["date"].stringValue
         if !dateString.isEmpty {
             date = Utils.dateFromISO8601String(dateString)
+        }
+        let modifiedDateString = json["modifiedDate"].stringValue
+        if !modifiedDateString.isEmpty {
+            modifiedDate = Utils.dateFromISO8601String(modifiedDateString)
         }
         let unpublishedDateString = json["unpublishedDate"].stringValue
         if !unpublishedDateString.isEmpty {
@@ -120,6 +125,7 @@ class BaseEntry: BaseObject {
         super.encodeWithCoder(aCoder)
         aCoder.encodeObject(self.title, forKey: "title")
         aCoder.encodeObject(self.date, forKey: "date")
+        aCoder.encodeObject(self.modifiedDate, forKey: "modifiedDate")
         aCoder.encodeObject(self.unpublishedDate, forKey: "unpublishedDate")
         aCoder.encodeObject(self.status, forKey: "status")
         aCoder.encodeObject(self.blogID, forKey: "blogID")
@@ -137,6 +143,7 @@ class BaseEntry: BaseObject {
         super.init(coder: aDecoder)
         self.title = aDecoder.decodeObjectForKey("title") as! String
         self.date = aDecoder.decodeObjectForKey("date") as? NSDate
+        self.modifiedDate = aDecoder.decodeObjectForKey("modifiedDate") as? NSDate
         self.unpublishedDate = aDecoder.decodeObjectForKey("date") as? NSDate
         self.blogID = aDecoder.decodeObjectForKey("blogID") as! String
         self.excerpt = aDecoder.decodeObjectForKey("excerpt") as! String

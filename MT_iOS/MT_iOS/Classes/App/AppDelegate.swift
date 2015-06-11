@@ -13,9 +13,6 @@ import SwiftyJSON
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    //TODO:下書き対応
-    //TODO:ブロックエディタでのプレビュー
-
     var window: UIWindow?
     
     var authInfo = AuthInfo()

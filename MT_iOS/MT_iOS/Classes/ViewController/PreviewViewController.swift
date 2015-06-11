@@ -10,6 +10,7 @@ import UIKit
 
 class PreviewViewController: BaseViewController, UIWebViewDelegate {
     var url: String!
+    var html: String?
     
     var webView: UIWebView!
     var segmentedControl: UISegmentedControl!
@@ -123,8 +124,12 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
 
         self.makeWebView()
         
-        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
-        self.webView.loadRequest(request)
+        if html == nil {
+            var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+            self.webView.loadRequest(request)
+        } else {
+            self.webView.loadHTMLString(html, baseURL: nil)
+        }
     }
     
     func segmentedControlChanged(sender: UISegmentedControl) {

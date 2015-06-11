@@ -272,6 +272,14 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
     
     @IBAction func previewButtonPushed(sender: UIBarButtonItem) {
-        //TODO:
+        let storyboard: UIStoryboard = UIStoryboard(name: "Preview", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nav.topViewController as! PreviewViewController
+        var html = ""
+        for item in items {
+            html += item.value() + "\n"
+        }
+        vc.html = html
+        self.presentViewController(nav, animated: true, completion: nil)
     }
 }

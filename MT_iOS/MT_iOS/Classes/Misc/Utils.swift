@@ -117,6 +117,8 @@ class Utils {
         if width == 0 {
             w = image.size.width
             scale = 1.0
+        } else {
+            w = width
         }
         h = h * scale
         let size = CGSize(width: w, height: h)

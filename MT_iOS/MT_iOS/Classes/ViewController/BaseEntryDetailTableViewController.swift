@@ -675,7 +675,40 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
-        self.saveEntry()
+        let actionSheet: UIAlertController = UIAlertController(title:NSLocalizedString("Submit", comment: "Submit"),
+            message: nil,
+            preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
+            style: UIAlertActionStyle.Cancel,
+            handler:{
+                (action:UIAlertAction!) -> Void in
+                LOG("cancelAction")
+            }
+        )
+        
+        let submitAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Submit", comment: "Submit"),
+            style: UIAlertActionStyle.Default,
+            handler:{
+                (action:UIAlertAction!) -> Void in
+                
+                self.saveEntry()
+            }
+        )
+        
+        let saveLocalAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Save Local", comment: "Save Local"),
+            style: UIAlertActionStyle.Default,
+            handler:{
+                (action:UIAlertAction!) -> Void in
+                //TODO:ローカル保存
+            }
+        )
+        
+        actionSheet.addAction(submitAction)
+        actionSheet.addAction(saveLocalAction)
+        actionSheet.addAction(cancelAction)
+        
+        self.presentViewController(actionSheet, animated: true, completion: nil)
     }
     
     @IBAction func closeButtonPushed(sender: AnyObject) {

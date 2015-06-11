@@ -13,8 +13,8 @@ import SwiftyJSON
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    //TODO:Assetの投稿
     //TODO:下書き対応
+    //TODO:ブロックエディタでのプレビュー
 
     var window: UIWindow?
     

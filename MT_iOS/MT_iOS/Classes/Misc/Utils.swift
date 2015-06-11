@@ -110,13 +110,16 @@ class Utils {
     }
     
     class func resizeImage(image: UIImage, width: CGFloat)-> UIImage {
-        var scale = width / image.size.width
+        var w = image.size.width
+        var h = image.size.height
+        var scale = width / w
+        //オリジナルサイズのとき
         if width == 0 {
-            //オリジナルサイズ
+            w = image.size.width
             scale = 1.0
         }
-        let h = image.size.height * scale
-        let size = CGSize(width: width, height: h)
+        h = h * scale
+        let size = CGSize(width: w, height: h)
         UIGraphicsBeginImageContext(size)
         image.drawInRect(CGRectMake(0, 0, size.width, size.height))
         var resizedImage = UIGraphicsGetImageFromCurrentImageContext()

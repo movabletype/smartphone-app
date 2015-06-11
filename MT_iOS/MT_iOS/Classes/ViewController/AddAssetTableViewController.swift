@@ -12,7 +12,7 @@ import SVProgressHUD
 import SwiftyJSON
 
 protocol AddAssetDelegate {
-    func AddAssetDone(controller: AddAssetTableViewController)
+    func AddAssetDone(controller: AddAssetTableViewController, asset: Asset)
 }
 
 class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate {
@@ -314,7 +314,8 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
             
-            self.delegate?.AddAssetDone(self)
+            let asset = Asset(json: result)
+            self.delegate?.AddAssetDone(self, asset: asset)
         }
         var failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in

@@ -337,7 +337,7 @@ class EntryItemList: NSObject, NSCoding {
             self.filename = makeFilename()
         }
         
-        self.removeDraftData()
+        //self.removeDraftData()
         
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         var path = paths[0].stringByAppendingPathComponent(self.dataDir())

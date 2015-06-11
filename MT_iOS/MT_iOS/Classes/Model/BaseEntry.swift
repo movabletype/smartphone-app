@@ -144,7 +144,7 @@ class BaseEntry: BaseObject {
         self.title = aDecoder.decodeObjectForKey("title") as! String
         self.date = aDecoder.decodeObjectForKey("date") as? NSDate
         self.modifiedDate = aDecoder.decodeObjectForKey("modifiedDate") as? NSDate
-        self.unpublishedDate = aDecoder.decodeObjectForKey("date") as? NSDate
+        self.unpublishedDate = aDecoder.decodeObjectForKey("unpublishedDate") as? NSDate
         self.blogID = aDecoder.decodeObjectForKey("blogID") as! String
         self.excerpt = aDecoder.decodeObjectForKey("excerpt") as! String
         self.keywords = aDecoder.decodeObjectForKey("keywords") as! String

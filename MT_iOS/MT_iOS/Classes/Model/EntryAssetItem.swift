@@ -9,7 +9,25 @@
 import UIKit
 
 class EntryAssetItem: BaseEntryItem {
-    var asset: Asset?
+    private var _asset: Asset?
+    var asset: Asset? {
+        get {
+            return _asset
+        }
+        set {
+            _asset = newValue
+            
+            if _asset != nil {
+                assetID = _asset!.id
+                url = _asset!.url
+            } else {
+                assetID = ""
+                url = ""
+            }
+        }
+    }
+    
+    
     var url = ""
     var assetID = ""
     var filename = ""
@@ -40,8 +58,6 @@ class EntryAssetItem: BaseEntryItem {
     }
     
     override func clear() {
-        self.url = ""
-        self.assetID = ""
         self.asset = nil
     }
     

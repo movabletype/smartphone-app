@@ -11,11 +11,28 @@ import UIKit
 class BlockImageItem: EntryImageItem {
     var width = 0
     var height = 0
-    var wrapStyle = ""
     var align = Blog.ImageAlign.None
 
     override func asHtml()-> String {
-        return "<a href=\"\(url)\">\(filename)</a>"
+        var dimmensions = "width=\(self.asset!.width) height=\(self.asset!.height)"
+        
+        var wrapStyle = "class=\"mt-image-\(align.label().lowercaseString)\" "
+        switch align {
+        case .Left:
+            wrapStyle += "style=\"float: left; margin: 0 20px 20px 0;\""
+        case .Right:
+            wrapStyle += "style=\"float: right; margin: 0 0 20px 20px;\""
+        case .Center:
+            wrapStyle += "style=\"text-align: center; display: block; margin: 0 auto 20px;\""
+        default:
+            wrapStyle += "style=\"\""
+        }
+        
+        label = self.asset!.label
+        
+        let html = "<img alt=\"\(label)\" src=\"\(url)\" \(dimmensions) \(wrapStyle) />"
+
+        return html
     }
     
     override func value()-> String {
@@ -24,8 +41,7 @@ class BlockImageItem: EntryImageItem {
         }
         
         var html = self.asHtml()
-        var form = "<form mt:asset-id=\"\(self.assetID)\" class=\"mt-enclosure mt-enclosure-image\" style=\"display: inline;\">\(html)</form>"
         
-        return form
+        return html
     }
 }

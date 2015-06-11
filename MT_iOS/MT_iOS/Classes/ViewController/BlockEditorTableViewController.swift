@@ -258,6 +258,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         let vc = controller as! ImageSelectorTableViewController
         let item = vc.object
         item.asset = asset
+        (item as! BlockImageItem).align = controller.imageAlign
         self.tableView.reloadData()
     }
     

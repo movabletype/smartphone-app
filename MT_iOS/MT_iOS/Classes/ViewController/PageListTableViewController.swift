@@ -48,7 +48,7 @@ class PageList: ItemList {
         
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
-                var params = ["limit":"20", "no_text_filter":"1"]
+                var params = ["limit":"10", "no_text_filter":"1"]
                 if !self.refresh {
                     params["offset"] = "\(self.items.count)"
                 }

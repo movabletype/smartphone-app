@@ -12,18 +12,18 @@ import SwiftyJSON
 class Blog: BaseObject {
     enum ImageSize: Int {
         case Original = 0
-        ,LL
+        ,XL
         ,L
         ,M
         ,S
-        ,SS
+        ,XS
         ,_Num
         
         func size()-> CGFloat {
             switch(self) {
             case .Original:
                 return 0
-            case .LL:
+            case .XL:
                 return 1280.0
             case .L:
                 return 1024.0
@@ -31,7 +31,7 @@ class Blog: BaseObject {
                 return 800.0
             case .S:
                 return 640.0
-            case .SS:
+            case .XS:
                 return 320.0
             case ._Num:
                 return 0
@@ -41,7 +41,7 @@ class Blog: BaseObject {
             switch(self) {
             case .Original:
                 return NSLocalizedString("Original Size", comment: "Original Size")
-            case .LL:
+            case .XL:
                 return "1280px"
             case .L:
                 return "1024px"
@@ -49,7 +49,7 @@ class Blog: BaseObject {
                 return "800px"
             case .S:
                 return "640px"
-            case .SS:
+            case .XS:
                 return "320px"
             case ._Num:
                 return ""
@@ -59,16 +59,16 @@ class Blog: BaseObject {
             switch(self) {
             case .Original:
                 return NSLocalizedString("Original", comment: "Original")
-            case .LL:
-                return NSLocalizedString("LL", comment: "LL")
+            case .XL:
+                return NSLocalizedString("X-Large", comment: "X-Large")
             case .L:
-                return NSLocalizedString("L", comment: "L")
+                return NSLocalizedString("Large", comment: "Large")
             case .M:
-                return NSLocalizedString("M", comment: "M")
+                return NSLocalizedString("Medium", comment: "Medium")
             case .S:
-                return NSLocalizedString("S", comment: "S")
-            case .SS:
-                return NSLocalizedString("SS", comment: "SS")
+                return NSLocalizedString("Small", comment: "Small")
+            case .XS:
+                return NSLocalizedString("X-Small", comment: "X-Small")
             case ._Num:
                 return ""
             }

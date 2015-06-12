@@ -15,7 +15,7 @@ let MTIAssetDeletedNotification = "MTIAssetDeletedNotification"
 
 let HELP_URL = "http://www.movabletype.jp/documentation/mtios/help/"
 let LICENSE_URL = "http://www.sixapart.jp/"
-let REPORT_BUG_URL = "https://github.com/movabletype/smartphone-app/issues"
+let REPORT_BUG_URL = "http://www.movabletype.jp/documentation/mtios/inquiry"
 
 func LOG(_ info: String = "") {
     #if DEBUG

@@ -137,10 +137,9 @@ class SettingTableViewController: BaseTableViewController {
             switch indexPath.row {
             case Item.Help.rawValue:
                 var vc = CommonWebViewController()
-                if Utils.preferredLanguage() == "ja" {
-                    vc.urlString = HELP_URL
-                } else {
-                    vc.urlString = HELP_URL + "/en"
+                vc.urlString = HELP_URL
+                if Utils.preferredLanguage() != "ja" {
+                    vc.urlString += "/en"
                 }
                 self.navigationController?.pushViewController(vc, animated: true)
             case Item.License.rawValue:
@@ -151,6 +150,9 @@ class SettingTableViewController: BaseTableViewController {
             case Item.ReportBug.rawValue:
                 var vc = CommonWebViewController()
                 vc.urlString = REPORT_BUG_URL
+                if Utils.preferredLanguage() != "ja" {
+                    vc.urlString += "/en"
+                }
                 self.navigationController?.pushViewController(vc, animated: true)
             default:
                 break

@@ -685,7 +685,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         if id.isEmpty {
             self.saveEntry()
         }
-        //TODO:下書きからの保存の時はサーバのエントリの変更時刻と比較して警告を出す
+
         let blogID = blog.id
         let isEntry = object is Entry
 
@@ -707,7 +707,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             
             if newObject.modifiedDate?.compare(self.object.modifiedDate!) != .OrderedSame {
                 let alertController = UIAlertController(
-                    title: NSLocalizedString("Confirm", comment: "Confirm"),
+                    title: NSLocalizedString("Caution", comment: "Caution"),
                     message: NSLocalizedString("Data on the server seems to be new . Do you want to overwrite it ?", comment: "Data on the server seems to be new . Do you want to overwrite it ?"),
                     preferredStyle: .Alert)
                 

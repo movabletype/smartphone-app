@@ -543,13 +543,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             } else if item.type == "checkbox" {
                 // Do nothing
             } else if item.type == "url" {
-                self.showTextEditor(item as! EntryTextItem)
+                self.showTextEditor(item as! EntryURLItem)
             } else if item.type == "datetime" || item.type == "date" || item.type == "time" {
                 self.showDatePicker(item)
             } else if item.type == "select" {
                 self.showSelector(item as! EntrySelectItem)
             } else if item.type == "radio" {
-                self.showSelector(item as! EntrySelectItem)
+                self.showSelector(item as! EntryRadioItem)
             } else if item.type == "image" {
                 self.imageAction(item as! EntryImageItem)
             } else if item.type == "status" {

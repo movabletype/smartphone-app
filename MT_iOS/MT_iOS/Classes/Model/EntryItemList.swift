@@ -151,9 +151,9 @@ class EntryItemList: NSObject, NSCoding {
                 entryItem = item
             } else if field.type == "url" {
                 var item = EntryURLItem()
-                item.url = customFieldObject!.value
+                item.text = customFieldObject!.value
                 if customFieldObject!.value.isEmpty {
-                    item.url = customFieldObject!.defaultValue
+                    item.text = customFieldObject!.defaultValue
                 }
                 entryItem = item
             } else if field.type == "datetime" {

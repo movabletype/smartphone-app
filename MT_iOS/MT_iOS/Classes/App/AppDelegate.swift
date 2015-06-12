@@ -159,8 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func createEntry(blog: Blog, controller: UIViewController) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "EntryDetail", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! EntryDetailTableViewController
+        let vc = EntryDetailTableViewController()
         vc.object = Entry(json: ["id":"", "status":"Draft"])
         vc.object.date = NSDate()
         vc.blog = blog
@@ -174,8 +173,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func createPage(blog: Blog, controller: UIViewController) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "PageDetail", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! PageDetailTableViewController
+        let vc = PageDetailTableViewController()
         vc.object = Page(json: ["id":"", "status":"Draft"])
         vc.object.date = NSDate()
         vc.blog = blog

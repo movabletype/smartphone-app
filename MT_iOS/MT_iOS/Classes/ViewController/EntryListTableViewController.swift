@@ -172,8 +172,7 @@ class EntryListTableViewController: BaseEntryListTableViewController {
         
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         if blog.canUpdateEntry(user: app.currentUser!, entry: item) {
-            let storyboard: UIStoryboard = UIStoryboard(name: "EntryDetail", bundle: nil)
-            let vc = storyboard.instantiateInitialViewController() as! EntryDetailTableViewController
+            let vc = EntryDetailTableViewController()
             vc.object = item
             vc.blog = blog
             self.navigationController?.pushViewController(vc, animated: true)

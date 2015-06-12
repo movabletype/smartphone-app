@@ -12,11 +12,6 @@ import SwiftyJSON
 import SVProgressHUD
 
 class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingDelegate, DatePickerViewControllerDelegate, AddAssetDelegate {
-    @IBOutlet weak var settingsButton: UIBarButtonItem!
-    @IBOutlet weak var previewButton: UIBarButtonItem!
-    @IBOutlet weak var editButton: UIBarButtonItem!
-    @IBOutlet weak var leftMargin: UIBarButtonItem!
-
     var object: BaseEntry!
     var blog: Blog!
     var list: EntryItemList?
@@ -55,16 +50,29 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.tableView.registerNib(UINib(nibName: "EntryHeaderTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryHeaderTableViewCell")
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
+    }
+    
+    private func makeToolbarItems() {
+        var buttons = [UIBarButtonItem]()
+        var settingsButtonPushed = UIBarButtonItem(image: UIImage(named: "btn_entry_setting"), left: true, target: self, action: "settingsButtonPushed:")
         
-        self.previewButton.enabled = !self.object.id.isEmpty
+        var flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        leftMargin.width = -10.0
+        var previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
+        
+        var editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editButtonPushed:")
+            
+        buttons = [settingsButtonPushed, flexible, previewButton, editButton]
+        
+        self.setToolbarItems(buttons, animated: true)
+
+        previewButton.enabled = !self.object.id.isEmpty
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setToolbarHidden(false, animated: false)
-
+        self.makeToolbarItems()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -566,17 +574,15 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     @IBAction func previewButtonPushed(sender: UIBarButtonItem) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "Preview", bundle: nil)
-        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
-        let vc = nav.topViewController as! PreviewViewController
+        let vc = PreviewViewController()
+        let nav = UINavigationController(rootViewController: vc)
         vc.url = object.permalink
         self.presentViewController(nav, animated: true, completion: nil)
     }
     
     @IBAction func editButtonPushed(sender: UIBarButtonItem) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "EntryItemList", bundle: nil)
-        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
-        let vc = nav.topViewController as! EntryItemListTableViewController
+        let vc = EntryItemListTableViewController()
+        let nav = UINavigationController(rootViewController: vc)
         vc.list = list
         self.presentViewController(nav, animated: true, completion: nil)
     }
@@ -642,11 +648,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             self.object = newObject
             
             self.title = self.object.title
-            self.previewButton.enabled = !self.object.id.isEmpty
             
             self.list = EntryItemList(blog: self.blog, object: self.object)
             
             self.tableView.reloadData()
+            self.makeToolbarItems()
         }
         var failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in

@@ -98,8 +98,7 @@ class EntryDraftTableViewController: BaseDraftTableViewController {
         item.blog = blog
         
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
-        let storyboard: UIStoryboard = UIStoryboard(name: "EntryDetail", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! EntryDetailTableViewController
+        let vc = EntryDetailTableViewController()
         vc.list = item
         vc.object = item.object
         vc.blog = blog

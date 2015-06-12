@@ -98,8 +98,7 @@ class PageDraftTableViewController: BaseDraftTableViewController {
         item.blog = blog
         
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
-        let storyboard: UIStoryboard = UIStoryboard(name: "PageDetail", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! PageDetailTableViewController
+        let vc = PageDetailTableViewController()
         vc.list = item
         vc.object = item.object
         vc.blog = blog

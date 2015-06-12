@@ -355,9 +355,8 @@ class BlogTableViewController: BaseTableViewController {
     */
 
     func blogURLButtonPushed(sender: UIButton) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "Preview", bundle: nil)
-        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
-        let vc = nav.topViewController as! PreviewViewController
+        let vc = PreviewViewController()
+        let nav = UINavigationController(rootViewController: vc)
         vc.url = blog.url
         self.presentViewController(nav, animated: true, completion: nil)
     }

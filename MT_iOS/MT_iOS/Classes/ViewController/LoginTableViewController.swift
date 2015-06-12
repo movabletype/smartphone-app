@@ -354,8 +354,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
     }
     
     @IBAction func forgetPasswordButtonPushed(sender: AnyObject) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "ResetPassword", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! UIViewController
+        let vc = ResetPasswordTableViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

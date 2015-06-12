@@ -170,8 +170,7 @@ class PageListTableViewController: BaseEntryListTableViewController {
         let item = self.list[indexPath.row] as! Page
         
         if blog.canUpdatePage() {
-            let storyboard: UIStoryboard = UIStoryboard(name: "PageDetail", bundle: nil)
-            let vc = storyboard.instantiateInitialViewController() as! PageDetailTableViewController
+            let vc = PageDetailTableViewController()
             vc.object = item
             vc.blog = blog
             self.navigationController?.pushViewController(vc, animated: true)

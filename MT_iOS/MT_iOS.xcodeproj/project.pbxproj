@@ -97,7 +97,6 @@
 		79132B5A1B16F63B002064C7 /* LogoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79132B581B16F63B002064C7 /* LogoTableViewCell.swift */; };
 		79132B5B1B16F63B002064C7 /* LogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79132B591B16F63B002064C7 /* LogoTableViewCell.xib */; };
 		79132B5D1B170B0C002064C7 /* ResetPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79132B5C1B170B0C002064C7 /* ResetPasswordTableViewController.swift */; };
-		79132B601B170C66002064C7 /* ResetPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79132B5E1B170C66002064C7 /* ResetPassword.storyboard */; };
 		791973B01B09DF2B003EA459 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 791973AF1B09DF2B003EA459 /* Images.xcassets */; };
 		791973B31B09DF2B003EA459 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791973B11B09DF2B003EA459 /* LaunchScreen.xib */; };
 		791973BF1B09DF2B003EA459 /* MT_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791973BE1B09DF2B003EA459 /* MT_iOSTests.swift */; };
@@ -139,7 +138,6 @@
 		795ABCC21B266BE900E46BB1 /* EntryItemListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795ABCC11B266BE900E46BB1 /* EntryItemListTableViewController.swift */; };
 		795ABCC51B266E2700E46BB1 /* EntryItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795ABCC31B266E2700E46BB1 /* EntryItemTableViewCell.swift */; };
 		795ABCC61B266E2700E46BB1 /* EntryItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 795ABCC41B266E2700E46BB1 /* EntryItemTableViewCell.xib */; };
-		795ABCC91B266F0700E46BB1 /* EntryItemList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 795ABCC71B266F0700E46BB1 /* EntryItemList.storyboard */; };
 		795E206E1B1DAC1400FA7857 /* BaseEntryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E206D1B1DAC1400FA7857 /* BaseEntryItem.swift */; };
 		795E20701B1DAC5D00FA7857 /* EntryTextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E206F1B1DAC5D00FA7857 /* EntryTextItem.swift */; };
 		795E20721B1DAC7300FA7857 /* EntryTextAreaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E20711B1DAC7300FA7857 /* EntryTextAreaItem.swift */; };
@@ -168,7 +166,6 @@
 		797603A01B0D8F3500F9AC09 /* BlogInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7976039F1B0D8F3500F9AC09 /* BlogInfoView.xib */; };
 		797603A21B0D8F4800F9AC09 /* BlogInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797603A11B0D8F4800F9AC09 /* BlogInfoView.swift */; };
 		797603A41B0D931000F9AC09 /* UIViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797603A31B0D931000F9AC09 /* UIViewExtention.swift */; };
-		797603A71B0DBBF300F9AC09 /* Preview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 797603A51B0DBBF300F9AC09 /* Preview.storyboard */; };
 		797603A91B0DBC1A00F9AC09 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797603A81B0DBC1A00F9AC09 /* PreviewViewController.swift */; };
 		797603AB1B0DC05800F9AC09 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797603AA1B0DC05800F9AC09 /* Utils.swift */; };
 		797603B01B0ECE5B00F9AC09 /* BaseEntryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797603AF1B0ECE5B00F9AC09 /* BaseEntryListTableViewController.swift */; };
@@ -200,8 +197,6 @@
 		79CFBDC91B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDC81B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift */; };
 		79CFBDCB1B1D3CD000283780 /* EntryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDCA1B1D3CD000283780 /* EntryDetailTableViewController.swift */; };
 		79CFBDCD1B1D3CE100283780 /* PageDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDCC1B1D3CE100283780 /* PageDetailTableViewController.swift */; };
-		79CFBDD01B1D3DD500283780 /* EntryDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79CFBDCE1B1D3DD500283780 /* EntryDetail.storyboard */; };
-		79CFBDD31B1D3DEE00283780 /* PageDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79CFBDD11B1D3DEE00283780 /* PageDetail.storyboard */; };
 		79CFBDD51B1D63EB00283780 /* EntrySettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDD41B1D63EB00283780 /* EntrySettingTableViewController.swift */; };
 		79CFBDD81B1D640100283780 /* EntrySetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79CFBDD61B1D640100283780 /* EntrySetting.storyboard */; };
 		79CFBDDB1B1D838800283780 /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79CFBDD91B1D838800283780 /* DatePicker.storyboard */; };
@@ -326,7 +321,6 @@
 		79132B581B16F63B002064C7 /* LogoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoTableViewCell.swift; sourceTree = "<group>"; };
 		79132B591B16F63B002064C7 /* LogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoTableViewCell.xib; sourceTree = "<group>"; };
 		79132B5C1B170B0C002064C7 /* ResetPasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordTableViewController.swift; sourceTree = "<group>"; };
-		79132B5F1B170C66002064C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/ResetPassword.storyboard; sourceTree = SOURCE_ROOT; };
 		791973A31B09DF2A003EA459 /* MT_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MT_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		791973A71B09DF2A003EA459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		791973AF1B09DF2B003EA459 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
@@ -372,7 +366,6 @@
 		795ABCC11B266BE900E46BB1 /* EntryItemListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryItemListTableViewController.swift; sourceTree = "<group>"; };
 		795ABCC31B266E2700E46BB1 /* EntryItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryItemTableViewCell.swift; sourceTree = "<group>"; };
 		795ABCC41B266E2700E46BB1 /* EntryItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntryItemTableViewCell.xib; sourceTree = "<group>"; };
-		795ABCC81B266F0700E46BB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/EntryItemList.storyboard; sourceTree = SOURCE_ROOT; };
 		795E206D1B1DAC1400FA7857 /* BaseEntryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEntryItem.swift; sourceTree = "<group>"; };
 		795E206F1B1DAC5D00FA7857 /* EntryTextItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTextItem.swift; sourceTree = "<group>"; };
 		795E20711B1DAC7300FA7857 /* EntryTextAreaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTextAreaItem.swift; sourceTree = "<group>"; };
@@ -401,7 +394,6 @@
 		7976039F1B0D8F3500F9AC09 /* BlogInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlogInfoView.xib; sourceTree = "<group>"; };
 		797603A11B0D8F4800F9AC09 /* BlogInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogInfoView.swift; sourceTree = "<group>"; };
 		797603A31B0D931000F9AC09 /* UIViewExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtention.swift; sourceTree = "<group>"; };
-		797603A61B0DBBF300F9AC09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/Preview.storyboard; sourceTree = SOURCE_ROOT; };
 		797603A81B0DBC1A00F9AC09 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		797603AA1B0DC05800F9AC09 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		797603AF1B0ECE5B00F9AC09 /* BaseEntryListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEntryListTableViewController.swift; sourceTree = "<group>"; };
@@ -434,8 +426,6 @@
 		79CFBDC81B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEntryDetailTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDCA1B1D3CD000283780 /* EntryDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDCC1B1D3CE100283780 /* PageDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailTableViewController.swift; sourceTree = "<group>"; };
-		79CFBDCF1B1D3DD500283780 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/EntryDetail.storyboard; sourceTree = SOURCE_ROOT; };
-		79CFBDD21B1D3DEE00283780 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/PageDetail.storyboard; sourceTree = SOURCE_ROOT; };
 		79CFBDD41B1D63EB00283780 /* EntrySettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntrySettingTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDD71B1D640100283780 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/EntrySetting.storyboard; sourceTree = SOURCE_ROOT; };
 		79CFBDDA1B1D838800283780 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/DatePicker.storyboard; sourceTree = SOURCE_ROOT; };
@@ -761,14 +751,11 @@
 				79EEE9561B2986A0007D9407 /* EntryDraftTableViewController.swift */,
 				79EEE9581B2986B1007D9407 /* PageDraftTableViewController.swift */,
 				79CFBDC81B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift */,
-				79CFBDCE1B1D3DD500283780 /* EntryDetail.storyboard */,
 				79CFBDCA1B1D3CD000283780 /* EntryDetailTableViewController.swift */,
-				79CFBDD11B1D3DEE00283780 /* PageDetail.storyboard */,
 				79CFBDCC1B1D3CE100283780 /* PageDetailTableViewController.swift */,
 				79CFBDD61B1D640100283780 /* EntrySetting.storyboard */,
 				79CFBDD41B1D63EB00283780 /* EntrySettingTableViewController.swift */,
 				795ABCC11B266BE900E46BB1 /* EntryItemListTableViewController.swift */,
-				795ABCC71B266F0700E46BB1 /* EntryItemList.storyboard */,
 				79BB891E1B213D91000BE6CD /* EntryEditor */,
 			);
 			name = "Entry&Page";
@@ -780,7 +767,6 @@
 				79132B4C1B16ECAC002064C7 /* BaseViewController.swift */,
 				79E654AB1B0B11AB007E4D4C /* BaseTableViewController.swift */,
 				79D2E9211B1C33CD0019E9EE /* CommonWebViewController.swift */,
-				797603A51B0DBBF300F9AC09 /* Preview.storyboard */,
 				797603A81B0DBC1A00F9AC09 /* PreviewViewController.swift */,
 				79CFBDD91B1D838800283780 /* DatePicker.storyboard */,
 				79CFBDDC1B1D83A200283780 /* DatePickerViewController.swift */,
@@ -965,7 +951,6 @@
 			children = (
 				79D804F01B09E1220019356D /* Login.storyboard */,
 				79132B561B16F22F002064C7 /* LoginTableViewController.swift */,
-				79132B5E1B170C66002064C7 /* ResetPassword.storyboard */,
 				79132B5C1B170B0C002064C7 /* ResetPasswordTableViewController.swift */,
 				799724041B189F8200FEE683 /* SignIn.storyboard */,
 				799724071B189F9700FEE683 /* SignInViewController.swift */,
@@ -1118,7 +1103,6 @@
 				790B7D6D1B219C6C0083EBB4 /* ZSSclearstyle.png in Resources */,
 				790B7D9E1B219C6C0083EBB4 /* ZSSsubscript@2x.png in Resources */,
 				796DD50F1B14738900D14704 /* BlogSettings.storyboard in Resources */,
-				79CFBDD31B1D3DEE00283780 /* PageDetail.storyboard in Resources */,
 				790B7DAD1B219C6C0083EBB4 /* ZSSviewsource.png in Resources */,
 				790B7DA61B219C6C0083EBB4 /* ZSSunderline@2x.png in Resources */,
 				799724061B189F8200FEE683 /* SignIn.storyboard in Resources */,
@@ -1151,13 +1135,11 @@
 				790B7D9C1B219C6C0083EBB4 /* ZSSstrikethrough@2x.png in Resources */,
 				79CFBDDB1B1D838800283780 /* DatePicker.storyboard in Resources */,
 				790B7D691B219C6C0083EBB4 /* ZSSbold.png in Resources */,
-				797603A71B0DBBF300F9AC09 /* Preview.storyboard in Resources */,
 				790B7D6B1B219C6C0083EBB4 /* ZSScenterjustify.png in Resources */,
 				790B7D721B219C6C0083EBB4 /* ZSSh1@2x.png in Resources */,
 				790B7DAF1B219C6C0083EBB4 /* ZSSRichTextEditor.js in Resources */,
 				790B7D9F1B219C6C0083EBB4 /* ZSSsuperscript.png in Resources */,
 				790B7D7C1B219C6C0083EBB4 /* ZSSh6@2x.png in Resources */,
-				79CFBDD01B1D3DD500283780 /* EntryDetail.storyboard in Resources */,
 				790B7D7E1B219C6C0083EBB4 /* ZSShorizontalrule@2x.png in Resources */,
 				79132B5B1B16F63B002064C7 /* LogoTableViewCell.xib in Resources */,
 				79132B551B16F14D002064C7 /* ButtonTableViewCell.xib in Resources */,
@@ -1168,7 +1150,6 @@
 				79456E521B282D6B00570204 /* ImageAlign.storyboard in Resources */,
 				790B7DA91B219C6C0083EBB4 /* ZSSunlink.png in Resources */,
 				790B7D771B219C6C0083EBB4 /* ZSSh4.png in Resources */,
-				795ABCC91B266F0700E46BB1 /* EntryItemList.storyboard in Resources */,
 				790B7DA81B219C6C0083EBB4 /* ZSSundo@2x.png in Resources */,
 				790B7D681B219C6C0083EBB4 /* ZSSbgcolor@2x.png in Resources */,
 				79132B511B16EFD6002064C7 /* TextFieldTableViewCell.xib in Resources */,
@@ -1196,7 +1177,6 @@
 				790B7D7A1B219C6C0083EBB4 /* ZSSh5@2x.png in Resources */,
 				790B7D6C1B219C6C0083EBB4 /* ZSScenterjustify@2x.png in Resources */,
 				797603A01B0D8F3500F9AC09 /* BlogInfoView.xib in Resources */,
-				79132B601B170C66002064C7 /* ResetPassword.storyboard in Resources */,
 				79592A541B200F2D004DDB4E /* EntryTextAreaTableViewCell.xib in Resources */,
 				794854521B2523C90074EF55 /* CategoryTableViewCell.xib in Resources */,
 				790B7D861B219C6C0083EBB4 /* ZSSitalic@2x.png in Resources */,
@@ -1391,14 +1371,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		79132B5E1B170C66002064C7 /* ResetPassword.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				79132B5F1B170C66002064C7 /* Base */,
-			);
-			name = ResetPassword.storyboard;
-			sourceTree = "<group>";
-		};
 		791973B11B09DF2B003EA459 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1432,14 +1404,6 @@
 			name = AddAsset.storyboard;
 			sourceTree = "<group>";
 		};
-		795ABCC71B266F0700E46BB1 /* EntryItemList.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				795ABCC81B266F0700E46BB1 /* Base */,
-			);
-			name = EntryItemList.storyboard;
-			sourceTree = "<group>";
-		};
 		796DD50D1B14738900D14704 /* BlogSettings.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1462,14 +1426,6 @@
 				7976039B1B0D884300F9AC09 /* Base */,
 			);
 			name = Blog.storyboard;
-			sourceTree = "<group>";
-		};
-		797603A51B0DBBF300F9AC09 /* Preview.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				797603A61B0DBBF300F9AC09 /* Base */,
-			);
-			name = Preview.storyboard;
 			sourceTree = "<group>";
 		};
 		799724041B189F8200FEE683 /* SignIn.storyboard */ = {
@@ -1502,22 +1458,6 @@
 				79A715421B268632005A09ED /* Base */,
 			);
 			name = Setting.storyboard;
-			sourceTree = "<group>";
-		};
-		79CFBDCE1B1D3DD500283780 /* EntryDetail.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				79CFBDCF1B1D3DD500283780 /* Base */,
-			);
-			name = EntryDetail.storyboard;
-			sourceTree = "<group>";
-		};
-		79CFBDD11B1D3DEE00283780 /* PageDetail.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				79CFBDD21B1D3DEE00283780 /* Base */,
-			);
-			name = PageDetail.storyboard;
 			sourceTree = "<group>";
 		};
 		79CFBDD61B1D640100283780 /* EntrySetting.storyboard */ = {

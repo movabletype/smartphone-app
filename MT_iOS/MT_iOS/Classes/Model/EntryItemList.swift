@@ -144,9 +144,9 @@ class EntryItemList: NSObject, NSCoding {
                 entryItem = item
             } else if field.type == "checkbox" {
                 var item = EntryCheckboxItem()
-                item.checked = (customFieldObject!.value == "true")
+                item.checked = (customFieldObject!.value == "1")
                 if customFieldObject!.value.isEmpty {
-                    item.checked = (customFieldObject!.defaultValue == "true")
+                    item.checked = (customFieldObject!.defaultValue == "1")
                 }
                 entryItem = item
             } else if field.type == "url" {

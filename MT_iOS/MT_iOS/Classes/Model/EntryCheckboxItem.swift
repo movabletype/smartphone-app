@@ -28,11 +28,11 @@ class EntryCheckboxItem: BaseEntryItem {
     }
     
     override func value()-> String {
-        return checked ? "true" : "false"
+        return checked ? "1" : "0"
     }
     
     override func dispValue()-> String {
-        return self.value()
+        return checked ? "true" : "false"
     }
     
     override func clear() {

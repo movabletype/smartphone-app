@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class CommonWebViewController: BaseViewController, UIWebViewDelegate {
     var webView: UIWebView!
@@ -91,6 +92,9 @@ class CommonWebViewController: BaseViewController, UIWebViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        if !Utils.hasConnectivity() {
+            SVProgressHUD.showErrorWithStatus(NSLocalizedString("You can not connect to the network.", comment: "You can not connect to the network."))
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

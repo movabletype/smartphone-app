@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class PreviewViewController: BaseViewController, UIWebViewDelegate {
     var url: String!
@@ -94,7 +95,16 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
     }
 
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.userAgentChange(true)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.indicator.hidden = true
+        if !Utils.hasConnectivity() {
+            SVProgressHUD.showErrorWithStatus(NSLocalizedString("You can not connect to the network.", comment: "You can not connect to the network."))
+        }
     }
     
     override func didReceiveMemoryWarning() {

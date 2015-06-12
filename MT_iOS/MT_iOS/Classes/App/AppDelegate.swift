@@ -43,7 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if authInfo.username.isEmpty || authInfo.password.isEmpty || count(authInfo.endpoint) < 8 {
             self.goLoginView()
         } else {
-            self.signIn(authInfo.username, password: authInfo.password, endpoint: authInfo.endpoint)
+            if Utils.hasConnectivity() {
+                self.signIn(authInfo.username, password: authInfo.password, endpoint: authInfo.endpoint)
+            } else {
+                self.goLoginView()
+                SVProgressHUD.showErrorWithStatus(NSLocalizedString("You can not connect to the network.", comment: "You can not connect to the network."))
+            }
         }
         
         return true

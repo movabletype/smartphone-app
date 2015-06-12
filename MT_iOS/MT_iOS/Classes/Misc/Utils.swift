@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Reachability
 
 class Utils {
     class func userAgent()->String {
@@ -139,5 +140,11 @@ class Utils {
         let date = NSDate()
         let filename = String(format: "mt-%04d%02d%02d%02d%02d%02d.jpg", arguments: [date.year, date.month, date.day, date.hour, date.minute, date.seconds])
         return filename
+    }
+    
+    class func hasConnectivity()-> Bool {
+        let reachability = Reachability.reachabilityForInternetConnection()
+        let networkStatus = reachability.currentReachabilityStatus()
+        return (networkStatus != NetworkStatus.NotReachable)
     }
 }

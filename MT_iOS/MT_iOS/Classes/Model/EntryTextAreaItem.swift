@@ -36,7 +36,7 @@ class EntryTextAreaItem: BaseEntryItem {
     }
     
     func placeholder()-> String {
-        return NSLocalizedString("Input \(self.label)...", comment: "Input \(self.label)...")
+        return String(format: NSLocalizedString("Input %@...", comment: "Input %@..."), arguments: [self.label])
     }
 
     override func clear() {

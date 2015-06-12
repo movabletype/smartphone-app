@@ -64,7 +64,7 @@ class BaseEntryListTableViewController: BaseTableViewController, UISearchBarDele
         }
         var failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
-            SVProgressHUD.showErrorWithStatus(NSLocalizedString("\(self.actionMessage) failured.", comment: "\(self.actionMessage) failured."))
+            SVProgressHUD.showErrorWithStatus(String(format: NSLocalizedString("%@ failured.", comment: "%@ failured."), arguments: [self.actionMessage]))
             self.refreshControl!.endRefreshing()
         }
         list.refresh(success, failure: failure)

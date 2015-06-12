@@ -27,12 +27,12 @@ class AssetDetailViewController: BaseViewController {
         self.title = asset.dispName()
         self.imageView.sd_setImageWithURL(NSURL(string: asset.url))
         
-        self.sizeLabel.text = NSLocalizedString("Size：\(asset.width) x \(asset.height)", comment: "Size：\(asset.width) x \(asset.height)")
-        self.AuthorLabel.text = NSLocalizedString("Author：\(asset.createdByName)", comment: "Author：\(asset.createdByName)")
+        self.sizeLabel.text = NSLocalizedString("Size：", comment: "Size：") + "\(asset.width) x \(asset.height)"
+        self.AuthorLabel.text = NSLocalizedString("Author：", comment: "Author：") + asset.createdByName
         
         if let date = asset.createdDate {
             let dateString = Utils.dateTimeFromDate(date)
-            self.CreatedAtLabel.text = NSLocalizedString("Created at：\(dateString)", comment: "Created at：\(dateString)")
+            self.CreatedAtLabel.text = NSLocalizedString("Created at：", comment: "Created at：)") + dateString
         } else {
             self.CreatedAtLabel.text = NSLocalizedString("Created at：?", comment: "Created at：?")
         }

@@ -749,9 +749,10 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
         if let item = list!.requiredCheck() {
+            let message = String(format: NSLocalizedString("Please enter some value for required '%@' field.", comment: "Please enter some value for required '%@' field."), arguments: [item.label])
             let alertController = UIAlertController(
                 title: NSLocalizedString("Error", comment: "Error"),
-                message: NSLocalizedString("Please enter some value for required '\(item.label)' field.", comment: "Please enter some value for required '\(item.label)' field."),
+                message: message,
                 preferredStyle: .Alert)
             let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
                 action in

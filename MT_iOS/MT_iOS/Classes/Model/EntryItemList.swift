@@ -124,13 +124,16 @@ class EntryItemList: NSObject, NSCoding {
             
             var customFieldObject = object.customFieldWithBasename(field.basename)
             if customFieldObject == nil {
-                customFieldObject = CustomField(json:["":""])
+                customFieldObject = field
             }
             
             var entryItem: BaseEntryItem = BaseEntryItem()
             if field.type == "text" {
                 var item = EntryTextItem()
                 item.text = customFieldObject!.value
+                if customFieldObject!.value.isEmpty {
+                    item.text = customFieldObject!.defaultValue
+                }
                 entryItem = item
             } else if field.type == "textarea" {
                 var item = EntryTextAreaItem()
@@ -138,14 +141,23 @@ class EntryItemList: NSObject, NSCoding {
                     item = EntryBlocksItem()
                 }
                 item.text = customFieldObject!.value
+                if customFieldObject!.value.isEmpty {
+                    item.text = customFieldObject!.defaultValue
+                }
                 entryItem = item
             } else if field.type == "checkbox" {
                 var item = EntryCheckboxItem()
                 item.checked = (customFieldObject!.value == "true")
+                if customFieldObject!.value.isEmpty {
+                    item.checked = (customFieldObject!.defaultValue == "true")
+                }
                 entryItem = item
             } else if field.type == "url" {
                 var item = EntryURLItem()
                 item.url = customFieldObject!.value
+                if customFieldObject!.value.isEmpty {
+                    item.url = customFieldObject!.defaultValue
+                }
                 entryItem = item
             } else if field.type == "datetime" {
                 if field.options == "datetime" {
@@ -178,6 +190,9 @@ class EntryItemList: NSObject, NSCoding {
             } else if field.type == "embed" {
                 var item = EntryEmbedItem()
                 item.text = customFieldObject!.value
+                if customFieldObject!.value.isEmpty {
+                    item.text = customFieldObject!.defaultValue
+                }
                 entryItem = item
             } else if field.type == "image" {
                 var item = EntryImageItem()

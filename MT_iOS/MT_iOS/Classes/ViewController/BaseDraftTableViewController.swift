@@ -28,12 +28,15 @@ class BaseDraftTableViewController: BaseTableViewController {
         var dir = blog.dataDirPath()
         var path = paths[0].stringByAppendingPathComponent(dir)
         path = path.stringByAppendingPathComponent(self is EntryDraftTableViewController ? "draft_entry" : "draft_page")
+        
+        let manager = NSFileManager.defaultManager()
+        manager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: nil)
+
         return path
     }
     
     func fetch() {
         let manager = NSFileManager.defaultManager()
-        let path = self.dataDir()
         var paths = manager.contentsOfDirectoryAtPath(self.dataDir(), error: nil)!
         files = [String]()
         for path in paths {

@@ -147,4 +147,10 @@ class Utils {
         let networkStatus = reachability.currentReachabilityStatus()
         return (networkStatus != NetworkStatus.NotReachable)
     }
+
+    class func preferredLanguage()-> String {
+        let languages = NSLocale.preferredLanguages()
+        let language = languages[0] as! String
+        return language
+    }
 }

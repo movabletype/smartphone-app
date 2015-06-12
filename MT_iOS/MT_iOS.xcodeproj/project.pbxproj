@@ -12,6 +12,7 @@
 		7904EBB71B0AF57700216EC9 /* BaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904EBB61B0AF57700216EC9 /* BaseObject.swift */; };
 		7904EBB91B0AF85C00216EC9 /* Define.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904EBB81B0AF85C00216EC9 /* Define.swift */; };
 		7908810B1B159E1800F8E054 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7908810A1B159E1800F8E054 /* User.swift */; };
+		7908E06C1B2AC4EC00EE10A1 /* license.html in Resources */ = {isa = PBXBuildFile; fileRef = 7908E06B1B2AC4EC00EE10A1 /* license.html */; };
 		790B7D111B215B1A0083EBB4 /* EntrySelectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D101B215B1A0083EBB4 /* EntrySelectTableViewController.swift */; };
 		790B7D151B2195860083EBB4 /* EntryRichTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D141B2195860083EBB4 /* EntryRichTextViewController.swift */; };
 		790B7D661B219C6C0083EBB4 /* editor.html in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D1B1B219C6C0083EBB4 /* editor.html */; };
@@ -236,6 +237,7 @@
 		7904EBB61B0AF57700216EC9 /* BaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseObject.swift; sourceTree = "<group>"; };
 		7904EBB81B0AF85C00216EC9 /* Define.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Define.swift; sourceTree = "<group>"; };
 		7908810A1B159E1800F8E054 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7908E06B1B2AC4EC00EE10A1 /* license.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = license.html; sourceTree = "<group>"; };
 		790B7D101B215B1A0083EBB4 /* EntrySelectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntrySelectTableViewController.swift; sourceTree = "<group>"; };
 		790B7D141B2195860083EBB4 /* EntryRichTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryRichTextViewController.swift; sourceTree = "<group>"; };
 		790B7D1B1B219C6C0083EBB4 /* editor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = editor.html; sourceTree = "<group>"; };
@@ -942,6 +944,7 @@
 				790B7D1A1B219BD80083EBB4 /* ZSSRichTextEditor */,
 				791973AF1B09DF2B003EA459 /* Images.xcassets */,
 				791973B11B09DF2B003EA459 /* LaunchScreen.xib */,
+				7908E06B1B2AC4EC00EE10A1 /* license.html */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1077,6 +1080,7 @@
 			files = (
 				795ABCC61B266E2700E46BB1 /* EntryItemTableViewCell.xib in Resources */,
 				790B7D921B219C6C0083EBB4 /* ZSSparagraph@2x.png in Resources */,
+				7908E06C1B2AC4EC00EE10A1 /* license.html in Resources */,
 				790B7D891B219C6C0083EBB4 /* ZSSleftjustify.png in Resources */,
 				790B7D8A1B219C6C0083EBB4 /* ZSSleftjustify@2x.png in Resources */,
 				790B7D881B219C6C0083EBB4 /* ZSSkeyboard@2x.png in Resources */,

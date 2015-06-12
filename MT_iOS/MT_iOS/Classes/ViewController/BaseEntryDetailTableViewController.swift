@@ -59,19 +59,17 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.previewButton.enabled = !self.object.id.isEmpty
         
         leftMargin.width = -10.0
-        
-        LOG("filename:\(list?.makeFilename())")
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setToolbarHidden(false, animated: false)
 
-        self.tableView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.tableView.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -750,6 +748,21 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
+        if let item = list!.requiredCheck() {
+            let alertController = UIAlertController(
+                title: NSLocalizedString("Error", comment: "Error"),
+                message: NSLocalizedString("Please enter some value for required '\(item.label)' field.", comment: "Please enter some value for required '\(item.label)' field."),
+                preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                action in
+            }
+            
+            alertController.addAction(okAction)
+            presentViewController(alertController, animated: true, completion: nil)
+            
+            return
+        }
+        
         let actionSheet: UIAlertController = UIAlertController(title:NSLocalizedString("Submit", comment: "Submit"),
             message: nil,
             preferredStyle: UIAlertControllerStyle.ActionSheet)

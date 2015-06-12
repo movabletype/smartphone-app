@@ -203,6 +203,7 @@ class EntryItemList: NSObject, NSCoding {
             entryItem.id = field.basename
             entryItem.label = field.name
             entryItem.isCustomField = true
+            entryItem.required = field.required
             
             items.append(entryItem)
         }
@@ -382,5 +383,14 @@ class EntryItemList: NSObject, NSCoding {
         }
         
         return true
+    }
+    
+    func requiredCheck()-> BaseEntryItem? {
+        for item in items {
+            if item.required && item.value().isEmpty {
+                return item
+            }
+        }
+        return nil
     }
 }

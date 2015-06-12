@@ -46,7 +46,14 @@ class EntryItemTableViewCell: UITableViewCell {
         if let entryItem = self._item {
             entryItem.visibled = !entryItem.visibled
             if !entryItem.isCustomField {
-                if entryItem.id == "status" || entryItem.id == "title" || entryItem.id == "body" {
+                if entryItem.id == "status" ||
+                    entryItem.id == "title" ||
+                    entryItem.id == "basename" ||
+                    entryItem.id == "body" {
+                    entryItem.visibled = true
+                }
+            } else {
+                if entryItem.required {
                     entryItem.visibled = true
                 }
             }

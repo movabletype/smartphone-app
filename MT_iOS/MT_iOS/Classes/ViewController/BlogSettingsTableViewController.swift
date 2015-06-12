@@ -36,6 +36,7 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
         self.tableView.backgroundColor = Color.tableBg
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: self, action: "closeButtonPushed:")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
 
         uploadDir = blog.uploadDir
         imageSize = blog.imageSize
@@ -174,6 +175,14 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
     */
 
     @IBAction func closeButtonPushed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func saveButtonPushed(sender: AnyObject) {
+        blog.uploadDir = uploadDir
+        blog.imageSize = imageSize
+        blog.imageQuality = imageQuality
+        blog.saveSettings()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

@@ -137,9 +137,6 @@ class EntryItemList: NSObject, NSCoding {
                 entryItem = item
             } else if field.type == "textarea" {
                 var item = EntryTextAreaItem()
-                if object.id.isEmpty {
-                    item = EntryBlocksItem()
-                }
                 item.text = customFieldObject!.value
                 if customFieldObject!.value.isEmpty {
                     item.text = customFieldObject!.defaultValue

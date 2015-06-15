@@ -12,17 +12,8 @@ class SignInViewController: BaseViewController {
 
     @IBOutlet weak var gearImage: UIImageView!
     
-    let gradientLayer = CAGradientLayer()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        gradientLayer.frame = self.view.bounds
-        let startColor = Color.loginBgStart.CGColor
-        let endColor = Color.loginBgEnd.CGColor
-        gradientLayer.colors = [startColor, endColor]
-        gradientLayer.locations = [0.0, 1.0]
-        self.view.layer.insertSublayer(gradientLayer, atIndex: 0)
         
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotationAnimation.toValue = (M_PI / 180) * 360

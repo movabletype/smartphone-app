@@ -16,6 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_startupscreen" translatesAutoresizingMaskIntoConstraints="NO" id="rDw-k5-e1O">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mt_gear" translatesAutoresizingMaskIntoConstraints="NO" id="16m-0c-5hV">
                                 <rect key="frame" x="144" y="268" width="31" height="31"/>
                             </imageView>
@@ -31,9 +34,13 @@
                         </subviews>
                         <color key="backgroundColor" red="0.10588236149999999" green="0.28627452250000002" blue="0.47058826679999999" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
+                            <constraint firstItem="rDw-k5-e1O" firstAttribute="leading" secondItem="9bp-VO-YeZ" secondAttribute="leading" id="3GZ-Lu-1CK"/>
                             <constraint firstAttribute="centerX" secondItem="16m-0c-5hV" secondAttribute="centerX" id="NzQ-r6-V3L"/>
+                            <constraint firstItem="rDw-k5-e1O" firstAttribute="top" secondItem="9bp-VO-YeZ" secondAttribute="top" id="WeR-sE-r1x"/>
                             <constraint firstAttribute="centerY" secondItem="16m-0c-5hV" secondAttribute="centerY" id="YFP-CU-LNp"/>
                             <constraint firstAttribute="trailing" secondItem="1DH-xL-6Lz" secondAttribute="trailing" constant="16" id="lqj-CW-FUP"/>
+                            <constraint firstAttribute="trailing" secondItem="rDw-k5-e1O" secondAttribute="trailing" id="pnm-wb-ewL"/>
+                            <constraint firstItem="ACs-Kr-ZId" firstAttribute="top" secondItem="rDw-k5-e1O" secondAttribute="bottom" id="vil-jw-ew8"/>
                             <constraint firstItem="1DH-xL-6Lz" firstAttribute="top" secondItem="16m-0c-5hV" secondAttribute="bottom" constant="8" id="wHW-Zp-b7u"/>
                             <constraint firstItem="1DH-xL-6Lz" firstAttribute="leading" secondItem="9bp-VO-YeZ" secondAttribute="leading" constant="16" id="zbR-hd-CgY"/>
                         </constraints>
@@ -49,6 +56,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bg_startupscreen" width="375" height="667"/>
         <image name="mt_gear" width="31" height="31"/>
     </resources>
 </document>

@@ -31,14 +31,22 @@ class EntryItemTableViewCell: UITableViewCell {
             self._item = newValue
             if self._item != nil {
                 self.titleLabel.text = self._item!.label
-                self.visibleButton.alpha = self._item!.visibled ? 1.0 : 0.4
+                self.buttonImage(self._item!.visibled)
             } else {
                 self.titleLabel.text = ""
-                self.visibleButton.alpha = 0.4
+                self.buttonImage(false)
             }
         }
         get {
             return self._item
+        }
+    }
+    
+    func buttonImage(visibled: Bool) {
+        if visibled {
+            self.visibleButton.setImage(UIImage(named: "btn_checked"), forState: UIControlState.Normal)
+        } else {
+            self.visibleButton.setImage(UIImage(named: "btn_unchecked"), forState: UIControlState.Normal)
         }
     }
     
@@ -57,7 +65,7 @@ class EntryItemTableViewCell: UITableViewCell {
                     entryItem.visibled = true
                 }
             }
-            self.visibleButton.alpha = entryItem.visibled ? 1.0 : 0.4
+            self.buttonImage(self._item!.visibled)
         }
     }
 }

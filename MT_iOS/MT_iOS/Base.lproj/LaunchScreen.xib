@@ -10,23 +10,33 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2015年 Six Apart, Ltd. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
-                    <rect key="frame" x="20" y="527" width="281" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_startupscreen" translatesAutoresizingMaskIntoConstraints="NO" id="TmW-Hy-Bh8">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2015 Six Apart, Ltd." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
+                    <rect key="frame" x="20" y="537" width="281" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="mt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="7Gv-LT-TmD">
-                    <rect key="frame" x="35" y="256" width="250" height="55"/>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startup_logo" translatesAutoresizingMaskIntoConstraints="NO" id="7Gv-LT-TmD">
+                    <rect key="frame" x="23" y="186" width="274" height="57"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="57" id="Vgh-ct-XBV"/>
+                        <constraint firstAttribute="width" constant="274" id="nW7-va-Zcj"/>
+                    </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.10588236153125763" green="0.28627452254295349" blue="0.47058826684951782" alpha="1" colorSpace="deviceRGB"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="7Gv-LT-TmD" secondAttribute="centerX" id="1UW-Ir-RtL"/>
-                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
+                <constraint firstAttribute="centerX" secondItem="7Gv-LT-TmD" secondAttribute="centerX" id="599-9Z-72N"/>
+                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="14" id="Kzo-t9-V3l"/>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
+                <constraint firstItem="TmW-Hy-Bh8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OVT-uF-36r"/>
                 <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
-                <constraint firstAttribute="centerY" secondItem="7Gv-LT-TmD" secondAttribute="centerY" id="xKz-yH-PnM"/>
+                <constraint firstAttribute="bottom" secondItem="TmW-Hy-Bh8" secondAttribute="bottom" id="j5g-n1-fSD"/>
+                <constraint firstAttribute="trailing" secondItem="TmW-Hy-Bh8" secondAttribute="trailing" id="qFh-60-bpf"/>
+                <constraint firstItem="7Gv-LT-TmD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="186" id="qJf-RF-iYL"/>
+                <constraint firstItem="TmW-Hy-Bh8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="s5F-aM-b0d"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -34,6 +44,7 @@
         </view>
     </objects>
     <resources>
-        <image name="mt_logo" width="250" height="55"/>
+        <image name="bg_startupscreen" width="375" height="667"/>
+        <image name="startup_logo" width="274" height="57"/>
     </resources>
 </document>

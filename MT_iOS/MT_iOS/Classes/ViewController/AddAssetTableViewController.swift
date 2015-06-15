@@ -139,7 +139,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             case Item.Align.rawValue:
                 cell.textLabel?.text = NSLocalizedString("Align", comment: "Align")
                 //TODO:アイコン変える
-                cell.imageView?.image = UIImage(named: "ico_quality")
+                cell.imageView?.image = UIImage(named: "ico_align")
                 cell.detailTextLabel?.text = imageAlign.label()
             default:
                 cell.textLabel?.text = ""
@@ -160,7 +160,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case Section.Buttons.rawValue:
-            return 200.0
+            return 245.0
         case Section.Items.rawValue:
             return 58.0
         default:

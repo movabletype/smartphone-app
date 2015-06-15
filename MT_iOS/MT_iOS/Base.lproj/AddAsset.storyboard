@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="G6U-OE-hjd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -30,33 +31,51 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ButtonCell" rowHeight="200" id="RJL-LM-ESN">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ButtonCell" rowHeight="245" id="RJL-LM-ESN">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RJL-LM-ESN" id="oWC-F3-f43">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFO-Op-mJ3">
-                                            <rect key="frame" x="8" y="8" width="152" height="183"/>
-                                            <state key="normal" title="Camera">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUE-ho-kk1">
-                                            <rect key="frame" x="160" y="8" width="152" height="183"/>
-                                            <state key="normal" title="Album">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v8K-nD-tSs">
+                                            <rect key="frame" x="58" y="43" width="205" height="160"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cv-Sf-BMZ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" image="btn_select_camera">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ILQ-Tj-CFM">
+                                                    <rect key="frame" x="105" y="0.0" width="100" height="100"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" image="btn_select_library">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select from library" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IFv-hk-c4a">
+                                                    <rect key="frame" x="105" y="110" width="100" height="45"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Take a photo" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51X-CT-LAo">
+                                                    <rect key="frame" x="0.0" y="110" width="100" height="45"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="160" id="PsZ-8u-sin"/>
+                                                <constraint firstAttribute="width" constant="205" id="Zyb-bT-K5I"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="GFO-Op-mJ3" secondAttribute="bottom" constant="8" id="74h-OG-iVO"/>
-                                        <constraint firstItem="SUE-ho-kk1" firstAttribute="top" secondItem="oWC-F3-f43" secondAttribute="top" constant="8" id="O7O-6H-mUj"/>
-                                        <constraint firstItem="GFO-Op-mJ3" firstAttribute="leading" secondItem="oWC-F3-f43" secondAttribute="leading" constant="8" id="OUt-0d-ZwM"/>
-                                        <constraint firstItem="SUE-ho-kk1" firstAttribute="leading" secondItem="GFO-Op-mJ3" secondAttribute="trailing" id="RWl-aL-e5Z"/>
-                                        <constraint firstItem="GFO-Op-mJ3" firstAttribute="width" secondItem="SUE-ho-kk1" secondAttribute="width" id="bgU-nc-VEh"/>
-                                        <constraint firstAttribute="trailing" secondItem="SUE-ho-kk1" secondAttribute="trailing" constant="8" id="bjV-uD-gXK"/>
-                                        <constraint firstAttribute="bottom" secondItem="SUE-ho-kk1" secondAttribute="bottom" constant="8" id="j99-cl-Iu1"/>
-                                        <constraint firstItem="GFO-Op-mJ3" firstAttribute="top" secondItem="oWC-F3-f43" secondAttribute="top" constant="8" id="o6k-za-2ks"/>
+                                        <constraint firstItem="v8K-nD-tSs" firstAttribute="top" secondItem="oWC-F3-f43" secondAttribute="topMargin" constant="35" id="5RT-8T-zgx"/>
+                                        <constraint firstAttribute="centerX" secondItem="v8K-nD-tSs" secondAttribute="centerX" id="Dpg-Ft-dpu"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -94,4 +113,8 @@
             <point key="canvasLocation" x="-89" y="320"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="btn_select_camera" width="75" height="75"/>
+        <image name="btn_select_library" width="75" height="75"/>
+    </resources>
 </document>

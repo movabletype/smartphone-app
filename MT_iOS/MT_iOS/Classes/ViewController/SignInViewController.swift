@@ -10,10 +10,17 @@ import UIKit
 
 class SignInViewController: BaseViewController {
 
+    @IBOutlet weak var gearImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = (M_PI / 180) * 360
+        rotationAnimation.duration = 1.0
+        rotationAnimation.repeatCount = Float.infinity
+        //self.gearImage.layer.addAnimation(rotationAnimation, forKey: "rotateAnimation")
     }
 
     override func didReceiveMemoryWarning() {

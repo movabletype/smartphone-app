@@ -160,7 +160,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case Section.Buttons.rawValue:
-            return 245.0
+            return 220.0
         case Section.Items.rawValue:
             return 58.0
         default:

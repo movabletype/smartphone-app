@@ -107,7 +107,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 135.0
+        return 110.0
     }
 
     /*

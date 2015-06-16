@@ -83,6 +83,10 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
         
         let app: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         var authInfo = app.authInfo
+        if authInfo.username.isEmpty && authInfo.endpoint.isEmpty {
+            authInfo.clear()
+            authInfo.save()
+        }
         username = authInfo.username
         password = authInfo.password
         endpoint = authInfo.endpoint

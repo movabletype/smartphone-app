@@ -180,6 +180,7 @@ class BlogListTableViewController: BaseTableViewController, UISearchBarDelegate 
         
         let blog = self.list[indexPath.row] as! Blog
         cell.textLabel?.text = blog.name
+        cell.detailTextLabel?.text = blog.parentName
     
         return cell
     }

@@ -137,6 +137,8 @@ class Blog: BaseObject {
     
     var name: String = ""
     var url: String = ""
+    var parentName: String = ""
+    var parentID: String = ""
     
     var permissions: [String] = []
     var customfieldsForEntry: [CustomField] = []
@@ -154,18 +156,24 @@ class Blog: BaseObject {
         
         name = json["name"].stringValue
         url = json["url"].stringValue
+        parentName = json["parent"]["name"].stringValue
+        parentID = json["parent"]["id"].stringValue
     }
     
     override func encodeWithCoder(aCoder: NSCoder) {
         super.encodeWithCoder(aCoder)
         aCoder.encodeObject(self.name, forKey: "name")
         aCoder.encodeObject(self.url, forKey: "url")
+        aCoder.encodeObject(self.parentName, forKey: "parentName")
+        aCoder.encodeObject(self.parentID, forKey: "parentID")
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.name = aDecoder.decodeObjectForKey("name") as! String
         self.url = aDecoder.decodeObjectForKey("url") as! String
+        self.parentName = aDecoder.decodeObjectForKey("parentName") as! String
+        self.parentID = aDecoder.decodeObjectForKey("parentID") as! String
     }
 
     func hasPermission(permission: String)-> Bool {

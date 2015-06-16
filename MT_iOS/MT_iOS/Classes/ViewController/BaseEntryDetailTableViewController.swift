@@ -653,6 +653,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             
             self.tableView.reloadData()
             self.makeToolbarItems()
+            
+            SVProgressHUD.showSuccessWithStatus(NSLocalizedString("Success", comment: "Success"))
         }
         var failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
@@ -753,6 +755,19 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
 
     }
     
+    private func saveLocal() {
+        if let titleItem = self.list!.itemWithID("title", isCustomField: false) {
+            self.object.title = titleItem.value()
+            self.title = titleItem.value()
+        }
+        let success = self.list!.saveToFile()
+        if !success {
+            SVProgressHUD.showErrorWithStatus(NSLocalizedString("Save failed", comment: "Save failed"))
+        } else {
+            SVProgressHUD.showSuccessWithStatus(NSLocalizedString("Success", comment: "Success"))
+        }
+    }
+    
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
         if let item = list!.requiredCheck() {
             let message = String(format: NSLocalizedString("Please enter some value for required '%@' field.", comment: "Please enter some value for required '%@' field."), arguments: [item.label])
@@ -799,14 +814,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             style: UIAlertActionStyle.Default,
             handler:{
                 (action:UIAlertAction!) -> Void in
-                if let titleItem = self.list!.itemWithID("title", isCustomField: false) {
-                    self.object.title = titleItem.value()
-                    self.title = titleItem.value()
-                }
-                let success = self.list!.saveToFile()
-                if !success {
-                    SVProgressHUD.showErrorWithStatus(NSLocalizedString("Save failed", comment: "Save failed"))
-                }
+                self.saveLocal()
             }
         )
         

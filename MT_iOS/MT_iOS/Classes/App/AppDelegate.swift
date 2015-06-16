@@ -44,7 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.goLoginView()
         } else {
             if Utils.hasConnectivity() {
-                self.signIn(authInfo.username, password: authInfo.password, endpoint: authInfo.endpoint)
+                Utils.performAfterDelay(
+                    {
+                        self.signIn(self.authInfo.username, password: self.authInfo.password, endpoint: self.authInfo.endpoint, showHud: false)
+                    },
+                    delayTime: 0.2
+                )
             } else {
                 self.goLoginView()
                 SVProgressHUD.showErrorWithStatus(NSLocalizedString("You can not connect to the network.", comment: "You can not connect to the network."))
@@ -91,16 +96,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
     }
     
-    func signIn(username: String, password: String, endpoint: String) {
+    func signIn(username: String, password: String, endpoint: String, showHud: Bool) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        SVProgressHUD.showWithStatus(NSLocalizedString("Sign In...", comment: "Sign In..."))
+        if showHud {
+            SVProgressHUD.showWithStatus(NSLocalizedString("Sign In...", comment: "Sign In..."))
+        }
         let api = DataAPI.sharedInstance
         api.APIBaseURL = endpoint
         
         var failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
-            SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
+            if showHud {
+                SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
+            }
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
         
@@ -111,7 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         LOG("\(user)")
                         
                         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                        SVProgressHUD.dismiss()
+                        if showHud {
+                            SVProgressHUD.dismiss()
+                        }
                         
                         self.currentUser = User(json: user)
                         

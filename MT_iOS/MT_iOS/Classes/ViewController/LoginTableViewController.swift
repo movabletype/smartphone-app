@@ -354,7 +354,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
 
     @IBAction func signInButtonPushed(sender: AnyObject) {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
-        app.signIn(username, password: password, endpoint: endpoint)
+        app.signIn(username, password: password, endpoint: endpoint, showHud: true)
     }
     
     @IBAction func forgetPasswordButtonPushed(sender: AnyObject) {

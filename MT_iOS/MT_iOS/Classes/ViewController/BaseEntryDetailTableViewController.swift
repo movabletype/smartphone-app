@@ -73,11 +73,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         super.viewWillDisappear(animated)
         self.navigationController?.setToolbarHidden(false, animated: false)
         self.makeToolbarItems()
+        self.tableView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.tableView.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -179,7 +179,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             } else if item.type == "text" {
                 var c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
-                c.detailTextLabel?.text = item.dispValue()
+                c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
 
             } else if item.type == "textarea" || item.type == "embed" {
@@ -246,22 +246,22 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             } else if item.type == "url" {
                 var c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
-                c.detailTextLabel?.text = item.dispValue()
+                c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else if item.type == "datetime" || item.type == "date" || item.type == "time"  {
                 var c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
-                c.detailTextLabel?.text = item.dispValue()
+                c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else if item.type == "select" {
                 var c = tableView.dequeueReusableCellWithIdentifier("EntrySelectTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
-                c.detailTextLabel?.text = item.dispValue()
+                c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else if item.type == "radio" {
                 var c = tableView.dequeueReusableCellWithIdentifier("EntryRadioTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
-                c.detailTextLabel?.text = item.dispValue()
+                c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else if item.type == "image" {
                 if indexPath.row == 0 {
@@ -295,12 +295,12 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             } else if item.type == "category" || item.type == "folder" {
                 var c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
-                c.detailTextLabel?.text = item.dispValue()
+                c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else {
                 var c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
-                c.detailTextLabel?.text = item.dispValue()
+                c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             }
             

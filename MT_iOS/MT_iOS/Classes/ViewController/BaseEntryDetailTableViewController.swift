@@ -50,6 +50,12 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.tableView.registerNib(UINib(nibName: "EntryHeaderTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryHeaderTableViewCell")
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
+        
+        if object.id.isEmpty {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: self, action: "closeButtonPushed:")
+        } else {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")
+        }
     }
     
     private func makeToolbarItems() {
@@ -870,10 +876,6 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.presentViewController(actionSheet, animated: true, completion: nil)
     }
     
-    @IBAction func closeButtonPushed(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     //MARK: - EntrySettingDelegate
     func entrySettingCancel(controller: EntrySettingTableViewController) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -944,5 +946,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let item = vc.object
         item.asset = asset
         self.tableView.reloadData()
+    }
+    
+    @IBAction func closeButtonPushed(sender: AnyObject) {
+        Utils.confrimSave(self)
+    }
+    
+    @IBAction func backButtonPushed(sender: UIBarButtonItem) {
+        Utils.confrimSave(self)
     }
 }

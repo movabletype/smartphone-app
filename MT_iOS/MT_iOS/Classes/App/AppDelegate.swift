@@ -175,7 +175,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc.object.date = NSDate()
         vc.blog = blog
         let nav = UINavigationController(rootViewController: vc)
-        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: vc, action: "closeButtonPushed:")
         controller.presentViewController(nav, animated: true, completion:
             {_ in
                 vc.title = NSLocalizedString("Create entry", comment: "Create entry")
@@ -189,7 +188,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc.object.date = NSDate()
         vc.blog = blog
         let nav = UINavigationController(rootViewController: vc)
-        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: vc, action: "closeButtonPushed:")
         vc.title = NSLocalizedString("Create page", comment: "Create page")
         controller.presentViewController(nav, animated: true, completion:
             {_ in

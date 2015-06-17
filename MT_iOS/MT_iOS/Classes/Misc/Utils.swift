@@ -162,7 +162,11 @@ class Utils {
         
         let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Destructive) {
             action in
-            vc.navigationController?.popViewControllerAnimated(true)
+            if vc.presentingViewController != nil {
+                vc.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                vc.navigationController?.popViewControllerAnimated(true)
+            }
         }
         
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .Cancel) {

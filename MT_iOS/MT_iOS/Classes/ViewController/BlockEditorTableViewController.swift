@@ -32,6 +32,15 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")
         
+        if items.count == 0 {
+            let label = UILabel()
+            label.tag = 999
+            label.textColor = Color.placeholderText
+            label.text = String(format: NSLocalizedString("No %@", comment: "No %@"), arguments: [blocks.label])
+            label.sizeToFit()
+            self.view.addSubview(label)
+            label.center = CGPointMake(view.center.x, view.center.y - 44.0 - 20.0)
+        }
         
         self.tableView.backgroundColor = Color.tableBg
     }
@@ -75,6 +84,11 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         if items == nil {
             return 0
         }
+        
+        if let label = self.view.viewWithTag(999) {
+            label.hidden = !(items.count == 0)
+        }
+        
         return items.count
     }
 

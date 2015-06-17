@@ -298,10 +298,14 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
 
     func makeHTML()-> String {
-        var html = ""
+        var html = "<!DOCTYPE html><html><head><title>Preview</title><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"></head><body>"
+        
         for item in items {
             html += item.value() + "\n"
         }
+
+        html += "</body></html>"
+        
         return html
     }
     

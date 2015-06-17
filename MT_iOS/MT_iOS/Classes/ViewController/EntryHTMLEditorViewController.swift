@@ -37,8 +37,9 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         let toolBar = UIToolbar(frame: CGRectMake(0.0, 0.0, self.view.frame.size.width, 44.0))
         let cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
         let flexibleButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        var previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
-        toolBar.items = [cameraButton, flexibleButton, doneButton]
+        toolBar.items = [cameraButton, flexibleButton, previewButton, doneButton]
         self.sourceView.inputAccessoryView = toolBar
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
@@ -143,6 +144,20 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         }
         
         Utils.confrimSave(self)
+    }
+    
+    @IBAction func previewButtonPushed(sender: UIBarButtonItem) {
+        let vc = PreviewViewController()
+        let nav = UINavigationController(rootViewController: vc)
+
+        var html = "<!DOCTYPE html><html><head><title>Preview</title><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"></head><body>"
+        
+        html += self.sourceView.text
+        
+        html += "</body></html>"
+
+        vc.html = html
+        self.presentViewController(nav, animated: true, completion: nil)
     }
 
 }

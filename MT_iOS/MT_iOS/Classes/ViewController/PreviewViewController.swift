@@ -22,6 +22,7 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
             self.webView.removeFromSuperview()
         }
         self.webView = UIWebView(frame: self.view.bounds)
+        self.webView.scalesPageToFit = true
         self.view.addSubview(self.webView)
 
         let leading: NSLayoutConstraint = NSLayoutConstraint(
@@ -166,6 +167,20 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
     func webViewDidFinishLoad(webView: UIWebView) {
         self.indicator.stopAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        
+        if self.segmentedControl.selectedSegmentIndex == 1 {
+            var js = ""
+            js += "var metalist = document.getElementsByTagName('meta');"
+            js += "for(var i = 0; i < metalist.length; i++) {"
+            js += "  var name = metalist[i].getAttribute('name');"
+            js += "  if(name && name.toLowerCase() === 'viewport') {"
+            js += "    metalist[i].setAttribute('content', 'width=1024px');"
+            js += "    break;"
+            js += "  }"
+            js += "}"
+            
+            webView.stringByEvaluatingJavaScriptFromString(js)
+        }
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError) {

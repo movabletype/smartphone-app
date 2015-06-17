@@ -172,8 +172,12 @@ class Blog: BaseObject {
         super.init(coder: aDecoder)
         self.name = aDecoder.decodeObjectForKey("name") as! String
         self.url = aDecoder.decodeObjectForKey("url") as! String
-        self.parentName = aDecoder.decodeObjectForKey("parentName") as! String
-        self.parentID = aDecoder.decodeObjectForKey("parentID") as! String
+        if let object: AnyObject = aDecoder.decodeObjectForKey("parentName") {
+            self.parentName = object as! String
+        }
+        if let object: AnyObject = aDecoder.decodeObjectForKey("parentID") {
+            self.parentID = object as! String
+        }
     }
 
     func hasPermission(permission: String)-> Bool {

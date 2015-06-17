@@ -37,9 +37,11 @@ class AssetDetailViewController: BaseViewController {
             self.CreatedAtLabel.text = NSLocalizedString("Created at：?", comment: "Created at：?")
         }
 
-        deleteButton.enabled = blog.canDeleteAsset()
+        let gesture = UITapGestureRecognizer(target:self, action: "imageViewTapped:")
+        self.imageView.userInteractionEnabled = true
+        self.imageView.addGestureRecognizer(gesture)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -106,5 +108,11 @@ class AssetDetailViewController: BaseViewController {
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
         presentViewController(alertController, animated: true, completion: nil)
+    }
+
+    func imageViewTapped(recognizer: UIGestureRecognizer) {
+        let vc = ImageViewController()
+        vc.asset = asset
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

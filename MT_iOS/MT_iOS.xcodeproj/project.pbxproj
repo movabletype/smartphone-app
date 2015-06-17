@@ -195,6 +195,7 @@
 		79A715431B268632005A09ED /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79A715411B268632005A09ED /* Setting.storyboard */; };
 		79BB89201B213DD4000BE6CD /* EntryTextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB891F1B213DD4000BE6CD /* EntryTextEditorViewController.swift */; };
 		79BB892B1B214725000BE6CD /* EntryHTMLEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB892A1B214725000BE6CD /* EntryHTMLEditorViewController.swift */; };
+		79BF57E71B3106B200B4B13C /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BF57E61B3106B200B4B13C /* ImageViewController.swift */; };
 		79CFBDC91B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDC81B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift */; };
 		79CFBDCB1B1D3CD000283780 /* EntryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDCA1B1D3CD000283780 /* EntryDetailTableViewController.swift */; };
 		79CFBDCD1B1D3CE100283780 /* PageDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDCC1B1D3CE100283780 /* PageDetailTableViewController.swift */; };
@@ -425,6 +426,7 @@
 		79A715421B268632005A09ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/Setting.storyboard; sourceTree = SOURCE_ROOT; };
 		79BB891F1B213DD4000BE6CD /* EntryTextEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTextEditorViewController.swift; sourceTree = "<group>"; };
 		79BB892A1B214725000BE6CD /* EntryHTMLEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryHTMLEditorViewController.swift; sourceTree = "<group>"; };
+		79BF57E61B3106B200B4B13C /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		79CFBDC81B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEntryDetailTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDCA1B1D3CD000283780 /* EntryDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDCC1B1D3CE100283780 /* PageDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -772,6 +774,7 @@
 				797603A81B0DBC1A00F9AC09 /* PreviewViewController.swift */,
 				79CFBDD91B1D838800283780 /* DatePicker.storyboard */,
 				79CFBDDC1B1D83A200283780 /* DatePickerViewController.swift */,
+				79BF57E61B3106B200B4B13C /* ImageViewController.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1340,6 +1343,7 @@
 				79132B5D1B170B0C002064C7 /* ResetPasswordTableViewController.swift in Sources */,
 				798697591B143CDE00DC7A18 /* CustomField.swift in Sources */,
 				799724081B189F9700FEE683 /* SignInViewController.swift in Sources */,
+				79BF57E71B3106B200B4B13C /* ImageViewController.swift in Sources */,
 				79EEE9531B292211007D9407 /* AssetSelectorTableViewController.swift in Sources */,
 				798697571B143AC000DC7A18 /* Tag.swift in Sources */,
 				79592A471B200EC4004DDB4E /* EntryTextTableViewCell.swift in Sources */,

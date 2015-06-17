@@ -99,9 +99,9 @@ class Blog: BaseObject {
         func label()-> String {
             switch(self) {
             case .Highest:
-                return NSLocalizedString("Highest", comment: "Highest")
+                return NSLocalizedString("Super Fine", comment: "Super Fine")
             case .High:
-                return NSLocalizedString("High", comment: "High")
+                return NSLocalizedString("Fine", comment: "Fine")
             case .Normal:
                 return NSLocalizedString("Normal", comment: "Normal")
             case .Low:

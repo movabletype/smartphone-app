@@ -153,4 +153,24 @@ class Utils {
         let language = languages[0] as! String
         return language
     }
+    
+    class func confrimSave(vc: UIViewController) {
+        let alertController = UIAlertController(
+            title: NSLocalizedString("Confirm", comment: "Confirm"),
+            message: NSLocalizedString("Are you sure not have to save?", comment: "Are you sure not have to save?"),
+            preferredStyle: .Alert)
+        
+        let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Destructive) {
+            action in
+            vc.navigationController?.popViewControllerAnimated(true)
+        }
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .Cancel) {
+            action in
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        vc.presentViewController(alertController, animated: true, completion: nil)
+    }
 }

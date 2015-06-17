@@ -32,7 +32,8 @@ class EntryTextEditorViewController: BaseViewController, UITextViewDelegate {
         self.textView.text = object.text
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
-        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")
+
         self.textView.becomeFirstResponder()
     }
 
@@ -94,4 +95,14 @@ class EntryTextEditorViewController: BaseViewController, UITextViewDelegate {
         object.text = textView.text
         self.navigationController?.popViewControllerAnimated(true)
     }
+
+    @IBAction func backButtonPushed(sender: UIBarButtonItem) {
+        if self.textView.text == object.text {
+            self.navigationController?.popViewControllerAnimated(true)
+            return
+        }
+        
+        Utils.confrimSave(self)
+    }
+
 }

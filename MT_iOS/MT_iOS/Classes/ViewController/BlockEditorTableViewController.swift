@@ -30,6 +30,8 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         self.tableView.registerNib(UINib(nibName: "ImageBlockTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageBlockTableViewCell")
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")
+        
         
         self.tableView.backgroundColor = Color.tableBg
     }
@@ -276,11 +278,26 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     @IBAction func previewButtonPushed(sender: UIBarButtonItem) {
         let vc = PreviewViewController()
         let nav = UINavigationController(rootViewController: vc)
+        var html = self.makeHTML()
+        vc.html = html
+        self.presentViewController(nav, animated: true, completion: nil)
+    }
+
+    func makeHTML()-> String {
         var html = ""
         for item in items {
             html += item.value() + "\n"
         }
-        vc.html = html
-        self.presentViewController(nav, animated: true, completion: nil)
+        return html
     }
+    
+    @IBAction func backButtonPushed(sender: UIBarButtonItem) {
+        if self.makeHTML() == blocks.value() {
+            self.navigationController?.popViewControllerAnimated(true)
+            return
+        }
+        
+        Utils.confrimSave(self)
+    }
+
 }

@@ -41,7 +41,8 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         self.sourceView.inputAccessoryView = toolBar
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
-        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")
+
         self.sourceView.becomeFirstResponder()
     }
 
@@ -133,4 +134,14 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         
         self.sourceView.replaceRange(self.sourceView.selectedTextRange!, withText: asset.imageHTML(align))
     }
+    
+    @IBAction func backButtonPushed(sender: UIBarButtonItem) {
+        if self.sourceView.text == object.text {
+            self.navigationController?.popViewControllerAnimated(true)
+            return
+        }
+        
+        Utils.confrimSave(self)
+    }
+
 }

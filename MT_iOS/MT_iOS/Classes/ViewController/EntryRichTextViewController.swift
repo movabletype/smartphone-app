@@ -21,6 +21,7 @@ class EntryRichTextViewController: MTRichTextEditor {
         self.setHTML(object.text)
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,5 +45,12 @@ class EntryRichTextViewController: MTRichTextEditor {
         self.navigationController?.popViewControllerAnimated(true)
     }
 
-
+    @IBAction func backButtonPushed(sender: UIBarButtonItem) {
+        if self.getHTML() == object.text {
+            self.navigationController?.popViewControllerAnimated(true)
+            return
+        }
+        
+        Utils.confrimSave(self)
+    }
 }

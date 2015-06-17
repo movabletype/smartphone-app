@@ -9,10 +9,12 @@
 import UIKit
 import ZSSRichTextEditor
 
-class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate {
+class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, AddAssetDelegate {
     var sourceView: ZSSTextView!
 
     var object: EntryTextAreaItem!
+    var blog: Blog!
+    var entry: BaseEntry!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,13 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate {
         self.view.addSubview(self.sourceView)
         
         self.sourceView.text = object.text
+        
+        let toolBar = UIToolbar(frame: CGRectMake(0.0, 0.0, self.view.frame.size.width, 44.0))
+        let cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
+        let flexibleButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
+        toolBar.items = [cameraButton, flexibleButton, doneButton]
+        self.sourceView.inputAccessoryView = toolBar
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
         
@@ -95,4 +104,33 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate {
         self.navigationController?.popViewControllerAnimated(true)
     }
 
+    @IBAction func doneButtonPushed(sender: UIBarButtonItem) {
+        self.sourceView.resignFirstResponder()
+    }
+    
+    private func showAssetSelector() {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ImageSelector", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nav.topViewController as! ImageSelectorTableViewController
+        vc.blog = blog
+        vc.delegate = self
+        vc.showAlign = true
+        vc.object = EntryImageItem()
+        vc.entry = entry
+        self.presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    @IBAction func cameraButtonPushed(sender: UIBarButtonItem) {
+        self.showAssetSelector()
+    }
+    
+    func AddAssetDone(controller: AddAssetTableViewController, asset: Asset) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        let vc = controller as! ImageSelectorTableViewController
+        let item = vc.object
+        item.asset = asset
+        let align = controller.imageAlign
+        
+        self.sourceView.replaceRange(self.sourceView.selectedTextRange!, withText: asset.imageHTML(align))
+    }
 }

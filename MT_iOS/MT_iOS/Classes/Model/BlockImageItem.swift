@@ -32,25 +32,10 @@ class BlockImageItem: EntryImageItem {
     }
 
     override func asHtml()-> String {
-        var dimmensions = "width=\(self.asset!.width) height=\(self.asset!.height)"
-        
-        var wrapStyle = "class=\"mt-image-\(align.label().lowercaseString)\" "
-        switch align {
-        case .Left:
-            wrapStyle += "style=\"float: left; margin: 0 20px 20px 0;\""
-        case .Right:
-            wrapStyle += "style=\"float: right; margin: 0 0 20px 20px;\""
-        case .Center:
-            wrapStyle += "style=\"text-align: center; display: block; margin: 0 auto 20px;\""
-        default:
-            wrapStyle += "style=\"\""
+        if asset != nil {
+            return asset!.imageHTML(align)
         }
-        
-        label = self.asset!.label
-        
-        let html = "<img alt=\"\(label)\" src=\"\(url)\" \(dimmensions) \(wrapStyle) />"
-
-        return html
+        return ""
     }
     
     override func value()-> String {

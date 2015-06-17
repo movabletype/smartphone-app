@@ -159,6 +159,8 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         if self.entry.editMode == Entry.EditMode.PlainText {
             let vc = EntryHTMLEditorViewController()
             vc.object = object
+            vc.blog = blog
+            vc.entry = entry
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
             let vc = EntryRichTextViewController()

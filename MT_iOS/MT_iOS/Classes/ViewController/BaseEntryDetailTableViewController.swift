@@ -367,6 +367,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         if self.object.editMode == Entry.EditMode.PlainText || !self.object.id.isEmpty {
             let vc = EntryHTMLEditorViewController()
             vc.object = object
+            vc.blog = blog
+            vc.entry = self.object
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
             let vc = EntryRichTextViewController()

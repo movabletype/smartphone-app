@@ -65,8 +65,6 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         buttons = [settingsButtonPushed, flexible, previewButton, editButton]
         
         self.setToolbarItems(buttons, animated: true)
-
-        previewButton.enabled = !self.object.id.isEmpty
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -575,11 +573,56 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.presentViewController(nav, animated: true, completion: nil)
     }
     
+    private func preview() {
+        let json = self.makeParams()
+        if json == nil {
+            return
+        }
+        
+        let isEntry = object is Entry
+        let blogID = blog.id
+        let id: String? = object.id.isEmpty ? nil : object.id
+        
+        let api = DataAPI.sharedInstance
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        let authInfo = app.authInfo
+        
+        var success: (JSON!-> Void) = {
+            (result: JSON!)-> Void in
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            SVProgressHUD.dismiss()
+            
+            let url = result["preview"].stringValue
+            
+            let vc = PreviewViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            vc.url = url
+            self.presentViewController(nav, animated: true, completion: nil)
+        }
+        var failure: (JSON!-> Void) = {
+            (error: JSON!)-> Void in
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
+            LOG(error.description)
+        }
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        SVProgressHUD.showWithStatus(NSLocalizedString("Make preview...", comment: "Make preview..."))
+        
+        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+            success:{_ in
+                if isEntry {
+                    api.previewEntry(siteID: blogID, entryID: id, entry: json, success: success, failure: failure)
+                } else {
+                    api.previewPage(siteID: blogID, pageID: id, entry: json, success: success, failure: failure)
+                }
+            },
+            failure: failure
+        )
+    }
+    
     @IBAction func previewButtonPushed(sender: UIBarButtonItem) {
-        let vc = PreviewViewController()
-        let nav = UINavigationController(rootViewController: vc)
-        vc.url = object.permalink
-        self.presentViewController(nav, animated: true, completion: nil)
+        self.preview()
     }
     
     @IBAction func editButtonPushed(sender: UIBarButtonItem) {

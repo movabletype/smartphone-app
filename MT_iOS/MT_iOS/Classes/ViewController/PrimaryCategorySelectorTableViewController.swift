@@ -25,7 +25,8 @@ class PrimaryCategorySelectorTableViewController: BaseTableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    
+        self.title = NSLocalizedString("Select a primary category", comment: "Select a primary category")
+        
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         selected = items[0].id
         
@@ -133,6 +134,12 @@ class PrimaryCategorySelectorTableViewController: BaseTableViewController {
     
     @IBAction func saveButtonPushed(sender: AnyObject) {
         self.delegate?.primaryCategorySelectorDone(self, selected: selected)
+    }
+    
+    
+    @IBAction func backButtonPushed(sender: UIBarButtonItem) {
+        //TODO:
+        self.navigationController?.popViewControllerAnimated(true)
     }
 
 }

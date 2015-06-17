@@ -32,7 +32,8 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         self.view.addSubview(self.sourceView)
         
         self.sourceView.text = object.text
-        
+        self.sourceView.selectedRange = NSRange()
+
         let toolBar = UIToolbar(frame: CGRectMake(0.0, 0.0, self.view.frame.size.width, 44.0))
         let cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
         let flexibleButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)

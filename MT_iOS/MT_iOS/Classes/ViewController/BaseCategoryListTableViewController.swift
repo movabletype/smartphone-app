@@ -19,6 +19,7 @@ class CategoryList: ItemList {
     
     private func levelLoop(object: Category, parent: Category) {
         object.level++
+        object.path = parent.label + "/" + object.path
         let parent = self.objectWithID(parent.parent)
         if parent != nil {
             levelLoop(object, parent: parent as! Category)
@@ -28,6 +29,7 @@ class CategoryList: ItemList {
 
     func makeLevel() {
         for item in items as! [Category] {
+            item.path = item.label
             let parent = self.objectWithID(item.parent)
             if parent != nil {
                 levelLoop(item, parent: parent as! Category)

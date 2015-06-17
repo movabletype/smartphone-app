@@ -196,6 +196,7 @@
 		79BB89201B213DD4000BE6CD /* EntryTextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB891F1B213DD4000BE6CD /* EntryTextEditorViewController.swift */; };
 		79BB892B1B214725000BE6CD /* EntryHTMLEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB892A1B214725000BE6CD /* EntryHTMLEditorViewController.swift */; };
 		79BF57E71B3106B200B4B13C /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BF57E61B3106B200B4B13C /* ImageViewController.swift */; };
+		79BF57E91B31192100B4B13C /* PrimaryCategorySelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BF57E81B31192100B4B13C /* PrimaryCategorySelectorTableViewController.swift */; };
 		79CFBDC91B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDC81B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift */; };
 		79CFBDCB1B1D3CD000283780 /* EntryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDCA1B1D3CD000283780 /* EntryDetailTableViewController.swift */; };
 		79CFBDCD1B1D3CE100283780 /* PageDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDCC1B1D3CE100283780 /* PageDetailTableViewController.swift */; };
@@ -427,6 +428,7 @@
 		79BB891F1B213DD4000BE6CD /* EntryTextEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTextEditorViewController.swift; sourceTree = "<group>"; };
 		79BB892A1B214725000BE6CD /* EntryHTMLEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryHTMLEditorViewController.swift; sourceTree = "<group>"; };
 		79BF57E61B3106B200B4B13C /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		79BF57E81B31192100B4B13C /* PrimaryCategorySelectorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryCategorySelectorTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDC81B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEntryDetailTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDCA1B1D3CD000283780 /* EntryDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDCC1B1D3CE100283780 /* PageDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -661,6 +663,7 @@
 				794854471B2522260074EF55 /* BaseCategoryListTableViewController.swift */,
 				7948544B1B25225A0074EF55 /* CategoryListTableViewController.swift */,
 				7948544D1B2522700074EF55 /* FolderListTableViewController.swift */,
+				79BF57E81B31192100B4B13C /* PrimaryCategorySelectorTableViewController.swift */,
 			);
 			name = "Category&Folder";
 			sourceTree = "<group>";
@@ -1311,6 +1314,7 @@
 				79EEE9571B2986A0007D9407 /* EntryDraftTableViewController.swift in Sources */,
 				79132B571B16F22F002064C7 /* LoginTableViewController.swift in Sources */,
 				79A715381B2685AA005A09ED /* BlogImageSizeTableViewController.swift in Sources */,
+				79BF57E91B31192100B4B13C /* PrimaryCategorySelectorTableViewController.swift in Sources */,
 				795E20721B1DAC7300FA7857 /* EntryTextAreaItem.swift in Sources */,
 				79E654AC1B0B11AB007E4D4C /* BaseTableViewController.swift in Sources */,
 				795E20761B1DACCF00FA7857 /* EntryImageItem.swift in Sources */,

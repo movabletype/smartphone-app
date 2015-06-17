@@ -15,6 +15,7 @@ class Category: BaseObject {
     var parent: String = ""
     
     var level = 0
+    var path: String = ""
     
     override init(json: JSON) {
         super.init(json: json)

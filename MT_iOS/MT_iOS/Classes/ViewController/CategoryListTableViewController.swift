@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class CategoryListTableViewController: BaseCategoryListTableViewController {
+class CategoryListTableViewController: BaseCategoryListTableViewController, PrimaryCategorySelectorDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,5 +101,51 @@ class CategoryListTableViewController: BaseCategoryListTableViewController {
             selected[selectedItem.id] = true
         }
         self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+    }
+    
+    @IBAction override func saveButtonPushed(sender: UIBarButtonItem) {
+        var selectedObjects = [Category]()
+        for (id, value) in selected {
+            if value {
+                selectedObjects.append(list.objectWithID(id)! as! Category)
+            }
+        }
+        
+        sort(&selectedObjects) {
+            (cat1 : Category, cat2 : Category) -> Bool in
+            return cat1.level < cat2.level
+        }
+        
+        if selectedObjects.count > 1 {
+            let vc = PrimaryCategorySelectorTableViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            vc.items = selectedObjects
+            vc.delegate = self
+            self.presentViewController(nav, animated: true, completion: nil)
+        } else {
+            (object as! EntryCategoryItem).selected = selectedObjects
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+
+    func primaryCategorySelectorDone(controller: PrimaryCategorySelectorTableViewController, selected: String) {
+        self.dismissViewControllerAnimated(false, completion:
+            {
+                var selectedObjects = [Category]()
+                for (id, value) in self.selected {
+                    if value {
+                        let item = self.list.objectWithID(id)! as! Category
+                        if id == selected {
+                            selectedObjects.insert(item, atIndex: 0)
+                        } else {
+                            selectedObjects.append(item)
+                        }
+                    }
+                }
+                
+                (self.object as! EntryCategoryItem).selected = selectedObjects
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+        )
     }
 }

@@ -54,10 +54,26 @@
                                  ZSSRichTextEditorToolbarParagraph,
                                  ];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
     ZSSTextView *sourceView = self.getSourceView;
     
     if (sourceView) {
         [sourceView addObserver:self forKeyPath:@"hidden" options:NSKeyValueObservingOptionNew context:nil];
+    }
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    ZSSTextView *sourceView = self.getSourceView;
+    
+    if (sourceView) {
+        [sourceView removeObserver:self forKeyPath:@"hidden"];
     }
 }
 

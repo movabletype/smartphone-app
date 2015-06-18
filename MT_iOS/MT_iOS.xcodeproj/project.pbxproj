@@ -198,6 +198,8 @@
 		79BF57E71B3106B200B4B13C /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BF57E61B3106B200B4B13C /* ImageViewController.swift */; };
 		79BF57E91B31192100B4B13C /* PrimaryCategorySelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BF57E81B31192100B4B13C /* PrimaryCategorySelectorTableViewController.swift */; };
 		79C87F1E1B3257440053478F /* MTRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C87F1D1B3257440053478F /* MTRefreshControl.swift */; };
+		79C87F211B32956A0053478F /* EntryPermalinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C87F1F1B32956A0053478F /* EntryPermalinkTableViewCell.swift */; };
+		79C87F221B32956A0053478F /* EntryPermalinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79C87F201B32956A0053478F /* EntryPermalinkTableViewCell.xib */; };
 		79CFBDC91B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDC81B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift */; };
 		79CFBDCB1B1D3CD000283780 /* EntryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDCA1B1D3CD000283780 /* EntryDetailTableViewController.swift */; };
 		79CFBDCD1B1D3CE100283780 /* PageDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDCC1B1D3CE100283780 /* PageDetailTableViewController.swift */; };
@@ -431,6 +433,8 @@
 		79BF57E61B3106B200B4B13C /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		79BF57E81B31192100B4B13C /* PrimaryCategorySelectorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryCategorySelectorTableViewController.swift; sourceTree = "<group>"; };
 		79C87F1D1B3257440053478F /* MTRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTRefreshControl.swift; sourceTree = "<group>"; };
+		79C87F1F1B32956A0053478F /* EntryPermalinkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryPermalinkTableViewCell.swift; sourceTree = "<group>"; };
+		79C87F201B32956A0053478F /* EntryPermalinkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntryPermalinkTableViewCell.xib; sourceTree = "<group>"; };
 		79CFBDC81B1D3C7A00283780 /* BaseEntryDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEntryDetailTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDCA1B1D3CD000283780 /* EntryDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDCC1B1D3CE100283780 /* PageDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -698,6 +702,8 @@
 				79592A5E1B202688004DDB4E /* EntryHeaderTableViewCell.xib */,
 				795ABCC31B266E2700E46BB1 /* EntryItemTableViewCell.swift */,
 				795ABCC41B266E2700E46BB1 /* EntryItemTableViewCell.xib */,
+				79C87F1F1B32956A0053478F /* EntryPermalinkTableViewCell.swift */,
+				79C87F201B32956A0053478F /* EntryPermalinkTableViewCell.xib */,
 			);
 			name = Entry;
 			sourceTree = "<group>";
@@ -1133,6 +1139,7 @@
 				790B7D841B219C6C0083EBB4 /* ZSSinsertkeyword@2x.png in Resources */,
 				79592A4C1B200EE9004DDB4E /* EntryBasicTableViewCell.xib in Resources */,
 				790B7D7F1B219C6C0083EBB4 /* ZSSimage.png in Resources */,
+				79C87F221B32956A0053478F /* EntryPermalinkTableViewCell.xib in Resources */,
 				7976039C1B0D884300F9AC09 /* Blog.storyboard in Resources */,
 				790B7D701B219C6C0083EBB4 /* ZSSforcejustify@2x.png in Resources */,
 				790B7D791B219C6C0083EBB4 /* ZSSh5.png in Resources */,
@@ -1359,6 +1366,7 @@
 				79E654B41B0B16E5007E4D4C /* ItemList.swift in Sources */,
 				7956DAA21B280C590002B705 /* AddAssetTableViewController.swift in Sources */,
 				7948544E1B2522700074EF55 /* FolderListTableViewController.swift in Sources */,
+				79C87F211B32956A0053478F /* EntryPermalinkTableViewCell.swift in Sources */,
 				796189711B1C54B40017747A /* GroupedHeaderView.swift in Sources */,
 				79E654AA1B0B0A50007E4D4C /* AuthInfo.swift in Sources */,
 				7928D3031B26DAC30053457F /* BlockImageItem.swift in Sources */,

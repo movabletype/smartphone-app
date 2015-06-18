@@ -38,7 +38,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         if list == nil {
             list = EntryItemList(blog: blog, object: object)
         }
-    
+        
+        self.tableView.registerNib(UINib(nibName: "EntryPermalinkTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryPermalinkTableViewCell")
         self.tableView.registerNib(UINib(nibName: "EntryTextTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryTextTableViewCell")
         self.tableView.registerNib(UINib(nibName: "EntryBasicTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryBasicTableViewCell")
         self.tableView.registerNib(UINib(nibName: "EntryBasicTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryCheckboxTableViewCell")
@@ -100,7 +101,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         if let list = self.list {
-            return list.count
+            return list.count + 1
         }
         return 0
     }
@@ -109,7 +110,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         if let list = self.list {
-            let item = list[section]
+            if section == 0 {
+                return 1
+            }
+            
+            let item = list[section - 1]
             
             if item.type == "textarea" || item.type == "image" || item.type == "embed" || item.type == "blocks"  {
                 return 2
@@ -123,7 +128,14 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if let list = self.list {
-            let item = list[indexPath.section]
+            if indexPath.section == 0 {
+                if object.permalink.isEmpty {
+                    return 0.0
+                }
+                return 44.0
+            }
+
+            let item = list[indexPath.section - 1]
             
             if item.type == "text" {
                 return 58.0
@@ -165,7 +177,15 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let list = self.list {
-            let item = list[indexPath.section]
+            if indexPath.section == 0 {
+                var c = tableView.dequeueReusableCellWithIdentifier("EntryPermalinkTableViewCell", forIndexPath: indexPath) as! EntryPermalinkTableViewCell
+                self.adjustCellLayoutMargins(c)
+                c.permalinkLabel.text = object.permalink
+                c.backgroundColor = Color.tableBg
+                return c
+            }
+
+            let item = list[indexPath.section - 1]
             
             var cell = UITableViewCell()
             
@@ -441,7 +461,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         }
         
         if let list = self.list {
-            let item = list[selectedIndexPath!.section]
+            let item = list[selectedIndexPath!.section - 1]
             if item is EntryDateTimeItem {
                 (item as! EntryDateTimeItem).datetime = date
             } else if item is EntryDateItem {
@@ -456,7 +476,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     
     func switchChanged(sender: UISwitch) {
         if let list = self.list {
-            let item = list[sender.tag]
+            let item = list[sender.tag - 1]
             if item is EntryCheckboxItem {
                 (item as! EntryCheckboxItem).checked = sender.on
             }
@@ -465,7 +485,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     
     func statusChanged(sender: UISegmentedControl) {
         if let list = self.list {
-            let item = list[sender.tag]
+            let item = list[sender.tag - 1]
             if item is EntryStatusItem {
                 (item as! EntryStatusItem).selected = sender.selectedSegmentIndex
             }
@@ -531,7 +551,15 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         selectedIndexPath = indexPath
         
         if let list = self.list {
-            let item = list[indexPath.section]
+            if indexPath.section == 0 {
+                let vc = PreviewViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                vc.url = object.permalink
+                self.presentViewController(nav, animated: true, completion: nil)
+                return
+            }
+            
+            let item = list[indexPath.section - 1]
 
             if item.type == "title" {
                 self.showTextEditor(item as! EntryTextItem)

@@ -80,7 +80,7 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
         
         list.blog = self.blog
 
-        self.refreshControl = UIRefreshControl()
+        self.refreshControl = MTRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
         

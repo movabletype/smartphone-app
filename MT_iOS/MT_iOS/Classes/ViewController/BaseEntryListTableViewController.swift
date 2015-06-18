@@ -20,7 +20,7 @@ class BaseEntryListTableViewController: BaseTableViewController, UISearchBarDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.refreshControl = UIRefreshControl()
+        self.refreshControl = MTRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
         

@@ -90,9 +90,6 @@ class EntryItemList: NSObject, NSCoding {
         moreItem.text = object.more
         
         var excerptItem = EntryTextAreaItem()
-        if object.id.isEmpty {
-            excerptItem = EntryBlocksItem()
-        }
         excerptItem.id = "excerpt"
         excerptItem.label = NSLocalizedString("Excerpt", comment: "Excerpt")
         excerptItem.text = object.excerpt

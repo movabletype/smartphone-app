@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZSSRichTextEditor
 
 class EntryRichTextViewController: MTRichTextEditor {
 
@@ -40,12 +41,31 @@ class EntryRichTextViewController: MTRichTextEditor {
     }
     */
     
+    private func sourceView()-> ZSSTextView? {
+        for view in self.view.subviews {
+            if view is ZSSTextView {
+                return view as? ZSSTextView
+            }
+        }
+        return nil
+    }
+    
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
+        if let sourceView = self.sourceView() {
+            if !sourceView.hidden {
+                self.setHTML(sourceView.text)
+            }
+        }
         object.text = self.getHTML()
         self.navigationController?.popViewControllerAnimated(true)
     }
 
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
+        if let sourceView = self.sourceView() {
+            if !sourceView.hidden {
+                self.setHTML(sourceView.text)
+            }
+        }
         if self.getHTML() == object.text {
             self.navigationController?.popViewControllerAnimated(true)
             return

@@ -9,7 +9,8 @@
 import UIKit
 
 class MTRefreshControl: UIRefreshControl {
-
+    var tophImage = UIImageView(frame: CGRectMake(0.0, 0.0, 64.0, 40.0))
+    
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -21,22 +22,26 @@ class MTRefreshControl: UIRefreshControl {
     override init() {
         super.init()
         
-        let gearImage = UIImageView(image: UIImage(named: "mt_gear"))
-        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotationAnimation.toValue = (M_PI / 180) * 360
-        rotationAnimation.duration = 1.0
-        rotationAnimation.repeatCount = Float.infinity
-        gearImage.layer.addAnimation(rotationAnimation, forKey: "rotateAnimation")
-        self.addSubview(gearImage)
+        var images = [UIImage]()
+        for (var i=1;i<5;i++) {
+            let image = UIImage(named: "animation_\(i)")
+            images.append(image!)
+        }
+        tophImage.animationImages = images
+        tophImage.animationDuration = 0.5
+        tophImage.animationRepeatCount = 0
         
-        gearImage.center = center
+        self.addSubview(tophImage)
+        
+        tophImage.center = center
         
         self.tintColor = UIColor.clearColor()
-        self.backgroundColor = Color.navBar
+        self.backgroundColor = Color.white
+
+        tophImage.startAnimating()
     }
 
     required convenience init(coder aDecoder: NSCoder) {
         self.init()
     }
-    
 }

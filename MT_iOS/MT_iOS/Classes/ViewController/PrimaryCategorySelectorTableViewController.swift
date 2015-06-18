@@ -68,12 +68,16 @@ class PrimaryCategorySelectorTableViewController: BaseTableViewController {
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         if item.id == selected {
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.accessoryView = UIImageView(image: UIImage(named: "btn_primary"))
         } else {
-            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.accessoryView = nil
         }
     
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 62.0
     }
 
     /*

@@ -195,13 +195,13 @@ class BlogTableViewController: BaseTableViewController {
                 cell.textLabel?.text = NSLocalizedString("Entries", comment: "Entries")
                 cell.imageView?.image = UIImage(named: "ico_listfolder")
             case BlogItem.DraftEntries.rawValue:
-                cell.textLabel?.text = NSLocalizedString("Draft entries", comment: "Draft entries")
+                cell.textLabel?.text = NSLocalizedString("Local saved entries", comment: "Local saved entries")
                 cell.imageView?.image = UIImage(named: "ico_listfolder copy")
             case BlogItem.Pages.rawValue:
                 cell.textLabel?.text = NSLocalizedString("Pages", comment: "Pages")
                 cell.imageView?.image = UIImage(named: "ico_listfolder")
             case BlogItem.DraftPages.rawValue:
-                cell.textLabel?.text = NSLocalizedString("Draft pages", comment: "Draft pages")
+                cell.textLabel?.text = NSLocalizedString("Local saved pages", comment: "Local saved pages")
                 cell.imageView?.image = UIImage(named: "ico_webpage")
             default:
                 cell.textLabel?.text = ""

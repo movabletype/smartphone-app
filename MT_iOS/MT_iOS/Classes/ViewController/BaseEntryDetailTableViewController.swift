@@ -180,6 +180,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             if indexPath.section == 0 {
                 var c = tableView.dequeueReusableCellWithIdentifier("EntryPermalinkTableViewCell", forIndexPath: indexPath) as! EntryPermalinkTableViewCell
                 self.adjustCellLayoutMargins(c)
+                c.iconImageView.hidden = object.permalink.isEmpty
                 c.permalinkLabel.text = object.permalink
                 c.backgroundColor = Color.tableBg
                 return c

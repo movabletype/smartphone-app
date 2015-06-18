@@ -36,6 +36,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="iconImageView" destination="8cW-OU-ywo" id="Ctq-jg-lfV"/>
                 <outlet property="permalinkLabel" destination="DGn-Eh-LVC" id="KdK-VW-037"/>
             </connections>
         </tableViewCell>

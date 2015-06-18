@@ -10,6 +10,7 @@ import UIKit
 
 class EntryPermalinkTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var permalinkLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

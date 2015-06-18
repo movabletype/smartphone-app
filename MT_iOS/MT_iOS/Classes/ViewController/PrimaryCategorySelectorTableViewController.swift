@@ -138,7 +138,6 @@ class PrimaryCategorySelectorTableViewController: BaseTableViewController {
     
     
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
-        //TODO:
         self.navigationController?.popViewControllerAnimated(true)
     }
 

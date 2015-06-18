@@ -138,7 +138,6 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
                 cell.detailTextLabel?.text = imageQuality.label()
             case Item.Align.rawValue:
                 cell.textLabel?.text = NSLocalizedString("Align", comment: "Align")
-                //TODO:アイコン変える
                 cell.imageView?.image = UIImage(named: "ico_align")
                 cell.detailTextLabel?.text = imageAlign.label()
             default:

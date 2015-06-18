@@ -177,6 +177,8 @@ class BlogListTableViewController: BaseTableViewController, UISearchBarDelegate 
         // Configure the cell...
         cell.textLabel?.textColor = Color.cellText
         cell.textLabel?.font = UIFont.systemFontOfSize(21.0)
+        cell.detailTextLabel?.font = UIFont.systemFontOfSize(15.0)
+        
         
         let blog = self.list[indexPath.row] as! Blog
         cell.textLabel?.text = blog.name

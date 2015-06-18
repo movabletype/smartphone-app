@@ -7,6 +7,7 @@
 //
 
 #import "MTRichTextEditor.h"
+#import "ZSSTextView.h"
 
 @interface MTRichTextEditor ()
 
@@ -52,6 +53,32 @@
                                  ZSSRichTextEditorToolbarViewSource,
                                  ZSSRichTextEditorToolbarParagraph,
                                  ];
+    
+    ZSSTextView *sourceView = self.getSourceView;
+    
+    if (sourceView) {
+        [sourceView addObserver:self forKeyPath:@"hidden" options:NSKeyValueObservingOptionNew context:nil];
+    }
+}
+
+- (ZSSTextView *)getSourceView {
+    for (UIView *view in self.view.subviews) {
+        if ([view isKindOfClass:[ZSSTextView class]]) {
+            return (ZSSTextView *)view;
+        }
+    }
+
+    return nil;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqual:@"hidden"]) {
+        ZSSTextView *sourceView = self.getSourceView;
+        if (!sourceView.hidden) {
+            [sourceView becomeFirstResponder];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

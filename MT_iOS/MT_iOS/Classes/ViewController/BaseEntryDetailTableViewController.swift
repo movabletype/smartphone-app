@@ -641,6 +641,15 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     private func makeParams()-> [String:AnyObject]? {
         var params = list?.makeParams()
         if params != nil {
+            //新規作成時にカテゴリ未選択なら送信しない
+            if object.id.isEmpty {
+                if let categories = params!["categories"] as? [[String: String]] {
+                    if categories.count == 0 {
+                        params?.removeValueForKey("categories")
+                    }
+                }
+            }
+            
             //id
             params!["id"] = object.id
             

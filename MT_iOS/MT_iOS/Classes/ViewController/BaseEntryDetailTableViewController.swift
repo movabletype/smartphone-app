@@ -52,7 +52,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
         
-        if object.id.isEmpty {
+        if object.id.isEmpty && list!.filename.isEmpty {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: self, action: "closeButtonPushed:")
         } else {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")

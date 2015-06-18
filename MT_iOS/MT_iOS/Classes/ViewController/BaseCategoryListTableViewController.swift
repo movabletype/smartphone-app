@@ -100,7 +100,6 @@ class BaseCategoryListTableViewController: BaseTableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.refreshControl = MTRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.addSubview(self.refreshControl!)
         
         self.tableView.registerNib(UINib(nibName: "CategoryTableViewCell", bundle: nil), forCellReuseIdentifier: "CategoryTableViewCell")
         

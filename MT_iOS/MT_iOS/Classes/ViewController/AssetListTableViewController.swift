@@ -82,7 +82,6 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
 
         self.refreshControl = MTRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.addSubview(self.refreshControl!)
         
         searchBar = UISearchBar()
         searchBar.frame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 44.0)

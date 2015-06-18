@@ -52,6 +52,7 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -80,7 +81,7 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         let duration: NSTimeInterval = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
         
         var insets = self.sourceView.contentInset
-        insets.bottom += keyboardFrame.size.height
+        insets.bottom = keyboardFrame.size.height
         UIView.animateWithDuration(duration, animations:
             {_ in
                 self.sourceView.contentInset = insets;

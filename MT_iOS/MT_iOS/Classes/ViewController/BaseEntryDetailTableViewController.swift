@@ -949,7 +949,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     @IBAction func closeButtonPushed(sender: AnyObject) {
-        Utils.confrimSave(self)
+        Utils.confrimSave(self, dismiss: true)
     }
     
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {

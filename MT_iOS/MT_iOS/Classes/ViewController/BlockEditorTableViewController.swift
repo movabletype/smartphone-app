@@ -297,12 +297,18 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         self.presentViewController(nav, animated: true, completion: nil)
     }
 
-    func makeHTML()-> String {
-        var html = "<!DOCTYPE html><html><head><title>Preview</title><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"></head><body>"
-        
+    func makeItemsHTML()-> String {
+        var html = ""
         for item in items {
             html += item.value() + "\n"
         }
+        return html
+    }
+    
+    func makeHTML()-> String {
+        var html = "<!DOCTYPE html><html><head><title>Preview</title><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"></head><body>"
+        
+        html += self.makeItemsHTML()
 
         html += "</body></html>"
         
@@ -310,7 +316,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
     
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
-        if self.makeHTML() == blocks.value() {
+        if self.makeItemsHTML() == blocks.value() {
             self.navigationController?.popViewControllerAnimated(true)
             return
         }

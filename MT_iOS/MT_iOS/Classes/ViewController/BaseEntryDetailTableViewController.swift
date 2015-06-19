@@ -183,6 +183,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 c.iconImageView.hidden = object.permalink.isEmpty
                 c.permalinkLabel.text = object.permalink
                 c.backgroundColor = Color.tableBg
+                
+                if object.status == Entry.Status.Publish.text() {
+                    c.permalinkLabel.textColor = Color.linkText
+                } else {
+                    c.permalinkLabel.textColor = Color.placeholderText
+                }
+
                 return c
             }
 
@@ -553,10 +560,12 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         
         if let list = self.list {
             if indexPath.section == 0 {
-                let vc = PreviewViewController()
-                let nav = UINavigationController(rootViewController: vc)
-                vc.url = object.permalink
-                self.presentViewController(nav, animated: true, completion: nil)
+                if object.status == Entry.Status.Publish.text() {
+                    let vc = PreviewViewController()
+                    let nav = UINavigationController(rootViewController: vc)
+                    vc.url = object.permalink
+                    self.presentViewController(nav, animated: true, completion: nil)
+                }
                 return
             }
             

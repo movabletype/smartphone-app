@@ -86,7 +86,7 @@ class EntryItemList: NSObject, NSCoding {
             moreItem = EntryBlocksItem()
         }
         moreItem.id = "more"
-        moreItem.label = NSLocalizedString("More", comment: "More")
+        moreItem.label = NSLocalizedString("Extended", comment: "Extended")
         moreItem.text = object.more
         
         var excerptItem = EntryTextAreaItem()

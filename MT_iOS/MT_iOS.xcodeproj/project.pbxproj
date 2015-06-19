@@ -162,6 +162,8 @@
 		796DD50F1B14738900D14704 /* BlogSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 796DD50D1B14738900D14704 /* BlogSettings.storyboard */; };
 		796FA8131B18079300373DDE /* AssetDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 796FA8111B18079300373DDE /* AssetDetail.storyboard */; };
 		796FA8151B1807AB00373DDE /* AssetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FA8141B1807AB00373DDE /* AssetDetailViewController.swift */; };
+		7971DDFB1B339AE6007E91C3 /* BlockGuidanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7971DDFA1B339AE6007E91C3 /* BlockGuidanceView.swift */; };
+		7971DDFD1B339AFE007E91C3 /* BlockGuidanceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7971DDFC1B339AFE007E91C3 /* BlockGuidanceView.xib */; };
 		7976039C1B0D884300F9AC09 /* Blog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7976039A1B0D884300F9AC09 /* Blog.storyboard */; };
 		7976039E1B0D885E00F9AC09 /* BlogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976039D1B0D885E00F9AC09 /* BlogTableViewController.swift */; };
 		797603A01B0D8F3500F9AC09 /* BlogInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7976039F1B0D8F3500F9AC09 /* BlogInfoView.xib */; };
@@ -396,6 +398,8 @@
 		796DD50E1B14738900D14704 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/BlogSettings.storyboard; sourceTree = SOURCE_ROOT; };
 		796FA8121B18079300373DDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/AssetDetail.storyboard; sourceTree = SOURCE_ROOT; };
 		796FA8141B1807AB00373DDE /* AssetDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDetailViewController.swift; sourceTree = "<group>"; };
+		7971DDFA1B339AE6007E91C3 /* BlockGuidanceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockGuidanceView.swift; sourceTree = "<group>"; };
+		7971DDFC1B339AFE007E91C3 /* BlockGuidanceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlockGuidanceView.xib; sourceTree = "<group>"; };
 		7976039B1B0D884300F9AC09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MT_iOS/Base.lproj/Blog.storyboard; sourceTree = SOURCE_ROOT; };
 		7976039D1B0D885E00F9AC09 /* BlogTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogTableViewController.swift; sourceTree = "<group>"; };
 		7976039F1B0D8F3500F9AC09 /* BlogInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlogInfoView.xib; sourceTree = "<group>"; };
@@ -934,6 +938,8 @@
 				797603A31B0D931000F9AC09 /* UIViewExtention.swift */,
 				797D8D771B1EE38A0073109E /* UIBarButtonItemExtention.swift */,
 				79C87F1D1B3257440053478F /* MTRefreshControl.swift */,
+				7971DDFA1B339AE6007E91C3 /* BlockGuidanceView.swift */,
+				7971DDFC1B339AFE007E91C3 /* BlockGuidanceView.xib */,
 				797603B21B0ECE9300F9AC09 /* TableHeader */,
 				797603B11B0ECE8200F9AC09 /* TableCell */,
 			);
@@ -1123,6 +1129,7 @@
 				790B7D9E1B219C6C0083EBB4 /* ZSSsubscript@2x.png in Resources */,
 				796DD50F1B14738900D14704 /* BlogSettings.storyboard in Resources */,
 				790B7DAD1B219C6C0083EBB4 /* ZSSviewsource.png in Resources */,
+				7971DDFD1B339AFE007E91C3 /* BlockGuidanceView.xib in Resources */,
 				790B7DA61B219C6C0083EBB4 /* ZSSunderline@2x.png in Resources */,
 				799724061B189F8200FEE683 /* SignIn.storyboard in Resources */,
 				791973B01B09DF2B003EA459 /* Images.xcassets in Resources */,
@@ -1322,6 +1329,7 @@
 				79592A4F1B200F14004DDB4E /* EntryStatusTableViewCell.swift in Sources */,
 				79592A621B203323004DDB4E /* EntryTitleItem.swift in Sources */,
 				795E207A1B1DADD200FA7857 /* EntryURLItem.swift in Sources */,
+				7971DDFB1B339AE6007E91C3 /* BlockGuidanceView.swift in Sources */,
 				79EEE9571B2986A0007D9407 /* EntryDraftTableViewController.swift in Sources */,
 				79132B571B16F22F002064C7 /* LoginTableViewController.swift in Sources */,
 				79A715381B2685AA005A09ED /* BlogImageSizeTableViewController.swift in Sources */,

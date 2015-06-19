@@ -16,7 +16,8 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     
     var noItemLabel = UILabel()
     var tophImage = UIImageView(image: UIImage(named: "guide_toph_sleep"))
-    
+    var guidanceBgView = UIView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,6 +55,25 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         tophImage.hidden = true
         noItemLabel.hidden = true
         
+        guidanceBgView.backgroundColor = colorize(0x000000, alpha: 0.3)
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        guidanceBgView.frame = app.window!.frame
+        app.window!.addSubview(guidanceBgView)
+        
+        var guidanceView = BlockGuidanceView.instanceFromNib() as! BlockGuidanceView
+        guidanceView.closeButton.addTarget(self, action: "guidanceCloseButtonPushed:", forControlEvents: UIControlEvents.TouchUpInside)
+        guidanceBgView.addSubview(guidanceView)
+        guidanceView.center = guidanceBgView.center
+        frame = guidanceView.frame
+        frame.origin.y = 70.0
+        guidanceView.frame = frame
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let showed = defaults.boolForKey("blocksGuidanceShowed")
+        if showed {
+            guidanceBgView.removeFromSuperview()
+        }
+                
         self.tableView.backgroundColor = Color.tableBg
     }
     
@@ -333,6 +353,23 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         }
         
         Utils.confrimSave(self)
+    }
+    
+    func guidanceCloseButtonPushed(sender: UIButton) {
+        UIView.animateWithDuration(0.3,
+            animations:
+            {_ in
+                self.guidanceBgView.alpha = 0.0
+            },
+            completion:
+            {_ in
+                self.guidanceBgView.removeFromSuperview()
+                
+                let defaults = NSUserDefaults.standardUserDefaults()
+                defaults.setBool(true, forKey: "blocksGuidanceShowed")
+                defaults.synchronize()
+            }
+        )
     }
 
 }

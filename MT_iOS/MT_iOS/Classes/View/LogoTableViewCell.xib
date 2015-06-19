@@ -13,7 +13,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="LIB-LS-e31">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="mt_logo" translatesAutoresizingMaskIntoConstraints="NO" id="LIB-LS-e31">
                         <rect key="frame" x="35" y="85" width="250" height="55"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="55" id="rux-p8-ueo"/>

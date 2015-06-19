@@ -12,6 +12,7 @@ class BlockGuidanceView: UIView {
 
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var infoLabel: UILabel!
     
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -24,6 +25,8 @@ class BlockGuidanceView: UIView {
     override func awakeFromNib() {
         self.baseView.layer.cornerRadius = 8.0
         self.baseView.clipsToBounds = true
+        
+        self.infoLabel.text = NSLocalizedString("Tap camera icon or text icon in the bottom left corner for make a content block.", comment: "Tap camera icon or text icon in the bottom left corner for make a content block.")
     }
     
     @IBAction func closeButtonPushed(sender: AnyObject) {

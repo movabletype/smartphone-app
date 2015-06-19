@@ -1,0 +1,454 @@
+/* 
+  Localizable.strings
+  MT_iOS
+
+  Created by CHEEBOW on 2015/06/19.
+  Copyright (c) 2015年 Six Apart, Ltd. All rights reserved.
+*/
+
+/* %@ failured. */
+"%@ failured." = "%@ failured.";
+
+/* Add Item */
+"Add Item" = "Add Item";
+
+/* Advanced Setting */
+"Advanced Setting" = "Advanced Setting";
+
+/* Align */
+"Align" = "Align";
+
+/* Are you sure not have to save? */
+"Are you sure not have to save?" = "Are you sure not have to save?";
+
+/* Are you sure you want to delete the Entry? */
+"Are you sure you want to delete the Entry?" = "Are you sure you want to delete the Entry?";
+
+/* Are you sure you want to delete the Item? */
+"Are you sure you want to delete the Item?" = "Are you sure you want to delete the Item?";
+
+/* Are you sure you want to delete the Page? */
+"Are you sure you want to delete the Page?" = "Are you sure you want to delete the Page?";
+
+/* Assets */
+"Assets" = "Assets";
+
+/* Author： */
+"Author：" = "Author：";
+
+/* Basename */
+"Basename" = "Basename";
+
+/* Basic Auth */
+"Basic Auth" = "Basic Auth";
+
+/* Body */
+"Body" = "Body";
+
+/* Cancel */
+"Cancel" = "Cancel";
+
+/* Category */
+"Category" = "Category";
+
+/* Caution */
+"Caution" = "Caution";
+
+/* Center */
+"Center" = "Center";
+
+/* Check modified at... */
+"Check modified at..." = "Check modified at...";
+
+/* Confirm */
+"Confirm" = "Confirm";
+
+/* Create entry */
+"Create entry" = "Create entry";
+
+/* Create Entry */
+"Create Entry" = "Create Entry";
+
+/* Create page */
+"Create page" = "Create page";
+
+/* Create Page */
+"Create Page" = "Create Page";
+
+/* Create */
+"Create" = "Create";
+
+/* Created at：? */
+"Created at：?" = "Created at：?";
+
+/* Created at：) */
+"Created at：" = "Created at：";
+
+/* Data on the server seems to be new . Do you want to overwrite it ? */
+"Data on the server seems to be new . Do you want to overwrite it ?" = "Data on the server seems to be new . Do you want to overwrite it ?";
+
+/* Date */
+"Date" = "Date";
+
+/* Delete Entry... */
+"Delete Entry..." = "Delete Entry...";
+
+/* Delete Entry */
+"Delete Entry" = "Delete Entry";
+
+/* Delete Image */
+"Delete Image" = "Delete Image";
+
+/* Delete item... */
+"Delete item..." = "Delete item...";
+
+/* Delete Item */
+"Delete Item" = "Delete Item";
+
+/* Delete Page... */
+"Delete Page..." = "Delete Page...";
+
+/* Delete Page */
+"Delete Page" = "Delete Page";
+
+/* Delete this Entry */
+"Delete this Entry" = "Delete this Entry";
+
+/* Delete this Page */
+"Delete this Page" = "Delete this Page";
+
+/* Draft */
+"Draft" = "Draft";
+
+/* Editor Mode */
+"Editor Mode" = "Editor Mode";
+
+/* EditorMode */
+"EditorMode" = "EditorMode";
+
+/* email */
+"email" = "email";
+
+/* endpoint */
+"endpoint" = "endpoint";
+
+/* Entries of unsent */
+"Entries of unsent" = "Entries of unsent";
+
+/* Entries */
+"Entries" = "Entries";
+
+/* Error */
+"Error" = "Error";
+
+/* Excerpt */
+"Excerpt" = "Excerpt";
+
+/* Extended */
+"Extended" = "Extended";
+
+/* Fetch categories */
+"Fetch categories" = "Fetch categories";
+
+/* Fetch data */
+"Fetch data" = "Fetch data";
+
+/* Fetch entries */
+"Fetch entries" = "Fetch entries";
+
+/* Fetch folders */
+"Fetch folders" = "Fetch folders";
+
+/* Fetch items failured. */
+"Fetch items failured." = "Fetch items failured.";
+
+/* Fetch pages */
+"Fetch pages" = "Fetch pages";
+
+/* Fetch sites failured. */
+"Fetch sites failured." = "Fetch sites failured.";
+
+/* Fetch sites... */
+"Fetch sites..." = "Fetch sites...";
+
+/* Fine */
+"Fine" = "Fine";
+
+/* Folder */
+"Folder" = "Folder";
+
+/* Forgot password */
+"Forgot password" = "Forgot password";
+
+/* Forgot your password? */
+"Forgot your password?" = "Forgot your password?";
+
+/* Future */
+"Future" = "Future";
+
+/* Get blog settings... */
+"Get blog settings..." = "Get blog settings...";
+
+/* Help */
+"Help" = "Help";
+
+/* Image Align */
+"Image Align" = "Image Align";
+
+/* Image Quality */
+"Image Quality" = "Image Quality";
+
+/* Image Size */
+"Image Size" = "Image Size";
+
+/* Image */
+"Image" = "Image";
+
+/* Input %@... */
+"Input %@..." = "Input %@...";
+
+/* Items */
+"Items" = "Items";
+
+/* Keywords */
+"Keywords" = "Keywords";
+
+/* Large */
+"Large" = "Large";
+
+/* Left */
+"Left" = "Left";
+
+/* License */
+"License" = "License";
+
+/* Loading... */
+"Loading..." = "Loading...";
+
+/* Local saved entries */
+"Local saved entries" = "Local saved entries";
+
+/* Local saved pages */
+"Local saved pages" = "Local saved pages";
+
+/* Logout... */
+"Logout..." = "Logout...";
+
+/* Logout */
+"Logout" = "Logout";
+
+/* Low */
+"Low" = "Low";
+
+/* Make preview... */
+"Make preview..." = "Make preview...";
+
+/* Manage entries */
+"Manage entries" = "Manage entries";
+
+/* Manage pages */
+"Manage pages" = "Manage pages";
+
+/* Medium */
+"Medium" = "Medium";
+
+/* Mobile */
+"Mobile" = "Mobile";
+
+/* No %@ */
+"No %@" = "No %@";
+
+/* None */
+"None" = "None";
+
+/* Normal */
+"Normal" = "Normal";
+
+/* Not set */
+"Not set" = "Not set";
+
+/* OK */
+"OK" = "OK";
+
+/* Original Size */
+"Original Size" = "Original Size";
+
+/* Original */
+"Original" = "Original";
+
+/* Pages of unsent */
+"Pages of unsent" = "Pages of unsent";
+
+/* Pages */
+"Pages" = "Pages";
+
+/* password */
+"password" = "password";
+
+/* PC */
+"PC" = "PC";
+
+/* Permission denied */
+"Permission denied" = "Permission denied";
+
+/* Photos */
+"Photos" = "Photos";
+
+/* PlainText */
+"PlainText" = "PlainText";
+
+/* Please enter some value for required '%@' field. */
+"Please enter some value for required '%@' field." = "Please enter some value for required '%@' field.";
+
+/* Publishat */
+"Publish at" = "Publish at";
+
+/* Publish */
+"Publish" = "Publish";
+
+/* Published */
+"Published" = "Published";
+
+/* Report bug */
+"Report bug" = "Report bug";
+
+/* Reset password... */
+"Reset password..." = "Reset password...";
+
+/* Reset password */
+"Reset password" = "Reset password";
+
+/* Reset */
+"Reset" = "Reset";
+
+/* RichText */
+"RichText" = "RichText";
+
+/* Right */
+"Right" = "Right";
+
+/* Save failed */
+"Save failed" = "Save failed";
+
+/* Save Local */
+"Save Local" = "Save Local";
+
+/* Save... */
+"Save..." = "Save...";
+
+/* Scheduled */
+"Scheduled" = "Scheduled";
+
+/* Search */
+"Search" = "Search";
+
+/* Select a primary category */
+"Select a primary category" = "Select a primary category";
+
+/* Select categories */
+"Select categories" = "Select categories";
+
+/* Select folders */
+"Select folders" = "Select folders";
+
+/* Select from Items */
+"Select from Items" = "Select from Items";
+
+/* Select from library */
+"Select from library" = "Select from library";
+
+/* Select Image */
+"Select Image" = "Select Image";
+
+/* Set now */
+"Set now" = "Set now";
+
+/* Setting */
+"Setting" = "Setting";
+
+/* Settings */
+"Settings" = "Settings";
+
+/* Sign In... */
+"Sign In..." = "Sign In...";
+
+/* Sign In */
+"Sign In" = "Sign In";
+
+/* Size： */
+"Size：" = "Size：";
+
+/* Small */
+"Small" = "Small";
+
+/* Sorting */
+"Sorting" = "Sorting";
+
+/* Status */
+"Status" = "Status";
+
+/* Submit */
+"Submit" = "Submit";
+
+/* Success */
+"Success" = "Success";
+
+/* Super Fine */
+"Super Fine" = "Super Fine";
+
+/* System */
+"System" = "System";
+
+/* Tag */
+"Tag" = "Tag";
+
+/* Tags */
+"Tags" = "Tags";
+
+/* Take a photo */
+"Take a photo" = "Take a photo";
+
+/* Tap camera icon or text icon in the bottom left corner for make a content block. */
+"Tap camera icon or text icon in the bottom left corner for make a content block." = "Tap camera icon or text icon in the bottom left corner for make a content block.";
+
+/* Text */
+"Text" = "Text";
+
+/* The operation couldn’t be completed. */
+"The operation couldn’t be completed." = "The operation couldn’t be completed.";
+
+/* Time */
+"Time" = "Time";
+
+/* Title */
+"Title" = "Title";
+
+/* Unpublish at */
+"Unpublish at" = "Unpublish at";
+
+/* Unpublished */
+"Unpublished" = "Unpublished";
+
+/* Upload data... */
+"Upload data..." = "Upload data...";
+
+/* Upload Dir */
+"Upload Dir" = "Upload Dir";
+
+/* Upload Directory */
+"Upload Directory" = "Upload Directory";
+
+/* username */
+"username" = "username";
+
+/* X-Large */
+"X-Large" = "X-Large";
+
+/* X-Small */
+"X-Small" = "X-Small";
+
+/* You can not connect to the network. */
+"You can not connect to the network." = "You can not connect to the network.";
+
+/* You do not have permission. */
+"You do not have permission." = "You do not have permission.";

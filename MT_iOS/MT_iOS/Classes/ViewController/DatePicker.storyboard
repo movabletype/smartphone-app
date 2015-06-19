@@ -78,6 +78,7 @@
                         <outlet property="datePicker" destination="gqZ-5H-PSL" id="2y7-JS-KPQ"/>
                         <outlet property="dateTimeLabel" destination="cfz-j9-uba" id="69c-g2-SBC"/>
                         <outlet property="dateTimeSegmentedControl" destination="s03-AJ-wMI" id="nwk-dn-a9N"/>
+                        <outlet property="setNowButton" destination="5FZ-Wh-3oe" id="5yB-uv-4fR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wsq-0c-wQm" userLabel="First Responder" sceneMemberID="firstResponder"/>

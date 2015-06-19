@@ -48,6 +48,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="gearImage" destination="16m-0c-5hV" id="IKC-aD-AeV"/>
+                        <outlet property="signInLabel" destination="1DH-xL-6Lz" id="caK-3R-pAL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IIQ-1F-d58" userLabel="First Responder" sceneMemberID="firstResponder"/>

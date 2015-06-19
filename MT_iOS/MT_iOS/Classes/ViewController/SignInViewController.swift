@@ -11,9 +11,12 @@ import UIKit
 class SignInViewController: BaseViewController {
 
     @IBOutlet weak var gearImage: UIImageView!
+    @IBOutlet weak var signInLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        signInLabel.text = NSLocalizedString("Sign In...", comment: "Sign In...")
         
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotationAnimation.toValue = (M_PI / 180) * 360

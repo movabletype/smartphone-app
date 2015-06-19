@@ -27,6 +27,7 @@ class DatePickerViewController: BaseViewController {
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var dateTimeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var setNowButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,11 @@ class DatePickerViewController: BaseViewController {
         self.view.backgroundColor = Color.tableBg
         
         self.title = navTitle
+        
+        dateTimeSegmentedControl.setTitle(NSLocalizedString("Date", comment: "Date"), forSegmentAtIndex: 0)
+        dateTimeSegmentedControl.setTitle(NSLocalizedString("Time", comment: "Time"), forSegmentAtIndex: 1)
+        
+        setNowButton.setTitle(NSLocalizedString("Set now", comment: "Set now"), forState: UIControlState.Normal)
         
         datePicker.date = date
         

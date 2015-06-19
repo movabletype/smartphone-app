@@ -65,6 +65,7 @@
             <connections>
                 <outlet property="baseView" destination="P9Z-gv-yd9" id="90x-XB-7sH"/>
                 <outlet property="closeButton" destination="XBe-oG-43F" id="Quc-cC-EEK"/>
+                <outlet property="infoLabel" destination="0CM-0j-kj4" id="FlW-Ue-teG"/>
             </connections>
             <point key="canvasLocation" x="376" y="161"/>
         </view>

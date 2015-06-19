@@ -86,6 +86,7 @@ class SettingTableViewController: BaseTableViewController {
             }
         case Section.Logout.rawValue:
             cell = tableView.dequeueReusableCellWithIdentifier("LogoutCell", forIndexPath: indexPath) as! UITableViewCell
+            cell.textLabel?.text = NSLocalizedString("Logout", comment: "Logout")
         default:
             break
         }

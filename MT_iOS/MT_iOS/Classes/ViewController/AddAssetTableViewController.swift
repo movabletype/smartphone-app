@@ -102,13 +102,22 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             if let cameraButton = cell.viewWithTag(1) as? UIButton {
                 cameraButton.addTarget(self, action: "cameraButtonPushed:", forControlEvents: UIControlEvents.TouchUpInside)
             }
+            if let cameraLabel = cell.viewWithTag(11) as? UILabel {
+                cameraLabel.text = NSLocalizedString("Take a photo", comment: "Take a photo")
+            }
             
             if let libraryButton = cell.viewWithTag(2) as? UIButton {
                 libraryButton.addTarget(self, action: "libraryButtonPushed:", forControlEvents: UIControlEvents.TouchUpInside)
             }
+            if let libraryLabel = cell.viewWithTag(22) as? UILabel {
+                libraryLabel.text = NSLocalizedString("Select from library", comment: "Select from library")
+            }
             
             if let assetListButton = cell.viewWithTag(3) as? UIButton {
                 assetListButton.addTarget(self, action: "assetListButtonPushed:", forControlEvents: UIControlEvents.TouchUpInside)
+            }
+            if let assetListLabel = cell.viewWithTag(33) as? UILabel {
+                assetListLabel.text = NSLocalizedString("Select from Items", comment: "Select from Items")
             }
             
             return cell

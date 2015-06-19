@@ -902,7 +902,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             handler:{
                 (action:UIAlertAction!) -> Void in
                 
-                if self.object.id.isEmpty {
+                if self.object.id.isEmpty && self.list!.filename.isEmpty {
                     self.saveEntry()
                 } else {
                     self.checkModified()

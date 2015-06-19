@@ -689,7 +689,9 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             }
             
             //id
-            params!["id"] = object.id
+            if !object.id.isEmpty {
+                params!["id"] = object.id
+            }
             
             //Tags
             var tags = [String]()

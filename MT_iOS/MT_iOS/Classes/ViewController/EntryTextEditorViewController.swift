@@ -103,6 +103,8 @@ class EntryTextEditorViewController: BaseViewController, UITextViewDelegate {
             self.navigationController?.popViewControllerAnimated(true)
             return
         }
+        
+        Utils.confrimSave(self)
     }
 
 }

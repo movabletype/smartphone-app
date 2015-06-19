@@ -125,7 +125,7 @@ class BaseDraftTableViewController: BaseTableViewController {
 
     // MARK: - Table view delegate
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 115.0
+        return 130.0
     }
     
     /*

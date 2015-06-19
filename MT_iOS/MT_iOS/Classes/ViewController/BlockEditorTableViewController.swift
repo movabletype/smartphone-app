@@ -13,7 +13,10 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     var entry: BaseEntry!
     var blocks: EntryBlocksItem!
     var items: [BaseEntryItem]!
-
+    
+    var noItemLabel = UILabel()
+    var tophImage = UIImageView(image: UIImage(named: "guide_toph_sleep"))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,16 +34,25 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")
+
+        self.view.addSubview(tophImage)
+        tophImage.center = view.center
+        var frame = tophImage.frame
+        frame.origin.y = 109.0
+        tophImage.frame = frame
         
-        if items.count == 0 {
-            let label = UILabel()
-            label.tag = 999
-            label.textColor = Color.placeholderText
-            label.text = String(format: NSLocalizedString("No %@", comment: "No %@"), arguments: [blocks.label])
-            label.sizeToFit()
-            self.view.addSubview(label)
-            label.center = CGPointMake(view.center.x, view.center.y - 44.0 - 20.0)
-        }
+        noItemLabel.textColor = Color.placeholderText
+        noItemLabel.font = UIFont.systemFontOfSize(18.0)
+        noItemLabel.text = String(format: NSLocalizedString("No %@", comment: "No %@"), arguments: [blocks.label])
+        noItemLabel.sizeToFit()
+        self.view.addSubview(noItemLabel)
+        noItemLabel.center = view.center
+        frame = noItemLabel.frame
+        frame.origin.y = tophImage.frame.origin.y + tophImage.frame.size.height + 13.0
+        noItemLabel.frame = frame
+        
+        tophImage.hidden = true
+        noItemLabel.hidden = true
         
         self.tableView.backgroundColor = Color.tableBg
     }
@@ -85,10 +97,9 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             return 0
         }
         
-        if let label = self.view.viewWithTag(999) {
-            label.hidden = !(items.count == 0)
-        }
-        
+        tophImage.hidden = !(items.count == 0)
+        noItemLabel.hidden = !(items.count == 0)
+
         return items.count
     }
 

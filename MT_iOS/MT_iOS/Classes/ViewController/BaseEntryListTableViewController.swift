@@ -110,7 +110,7 @@ class BaseEntryListTableViewController: BaseTableViewController, UISearchBarDele
     
     // MARK: - Table view delegate
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 115.0
+        return 130.0
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

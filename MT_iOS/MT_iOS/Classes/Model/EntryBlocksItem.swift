@@ -30,7 +30,11 @@ class EntryBlocksItem: EntryTextAreaItem {
     override func value() -> String {
         var value = ""
         for block in blocks {
-            value += block.value() + "\n"
+            if block is BlockImageItem {
+                value += block.value() + "\n"
+            } else {
+                value += "<p>" + block.value() + "</p>" + "\n"
+            }
         }
         
         return value

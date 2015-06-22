@@ -75,7 +75,6 @@ class BlogUploadDirTableViewController: BaseTableViewController {
         var header = UIView(frame: CGRectMake(0.0, 0.0, self.tableView.frame.size.width, self.tableView(tableView, heightForHeaderInSection: 0)))
         var label = UILabel(frame: CGRectMake(10.0, 0.0, header.frame.size.width - 10.0 * 2, header.frame.size.height))
         label.text = NSLocalizedString("Upload Directory", comment: "Upload Directory")
-        //TODO:
         label.textColor = Color.placeholderText
         label.font = UIFont.systemFontOfSize(15.0)
         header.addSubview(label)

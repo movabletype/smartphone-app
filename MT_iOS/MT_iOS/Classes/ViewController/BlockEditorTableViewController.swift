@@ -28,7 +28,18 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.title = blocks.label
 
-        items = blocks.blocks
+        items = [BaseEntryItem]()
+        for block in blocks.blocks {
+            if block is BlockImageItem {
+                var item = BlockImageItem()
+                item.asset = (block as! BlockImageItem).asset
+                items.append(item)
+            } else {
+                var item = BlockTextItem()
+                item.text = (block as! BlockTextItem).text
+                items.append(item)
+            }
+        }
         
         self.tableView.registerNib(UINib(nibName: "TextBlockTableViewCell", bundle: nil), forCellReuseIdentifier: "TextBlockTableViewCell")
         self.tableView.registerNib(UINib(nibName: "ImageBlockTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageBlockTableViewCell")
@@ -332,7 +343,11 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     func makeItemsHTML()-> String {
         var html = ""
         for item in items {
-            html += item.value() + "\n"
+            if item is BlockImageItem {
+                html += item.value() + "\n"
+            } else {
+                html += "<p>" + item.value() + "</p>" + "\n"
+            }
         }
         return html
     }

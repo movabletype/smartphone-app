@@ -760,6 +760,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             self.makeToolbarItems()
             
             SVProgressHUD.showSuccessWithStatus(NSLocalizedString("Success", comment: "Success"))
+            self.list!.clean()
         }
         var failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
@@ -868,6 +869,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let success = self.list!.saveToFile()
         if !success {
             SVProgressHUD.showErrorWithStatus(NSLocalizedString("Save failed", comment: "Save failed"))
+            self.list!.clean()
         } else {
             SVProgressHUD.showSuccessWithStatus(NSLocalizedString("Success", comment: "Success"))
         }

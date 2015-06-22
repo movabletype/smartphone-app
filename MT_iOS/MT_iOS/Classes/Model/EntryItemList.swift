@@ -387,4 +387,10 @@ class EntryItemList: NSObject, NSCoding {
         }
         return nil
     }
+    
+    func clean() {
+        for item in items {
+            item.isDirty = false
+        }
+    }
 }

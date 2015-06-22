@@ -113,7 +113,7 @@
 "Delete this Entry" = "記事をサーバから削除する";
 
 /* Delete this Page */
-"Delete this Page" = "ウェブページをサーバから削除する";
+"Delete this Page" = "ページをサーバから削除する";
 
 /* Draft */
 "Draft" = "未公開";

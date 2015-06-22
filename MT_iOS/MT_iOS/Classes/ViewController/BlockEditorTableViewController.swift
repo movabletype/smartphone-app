@@ -254,6 +254,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
         blocks.blocks = self.items
+        blocks.isDirty = true
         self.navigationController?.popViewControllerAnimated(true)
     }
 
@@ -351,8 +352,6 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             self.navigationController?.popViewControllerAnimated(true)
             return
         }
-        
-        blocks.isDirty = true
         
         Utils.confrimSave(self)
     }

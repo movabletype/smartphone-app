@@ -121,7 +121,9 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.fetch()
+        if list.count == 0 {
+            self.fetch()
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

@@ -130,6 +130,8 @@ class EntrySelectTableViewController: BaseTableViewController {
             return
         }
         
+        object.isDirty = true
+
         Utils.confrimSave(self)
     }
 

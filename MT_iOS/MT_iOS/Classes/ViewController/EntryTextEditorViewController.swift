@@ -104,6 +104,8 @@ class EntryTextEditorViewController: BaseViewController, UITextViewDelegate {
             return
         }
         
+        object.isDirty = true
+        
         Utils.confrimSave(self)
     }
 

@@ -16,6 +16,7 @@ class BaseEntryItem: NSObject, NSCoding {
     var visibled = true
     var disabled = false
     var required = false
+    var isDirty = false
     
     override init() {
         super.init()

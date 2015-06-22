@@ -71,6 +71,8 @@ class EntryRichTextViewController: MTRichTextEditor {
             return
         }
         
+        object.isDirty = true
+        
         Utils.confrimSave(self)
     }
 }

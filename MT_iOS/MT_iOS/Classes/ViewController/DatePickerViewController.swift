@@ -65,6 +65,7 @@ class DatePickerViewController: BaseViewController {
         self.segmentValueChanged(dateTimeSegmentedControl)
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")
     }
 
     override func didReceiveMemoryWarning() {
@@ -117,5 +118,14 @@ class DatePickerViewController: BaseViewController {
     @IBAction func doneButtonPushed(sender: AnyObject) {
         self.delegate?.datePickerDone(self, date: datePicker.date)
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @IBAction func backButtonPushed(sender: UIBarButtonItem) {
+        if date.isEqualToDate(datePicker.date) {
+            self.navigationController?.popViewControllerAnimated(true)
+            return
+        }
+        
+        Utils.confrimSave(self)
     }
 }

@@ -143,6 +143,8 @@ class FolderListTableViewController: BaseCategoryListTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedItem = self.list[indexPath.row] as! Folder
         
+        object.isDirty = true
+
         if let sel = selected[selectedItem.id] {
             selected[selectedItem.id] = !sel
         } else {

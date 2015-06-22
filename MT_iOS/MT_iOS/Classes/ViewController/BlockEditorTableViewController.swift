@@ -352,6 +352,8 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             return
         }
         
+        blocks.isDirty = true
+        
         Utils.confrimSave(self)
     }
     

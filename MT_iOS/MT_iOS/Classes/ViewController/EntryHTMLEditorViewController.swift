@@ -144,6 +144,8 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
             return
         }
         
+        object.isDirty = true
+
         Utils.confrimSave(self)
     }
     

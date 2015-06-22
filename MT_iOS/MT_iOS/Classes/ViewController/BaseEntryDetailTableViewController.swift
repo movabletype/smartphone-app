@@ -470,6 +470,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         
         if let list = self.list {
             let item = list[selectedIndexPath!.section - 1]
+            item.isDirty = true
             if item is EntryDateTimeItem {
                 (item as! EntryDateTimeItem).datetime = date
             } else if item is EntryDateItem {
@@ -485,6 +486,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     func switchChanged(sender: UISwitch) {
         if let list = self.list {
             let item = list[sender.tag - 1]
+            item.isDirty = true
             if item is EntryCheckboxItem {
                 (item as! EntryCheckboxItem).checked = sender.on
             }
@@ -494,6 +496,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     func statusChanged(sender: UISegmentedControl) {
         if let list = self.list {
             let item = list[sender.tag - 1]
+            item.isDirty = true
             if item is EntryStatusItem {
                 (item as! EntryStatusItem).selected = sender.selectedSegmentIndex
             }
@@ -542,6 +545,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             handler:{
                 (action:UIAlertAction!) -> Void in
                 item.clear()
+                item.isDirty = true
                 self.tableView.reloadData()
             }
         )
@@ -925,7 +929,6 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.presentViewController(actionSheet, animated: true, completion: nil)
     }
     
-    //MARK: - EntrySettingDelegate
     func entrySettingCancel(controller: EntrySettingTableViewController) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -994,14 +997,27 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let vc = controller as! ImageSelectorTableViewController
         let item = vc.object
         item.asset = asset
+        item.isDirty = true
         self.tableView.reloadData()
     }
     
     @IBAction func closeButtonPushed(sender: AnyObject) {
-        Utils.confrimSave(self, dismiss: true)
+        for item in self.list!.items {
+            if item.isDirty {
+                Utils.confrimSave(self)
+                return
+            }
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
-        Utils.confrimSave(self)
+        for item in self.list!.items {
+            if item.isDirty {
+                Utils.confrimSave(self)
+                return
+            }
+        }
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }

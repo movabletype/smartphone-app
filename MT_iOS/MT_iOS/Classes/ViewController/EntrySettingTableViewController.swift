@@ -29,6 +29,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
     
     var object: BaseEntry!
     var blog: Blog!
+    var list: EntryItemList?
     var delegate: EntrySettingDelegate?
     
     var tagObject = EntryTagItem()
@@ -93,6 +94,9 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
+        if list!.filename.isEmpty && object.id.isEmpty {
+            return Item._Num.rawValue - 1
+        }
         
         return Item._Num.rawValue
     }
@@ -161,9 +165,17 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             var c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
             var titleText: String
             if object is Entry {
-                titleText = NSLocalizedString("Delete this Entry", comment: "Delete this Entry")
+                if list!.filename.isEmpty {
+                    titleText = NSLocalizedString("Delete this Entry", comment: "Delete this Entry")
+                } else {
+                    titleText = NSLocalizedString("Delete this local saved entry", comment: "Delete this local saved entry")
+                }
             } else {
-                titleText = NSLocalizedString("Delete this Page", comment: "Delete this Page")
+                if list!.filename.isEmpty {
+                    titleText = NSLocalizedString("Delete this Page", comment: "Delete this Page")
+                } else {
+                    titleText = NSLocalizedString("Delete this local saved page", comment: "Delete this local saved page")
+                }
             }
             c.button.setTitle(titleText, forState: UIControlState.Normal)
             c.button.titleLabel?.font = UIFont.systemFontOfSize(17.0)

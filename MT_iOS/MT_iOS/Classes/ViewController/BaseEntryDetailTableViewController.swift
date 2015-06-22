@@ -617,6 +617,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let vc = nav.topViewController as! EntrySettingTableViewController
         vc.object = object
         vc.blog = blog
+        vc.list = list
         vc.delegate = self
         self.presentViewController(nav, animated: true, completion: nil)
     }

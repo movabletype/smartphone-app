@@ -95,6 +95,7 @@ class EntryTextEditorViewController: BaseViewController, UITextViewDelegate {
     
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
         object.text = textView.text
+        object.isDirty = true
         self.navigationController?.popViewControllerAnimated(true)
     }
 
@@ -103,8 +104,6 @@ class EntryTextEditorViewController: BaseViewController, UITextViewDelegate {
             self.navigationController?.popViewControllerAnimated(true)
             return
         }
-        
-        object.isDirty = true
         
         Utils.confrimSave(self)
     }

@@ -105,6 +105,7 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
     
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
         object.text = sourceView.text
+        object.isDirty = true
         self.navigationController?.popViewControllerAnimated(true)
     }
 
@@ -144,8 +145,6 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
             return
         }
         
-        object.isDirty = true
-
         Utils.confrimSave(self)
     }
     

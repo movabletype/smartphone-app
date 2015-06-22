@@ -57,6 +57,7 @@ class EntryRichTextViewController: MTRichTextEditor {
             }
         }
         object.text = self.getHTML()
+        object.isDirty = true
         self.navigationController?.popViewControllerAnimated(true)
     }
 
@@ -70,8 +71,6 @@ class EntryRichTextViewController: MTRichTextEditor {
             self.navigationController?.popViewControllerAnimated(true)
             return
         }
-        
-        object.isDirty = true
         
         Utils.confrimSave(self)
     }

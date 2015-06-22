@@ -121,6 +121,7 @@ class EntrySelectTableViewController: BaseTableViewController {
 
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
         object.selected = selected
+        object.isDirty = true
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -130,8 +131,6 @@ class EntrySelectTableViewController: BaseTableViewController {
             return
         }
         
-        object.isDirty = true
-
         Utils.confrimSave(self)
     }
 

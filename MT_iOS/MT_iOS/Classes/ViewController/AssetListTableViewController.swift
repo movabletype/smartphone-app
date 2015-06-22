@@ -106,7 +106,6 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
         self.toolbarItems = [cameraButton]
         cameraButton.enabled = blog.canUpload()
 
-        self.fetch()
     }
     
     deinit {
@@ -118,6 +117,11 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setToolbarHidden(false, animated: false)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.fetch()
     }
     
     override func viewWillDisappear(animated: Bool) {

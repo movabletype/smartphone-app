@@ -1004,7 +1004,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     @IBAction func closeButtonPushed(sender: AnyObject) {
         for item in self.list!.items {
             if item.isDirty {
-                Utils.confrimSave(self)
+                Utils.confrimSave(self, dismiss: true)
                 return
             }
         }

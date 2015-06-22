@@ -9,12 +9,6 @@
 import UIKit
 
 class EntryStatusItem: BaseEntryItem {
-    let list = [
-        "Publish",
-        "Draft",
-        "Future",
-    ]
-    
     var selected = NOTSELECTED
 
     override init() {
@@ -38,7 +32,7 @@ class EntryStatusItem: BaseEntryItem {
         if selected == NOTSELECTED {
             return ""
         }
-        return list[selected]
+        return Entry.Status(rawValue: selected)!.text()
     }
     
     override func dispValue()-> String {

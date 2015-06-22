@@ -28,7 +28,7 @@ class AssetSelectorTableViewController: AssetListTableViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        super.viewWillDisappear(animated)
+        super.viewWillAppear(animated)
         self.navigationController?.setToolbarHidden(true, animated: false)
     }
     

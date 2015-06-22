@@ -116,7 +116,7 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
     
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillDisappear(animated)
+        super.viewWillAppear(animated)
         self.navigationController?.setToolbarHidden(false, animated: false)
     }
     

@@ -89,7 +89,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillDisappear(animated)
+        super.viewWillAppear(animated)
         self.navigationController?.setToolbarHidden(false, animated: false)
         self.makeToolbarItems(false)
         

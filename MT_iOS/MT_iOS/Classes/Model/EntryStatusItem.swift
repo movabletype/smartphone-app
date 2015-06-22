@@ -10,9 +10,9 @@ import UIKit
 
 class EntryStatusItem: BaseEntryItem {
     let list = [
-        NSLocalizedString("Publish", comment: "Publish"),
-        NSLocalizedString("Draft", comment: "Draft"),
-        NSLocalizedString("Future", comment: "Future"),
+        "Publish",
+        "Draft",
+        "Future",
     ]
     
     var selected = NOTSELECTED

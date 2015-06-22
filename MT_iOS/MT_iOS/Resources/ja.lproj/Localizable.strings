@@ -1,7 +1,459 @@
-/* 
-  Localizable.strings
+/* Localizable.strings
   MT_iOS
 
   Created by CHEEBOW on 2015/06/19.
-  Copyright (c) 2015年 Six Apart, Ltd. All rights reserved.
-*/
+  Copyright (c) 2015年 Six Apart, Ltd. All rights reserved. */
+
+/* %@ failured. */
+"%@ failured." = "%@ に失敗しました。";
+
+/* Add Item */
+"Add Item" = "アイテムの追加";
+
+/* Advanced Setting */
+"Advanced Setting" = "詳細設定";
+
+/* Align */
+"Align" = "位置";
+
+/* Are you sure not have to save? */
+"Are you sure not have to save?" = "保存されていない変更は失われます。移動してもよろしいですか？";
+
+/* Are you sure you want to delete the Entry? */
+"Are you sure you want to delete the Entry?" = "記事を削除してよろしいですか?";
+
+/* Are you sure you want to delete the Item? */
+"Are you sure you want to delete the Item?" = "アイテムを削除してよろしいですか?";
+
+/* Are you sure you want to delete the Page? */
+"Are you sure you want to delete the Page?" = "ウェブページを削除してよろしいですか?";
+
+/* Assets */
+"Assets" = "アイテム";
+
+/* Author： */
+"Author：" = "ユーザー: ";
+
+/* Basename */
+"Basename" = "ファイル名";
+
+/* Basic Auth */
+"Basic Auth" = "Basic認証";
+
+/* Body */
+"Body" = "本文";
+
+/* Cancel */
+"Cancel" = "キャンセル";
+
+/* Category */
+"Category" = "カテゴリ";
+
+/* Caution */
+"Caution" = "重要";
+
+/* Center */
+"Center" = "中央";
+
+/* Check modified at... */
+"Check modified at..." = "サーバー側での更新を確認しています...";
+
+/* Confirm */
+"Confirm" = "ナビゲーションの確認";
+
+/* Create entry */
+"Create entry" = "新しい記事";
+
+/* Create Entry */
+"Create Entry" = "新しい記事";
+
+/* Create page */
+"Create page" = "新しいウェブページ";
+
+/* Create Page */
+"Create Page" = "新しいウェブページ";
+
+/* Create */
+"Create" = "新規作成";
+
+/* Created at：? */
+"Created at：?" = "作成日: 不明";
+
+/* Created at：) */
+"Created at：" = "作成日: ";
+
+/* Data on the server seems to be new . Do you want to overwrite it ? */
+"Data on the server seems to be new . Do you want to overwrite it ?" = "サーバー側で更新されているようです。上書き保存しますか？";
+
+/* Date */
+"Date" = "日時";
+
+/* Delete Entry... */
+"Delete Entry..." = "記事を削除しています...";
+
+/* Delete Entry */
+"Delete Entry" = "記事の削除";
+
+/* Delete Image */
+"Delete Image" = "画像の削除";
+
+/* Delete item... */
+"Delete item..." = "アイテムを削除しています...";
+
+/* Delete Item */
+"Delete Item" = "アイテムの削除";
+
+/* Delete Page... */
+"Delete Page..." = "ウェブページを削除しています...";
+
+/* Delete Page */
+"Delete Page" = "ウェブページの削除";
+
+/* Delete this Entry */
+"Delete this Entry" = "記事をサーバから削除する";
+
+/* Delete this Page */
+"Delete this Page" = "ウェブページをサーバから削除する";
+
+/* Draft */
+"Draft" = "未公開";
+
+/* Editor Mode */
+"Editor Mode" = "エディタ";
+
+/* EditorMode */
+"EditorMode" = "エディタ";
+
+/* email */
+"email" = "メール";
+
+/* endpoint */
+"endpoint" = "エンドポイント";
+
+/* Entries of unsent */
+"Entries of unsent" = "未送信の記事";
+
+/* Entries */
+"Entries" = "記事";
+
+/* Error */
+"Error" = "エラー";
+
+/* Excerpt */
+"Excerpt" = "概要";
+
+/* Extended */
+"Extended" = "続き";
+
+/* Fetch categories */
+"Fetch categories" = "カテゴリの取得";
+
+/* Fetch data */
+"Fetch data" = "データの取得";
+
+/* Fetch entries */
+"Fetch entries" = "記事の取得";
+
+/* Fetch folders */
+"Fetch folders" = "フォルダの取得";
+
+/* Fetch items failured. */
+"Fetch items failured." = "アイテムの取得に失敗しました。";
+
+/* Fetch pages */
+"Fetch pages" = "ウェブページの取得";
+
+/* Fetch sites failured. */
+"Fetch sites failured." = "サイトの取得に失敗しました。";
+
+/* Fetch sites... */
+"Fetch sites..." = "サイトを取得しています...";
+
+/* Fine */
+"Fine" = "きれい";
+
+/* Folder */
+"Folder" = "フォルダ";
+
+/* Forgot password */
+"Forgot password" = "パスワードの再設定";
+
+/* Forgot your password? */
+"Forgot your password?" = "パスワードを忘れましたか？";
+
+/* Future */
+"Future" = "日時指定";
+
+/* Get blog settings... */
+"Get blog settings..." = "サイトの設定を読み込んでいます...";
+
+/* Help */
+"Help" = "ヘルプ";
+
+/* Image Align */
+"Image Align" = "画像の位置";
+
+/* Image Quality */
+"Image Quality" = "画像の品質";
+
+/* Image Size */
+"Image Size" = "画像のサイズ";
+
+/* Image */
+"Image" = "画像";
+
+/* Input %@... */
+"Input %@..." = "%@を編集する";
+
+/* Items */
+"Items" = "アイテム";
+
+/* Keywords */
+"Keywords" = "キーワード";
+
+/* Large */
+"Large" = "やや大きい";
+
+/* Left */
+"Left" = "左";
+
+/* License */
+"License" = "ライセンス";
+
+/* Loading... */
+"Loading..." = "読み込み中...";
+
+/* Local saved entries */
+"Local saved entries" = "下書き保存された記事";
+
+/* Local saved pages */
+"Local saved pages" = "下書き保存されたページ";
+
+/* Logout... */
+"Logout..." = "サインアウトしています...";
+
+/* Logout */
+"Logout" = "サインアウト";
+
+/* Low */
+"Low" = "低い";
+
+/* Make preview... */
+"Make preview..." = "プレビューを作成しています...";
+
+/* Manage entries */
+"Manage entries" = "記事の一覧";
+
+/* Manage pages */
+"Manage pages" = "ウェブページの一覧";
+
+/* Medium */
+"Medium" = "普通";
+
+/* Mobile */
+"Mobile" = "モバイル";
+
+/* No %@ */
+"No %@" = "%@ は空です";
+
+/* None */
+"None" = "なし";
+
+/* Normal */
+"Normal" = "普通";
+
+/* Not set */
+"Not set" = "指定なし";
+
+/* OK */
+"OK" = "OK";
+
+/* Original Size */
+"Original Size" = "オリジナルサイズ";
+
+/* Original */
+"Original" = "オリジナル";
+
+/* Pages of unsent */
+"Pages of unsent" = "未送信のウェブページ";
+
+/* Pages */
+"Pages" = "ウェブページ";
+
+/* password */
+"password" = "パスワード";
+
+/* PC */
+"PC" = "PC";
+
+/* Permission denied */
+"Permission denied" = "権限がありません";
+
+/* Photos */
+"Photos" = "写真";
+
+/* PlainText */
+"PlainText" = "プレーンテキスト";
+
+/* Please enter some value for required '%@' field. */
+"Please enter some value for required '%@' field." = "必須入力の項目に値を指定してください。";
+
+/* Publishat */
+"Publish at" = "公開日";
+
+/* Publish */
+"Publish" = "公開";
+
+/* Published */
+"Published" = "公開";
+
+/* Report bug */
+"Report bug" = "不具合を報告する";
+
+/* Reset password... */
+"Reset password..." = "パスワードをリセットしています...";
+
+/* Reset password */
+"Reset password" = "パスワードのリセット";
+
+/* Reset */
+"Reset" = "リセット";
+
+/* RichText */
+"RichText" = "リッチテキスト";
+
+/* Right */
+"Right" = "右";
+
+/* Save failed */
+"Save failed" = "保存に失敗";
+
+/* Save Local */
+"Save Local" = "下書き保存する";
+
+/* Save... */
+"Save..." = "保存しています...";
+
+/* Scheduled */
+"Scheduled" = "日時指定";
+
+/* Search */
+"Search" = "検索";
+
+/* Select a primary category */
+"Select a primary category" = "主カテゴリの選択";
+
+/* Select categories */
+"Select categories" = "カテゴリを選択";
+
+/* Select folders */
+"Select folders" = "フォルダを選択";
+
+/* Select from Items */
+"Select from Items" = "アイテムから選択";
+
+/* Select from library */
+"Select from library" = "ライブラリから選択";
+
+/* Select Image */
+"Select Image" = "画像を選択";
+
+/* Set now */
+"Set now" = "現在日時にする";
+
+/* Setting */
+"Setting" = "設定";
+
+/* Settings */
+"Settings" = "設定";
+
+/* Sign In... */
+"Sign In..." = "サインインしています...";
+
+/* Sign In */
+"Sign In" = "サインイン";
+
+/* Size： */
+"Size：" = "サイズ : ";
+
+/* Small */
+"Small" = "やや小さい";
+
+/* Sorting */
+"Sorting" = "並び替え";
+
+/* Status */
+"Status" = "ステータス";
+
+/* Submit */
+"Submit" = "送信する";
+
+/* Success */
+"Success" = "成功しました";
+
+/* Super Fine */
+"Super Fine" = "最高";
+
+/* System */
+"System" = "システム";
+
+/* Tag */
+"Tag" = "タグ";
+
+/* Tags */
+"Tags" = "タグ";
+
+/* Take a photo */
+"Take a photo" = "写真を撮る";
+
+/* Tap camera icon or text icon in the bottom left corner for make a content block. */
+"Tap camera icon or text icon in the bottom left corner for make a content block." = "左下の写真アイコンか、テキストアイコンをクリックしてブロックを追加してください。";
+
+/* Text */
+"Text" = "テキスト";
+
+/* The operation couldn’t be completed. */
+"The operation couldn’t be completed." = "操作を完了できませんでした。";
+
+/* Time */
+"Time" = "時刻";
+
+/* Title */
+"Title" = "タイトル";
+
+/* Unpublish at */
+"Unpublish at" = "非公開日";
+
+/* Unpublished */
+"Unpublished" = "未公開";
+
+/* Upload data... */
+"Upload data..." = "アップロード中です...";
+
+/* Upload Dir */
+"Upload Dir" = "アップロード先";
+
+/* Upload Directory */
+"Upload Directory" = "アップロード先";
+
+/* username */
+"username" = "ユーザー名";
+
+/* X-Large */
+"X-Large" = "大きい";
+
+/* X-Small */
+"X-Small" = "小さい";
+
+/* You can not connect to the network. */
+"You can not connect to the network." = "ネットワーク接続がありません。";
+
+/* You do not have permission. */
+"You do not have permission." = "権限がありません。";
+
+/* Delete this local saved entry */
+"Delete this local saved entry" = "下書き保存を削除する";
+
+/* Delete this local saved page */
+"Delete this local saved page" = "下書き保存を削除する";
+

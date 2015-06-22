@@ -1,16 +1,14 @@
-/* 
-  Localizable.strings
+/* Localizable.strings
   MT_iOS
 
   Created by CHEEBOW on 2015/06/19.
-  Copyright (c) 2015年 Six Apart, Ltd. All rights reserved.
-*/
+  Copyright (c) 2015年 Six Apart, Ltd. All rights reserved. */
 
 /* %@ failured. */
 "%@ failured." = "%@ failured.";
 
 /* Add Item */
-"Add Item" = "Add Item";
+"Add Item" = "Add asset";
 
 /* Advanced Setting */
 "Advanced Setting" = "Advanced Setting";
@@ -34,7 +32,7 @@
 "Assets" = "Assets";
 
 /* Author： */
-"Author：" = "Author：";
+"Author：" = "Author : ";
 
 /* Basename */
 "Basename" = "Basename";
@@ -79,10 +77,10 @@
 "Create" = "Create";
 
 /* Created at：? */
-"Created at：?" = "Created at：?";
+"Created at：?" = "Created at：Unknown";
 
 /* Created at：) */
-"Created at：" = "Created at：";
+"Created at：" = "Created at : ";
 
 /* Data on the server seems to be new . Do you want to overwrite it ? */
 "Data on the server seems to be new . Do you want to overwrite it ?" = "Data on the server seems to be new . Do you want to overwrite it ?";
@@ -160,7 +158,7 @@
 "Fetch folders" = "Fetch folders";
 
 /* Fetch items failured. */
-"Fetch items failured." = "Fetch items failured.";
+"Fetch items failured." = "Fetch assets failured.";
 
 /* Fetch pages */
 "Fetch pages" = "Fetch pages";
@@ -208,7 +206,7 @@
 "Input %@..." = "Input %@...";
 
 /* Items */
-"Items" = "Items";
+"Items" = "Assets";
 
 /* Keywords */
 "Keywords" = "Keywords";
@@ -232,10 +230,10 @@
 "Local saved pages" = "Local saved pages";
 
 /* Logout... */
-"Logout..." = "Logout...";
+"Logout..." = "Sign out...";
 
 /* Logout */
-"Logout" = "Logout";
+"Logout" = "Sign out";
 
 /* Low */
 "Low" = "Low";
@@ -253,7 +251,7 @@
 "Medium" = "Medium";
 
 /* Mobile */
-"Mobile" = "Mobile";
+"Mobile" = "Smartphone";
 
 /* No %@ */
 "No %@" = "No %@";
@@ -286,7 +284,7 @@
 "password" = "password";
 
 /* PC */
-"PC" = "PC";
+"PC" = "Desktop";
 
 /* Permission denied */
 "Permission denied" = "Permission denied";
@@ -295,7 +293,7 @@
 "Photos" = "Photos";
 
 /* PlainText */
-"PlainText" = "PlainText";
+"PlainText" = "Plain Text";
 
 /* Please enter some value for required '%@' field. */
 "Please enter some value for required '%@' field." = "Please enter some value for required '%@' field.";
@@ -322,7 +320,7 @@
 "Reset" = "Reset";
 
 /* RichText */
-"RichText" = "RichText";
+"RichText" = "Rich Text";
 
 /* Right */
 "Right" = "Right";
@@ -352,7 +350,7 @@
 "Select folders" = "Select folders";
 
 /* Select from Items */
-"Select from Items" = "Select from Items";
+"Select from Items" = "Select from assets";
 
 /* Select from library */
 "Select from library" = "Select from library";
@@ -376,7 +374,7 @@
 "Sign In" = "Sign In";
 
 /* Size： */
-"Size：" = "Size：";
+"Size：" = "Size : ";
 
 /* Small */
 "Small" = "Small";
@@ -452,3 +450,10 @@
 
 /* You do not have permission. */
 "You do not have permission." = "You do not have permission.";
+
+/* Delete this local saved entry */
+"Delete this local saved entry" = "Delete this local saved entry";
+
+/* Delete this local saved page */
+"Delete this local saved page" = "Delete this local saved page";
+

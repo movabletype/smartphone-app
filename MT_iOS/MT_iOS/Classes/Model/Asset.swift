@@ -27,8 +27,12 @@ class Asset: BaseObject {
         url = json["url"].stringValue
         filename = json["filename"].stringValue
         fileSize = json["meta"]["fileSize"].stringValue.toInt()!
-        width = json["meta"]["width"].stringValue.toInt()!
-        height = json["meta"]["height"].stringValue.toInt()!
+        if !json["meta"]["width"].stringValue.isEmpty {
+            width = json["meta"]["width"].stringValue.toInt()!
+        }
+        if !json["meta"]["height"].stringValue.isEmpty {
+            height = json["meta"]["height"].stringValue.toInt()!
+        }
         createdByName = json["createdBy"]["displayName"].stringValue
         let dateString = json["createdDate"].stringValue
         if !dateString.isEmpty {

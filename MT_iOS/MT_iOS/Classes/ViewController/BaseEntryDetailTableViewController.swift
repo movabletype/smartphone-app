@@ -707,6 +707,12 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             
             //Assets
             var assetIDs = [String]()
+            func appendID(id: String) {
+                if !id.isEmpty && !contains(assetIDs, id) {
+                    assetIDs.append(id)
+                }
+            }
+            
             for asset in object.assets {
                 if !contains(assetIDs, asset.id) {
                     assetIDs.append(asset.id)
@@ -715,16 +721,18 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             for item in list!.items {
                 if item is EntryAssetItem {
                     let id = (item as! EntryAssetItem).assetID
-                    if !id.isEmpty && !contains(assetIDs, id) {
-                        assetIDs.append(id)
+                    appendID(id)
+                } else if item is EntryTextAreaItem {
+                    let assets = (item as! EntryTextAreaItem).assets
+                    for asset in assets {
+                        let id = asset.id
+                        appendID(id)
                     }
                 } else if item is EntryBlocksItem {
                     for block in (item as! EntryBlocksItem).blocks {
                         if block is EntryAssetItem {
                             let id = (block as! EntryAssetItem).assetID
-                            if !id.isEmpty && !contains(assetIDs, id) {
-                                assetIDs.append(id)
-                            }
+                            appendID(id)
                         }
                     }
                 }
@@ -734,7 +742,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 assets.append(["id":id])
             }
             params!["assets"] = assets
-            
+            //新規作成時にアイテム未選択なら送信しない
+            if object.id.isEmpty {
+                if assets.count == 0 {
+                    params?.removeValueForKey("assets")
+                }
+            }
+
             //PublishDate
             if object.date != nil {
                 params!["date"] = Utils.ISO8601StringFromDate(object.date!)

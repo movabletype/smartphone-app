@@ -10,6 +10,7 @@ import UIKit
 
 class EntryTextAreaItem: BaseEntryItem {
     var text = ""
+    var assets = [Asset]()
 
     override init() {
         super.init()
@@ -20,11 +21,15 @@ class EntryTextAreaItem: BaseEntryItem {
     override func encodeWithCoder(aCoder: NSCoder) {
         super.encodeWithCoder(aCoder)
         aCoder.encodeObject(self.text, forKey: "text")
+        aCoder.encodeObject(self.assets, forKey: "assets")
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.text = aDecoder.decodeObjectForKey("text") as! String
+        if let object = aDecoder.decodeObjectForKey("assets") as? [Asset] {
+            self.assets = object
+        }
     }
 
     override func value()-> String {

@@ -136,6 +136,8 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         item.asset = asset
         let align = controller.imageAlign
         
+        object.assets.append(asset)
+        
         self.sourceView.replaceRange(self.sourceView.selectedTextRange!, withText: asset.imageHTML(align))
     }
     

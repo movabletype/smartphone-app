@@ -705,6 +705,36 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             }
             params!["tags"] = tags
             
+            //Assets
+            var assetIDs = [String]()
+            for asset in object.assets {
+                if !contains(assetIDs, asset.id) {
+                    assetIDs.append(asset.id)
+                }
+            }
+            for item in list!.items {
+                if item is EntryAssetItem {
+                    let id = (item as! EntryAssetItem).assetID
+                    if !id.isEmpty && !contains(assetIDs, id) {
+                        assetIDs.append(id)
+                    }
+                } else if item is EntryBlocksItem {
+                    for block in (item as! EntryBlocksItem).blocks {
+                        if block is EntryAssetItem {
+                            let id = (block as! EntryAssetItem).assetID
+                            if !id.isEmpty && !contains(assetIDs, id) {
+                                assetIDs.append(id)
+                            }
+                        }
+                    }
+                }
+            }
+            var assets = [[String: String]]()
+            for id in assetIDs {
+                assets.append(["id":id])
+            }
+            params!["assets"] = assets
+            
             //PublishDate
             if object.date != nil {
                 params!["date"] = Utils.ISO8601StringFromDate(object.date!)
@@ -714,6 +744,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             if object.unpublishedDate != nil {
                 params!["unpublishedDate"] = Utils.ISO8601StringFromDate(object.unpublishedDate!)
             }
+            
+            LOG("params:\(params)")
             
             return params!
         }

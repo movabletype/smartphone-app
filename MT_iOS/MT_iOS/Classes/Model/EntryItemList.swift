@@ -307,8 +307,6 @@ class EntryItemList: NSObject, NSCoding {
         }
         params["customFields"] = fields
         
-        LOG("params:\(params)")
-        
         return params
     }
     

@@ -74,7 +74,7 @@ class Asset: BaseObject {
     func imageHTML(align: Blog.ImageAlign)-> String {
         var dimmensions = "width=\(self.width) height=\(self.height)"
         
-        var wrapStyle = "class=\"mt-image-\(align.label().lowercaseString)\" "
+        var wrapStyle = "class=\"mt-image-\(align.value().lowercaseString)\" "
         switch align {
         case .Left:
             wrapStyle += "style=\"float: left; margin: 0 20px 20px 0;\""

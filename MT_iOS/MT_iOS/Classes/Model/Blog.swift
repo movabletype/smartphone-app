@@ -119,6 +119,21 @@ class Blog: BaseObject {
         Center,
         _Num
         
+        func value()-> String {
+            switch(self) {
+            case .None:
+                return "none"
+            case .Left:
+                return "left"
+            case .Right:
+                return "right"
+            case .Center:
+                return "center"
+            case ._Num:
+                return "none"
+            }
+        }
+
         func label()-> String {
             switch(self) {
             case .None:

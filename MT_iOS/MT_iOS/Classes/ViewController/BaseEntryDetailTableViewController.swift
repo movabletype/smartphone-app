@@ -810,6 +810,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
             
+            LOG(result.description)
+            
             var newObject: BaseEntry
             if isEntry {
                 newObject = Entry(json: result)
@@ -850,10 +852,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
+                let params = ["fields":"id,modifiedDate"]
                 if isEntry {
-                    api.getEntry(siteID: blogID, entryID: id, success: success, failure: failure)
+                    api.getEntry(siteID: blogID, entryID: id, options: params, success: success, failure: failure)
                 } else {
-                    api.getPage(siteID: blogID, pageID: id, success: success, failure: failure)
+                    api.getPage(siteID: blogID, pageID: id, options: params, success: success, failure: failure)
                 }
             },
             failure: failure
@@ -909,10 +912,10 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             handler:{
                 (action:UIAlertAction!) -> Void in
                 
-                if self.object.id.isEmpty && self.list!.filename.isEmpty {
-                    self.saveEntry()
-                } else {
+                if !self.object.id.isEmpty && !self.list!.filename.isEmpty {
                     self.checkModified()
+                } else {
+                    self.saveEntry()
                 }
             }
         )

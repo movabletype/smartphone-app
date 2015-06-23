@@ -17,7 +17,7 @@
 "Align" = "Align";
 
 /* Are you sure not have to save? */
-"Are you sure not have to save?" = "Are you sure not have to save?";
+"Are you sure not have to save?" = "Are you sure you want to leave without saving?";
 
 /* Are you sure you want to delete the Entry? */
 "Are you sure you want to delete the Entry?" = "Are you sure you want to delete the Entry?";

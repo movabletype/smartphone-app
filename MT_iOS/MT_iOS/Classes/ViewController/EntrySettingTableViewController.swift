@@ -156,7 +156,11 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
         case Item.EditorMode.rawValue:
             var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
             c.textLabel?.text = NSLocalizedString("Editor Mode", comment: "Editor Mode")
-            c.detailTextLabel?.text = editorMode.selected
+            if editorMode.selected == Entry.EditMode.RichText.text() {
+                c.detailTextLabel?.text = Entry.EditMode.RichText.label()
+            } else if editorMode.selected == Entry.EditMode.PlainText.text() {
+                c.detailTextLabel?.text = Entry.EditMode.PlainText.label()
+            }
             c.contentView.addSubview(separatorLineView)
             c.backgroundColor = Color.bg
             cell = c

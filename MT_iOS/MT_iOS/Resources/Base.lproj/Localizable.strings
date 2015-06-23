@@ -5,7 +5,7 @@
   Copyright (c) 2015年 Six Apart, Ltd. All rights reserved. */
 
 /* %@ failured. */
-"%@ failured." = "%@ failured.";
+"%@ failured." = "%@ failed.";
 
 /* Add Item */
 "Add Item" = "Add asset";
@@ -131,7 +131,7 @@
 "endpoint" = "endpoint";
 
 /* Entries of unsent */
-"Entries of unsent" = "Entries of unsent";
+"Entries of unsent" = "Unsent Entries";
 
 /* Entries */
 "Entries" = "Entries";
@@ -158,13 +158,13 @@
 "Fetch folders" = "Fetch folders";
 
 /* Fetch items failured. */
-"Fetch items failured." = "Fetch assets failured.";
+"Fetch items failured." = "Fetch assets failed.";
 
 /* Fetch pages */
 "Fetch pages" = "Fetch pages";
 
 /* Fetch sites failured. */
-"Fetch sites failured." = "Fetch sites failured.";
+"Fetch sites failured." = "Fetch sites failed.";
 
 /* Fetch sites... */
 "Fetch sites..." = "Fetch sites...";
@@ -275,7 +275,7 @@
 "Original" = "Original";
 
 /* Pages of unsent */
-"Pages of unsent" = "Pages of unsent";
+"Pages of unsent" = "Unsent Pages";
 
 /* Pages */
 "Pages" = "Pages";
@@ -407,7 +407,7 @@
 "Take a photo" = "Take a photo";
 
 /* Tap camera icon or text icon in the bottom left corner for make a content block. */
-"Tap camera icon or text icon in the bottom left corner for make a content block." = "Tap camera icon or text icon in the bottom left corner for make a content block.";
+"Tap camera icon or text icon in the bottom left corner for make a content block." = "Tap camera icon or text icon in the bottom left corner to make a content block.";
 
 /* Text */
 "Text" = "Text";
@@ -446,7 +446,7 @@
 "X-Small" = "X-Small";
 
 /* You can not connect to the network. */
-"You can not connect to the network." = "You can not connect to the network.";
+"You can not connect to the network." = "You cannot connect to the network.";
 
 /* You do not have permission. */
 "You do not have permission." = "You do not have permission.";

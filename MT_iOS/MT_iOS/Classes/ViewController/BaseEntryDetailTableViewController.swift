@@ -872,9 +872,9 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let success = self.list!.saveToFile()
         if !success {
             SVProgressHUD.showErrorWithStatus(NSLocalizedString("Save failed", comment: "Save failed"))
-            self.list!.clean()
         } else {
             SVProgressHUD.showSuccessWithStatus(NSLocalizedString("Success", comment: "Success"))
+            self.list!.clean()
         }
     }
     

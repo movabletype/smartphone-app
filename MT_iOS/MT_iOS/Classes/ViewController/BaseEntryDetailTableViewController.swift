@@ -741,12 +741,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             for id in assetIDs {
                 assets.append(["id":id])
             }
-            params!["assets"] = assets
-            //新規作成時にアイテム未選択なら送信しない
-            if object.id.isEmpty {
-                if assets.count == 0 {
-                    params?.removeValueForKey("assets")
-                }
+            if assets.count > 0 {
+                params!["assets"] = assets
             }
 
             //PublishDate

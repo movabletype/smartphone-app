@@ -111,6 +111,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
             }
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            
+            self.goLoginView()
         }
         
         api.authentication(username, password: password, remember: true,

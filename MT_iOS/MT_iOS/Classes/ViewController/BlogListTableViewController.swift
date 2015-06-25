@@ -52,6 +52,8 @@ class BlogList: ItemList {
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 var params = ["limit":"20"]
+                params["fields"] = "id,name,url,parent"
+
                 if !self.refresh {
                     params["offset"] = "\(self.items.count)"
                 }

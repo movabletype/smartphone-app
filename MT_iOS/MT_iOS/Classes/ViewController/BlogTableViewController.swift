@@ -128,7 +128,8 @@ class BlogTableViewController: BaseTableViewController {
         
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
-                api.listPermissionsForSite(self.blog.id, success: {
+                var params = ["fields":"permissions"]
+                api.listPermissionsForSite(self.blog.id, options: params, success: {
                     (result: [JSON]!, total: Int!)-> Void in
                         LOG("\(result)")
                         for item in result {

@@ -57,6 +57,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         } else {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")
         }
+        
+        self.getDetail()
     }
     
     private func makeToolbarItems() {
@@ -78,7 +80,6 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         super.viewWillAppear(animated)
         self.navigationController?.setToolbarHidden(false, animated: false)
         self.makeToolbarItems()
-        self.tableView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -95,6 +96,66 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         // Dispose of any resources that can be recreated.
     }
 
+    private func getDetail() {
+        let id = self.object.id
+        if id.isEmpty {
+            //新規作成の時
+            return
+        }
+        if !list!.filename.isEmpty {
+            //ローカル読み出しの時
+            return
+        }
+        
+        let blogID = blog.id
+        let isEntry = object is Entry
+        
+        let api = DataAPI.sharedInstance
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        let authInfo = app.authInfo
+        
+        var success: (JSON!-> Void) = {
+            (result: JSON!)-> Void in
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            SVProgressHUD.dismiss()
+            
+            var newObject: BaseEntry
+            if isEntry {
+                newObject = Entry(json: result)
+            } else {
+                newObject = Page(json: result)
+            }
+            
+            LOG(newObject.description)
+
+            self.object = newObject
+            self.list = EntryItemList(blog: self.blog, object: self.object)
+            
+            self.tableView.reloadData()
+        }
+        var failure: (JSON!-> Void) = {
+            (error: JSON!)-> Void in
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
+            LOG(error.description)
+        }
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        SVProgressHUD.showWithStatus(NSLocalizedString("Get detail...", comment: "Get detail..."))
+        
+        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+            success:{_ in
+                if isEntry {
+                    api.getEntry(siteID: blogID, entryID: id, success: success, failure: failure)
+                } else {
+                    api.getPage(siteID: blogID, pageID: id, success: success, failure: failure)
+                }
+            },
+            failure: failure
+        )
+        
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

@@ -19,7 +19,6 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
         Spacer2,
         LoginButton,
         Spacer3,
-        RecoverButton,
         _Num
     }
     
@@ -127,8 +126,6 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 return 1
             }
         case Section.LoginButton.rawValue:
-            return 1
-        case Section.RecoverButton.rawValue:
             return 1
         default:
             return 1
@@ -243,14 +240,6 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
             c.button.addTarget(self, action: "signInButtonPushed:", forControlEvents: UIControlEvents.TouchUpInside)
             cell = c
 
-        case Section.RecoverButton.rawValue:
-            var c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
-            c.button.setTitle(NSLocalizedString("Forgot your password?", comment: "Forgot your password?"), forState: UIControlState.Normal)
-            c.button.titleLabel?.font = UIFont.systemFontOfSize(17.0)
-            c.button.setTitleColor(Color.buttonText, forState: UIControlState.Normal)
-            c.button.addTarget(self, action: "forgetPasswordButtonPushed:", forControlEvents: UIControlEvents.TouchUpInside)
-            cell = c
-
         default:
             break
         }
@@ -295,9 +284,6 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
             }
             
         case Section.LoginButton.rawValue:
-            return 40.0
-            
-        case Section.RecoverButton.rawValue:
             return 40.0
             
         case Section.Spacer3.rawValue:

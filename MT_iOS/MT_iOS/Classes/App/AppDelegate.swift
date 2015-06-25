@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 {
                     self.goLoginView()
                 },
-                delayTime: 0.5
+                delayTime: 2.0
             )
         }
         

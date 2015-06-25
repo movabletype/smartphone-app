@@ -46,12 +46,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
         BasicAuthPassword
     }
     
-    var username = ""
-    var password = ""
-    var endpoint = ""
-
-    var basicAuthUsername = ""
-    var basicAuthPassword = ""
+    var auth = AuthInfo()
     
     var basicAuthVisibled = false
     
@@ -87,9 +82,15 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
             authInfo.clear()
             authInfo.save()
         }
-        username = authInfo.username
-        password = authInfo.password
-        endpoint = authInfo.endpoint
+        auth.username = authInfo.username
+        auth.password = authInfo.password
+        auth.endpoint = authInfo.endpoint
+        auth.basicAuthUsername = authInfo.basicAuthUsername
+        auth.basicAuthPassword = authInfo.basicAuthPassword
+        
+        if !auth.basicAuthUsername.isEmpty {
+            basicAuthVisibled = true
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -153,7 +154,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.textField.keyboardType = UIKeyboardType.Default
                 c.textField.returnKeyType = UIReturnKeyType.Done
                 c.textField.secureTextEntry = false
-                c.textField.text = username
+                c.textField.text = auth.username
                 c.textField.tag = FieldType.Username.rawValue
                 c.textField.delegate = self
                 c.textField.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
@@ -165,7 +166,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.textField.keyboardType = UIKeyboardType.Default
                 c.textField.returnKeyType = UIReturnKeyType.Done
                 c.textField.secureTextEntry = true
-                c.textField.text = password
+                c.textField.text = auth.password
                 c.textField.tag = FieldType.Password.rawValue
                 c.textField.delegate = self
                 c.textField.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
@@ -177,7 +178,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.textField.keyboardType = UIKeyboardType.URL
                 c.textField.returnKeyType = UIReturnKeyType.Done
                 c.textField.secureTextEntry = false
-                c.textField.text = endpoint
+                c.textField.text = auth.endpoint
                 c.textField.tag = FieldType.Endpoint.rawValue
                 c.textField.delegate = self
                 c.textField.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
@@ -207,7 +208,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.textField.keyboardType = UIKeyboardType.Default
                 c.textField.returnKeyType = UIReturnKeyType.Done
                 c.textField.secureTextEntry = false
-                c.textField.text = basicAuthUsername
+                c.textField.text = auth.basicAuthUsername
                 c.textField.tag = FieldType.BasicAuthUsername.rawValue
                 c.textField.delegate = self
                 c.textField.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
@@ -219,7 +220,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.textField.keyboardType = UIKeyboardType.Default
                 c.textField.returnKeyType = UIReturnKeyType.Done
                 c.textField.secureTextEntry = true
-                c.textField.text = basicAuthPassword
+                c.textField.text = auth.basicAuthPassword
                 c.textField.tag = FieldType.BasicAuthPassword.rawValue
                 c.textField.delegate = self
                 c.textField.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
@@ -354,7 +355,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
 
     @IBAction func signInButtonPushed(sender: AnyObject) {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
-        app.signIn(username, password: password, endpoint: endpoint, showHud: true)
+        app.signIn(self.auth, showHud: true)
     }
     
     @IBAction func forgetPasswordButtonPushed(sender: AnyObject) {
@@ -382,7 +383,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
     }
 
     private func validate()-> Bool {
-        if username.isEmpty || password.isEmpty || endpoint.isEmpty {
+        if auth.username.isEmpty || auth.password.isEmpty || auth.endpoint.isEmpty {
             return false
         }
         
@@ -397,15 +398,15 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
     @IBAction func textFieldChanged(field: UITextField) {
         switch field.tag {
         case FieldType.Username.rawValue:
-            username = field.text
+            auth.username = field.text
         case FieldType.Password.rawValue:
-            password = field.text
+            auth.password = field.text
         case FieldType.Endpoint.rawValue:
-            endpoint = field.text
+            auth.endpoint = field.text
         case FieldType.BasicAuthUsername.rawValue:
-            basicAuthUsername = field.text
+            auth.basicAuthUsername = field.text
         case FieldType.BasicAuthPassword.rawValue:
-            basicAuthPassword = field.text
+            auth.basicAuthPassword = field.text
         default:
             break
         }

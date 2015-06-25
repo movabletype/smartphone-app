@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if Utils.hasConnectivity() {
                 Utils.performAfterDelay(
                     {
-                        self.signIn(self.authInfo.username, password: self.authInfo.password, endpoint: self.authInfo.endpoint, showHud: false)
+                        self.signIn(self.authInfo, showHud: false)
                     },
                     delayTime: 0.2
                 )
@@ -96,13 +96,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
     }
     
-    func signIn(username: String, password: String, endpoint: String, showHud: Bool) {
+    func signIn(auth: AuthInfo, showHud: Bool) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         if showHud {
             SVProgressHUD.showWithStatus(NSLocalizedString("Sign In...", comment: "Sign In..."))
         }
         let api = DataAPI.sharedInstance
-        api.APIBaseURL = endpoint
+        api.APIBaseURL = auth.endpoint
+        api.basicAuth.username = auth.basicAuthUsername
+        api.basicAuth.password = auth.basicAuthPassword
+        
+        self.authInfo = auth
+        self.authInfo.save()
         
         var failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
@@ -112,10 +117,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             
-            self.goLoginView()
+            Utils.performAfterDelay(
+                {
+                    self.goLoginView()
+                },
+                delayTime: 0.5
+            )
         }
         
-        api.authentication(username, password: password, remember: true,
+        api.authentication(auth.username, password: auth.password, remember: true,
             success:{_ in
                 api.getUser("me",
                     success: {(user: JSON!)-> Void in
@@ -127,12 +137,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                         
                         self.currentUser = User(json: user)
-                        
-                        var authInfo = self.authInfo
-                        authInfo.username = username
-                        authInfo.password = password
-                        authInfo.endpoint = endpoint
-                        authInfo.save()
                         
                         self.goBlogList()
                     },

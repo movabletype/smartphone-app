@@ -13,15 +13,19 @@ class AuthInfo: NSObject {
     var username = ""
     var password = ""
     var endpoint = ""
+    var basicAuthUsername = ""
+    var basicAuthPassword = ""
     
     func save() {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(username, forKey: "username")
         userDefaults.setObject(endpoint, forKey: "endpoint")
+        userDefaults.setObject(basicAuthUsername, forKey: "basicAuthUsername")
         userDefaults.synchronize()
 
         let keychainAccess = LUKeychainAccess.standardKeychainAccess()
         keychainAccess.setString(password, forKey: "password")
+        keychainAccess.setString(basicAuthPassword, forKey: "basicAuthPassword")
     }
     
     func load() {
@@ -32,16 +36,22 @@ class AuthInfo: NSObject {
         username = (value != nil) ? value! : ""
         value = userDefaults.objectForKey("endpoint") as? String
         endpoint = (value != nil) ? value! : ""
+        value = userDefaults.objectForKey("basicAuthUsername") as? String
+        basicAuthUsername = (value != nil) ? value! : ""
 
         let keychainAccess = LUKeychainAccess.standardKeychainAccess()
         value = keychainAccess.stringForKey("password")
         password = (value != nil) ? value! : ""
+        value = keychainAccess.stringForKey("basicAuthPassword")
+        basicAuthPassword = (value != nil) ? value! : ""
     }
     
     func clear() {
         username = ""
         password = ""
         endpoint = ""
+        basicAuthUsername = ""
+        basicAuthPassword = ""
     }
     
     func logout() {

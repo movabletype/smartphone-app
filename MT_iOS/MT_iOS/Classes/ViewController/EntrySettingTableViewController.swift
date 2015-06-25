@@ -27,6 +27,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
         _Num
     }
     
+    var items = [Item]()
     var object: BaseEntry!
     var blog: Blog!
     var list: EntryItemList?
@@ -47,6 +48,40 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        if list!.filename.isEmpty && object.id.isEmpty {
+            self.items = [
+                .Tags,
+                .PublishDate,
+                .UnpublishDateEnabled,
+                .UnpublishDate,
+                .Spacer1,
+                .EditorMode,
+                .Spacer2,
+            ]
+        } else if !object.id.isEmpty {
+            self.items = [
+                .Tags,
+                .PublishDate,
+                .UnpublishDateEnabled,
+                .UnpublishDate,
+                .Spacer1,
+                .DeleteButton,
+            ]
+
+        } else {
+            self.items = [
+                .Tags,
+                .PublishDate,
+                .UnpublishDateEnabled,
+                .UnpublishDate,
+                .Spacer1,
+                .EditorMode,
+                .Spacer2,
+                .DeleteButton,
+            ]
+        }
+
         
         self.title = NSLocalizedString("Advanced Setting", comment: "Advanced Setting")
         self.tableView.backgroundColor = Color.tableBg
@@ -91,11 +126,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        if list!.filename.isEmpty && object.id.isEmpty {
-            return Item._Num.rawValue - 1
-        }
-        
-        return Item._Num.rawValue
+        return self.items.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -105,8 +136,9 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
         separatorLineView.backgroundColor = Color.separatorLine
         
         // Configure the cell...
-        switch indexPath.row {
-        case Item.Tags.rawValue:
+        var item = items[indexPath.row]
+        switch item {
+        case Item.Tags:
             var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
             c.textLabel?.text = NSLocalizedString("Tags", comment: "Tags")
             c.detailTextLabel?.text = tagObject.text
@@ -114,7 +146,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             c.backgroundColor = Color.bg
             cell = c
             
-        case Item.PublishDate.rawValue:
+        case Item.PublishDate:
             var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
             c.textLabel?.text = NSLocalizedString("Publish at", comment: "Publishat ")
             if let date = publishDate {
@@ -126,7 +158,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             c.backgroundColor = Color.bg
             cell = c
             
-        case Item.UnpublishDateEnabled.rawValue:
+        case Item.UnpublishDateEnabled:
             var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
             c.textLabel?.text = NSLocalizedString("Unpublish at", comment: "Unpublish at")
             c.detailTextLabel?.text = ""
@@ -138,7 +170,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             c.backgroundColor = Color.bg
             cell = c
             
-        case Item.UnpublishDate.rawValue:
+        case Item.UnpublishDate:
             var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
             c.textLabel?.text = ""
             if let date = unpublishDate {
@@ -150,7 +182,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             c.backgroundColor = Color.bg
             cell = c
             
-        case Item.EditorMode.rawValue:
+        case Item.EditorMode:
             var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
             c.textLabel?.text = NSLocalizedString("Editor Mode", comment: "Editor Mode")
             if self.editorMode == Entry.EditMode.RichText {
@@ -162,7 +194,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             c.backgroundColor = Color.bg
             cell = c
             
-        case Item.DeleteButton.rawValue:
+        case Item.DeleteButton:
             var c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
             var titleText: String
             if object is Entry {
@@ -198,12 +230,12 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             cell = c
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             
-        case Item.Spacer1.rawValue:
+        case Item.Spacer1:
             cell.contentView.addSubview(separatorLineView)
             cell.backgroundColor = Color.clear
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             
-        case Item.Spacer2.rawValue:
+        case Item.Spacer2:
             cell.contentView.addSubview(separatorLineView)
             cell.backgroundColor = Color.clear
             cell.selectionStyle = UITableViewCellSelectionStyle.None
@@ -217,20 +249,21 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
     
     //MARK: - Table view delegate
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.row {
-        case Item.Tags.rawValue:
+        var item = items[indexPath.row]
+        switch item {
+        case Item.Tags:
             return 48.0
-        case Item.PublishDate.rawValue:
+        case Item.PublishDate:
             return 48.0
-        case Item.UnpublishDateEnabled.rawValue:
+        case Item.UnpublishDateEnabled:
             return 48.0
-        case Item.UnpublishDate.rawValue:
+        case Item.UnpublishDate:
             return 48.0
-        case Item.EditorMode.rawValue:
+        case Item.EditorMode:
             return 48.0
-        case Item.DeleteButton.rawValue:
+        case Item.DeleteButton:
             return 40.0
-        case Item.Spacer1.rawValue:
+        case Item.Spacer1:
             return 20.0
         default:
             return 12.0
@@ -241,12 +274,13 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         selectedIndexPath = indexPath
-        switch indexPath.row {
-        case Item.Tags.rawValue:
+        var item = items[indexPath.row]
+        switch item {
+        case Item.Tags:
             let vc = EntryTextEditorViewController()
             vc.object = tagObject
             self.navigationController?.pushViewController(vc, animated: true)
-        case Item.PublishDate.rawValue:
+        case Item.PublishDate:
             let storyboard: UIStoryboard = UIStoryboard(name: "DatePicker", bundle: nil)
             let vc = storyboard.instantiateInitialViewController() as! DatePickerViewController
             if let date = publishDate {
@@ -256,7 +290,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             }
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
-        case Item.UnpublishDate.rawValue:
+        case Item.UnpublishDate:
             let storyboard: UIStoryboard = UIStoryboard(name: "DatePicker", bundle: nil)
             let vc = storyboard.instantiateInitialViewController() as! DatePickerViewController
             if let date = unpublishDate {
@@ -266,7 +300,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             }
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
-        case Item.EditorMode.rawValue:
+        case Item.EditorMode:
             let vc = EditorModeTableViewController()
             vc.oldSelected = self.editorMode
             vc.delegate = self
@@ -323,10 +357,11 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             return
         }
         
-        switch selectedIndexPath!.row {
-        case Item.PublishDate.rawValue:
+        var item = items[selectedIndexPath!.row]
+        switch item {
+        case Item.PublishDate:
             self.publishDate = date
-        case Item.UnpublishDate.rawValue:
+        case Item.UnpublishDate:
             self.unpublishDate = date
         default:
             break

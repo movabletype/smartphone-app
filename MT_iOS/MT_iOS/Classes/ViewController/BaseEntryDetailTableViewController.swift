@@ -722,18 +722,18 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 if item is EntryAssetItem {
                     let id = (item as! EntryAssetItem).assetID
                     appendID(id)
-                } else if item is EntryTextAreaItem {
-                    let assets = (item as! EntryTextAreaItem).assets
-                    for asset in assets {
-                        let id = asset.id
-                        appendID(id)
-                    }
                 } else if item is EntryBlocksItem {
                     for block in (item as! EntryBlocksItem).blocks {
                         if block is EntryAssetItem {
                             let id = (block as! EntryAssetItem).assetID
                             appendID(id)
                         }
+                    }
+                } else if item is EntryTextAreaItem {
+                    let assets = (item as! EntryTextAreaItem).assets
+                    for asset in assets {
+                        let id = asset.id
+                        appendID(id)
                     }
                 }
             }

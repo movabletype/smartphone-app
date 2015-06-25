@@ -457,3 +457,6 @@
 /* Delete this local saved page */
 "Delete this local saved page" = "下書き保存を削除する";
 
+/* Get detail... */
+"Get detail..." = "情報を取得しています...";
+

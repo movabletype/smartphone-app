@@ -14,7 +14,7 @@ protocol EntrySettingDelegate {
     func entrySettingDelete(controller: EntrySettingTableViewController, object: BaseEntry)
 }
 
-class EntrySettingTableViewController: BaseTableViewController, DatePickerViewControllerDelegate {
+class EntrySettingTableViewController: BaseTableViewController, DatePickerViewControllerDelegate, EditorModeDelegate {
     enum Item: Int {
         case Tags = 0,
         PublishDate,
@@ -35,7 +35,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
     var tagObject = EntryTagItem()
     var publishDate: NSDate?
     var unpublishDate: NSDate?
-    var editorMode = EntrySelectItem()
+    var editorMode = Entry.EditMode.RichText
     
     var selectedIndexPath: NSIndexPath?
     
@@ -66,10 +66,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
         tagObject.label = NSLocalizedString("Tag", comment: "Tag")
         tagObject.text = object.tagsString()
         
-        editorMode.id = "editorMode"
-        editorMode.label = NSLocalizedString("EditorMode", comment: "EditorMode")
-        editorMode.list = [Entry.EditMode.PlainText.label(), Entry.EditMode.RichText.label()]
-        editorMode.selected = object.editMode.text()
+        self.editorMode = object.editMode
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -156,9 +153,9 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
         case Item.EditorMode.rawValue:
             var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
             c.textLabel?.text = NSLocalizedString("Editor Mode", comment: "Editor Mode")
-            if editorMode.selected == Entry.EditMode.RichText.text() {
+            if self.editorMode == Entry.EditMode.RichText {
                 c.detailTextLabel?.text = Entry.EditMode.RichText.label()
-            } else if editorMode.selected == Entry.EditMode.PlainText.text() {
+            } else if editorMode == Entry.EditMode.PlainText {
                 c.detailTextLabel?.text = Entry.EditMode.PlainText.label()
             }
             c.contentView.addSubview(separatorLineView)
@@ -270,8 +267,9 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         case Item.EditorMode.rawValue:
-            let vc = EntrySelectTableViewController()
-            vc.object = editorMode
+            let vc = EditorModeTableViewController()
+            vc.oldSelected = self.editorMode
+            vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         default:
             break
@@ -286,12 +284,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
         object.date = publishDate
         object.unpublishedDate = unpublishDate
         object.setTagsFromString(tagObject.text)
-        
-        if Entry.EditMode.PlainText.text() == editorMode.selected {
-            object.editMode = Entry.EditMode.PlainText
-        } else {
-            object.editMode = Entry.EditMode.RichText
-        }
+        object.editMode = self.editorMode
         
         self.delegate?.entrySettingDone(self, object: self.object)
     }
@@ -351,4 +344,8 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
         self.tableView.reloadData()
     }
     
+    
+    func editorModeDone(controller: EditorModeTableViewController, selected: Entry.EditMode) {
+        self.editorMode = selected
+    }
 }

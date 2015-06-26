@@ -80,6 +80,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         super.viewWillAppear(animated)
         self.navigationController?.setToolbarHidden(false, animated: false)
         self.makeToolbarItems()
+        self.tableView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {

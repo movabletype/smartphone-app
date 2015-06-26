@@ -48,21 +48,22 @@ class ImageSelectorTableViewController: AddAssetTableViewController, AssetSelect
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
         
+        let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
         switch indexPath.section {
         case Section.Buttons.rawValue:
             if let cameraButton = cell.viewWithTag(1) as? UIButton {
-                cameraButton.enabled =  self.blog.canUpload()
+                cameraButton.enabled =  self.blog.canUpload(user: user)
             }
             
             if let libraryButton = cell.viewWithTag(2) as? UIButton {
-                libraryButton.enabled =  self.blog.canUpload()
+                libraryButton.enabled =  self.blog.canUpload(user: user)
             }
             
             if let assetListButton = cell.viewWithTag(3) as? UIButton {
                 if self.entry is Entry {
-                    assetListButton.enabled =  self.blog.canListAssetForEntry()
+                    assetListButton.enabled =  self.blog.canListAssetForEntry(user: user)
                 } else {
-                    assetListButton.enabled =  self.blog.canListAssetForPage()
+                    assetListButton.enabled =  self.blog.canListAssetForPage(user: user)
                 }
             }
             

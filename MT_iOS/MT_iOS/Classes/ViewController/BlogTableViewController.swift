@@ -48,7 +48,8 @@ class BlogTableViewController: BaseTableViewController {
         SVProgressHUD.showWithStatus(NSLocalizedString("Get blog settings...", comment: "Get blog settings..."))
         self.getPermissions(
             {(failure: Bool)-> Void in
-                if self.blog.canCreateEntry() || self.blog.canCreatePage() {
+                let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
+                if self.blog.canCreateEntry(user: user) || self.blog.canCreatePage(user: user) {
                     self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_newentry"), left: false, target: self, action: "composeButtonPushed:")
                 } else {
                     self.navigationItem.rightBarButtonItem = nil
@@ -160,7 +161,8 @@ class BlogTableViewController: BaseTableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        if self.blog.canListAsset() {
+        let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
+        if self.blog.canListAsset(user: user) {
             return Section._Num.rawValue
         } else {
             return Section._Num.rawValue - 1
@@ -403,11 +405,11 @@ class BlogTableViewController: BaseTableViewController {
             }
         )
         
-        
-        if self.blog.canCreateEntry() {
+        let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
+        if self.blog.canCreateEntry(user: user) {
             actionSheet.addAction(createEntryAction)
         }
-        if self.blog.canCreatePage() {
+        if self.blog.canCreatePage(user: user) {
             actionSheet.addAction(createPageAction)
         }
         

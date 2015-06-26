@@ -195,15 +195,18 @@ class Blog: BaseObject {
         }
     }
 
+    //MARK: - Permissions
     func hasPermission(permission: String)-> Bool {
         return contains(permissions, permission)
     }
     
-    func canCreateEntry()-> Bool {
+    func canCreateEntry(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("create_post")
     }
 
-    func canUpdateEntry(#user:User, entry: Entry)-> Bool {
+    func canUpdateEntry(#user: User, entry: Entry)-> Bool {
+        if user.isSuperuser { return true }
         if self.hasPermission("edit_all_posts") {
             return true
         }
@@ -225,7 +228,8 @@ class Blog: BaseObject {
         return false
     }
     
-    func canDeleteEntry(#user:User, entry: Entry)-> Bool {
+    func canDeleteEntry(#user: User, entry: Entry)-> Bool {
+        if user.isSuperuser { return true }
         if self.hasPermission("edit_all_posts") {
             return true
         }
@@ -241,46 +245,57 @@ class Blog: BaseObject {
         return false
     }
     
-    func canPublishEntry()-> Bool {
+    func canPublishEntry(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("publish_post")
     }
     
-    func canCreateCategory()-> Bool {
+    func canCreateCategory(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("edit_categories")
     }
 
-    func canCreatePage()-> Bool {
+    func canCreatePage(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("manage_pages")
     }
 
-    func canUpdatePage()-> Bool {
+    func canUpdatePage(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("manage_pages")
     }
 
-    func canDeletePage()-> Bool {
+    func canDeletePage(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("manage_pages")
     }
 
-    func canListAsset()-> Bool {
+    func canListAsset(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("edit_assets")
     }
     
-    func canDeleteAsset()-> Bool {
+    func canDeleteAsset(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("edit_assets")
     }
     
-    func canListAssetForEntry()-> Bool {
+    func canListAssetForEntry(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("create_post") || self.hasPermission("edit_all_posts")
     }
 
-    func canListAssetForPage()-> Bool {
+    func canListAssetForPage(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("manage_pages")
     }
     
-    func canUpload()-> Bool {
+    func canUpload(#user: User)-> Bool {
+        if user.isSuperuser { return true }
         return self.hasPermission("upload")
     }
     
+    //MARK: - Settings
     func settingKey(name: String)-> String {
         return self.endpoint + "_blog\(id)_\(name)"
     }

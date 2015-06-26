@@ -84,7 +84,8 @@ class EntryListTableViewController: BaseEntryListTableViewController {
         
         actionMessage = NSLocalizedString("Fetch entries", comment: "Fetch entries")
         
-        if self.blog.canCreateEntry() {
+        let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
+        if self.blog.canCreateEntry(user: user) {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_newentry"), left: false, target: self, action: "composeButtonPushed:")
         } else {
             self.navigationItem.rightBarButtonItem = nil

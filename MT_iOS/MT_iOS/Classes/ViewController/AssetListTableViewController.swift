@@ -104,7 +104,8 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
         
         cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
         self.toolbarItems = [cameraButton]
-        cameraButton.enabled = blog.canUpload()
+        let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
+        cameraButton.enabled = blog.canUpload(user: user)
 
     }
     

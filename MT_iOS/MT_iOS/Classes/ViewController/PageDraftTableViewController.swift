@@ -20,7 +20,8 @@ class PageDraftTableViewController: BaseDraftTableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.title = NSLocalizedString("Pages of unsent", comment: "Pages of unsent")
         
-        if self.blog.canCreatePage() {
+        let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
+        if self.blog.canCreatePage(user: user) {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_newentry"), left: false, target: self, action: "composeButtonPushed:")
         } else {
             self.navigationItem.rightBarButtonItem = nil

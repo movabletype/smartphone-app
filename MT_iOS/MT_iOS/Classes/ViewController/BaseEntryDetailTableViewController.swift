@@ -376,7 +376,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 c.segmentedControl.addTarget(self, action: "statusChanged:", forControlEvents: UIControlEvents.ValueChanged)
                 
                 if object is Entry {
-                    if !blog.canPublishEntry() {
+                    let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
+                    if !blog.canPublishEntry(user: user) {
                         c.segmentedControl.setEnabled(false, forSegmentAtIndex: Entry.Status.Publish.rawValue)
                         c.segmentedControl.setEnabled(true, forSegmentAtIndex: Entry.Status.Draft.rawValue)
                         c.segmentedControl.setEnabled(false, forSegmentAtIndex: Entry.Status.Future.rawValue)

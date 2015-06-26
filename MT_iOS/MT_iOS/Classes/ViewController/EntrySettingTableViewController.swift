@@ -220,11 +220,11 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             c.button.addTarget(self, action: "deleteButtonPushed:", forControlEvents: UIControlEvents.TouchUpInside)
             c.backgroundColor = Color.clear
             
+            let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
             if object is Entry {
-                let app = UIApplication.sharedApplication().delegate as! AppDelegate
-                c.button.enabled = blog.canDeleteEntry(user: app.currentUser!, entry: object as! Entry)
+                c.button.enabled = blog.canDeleteEntry(user: user, entry: object as! Entry)
             } else {
-                c.button.enabled = blog.canDeletePage()
+                c.button.enabled = blog.canDeletePage(user: user)
             }
             
             cell = c

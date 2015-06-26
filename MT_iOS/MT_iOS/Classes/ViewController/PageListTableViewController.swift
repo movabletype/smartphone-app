@@ -84,7 +84,8 @@ class PageListTableViewController: BaseEntryListTableViewController {
         
         actionMessage = NSLocalizedString("Fetch pages", comment: "Fetch pages")
         
-        if self.blog.canCreatePage() {
+        let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
+        if self.blog.canCreatePage(user: user) {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_newentry"), left: false, target: self, action: "composeButtonPushed:")
         } else {
             self.navigationItem.rightBarButtonItem = nil
@@ -170,7 +171,8 @@ class PageListTableViewController: BaseEntryListTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let item = self.list[indexPath.row] as! Page
         
-        if blog.canUpdatePage() {
+        let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
+        if blog.canUpdatePage(user: user) {
             let vc = PageDetailTableViewController()
             vc.object = item
             vc.blog = blog

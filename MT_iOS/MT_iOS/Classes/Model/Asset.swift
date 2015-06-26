@@ -26,12 +26,20 @@ class Asset: BaseObject {
         label = json["label"].stringValue
         url = json["url"].stringValue
         filename = json["filename"].stringValue
-        fileSize = json["meta"]["fileSize"].stringValue.toInt()!
+        if !json["meta"]["fileSize"].stringValue.isEmpty {
+            if let int = json["meta"]["fileSize"].stringValue.toInt() {
+                fileSize = int
+            }
+        }
         if !json["meta"]["width"].stringValue.isEmpty {
-            width = json["meta"]["width"].stringValue.toInt()!
+            if let int = json["meta"]["width"].stringValue.toInt() {
+                width = int
+            }
         }
         if !json["meta"]["height"].stringValue.isEmpty {
-            height = json["meta"]["height"].stringValue.toInt()!
+            if let int = json["meta"]["height"].stringValue.toInt() {
+                height = int
+            }
         }
         createdByName = json["createdBy"]["displayName"].stringValue
         let dateString = json["createdDate"].stringValue

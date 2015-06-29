@@ -32,7 +32,7 @@ class EntryTextEditorViewController: BaseViewController, UITextViewDelegate {
         self.textView.text = object.text
         self.textView.selectedRange = NSRange()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveButtonPushed:")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "saveButtonPushed:")
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_arw"), left: true, target: self, action: "backButtonPushed:")
 
         self.textView.becomeFirstResponder()

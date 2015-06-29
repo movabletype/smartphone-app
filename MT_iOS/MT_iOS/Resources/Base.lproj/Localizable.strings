@@ -224,10 +224,10 @@
 "Loading..." = "Loading...";
 
 /* Local saved entries */
-"Local saved entries" = "Local saved entries";
+"Local saved entries" = "Unsent entries";
 
 /* Local saved pages */
-"Local saved pages" = "Local saved pages";
+"Local saved pages" = "Unsent pages";
 
 /* Logout... */
 "Logout..." = "Sign out...";

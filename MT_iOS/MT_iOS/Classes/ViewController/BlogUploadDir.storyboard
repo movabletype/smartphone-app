@@ -11,7 +11,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Sd4-Xg-7uV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextFieldCell" id="ALS-mk-CbF">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -19,16 +19,23 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" tag="99" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZXq-L0-kD6">
-                                            <rect key="frame" x="15" y="7" width="290" height="30"/>
+                                            <rect key="frame" x="22" y="13.5" width="283" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                         </textField>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjs-vf-GIn">
+                                            <rect key="frame" x="15" y="13.5" width="5" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="ZXq-L0-kD6" firstAttribute="leading" secondItem="4rL-cp-gHC" secondAttribute="leading" constant="15" id="80V-mU-cN2"/>
-                                        <constraint firstAttribute="trailing" secondItem="ZXq-L0-kD6" secondAttribute="trailing" constant="15" id="FrH-nQ-Ecg"/>
-                                        <constraint firstAttribute="bottom" secondItem="ZXq-L0-kD6" secondAttribute="bottom" constant="6.5" id="ZdX-Eq-w9z"/>
-                                        <constraint firstItem="ZXq-L0-kD6" firstAttribute="top" secondItem="4rL-cp-gHC" secondAttribute="top" constant="7" id="nHp-dx-HZR"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZXq-L0-kD6" secondAttribute="trailing" constant="15" id="1us-cF-qfY"/>
+                                        <constraint firstItem="ZXq-L0-kD6" firstAttribute="leading" secondItem="sjs-vf-GIn" secondAttribute="trailing" constant="2" id="6YP-8c-CKQ"/>
+                                        <constraint firstItem="sjs-vf-GIn" firstAttribute="leading" secondItem="4rL-cp-gHC" secondAttribute="leading" constant="15" id="a9D-BB-TDN"/>
+                                        <constraint firstAttribute="centerY" secondItem="sjs-vf-GIn" secondAttribute="centerY" id="cCF-Tj-pQv"/>
+                                        <constraint firstAttribute="centerY" secondItem="ZXq-L0-kD6" secondAttribute="centerY" id="fbR-ev-hPk"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>

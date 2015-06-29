@@ -31,6 +31,10 @@ class BlogUploadDirTableViewController: BaseTableViewController {
         self.title = NSLocalizedString("Upload Dir", comment: "Upload Dir")
         self.tableView.backgroundColor = Color.tableBg
         
+        if directory.hasPrefix("/") {
+            directory = (directory as NSString).substringFromIndex(1)
+        }
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
     }
 

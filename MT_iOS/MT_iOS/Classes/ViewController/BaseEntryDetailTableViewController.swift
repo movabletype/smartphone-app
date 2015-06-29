@@ -127,7 +127,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 newObject = Page(json: result)
             }
             
-            LOG(newObject.description)
+            LOG("\(result)")
 
             self.object = newObject
             self.list = EntryItemList(blog: self.blog, object: self.object)

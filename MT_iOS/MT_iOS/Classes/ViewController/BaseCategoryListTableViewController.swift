@@ -257,7 +257,9 @@ class BaseCategoryListTableViewController: BaseTableViewController {
         var selectedObjects = [BaseObject]()
         for (id, value) in selected {
             if value {
-                selectedObjects.append(list.objectWithID(id)!)
+                if !id.isEmpty {
+                    selectedObjects.append(list.objectWithID(id)!)
+                }
             }
         }
         

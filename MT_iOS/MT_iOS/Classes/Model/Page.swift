@@ -16,10 +16,8 @@ class Page: BaseEntry {
         super.init(json: json)
         
         folders.removeAll(keepCapacity: false)
-        for item in json["folders"].arrayValue {
-            let folder = Folder(json: item)
-            folders.append(folder)
-        }
+        let folder = Folder(json: json["folder"])
+        folders.append(folder)
     }
     
     override func encodeWithCoder(aCoder: NSCoder) {

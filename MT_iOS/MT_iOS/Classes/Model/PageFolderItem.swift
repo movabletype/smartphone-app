@@ -41,11 +41,11 @@ class PageFolderItem: BaseEntryItem {
     }
     
     override func makeParams()-> [String : AnyObject] {
-        var folders = [[String: String]]()
-        for item in selected {
-            folders.append(["id":item.id])
+        var folder = [String: String]()
+        if let item = selected.first {
+            folder["id"] = item.id
         }
-        return ["folders":folders]
+        return ["folder":folder]
     }
     
     override func clear() {

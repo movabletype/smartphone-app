@@ -136,7 +136,8 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
         self.makeWebView()
         
         if html == nil {
-            var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+            let escapedURL = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            var request = NSMutableURLRequest(URL: NSURL(string: escapedURL!)!)
             self.webView.loadRequest(request)
         } else {
             self.webView.loadHTMLString(html, baseURL: nil)

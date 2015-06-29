@@ -747,11 +747,17 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     private func makeParams()-> [String:AnyObject]? {
         var params = list?.makeParams()
         if params != nil {
-            //新規作成時にカテゴリ未選択なら送信しない
             if object.id.isEmpty {
+                //新規作成時にカテゴリ未選択なら送信しない
                 if let categories = params!["categories"] as? [[String: String]] {
                     if categories.count == 0 {
                         params?.removeValueForKey("categories")
+                    }
+                }
+                //新規作成時にフォルダ未選択なら送信しない
+                if let folder = params!["folder"] as? [String: String] {
+                    if folder["id"]!.isEmpty {
+                        params?.removeValueForKey("folder")
                     }
                 }
             }

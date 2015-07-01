@@ -756,7 +756,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 }
                 //新規作成時にフォルダ未選択なら送信しない
                 if let folder = params!["folder"] as? [String: String] {
-                    if folder["id"]!.isEmpty {
+                    if let id = folder["id"] {
+                        if id.isEmpty {
+                            params?.removeValueForKey("folder")
+                        }
+                    } else {
                         params?.removeValueForKey("folder")
                     }
                 }

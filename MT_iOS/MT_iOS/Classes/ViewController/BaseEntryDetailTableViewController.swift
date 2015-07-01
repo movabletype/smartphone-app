@@ -458,6 +458,12 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    private func showSingleLineTextEditor(object: EntryTextItem) {
+        let vc = EntrySingleLineTextEditorViewController()
+        vc.object = object
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     private func showHTMLEditor(object: EntryTextAreaItem) {
         if self.object.editMode == Entry.EditMode.PlainText || !self.object.id.isEmpty {
             let vc = EntryHTMLEditorViewController()
@@ -641,7 +647,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             if item.type == "title" {
                 self.showTextEditor(item as! EntryTextItem)
             } else if item.type == "text" {
-                self.showTextEditor(item as! EntryTextItem)
+                self.showSingleLineTextEditor(item as! EntryTextItem)
             } else if item.type == "textarea" || item.type == "embed"  {
                 if indexPath.row == 0 {
                     // Do nothing
@@ -654,7 +660,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             } else if item.type == "checkbox" {
                 // Do nothing
             } else if item.type == "url" {
-                self.showTextEditor(item as! EntryURLItem)
+                self.showSingleLineTextEditor(item as! EntryURLItem)
             } else if item.type == "datetime" || item.type == "date" || item.type == "time" {
                 self.showDatePicker(item)
             } else if item.type == "select" {

@@ -200,6 +200,7 @@
 		79CFBDD51B1D63EB00283780 /* EntrySettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDD41B1D63EB00283780 /* EntrySettingTableViewController.swift */; };
 		79CFBDDD1B1D83A200283780 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFBDDC1B1D83A200283780 /* DatePickerViewController.swift */; };
 		79D2E9221B1C33CD0019E9EE /* CommonWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D2E9211B1C33CD0019E9EE /* CommonWebViewController.swift */; };
+		79D6D64F1B4388BD00EB00EE /* EntrySingleLineTextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D6D64E1B4388BD00EB00EE /* EntrySingleLineTextEditorViewController.swift */; };
 		79D804EE1B09E0F10019356D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D804E81B09E0F10019356D /* AppDelegate.swift */; };
 		79E654AA1B0B0A50007E4D4C /* AuthInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E654A91B0B0A50007E4D4C /* AuthInfo.swift */; };
 		79E654AC1B0B11AB007E4D4C /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E654AB1B0B11AB007E4D4C /* BaseTableViewController.swift */; };
@@ -442,6 +443,7 @@
 		79CFBDD41B1D63EB00283780 /* EntrySettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntrySettingTableViewController.swift; sourceTree = "<group>"; };
 		79CFBDDC1B1D83A200283780 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		79D2E9211B1C33CD0019E9EE /* CommonWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonWebViewController.swift; sourceTree = "<group>"; };
+		79D6D64E1B4388BD00EB00EE /* EntrySingleLineTextEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntrySingleLineTextEditorViewController.swift; sourceTree = "<group>"; };
 		79D804E81B09E0F10019356D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79D804F41B09E4010019356D /* MT_iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MT_iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		79E654A91B0B0A50007E4D4C /* AuthInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthInfo.swift; sourceTree = "<group>"; };
@@ -891,6 +893,7 @@
 				797C05571B2833D700511BB2 /* MTRichTextEditor.m */,
 				7956DA631B27CE2F0002B705 /* BlockEditorTableViewController.swift */,
 				79BB891F1B213DD4000BE6CD /* EntryTextEditorViewController.swift */,
+				79D6D64E1B4388BD00EB00EE /* EntrySingleLineTextEditorViewController.swift */,
 				79BB892A1B214725000BE6CD /* EntryHTMLEditorViewController.swift */,
 				790B7D101B215B1A0083EBB4 /* EntrySelectTableViewController.swift */,
 				790B7D141B2195860083EBB4 /* EntryRichTextViewController.swift */,
@@ -1345,6 +1348,7 @@
 				79132B571B16F22F002064C7 /* LoginTableViewController.swift in Sources */,
 				79A715381B2685AA005A09ED /* BlogImageSizeTableViewController.swift in Sources */,
 				79BF57E91B31192100B4B13C /* PrimaryCategorySelectorTableViewController.swift in Sources */,
+				79D6D64F1B4388BD00EB00EE /* EntrySingleLineTextEditorViewController.swift in Sources */,
 				795E20721B1DAC7300FA7857 /* EntryTextAreaItem.swift in Sources */,
 				79E654AC1B0B11AB007E4D4C /* BaseTableViewController.swift in Sources */,
 				795E20761B1DACCF00FA7857 /* EntryImageItem.swift in Sources */,

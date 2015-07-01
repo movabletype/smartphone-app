@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -16,16 +16,29 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Vh-Ca-IHQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="124.5"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0LO-OT-GYT">
+                        <rect key="frame" x="15" y="15" width="290" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="oAs-yt-OfT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="0Vh-Ca-IHQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HeK-4u-UE1"/>
+                    <constraint firstItem="0LO-OT-GYT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="hh3-ii-4Pm"/>
                     <constraint firstItem="0Vh-Ca-IHQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lzj-P5-Mrl"/>
                     <constraint firstAttribute="bottom" secondItem="0Vh-Ca-IHQ" secondAttribute="bottom" id="oFK-om-urS"/>
+                    <constraint firstItem="0LO-OT-GYT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="ojW-iP-aZg"/>
+                    <constraint firstAttribute="trailing" secondItem="0LO-OT-GYT" secondAttribute="trailing" constant="15" id="tva-hb-irf"/>
                     <constraint firstAttribute="trailing" secondItem="0Vh-Ca-IHQ" secondAttribute="trailing" id="yrq-kz-GAR"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="assetImageView" destination="0Vh-Ca-IHQ" id="J6z-SE-7JP"/>
+                <outlet property="placeholderLabel" destination="0LO-OT-GYT" id="uDl-SA-yuh"/>
             </connections>
             <point key="canvasLocation" x="310" y="267.5"/>
         </tableViewCell>

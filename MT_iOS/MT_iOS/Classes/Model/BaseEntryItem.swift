@@ -12,6 +12,7 @@ class BaseEntryItem: NSObject, NSCoding {
     var id = ""
     var type = ""
     var label = ""
+    var descriptionText = ""
     var isCustomField = false
     var visibled = true
     var disabled = false
@@ -26,6 +27,7 @@ class BaseEntryItem: NSObject, NSCoding {
         aCoder.encodeObject(self.id, forKey: "id")
         aCoder.encodeObject(self.type, forKey: "type")
         aCoder.encodeObject(self.label, forKey: "label")
+        aCoder.encodeObject(self.descriptionText, forKey: "descriptionText")
         aCoder.encodeBool(self.isCustomField, forKey: "isCustomField")
         aCoder.encodeBool(self.visibled, forKey: "visibled")
         aCoder.encodeBool(self.disabled, forKey: "disabled")
@@ -36,6 +38,9 @@ class BaseEntryItem: NSObject, NSCoding {
         self.id = aDecoder.decodeObjectForKey("id") as! String
         self.type = aDecoder.decodeObjectForKey("type") as! String
         self.label = aDecoder.decodeObjectForKey("label") as! String
+        if let object = aDecoder.decodeObjectForKey("descriptionText") as? String {
+            self.descriptionText = object
+        }
         self.isCustomField = aDecoder.decodeBoolForKey("isCustomField")
         self.visibled = aDecoder.decodeBoolForKey("visibled")
         self.disabled = aDecoder.decodeBoolForKey("disabled")

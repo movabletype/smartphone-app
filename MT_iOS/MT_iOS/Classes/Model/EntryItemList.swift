@@ -210,6 +210,7 @@ class EntryItemList: NSObject, NSCoding {
             entryItem.label = field.name
             entryItem.isCustomField = true
             entryItem.required = field.required
+            entryItem.descriptionText = field.descriptionText
             
             items.append(entryItem)
         }

@@ -366,7 +366,19 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     cell = c
                 } else {
                     var c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
-                    c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                    if item.dispValue().isEmpty {
+                        c.placeholderLabel.hidden = false
+                        c.assetImageView.hidden = true
+                        if item.descriptionText.isEmpty {
+                            c.placeholderLabel.text = NSLocalizedString("Select Image...", comment: "Select Image...")
+                        } else {
+                            c.placeholderLabel.text = item.descriptionText
+                        }
+                    } else {
+                        c.placeholderLabel.hidden = true
+                        c.assetImageView.hidden = false
+                        c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                    }
                     cell = c
                 }
             } else if item.type == "status" {

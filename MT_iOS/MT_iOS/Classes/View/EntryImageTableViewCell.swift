@@ -10,6 +10,7 @@ import UIKit
 
 class EntryImageTableViewCell: UITableViewCell {
     @IBOutlet weak var assetImageView: UIImageView!
+    @IBOutlet weak var placeholderLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -171,15 +171,27 @@ class EntryItemList: NSObject, NSCoding {
                 var item = EntrySelectItem()
                 if !customFieldObject!.value.isEmpty {
                     item.selected = customFieldObject!.value
+                } else {
+                    item.selected = customFieldObject!.defaultValue
                 }
-                item.list = split(field.options) { $0 == "," }
+                var options = split(field.options) { $0 == "," }
+                item.list.removeAll(keepCapacity: false)
+                for option in options {
+                    item.list.append(Utils.trimSpace(option))
+                }
                 entryItem = item
             } else if field.type == "radio" {
                 var item = EntryRadioItem()
                 if !customFieldObject!.value.isEmpty {
                     item.selected = customFieldObject!.value
+                } else {
+                    item.selected = customFieldObject!.defaultValue
                 }
-                item.list = split(field.options) { $0 == "," }
+                var options = split(field.options) { $0 == "," }
+                item.list.removeAll(keepCapacity: false)
+                for option in options {
+                    item.list.append(Utils.trimSpace(option))
+                }
                 entryItem = item
             } else if field.type == "embed" {
                 var item = EntryEmbedItem()

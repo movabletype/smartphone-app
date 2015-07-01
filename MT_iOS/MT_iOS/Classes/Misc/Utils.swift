@@ -177,4 +177,8 @@ class Utils {
         alertController.addAction(cancelAction)
         vc.presentViewController(alertController, animated: true, completion: nil)
     }
+    
+    class func trimSpace(src: String)-> String {
+        return src.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    }
 }

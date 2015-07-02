@@ -460,3 +460,6 @@
 /* Get detail... */
 "Get detail..." = "情報を取得しています...";
 
+/* Select Image... */
+"Select Image..." = "画像を選択する";
+

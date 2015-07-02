@@ -277,7 +277,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
         var item = items[indexPath.row]
         switch item {
         case Item.Tags:
-            let vc = EntryTextEditorViewController()
+            let vc = EntrySingleLineTextEditorViewController()
             vc.object = tagObject
             self.navigationController?.pushViewController(vc, animated: true)
         case Item.PublishDate:

@@ -657,7 +657,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             let item = list[indexPath.section - 1]
 
             if item.type == "title" {
-                self.showTextEditor(item as! EntryTextItem)
+                self.showSingleLineTextEditor(item as! EntryTextItem)
             } else if item.type == "text" {
                 self.showSingleLineTextEditor(item as! EntryTextItem)
             } else if item.type == "textarea" || item.type == "embed"  {

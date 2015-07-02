@@ -144,7 +144,7 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
     
     // MARK: - fetch
     func fetch() {
-        SVProgressHUD.showWithStatus("Fetch items...")
+        SVProgressHUD.showWithStatus(NSLocalizedString("Fetch items...", comment: "Fetch items..."))
         var success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             SVProgressHUD.dismiss()

@@ -463,3 +463,6 @@
 /* Select Image... */
 "Select Image..." = "画像を選択する";
 
+/* Fetch items... */
+"Fetch items..." = "アイテムを取得しています...";
+

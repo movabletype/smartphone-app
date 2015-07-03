@@ -308,7 +308,17 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     let blockItem = item as! EntryBlocksItem
                     if blockItem.isImageCell() {
                         var c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
-                        c.assetImageView.sd_setImageWithURL(NSURL(string: blockItem.dispValue()))
+                        LOG(blockItem.dispValue())
+                        let url = blockItem.dispValue()
+                        if url.isEmpty {
+                            c.assetImageView.hidden = true
+                            c.placeholderLabel?.text = blockItem.placeholder()
+                            c.placeholderLabel.hidden = false
+                        } else {
+                            c.assetImageView.sd_setImageWithURL(NSURL(string: url))
+                            c.assetImageView.hidden = false
+                            c.placeholderLabel.hidden = true
+                        }
                         cell = c
                     } else {
                         var c = tableView.dequeueReusableCellWithIdentifier("EntryTextAreaTableViewCell", forIndexPath: indexPath) as! EntryTextAreaTableViewCell

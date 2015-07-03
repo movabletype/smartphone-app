@@ -147,6 +147,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
     }
     
+    private func postLogout() {
+        let api = DataAPI.sharedInstance
+        api.resetAuth()
+        
+        let app: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let authInfo = app.authInfo
+        authInfo.logout()
+        
+        self.goLoginView()
+    }
+
     func logout() {
         let api = DataAPI.sharedInstance
         
@@ -159,18 +171,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         api.revokeAuthentication(
             {_ in
                 SVProgressHUD.dismiss()
-                
-                api.resetAuth()
-                
-                let app: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                
-                let authInfo = app.authInfo
-                authInfo.logout()
-                
-                self.goLoginView()
+                self.postLogout()
             },
             failure: {(error: JSON!)-> Void in
-                SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
+                SVProgressHUD.dismiss()
+                self.postLogout()
             }
         )
     }

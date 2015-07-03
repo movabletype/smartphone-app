@@ -127,10 +127,10 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             self.adjustCellLayoutMargins(cell)
             
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            cell.textLabel?.textColor = Color.black
-            cell.textLabel?.font = UIFont.systemFontOfSize(18.0)
+            cell.textLabel?.textColor = Color.cellText
+            cell.textLabel?.font = UIFont.systemFontOfSize(17.0)
             cell.detailTextLabel?.textColor = Color.black
-            cell.detailTextLabel?.font = UIFont.systemFontOfSize(16.0)
+            cell.detailTextLabel?.font = UIFont.systemFontOfSize(15.0)
             
             switch indexPath.row {
             case Item.UploadDir.rawValue:

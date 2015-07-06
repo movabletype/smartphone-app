@@ -304,6 +304,12 @@ class EntryItemList: NSObject, NSCoding {
                 var param = [String: AnyObject]()
                 for key in itemParams.keys {
                     if !key.isEmpty {
+                        if item.type == "datetime" || item.type == "date" || item.type == "time" {
+                            if (itemParams[key] as! String).isEmpty {
+                                continue
+                            }
+                        }
+                        
                         param["basename"] = key
                         param["value"] = itemParams[key]
                     }

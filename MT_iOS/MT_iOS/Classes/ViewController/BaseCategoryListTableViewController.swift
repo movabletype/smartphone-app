@@ -254,21 +254,7 @@ class BaseCategoryListTableViewController: BaseTableViewController {
     }
     
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
-        var selectedObjects = [BaseObject]()
-        for (id, value) in selected {
-            if value {
-                if !id.isEmpty {
-                    selectedObjects.append(list.objectWithID(id)!)
-                }
-            }
-        }
-        
-        if object is EntryCategoryItem {
-            (object as! EntryCategoryItem).selected = selectedObjects as! [Category]
-        } else {
-            (object as! PageFolderItem).selected = selectedObjects as! [Folder]
-        }
-        self.navigationController?.popViewControllerAnimated(true)
+        //Implement subclass
     }
     
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {

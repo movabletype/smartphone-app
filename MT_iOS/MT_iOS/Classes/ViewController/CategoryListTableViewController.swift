@@ -109,7 +109,9 @@ class CategoryListTableViewController: BaseCategoryListTableViewController, Prim
         var selectedObjects = [Category]()
         for (id, value) in selected {
             if value {
-                selectedObjects.append(list.objectWithID(id)! as! Category)
+                if !id.isEmpty {
+                    selectedObjects.append(list.objectWithID(id)! as! Category)
+                }
             }
         }
         

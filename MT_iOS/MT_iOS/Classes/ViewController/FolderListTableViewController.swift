@@ -157,5 +157,19 @@ class FolderListTableViewController: BaseCategoryListTableViewController {
         }
         self.tableView.reloadData()
     }
+    
+    @IBAction override func saveButtonPushed(sender: UIBarButtonItem) {
+        var selectedObjects = [BaseObject]()
+        for (id, value) in selected {
+            if value {
+                if !id.isEmpty {
+                    selectedObjects.append(list.objectWithID(id)!)
+                }
+            }
+        }
+        
+        (object as! PageFolderItem).selected = selectedObjects as! [Folder]
+        self.navigationController?.popViewControllerAnimated(true)
+    }
 
 }

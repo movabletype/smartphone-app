@@ -140,7 +140,7 @@ class SettingTableViewController: BaseTableViewController {
                 var vc = CommonWebViewController()
                 vc.urlString = HELP_URL
                 if Utils.preferredLanguage() != "ja" {
-                    vc.urlString += "/en"
+                    vc.urlString += "en"
                 }
                 self.navigationController?.pushViewController(vc, animated: true)
             case Item.License.rawValue:

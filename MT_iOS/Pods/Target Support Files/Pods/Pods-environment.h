@@ -24,12 +24,6 @@
 #define COCOAPODS_VERSION_MINOR_NSDate_Escort 5
 #define COCOAPODS_VERSION_PATCH_NSDate_Escort 1
 
-// Reachability
-#define COCOAPODS_POD_AVAILABLE_Reachability
-#define COCOAPODS_VERSION_MAJOR_Reachability 3
-#define COCOAPODS_VERSION_MINOR_Reachability 2
-#define COCOAPODS_VERSION_PATCH_Reachability 0
-
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage
 #define COCOAPODS_VERSION_MAJOR_SDWebImage 3
@@ -53,6 +47,12 @@
 #define COCOAPODS_VERSION_MAJOR_SwiftyJSON 2
 #define COCOAPODS_VERSION_MINOR_SwiftyJSON 2
 #define COCOAPODS_VERSION_PATCH_SwiftyJSON 0
+
+// TMReachability
+#define COCOAPODS_POD_AVAILABLE_TMReachability
+#define COCOAPODS_VERSION_MAJOR_TMReachability 3
+#define COCOAPODS_VERSION_MINOR_TMReachability 2
+#define COCOAPODS_VERSION_PATCH_TMReachability 0
 
 // ZSSRichTextEditor
 #define COCOAPODS_POD_AVAILABLE_ZSSRichTextEditor

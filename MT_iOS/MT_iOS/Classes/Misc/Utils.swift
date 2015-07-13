@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Reachability
+import TMReachability
 
 class Utils {
     class func userAgent()->String {
@@ -143,7 +143,7 @@ class Utils {
     }
     
     class func hasConnectivity()-> Bool {
-        let reachability = Reachability.reachabilityForInternetConnection()
+        let reachability = TMReachability.reachabilityForInternetConnection()
         let networkStatus = reachability.currentReachabilityStatus()
         return (networkStatus != NetworkStatus.NotReachable)
     }

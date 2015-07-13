@@ -51,19 +51,19 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Alamofire.framework'
   install_framework 'LUKeychainAccess.framework'
   install_framework 'NSDate_Escort.framework'
-  install_framework 'Reachability.framework'
   install_framework 'SDWebImage.framework'
   install_framework 'SVProgressHUD.framework'
   install_framework 'SwiftyJSON.framework'
+  install_framework 'TMReachability.framework'
   install_framework 'ZSSRichTextEditor.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Alamofire.framework'
   install_framework 'LUKeychainAccess.framework'
   install_framework 'NSDate_Escort.framework'
-  install_framework 'Reachability.framework'
   install_framework 'SDWebImage.framework'
   install_framework 'SVProgressHUD.framework'
   install_framework 'SwiftyJSON.framework'
+  install_framework 'TMReachability.framework'
   install_framework 'ZSSRichTextEditor.framework'
 fi

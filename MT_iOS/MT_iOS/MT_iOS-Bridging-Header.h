@@ -2,7 +2,7 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#import <Reachability/Reachability.h>
+#import <TMReachability/Reachability.h>
 #import <SDWebImage/SDWebImageManager.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <LUKeychainAccess/LUKeychainAccess.h>

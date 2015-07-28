@@ -1541,7 +1541,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3888abc6-4b04-442f-93de-f4228cafd40d";
+				PROVISIONING_PROFILE = "2166bc6a-e914-4772-9342-0efbcbe9caaa";
 				SWIFT_OBJC_BRIDGING_HEADER = "MT_iOS/MT_iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1560,7 +1560,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3888abc6-4b04-442f-93de-f4228cafd40d";
+				PROVISIONING_PROFILE = "2166bc6a-e914-4772-9342-0efbcbe9caaa";
 				SWIFT_OBJC_BRIDGING_HEADER = "MT_iOS/MT_iOS-Bridging-Header.h";
 			};
 			name = Release;

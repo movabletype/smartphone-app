@@ -151,6 +151,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.textField.keyboardType = UIKeyboardType.Default
                 c.textField.returnKeyType = UIReturnKeyType.Done
                 c.textField.secureTextEntry = false
+                c.textField.autocorrectionType = UITextAutocorrectionType.No
                 c.textField.text = auth.username
                 c.textField.tag = FieldType.Username.rawValue
                 c.textField.delegate = self
@@ -163,6 +164,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.textField.keyboardType = UIKeyboardType.Default
                 c.textField.returnKeyType = UIReturnKeyType.Done
                 c.textField.secureTextEntry = true
+                c.textField.autocorrectionType = UITextAutocorrectionType.No
                 c.textField.text = auth.password
                 c.textField.tag = FieldType.Password.rawValue
                 c.textField.delegate = self
@@ -175,6 +177,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.textField.keyboardType = UIKeyboardType.URL
                 c.textField.returnKeyType = UIReturnKeyType.Done
                 c.textField.secureTextEntry = false
+                c.textField.autocorrectionType = UITextAutocorrectionType.No
                 c.textField.text = auth.endpoint
                 c.textField.tag = FieldType.Endpoint.rawValue
                 c.textField.delegate = self

@@ -74,6 +74,7 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
             c.textField.keyboardType = UIKeyboardType.Default
             c.textField.returnKeyType = UIReturnKeyType.Done
             c.textField.secureTextEntry = false
+            c.textField.autocorrectionType = UITextAutocorrectionType.No
             c.textField.text = username
             c.textField.tag = indexPath.row
             c.textField.delegate = self
@@ -87,6 +88,7 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
             c.textField.keyboardType = UIKeyboardType.EmailAddress
             c.textField.returnKeyType = UIReturnKeyType.Done
             c.textField.secureTextEntry = false
+            c.textField.autocorrectionType = UITextAutocorrectionType.No
             c.textField.text = email
             c.textField.tag = indexPath.row
             c.textField.delegate = self
@@ -100,6 +102,7 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
             c.textField.keyboardType = UIKeyboardType.URL
             c.textField.returnKeyType = UIReturnKeyType.Done
             c.textField.secureTextEntry = false
+            c.textField.autocorrectionType = UITextAutocorrectionType.No
             c.textField.text = endpoint
             c.textField.tag = indexPath.row
             c.textField.delegate = self

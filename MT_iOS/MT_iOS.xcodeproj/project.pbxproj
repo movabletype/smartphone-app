@@ -264,6 +264,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F44CC221BA838A200E81517 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		0F44CC231BA838A200E81517 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		13E0E235DEF59054CBA679B8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7904EBB21B0AE58800216EC9 /* DataAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataAPI.swift; sourceTree = "<group>"; };
 		7904EBB61B0AF57700216EC9 /* BaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseObject.swift; sourceTree = "<group>"; };
@@ -1206,6 +1208,7 @@
 				en,
 				Base,
 				ja,
+				fr,
 			);
 			mainGroup = 7919739A1B09DF2A003EA459;
 			productRefGroup = 791973A41B09DF2A003EA459 /* Products */;
@@ -1557,6 +1560,7 @@
 				790D5AA01B33E2F500D9DE9D /* Base */,
 				790D5AA21B33E2F700D9DE9D /* en */,
 				790D5AA31B33E2F900D9DE9D /* ja */,
+				0F44CC231BA838A200E81517 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1566,6 +1570,7 @@
 			children = (
 				791973B21B09DF2B003EA459 /* Base */,
 				790D5A9E1B33E2E800D9DE9D /* ja */,
+				0F44CC221BA838A200E81517 /* fr */,
 			);
 			name = LaunchScreen.xib;
 			path = ..;

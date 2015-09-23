@@ -183,7 +183,7 @@ class BlogTableViewController: BaseTableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) 
         
         self.adjustCellLayoutMargins(cell)
 
@@ -280,7 +280,7 @@ class BlogTableViewController: BaseTableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case Section.Blog.rawValue:
-            var blogInfoView: BlogInfoView = BlogInfoView.instanceFromNib() as! BlogInfoView
+            let blogInfoView: BlogInfoView = BlogInfoView.instanceFromNib() as! BlogInfoView
             blogInfoView.blog = self.blog
             
             blogInfoView.BlogURLButton.addTarget(self, action: "blogURLButtonPushed:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -380,7 +380,7 @@ class BlogTableViewController: BaseTableViewController {
         let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
             style: UIAlertActionStyle.Cancel,
             handler:{
-                (action:UIAlertAction!) -> Void in
+                (action:UIAlertAction) -> Void in
                 LOG("cancelAction")
             }
         )
@@ -388,7 +388,7 @@ class BlogTableViewController: BaseTableViewController {
         let createEntryAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Create Entry", comment: "Create Entry"),
             style: UIAlertActionStyle.Default,
             handler:{
-                (action:UIAlertAction!) -> Void in
+                (action:UIAlertAction) -> Void in
                 
                 let app = UIApplication.sharedApplication().delegate as! AppDelegate
                 app.createEntry(self.blog, controller: self)
@@ -398,7 +398,7 @@ class BlogTableViewController: BaseTableViewController {
         let createPageAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Create Page", comment: "Create Page"),
             style: UIAlertActionStyle.Default,
             handler:{
-                (action:UIAlertAction!) -> Void in
+                (action:UIAlertAction) -> Void in
                 
                 let app = UIApplication.sharedApplication().delegate as! AppDelegate
                 app.createPage(self.blog, controller: self)

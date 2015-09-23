@@ -28,7 +28,7 @@ class EntryItemList: NSObject, NSCoding {
         aCoder.encodeObject(self.object, forKey: "object")
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         self.items = aDecoder.decodeObjectForKey("items") as! [BaseEntryItem]
         self.visibledItems = aDecoder.decodeObjectForKey("visibledItems") as! [BaseEntryItem]
         self.blog = aDecoder.decodeObjectForKey("blog") as! Blog
@@ -41,27 +41,27 @@ class EntryItemList: NSObject, NSCoding {
         self.blog = blog
         self.object = object
         
-        var titleItem = EntryTitleItem()
+        let titleItem = EntryTitleItem()
         titleItem.id = "title"
         titleItem.label = NSLocalizedString("Title", comment: "Title")
         titleItem.text = object.title
         
         var categoryItem: BaseEntryItem
         if object is Entry {
-            var item = EntryCategoryItem()
+            let item = EntryCategoryItem()
             item.id = "category"
             item.label = NSLocalizedString("Category", comment: "Category")
             item.selected = (object as! Entry).categories
             categoryItem = item
         } else {
-            var item = PageFolderItem()
+            let item = PageFolderItem()
             item.id = "folder"
             item.label = NSLocalizedString("Folder", comment: "Folder")
             item.selected = (object as! Page).folders
             categoryItem = item
         }
         
-        var statusItem = EntryStatusItem()
+        let statusItem = EntryStatusItem()
         statusItem.id = "status"
         if object.status == Entry.Status.Publish.text() {
             statusItem.selected = Entry.Status.Publish.rawValue
@@ -89,17 +89,17 @@ class EntryItemList: NSObject, NSCoding {
         moreItem.label = NSLocalizedString("Extended", comment: "Extended")
         moreItem.text = object.more
         
-        var excerptItem = EntryTextItem()
+        let excerptItem = EntryTextItem()
         excerptItem.id = "excerpt"
         excerptItem.label = NSLocalizedString("Excerpt", comment: "Excerpt")
         excerptItem.text = object.excerpt
         
-        var keywordsItem = EntryTextItem()
+        let keywordsItem = EntryTextItem()
         keywordsItem.id = "keywords"
         keywordsItem.label = NSLocalizedString("Keywords", comment: "Keywords")
         keywordsItem.text = object.keywords
 
-        var basenameItem = EntryTextItem()
+        let basenameItem = EntryTextItem()
         basenameItem.id = "basename"
         basenameItem.label = NSLocalizedString("Basename", comment: "Basename")
         basenameItem.text = object.basename
@@ -126,28 +126,28 @@ class EntryItemList: NSObject, NSCoding {
             
             var entryItem: BaseEntryItem = BaseEntryItem()
             if field.type == "text" {
-                var item = EntryTextItem()
+                let item = EntryTextItem()
                 item.text = customFieldObject!.value
                 if customFieldObject!.value.isEmpty {
                     item.text = customFieldObject!.defaultValue
                 }
                 entryItem = item
             } else if field.type == "textarea" {
-                var item = EntryTextAreaItem()
+                let item = EntryTextAreaItem()
                 item.text = customFieldObject!.value
                 if customFieldObject!.value.isEmpty {
                     item.text = customFieldObject!.defaultValue
                 }
                 entryItem = item
             } else if field.type == "checkbox" {
-                var item = EntryCheckboxItem()
+                let item = EntryCheckboxItem()
                 item.checked = (customFieldObject!.value == "1")
                 if customFieldObject!.value.isEmpty {
                     item.checked = (customFieldObject!.defaultValue == "1")
                 }
                 entryItem = item
             } else if field.type == "url" {
-                var item = EntryURLItem()
+                let item = EntryURLItem()
                 item.text = customFieldObject!.value
                 if customFieldObject!.value.isEmpty {
                     item.text = customFieldObject!.defaultValue
@@ -155,53 +155,53 @@ class EntryItemList: NSObject, NSCoding {
                 entryItem = item
             } else if field.type == "datetime" {
                 if field.options == "datetime" {
-                    var item = EntryDateTimeItem()
+                    let item = EntryDateTimeItem()
                     item.datetime = Utils.dateTimeFromString(customFieldObject!.value)
                     entryItem = item
                 } else if field.options == "date" {
-                    var item = EntryDateItem()
+                    let item = EntryDateItem()
                     item.date = Utils.dateTimeFromString(customFieldObject!.value)
                     entryItem = item
                 } else if field.options == "time" {
-                    var item = EntryTimeItem()
+                    let item = EntryTimeItem()
                     item.time = Utils.dateTimeFromString(customFieldObject!.value)
                     entryItem = item
                 }
             } else if field.type == "select" {
-                var item = EntrySelectItem()
+                let item = EntrySelectItem()
                 if !customFieldObject!.value.isEmpty {
                     item.selected = customFieldObject!.value
                 } else {
                     item.selected = customFieldObject!.defaultValue
                 }
-                var options = split(field.options) { $0 == "," }
+                let options = field.options.characters.split { $0 == "," }.map { String($0) }
                 item.list.removeAll(keepCapacity: false)
                 for option in options {
                     item.list.append(Utils.trimSpace(option))
                 }
                 entryItem = item
             } else if field.type == "radio" {
-                var item = EntryRadioItem()
+                let item = EntryRadioItem()
                 if !customFieldObject!.value.isEmpty {
                     item.selected = customFieldObject!.value
                 } else {
                     item.selected = customFieldObject!.defaultValue
                 }
-                var options = split(field.options) { $0 == "," }
+                let options = field.options.characters.split { $0 == "," }.map { String($0) }
                 item.list.removeAll(keepCapacity: false)
                 for option in options {
                     item.list.append(Utils.trimSpace(option))
                 }
                 entryItem = item
             } else if field.type == "embed" {
-                var item = EntryEmbedItem()
+                let item = EntryEmbedItem()
                 item.text = customFieldObject!.value
                 if customFieldObject!.value.isEmpty {
                     item.text = customFieldObject!.defaultValue
                 }
                 entryItem = item
             } else if field.type == "image" {
-                var item = EntryImageItem()
+                let item = EntryImageItem()
                 item.extractInfoFromHTML(customFieldObject!.value)
                 entryItem = item
             }
@@ -281,7 +281,7 @@ class EntryItemList: NSObject, NSCoding {
     func saveOrderSettings() {
         var array = [[String:AnyObject]]()
         for item in items {
-            var i = [
+            let i = [
                 "id": item.id,
                 "isCustomField": item.isCustomField,
                 "visibled": item.visibled
@@ -353,7 +353,7 @@ class EntryItemList: NSObject, NSCoding {
     }
     
     class func loadFromFile(path: String, filename: String)-> EntryItemList {
-        var list = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as! EntryItemList
+        let list = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as! EntryItemList
         list.filename = filename
         
         return list
@@ -370,8 +370,13 @@ class EntryItemList: NSObject, NSCoding {
         var path = paths[0].stringByAppendingPathComponent(self.dataDir())
         
         let fileManager = NSFileManager.defaultManager()
-        var err: NSErrorPointer = nil
-        fileManager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: err)
+        let err: NSErrorPointer = nil
+        do {
+            try fileManager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+        } catch let error as NSError {
+            err.memory = error
+        } catch {
+        }
         if err == nil {
             path = path.stringByAppendingPathComponent(self.filename)
             return NSKeyedArchiver.archiveRootObject(self, toFile: path)
@@ -387,8 +392,13 @@ class EntryItemList: NSObject, NSCoding {
             path = path.stringByAppendingPathComponent(self.filename)
             
             let fileManager = NSFileManager.defaultManager()
-            var err: NSErrorPointer = nil
-            fileManager.removeItemAtPath(path, error: err)
+            let err: NSErrorPointer = nil
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch let error as NSError {
+                err.memory = error
+            } catch {
+            }
             
             return (err == nil)
         }

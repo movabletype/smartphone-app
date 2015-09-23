@@ -70,7 +70,7 @@ class SettingTableViewController: BaseTableViewController {
 
         switch indexPath.section {
         case Section.Item.rawValue:
-            cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) as! UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) 
 
             self.adjustCellLayoutMargins(cell)
 
@@ -85,7 +85,7 @@ class SettingTableViewController: BaseTableViewController {
                 break
             }
         case Section.Logout.rawValue:
-            cell = tableView.dequeueReusableCellWithIdentifier("LogoutCell", forIndexPath: indexPath) as! UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("LogoutCell", forIndexPath: indexPath) 
             cell.textLabel?.text = NSLocalizedString("Logout", comment: "Logout")
         default:
             break
@@ -137,19 +137,19 @@ class SettingTableViewController: BaseTableViewController {
         case Section.Item.rawValue:
             switch indexPath.row {
             case Item.Help.rawValue:
-                var vc = CommonWebViewController()
+                let vc = CommonWebViewController()
                 vc.urlString = HELP_URL
                 if Utils.preferredLanguage() != "ja" {
                     vc.urlString += "en"
                 }
                 self.navigationController?.pushViewController(vc, animated: true)
             case Item.License.rawValue:
-                var vc = CommonWebViewController()
+                let vc = CommonWebViewController()
                 let path = NSBundle.mainBundle().pathForResource("license", ofType: "html")
                 vc.filePath = path!
                 self.navigationController?.pushViewController(vc, animated: true)
             case Item.ReportBug.rawValue:
-                var vc = CommonWebViewController()
+                let vc = CommonWebViewController()
                 vc.urlString = REPORT_BUG_URL
                 if Utils.preferredLanguage() != "ja" {
                     vc.urlString += "/en"

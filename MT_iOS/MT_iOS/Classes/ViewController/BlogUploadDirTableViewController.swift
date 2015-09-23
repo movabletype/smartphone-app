@@ -58,7 +58,7 @@ class BlogUploadDirTableViewController: BaseTableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TextFieldCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("TextFieldCell", forIndexPath: indexPath) 
 
         self.adjustCellLayoutMargins(cell)
         
@@ -76,8 +76,8 @@ class BlogUploadDirTableViewController: BaseTableViewController {
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var header = UIView(frame: CGRectMake(0.0, 0.0, self.tableView.frame.size.width, self.tableView(tableView, heightForHeaderInSection: 0)))
-        var label = UILabel(frame: CGRectMake(10.0, 0.0, header.frame.size.width - 10.0 * 2, header.frame.size.height))
+        let header = UIView(frame: CGRectMake(0.0, 0.0, self.tableView.frame.size.width, self.tableView(tableView, heightForHeaderInSection: 0)))
+        let label = UILabel(frame: CGRectMake(10.0, 0.0, header.frame.size.width - 10.0 * 2, header.frame.size.height))
         label.text = NSLocalizedString("Upload Directory", comment: "Upload Directory")
         label.textColor = Color.placeholderText
         label.font = UIFont.systemFontOfSize(15.0)
@@ -135,10 +135,10 @@ class BlogUploadDirTableViewController: BaseTableViewController {
         self.navigationController?.popViewControllerAnimated(true)
         if field != nil {
             var dir = field!.text
-            if !dir.hasPrefix("/") {
-                dir = "/" + dir
+            if !dir!.hasPrefix("/") {
+                dir = "/" + dir!
             }
-            delegate?.blogUploadDirDone(self, directory: dir)
+            delegate?.blogUploadDirDone(self, directory: dir!)
         }
     }
 

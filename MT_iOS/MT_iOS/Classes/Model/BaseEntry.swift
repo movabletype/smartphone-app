@@ -78,7 +78,7 @@ class BaseEntry: BaseObject {
     var basename = ""
     
     var editMode: EditMode = .RichText
-    
+
     override init(json: JSON) {
         super.init(json: json)
         
@@ -140,7 +140,7 @@ class BaseEntry: BaseObject {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.title = aDecoder.decodeObjectForKey("title") as! String
         self.date = aDecoder.decodeObjectForKey("date") as? NSDate
         self.modifiedDate = aDecoder.decodeObjectForKey("modifiedDate") as? NSDate
@@ -163,12 +163,12 @@ class BaseEntry: BaseObject {
             array.append(tag.name)
         }
         
-        return join(",", array)
+        return array.joinWithSeparator(",")
     }
     
     func setTagsFromString(string: String) {
         tags.removeAll(keepCapacity: false)
-        let list = split(string) { $0 == "," }
+        let list = string.characters.split { $0 == "," }.map { String($0) }
         for item in list {
             tags.append(Tag(json: JSON(item)))
         }

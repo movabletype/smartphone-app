@@ -87,7 +87,7 @@ class BlogListTableViewController: BaseTableViewController, UISearchBarDelegate 
         searchBar.placeholder = NSLocalizedString("Search", comment: "Search")
         searchBar.delegate = self
         
-        var textField = Utils.getTextFieldFromView(searchBar)
+        let textField = Utils.getTextFieldFromView(searchBar)
         if textField != nil {
             textField!.enablesReturnKeyAutomatically = false
         }
@@ -172,7 +172,7 @@ class BlogListTableViewController: BaseTableViewController, UISearchBarDelegate 
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BlogCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("BlogCell", forIndexPath: indexPath) 
     
         self.adjustCellLayoutMargins(cell)
         
@@ -224,14 +224,14 @@ class BlogListTableViewController: BaseTableViewController, UISearchBarDelegate 
     //MARK: -
     func settingButtonPushed(sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Setting", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! UIViewController
-        self.presentViewController(vc, animated: true, completion: nil)
+        let vc = storyboard.instantiateInitialViewController()
+        self.presentViewController(vc!, animated: true, completion: nil)
     }
     
     // MARK: --
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        self.list.searchText = searchBar.text
+        self.list.searchText = searchBar.text!
         if self.list.count > 0 {
             self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         }

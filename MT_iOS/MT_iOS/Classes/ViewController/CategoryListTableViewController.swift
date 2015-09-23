@@ -115,7 +115,7 @@ class CategoryListTableViewController: BaseCategoryListTableViewController, Prim
             }
         }
         
-        sort(&selectedObjects) {
+        selectedObjects.sortInPlace {
             (cat1 : Category, cat2 : Category) -> Bool in
             return cat1.level < cat2.level
         }

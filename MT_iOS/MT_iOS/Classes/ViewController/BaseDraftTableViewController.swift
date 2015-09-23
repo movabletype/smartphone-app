@@ -25,26 +25,29 @@ class BaseDraftTableViewController: BaseTableViewController {
     
     func dataDir()-> String {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        var dir = blog.dataDirPath()
+        let dir = blog.dataDirPath()
         var path = paths[0].stringByAppendingPathComponent(dir)
         path = path.stringByAppendingPathComponent(self is EntryDraftTableViewController ? "draft_entry" : "draft_page")
         
         let manager = NSFileManager.defaultManager()
-        manager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: nil)
+        do {
+            try manager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+        } catch _ {
+        }
 
         return path
     }
     
     func fetch() {
         let manager = NSFileManager.defaultManager()
-        var paths = manager.contentsOfDirectoryAtPath(self.dataDir(), error: nil)!
+        let paths = try! manager.contentsOfDirectoryAtPath(self.dataDir())
         files = [String]()
         for path in paths {
             if !path.hasPrefix(".") {
-                files.append(path as! String)
+                files.append(path )
             }
         }
-        files = files.reverse()
+        files = Array(files.reverse())
     }
     
     override func viewWillAppear(animated: Bool) {

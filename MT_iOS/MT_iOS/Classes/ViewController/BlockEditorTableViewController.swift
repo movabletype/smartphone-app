@@ -31,11 +31,11 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         items = [BaseEntryItem]()
         for block in blocks.blocks {
             if block is BlockImageItem {
-                var item = BlockImageItem()
+                let item = BlockImageItem()
                 item.asset = (block as! BlockImageItem).asset
                 items.append(item)
             } else {
-                var item = BlockTextItem()
+                let item = BlockTextItem()
                 item.text = (block as! BlockTextItem).text
                 items.append(item)
             }
@@ -71,7 +71,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         guidanceBgView.frame = app.window!.frame
         app.window!.addSubview(guidanceBgView)
         
-        var guidanceView = BlockGuidanceView.instanceFromNib() as! BlockGuidanceView
+        let guidanceView = BlockGuidanceView.instanceFromNib() as! BlockGuidanceView
         guidanceView.closeButton.addTarget(self, action: "guidanceCloseButtonPushed:", forControlEvents: UIControlEvents.TouchUpInside)
         guidanceBgView.addSubview(guidanceView)
         guidanceView.center = guidanceBgView.center
@@ -141,8 +141,8 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         let item = items[indexPath.row]
         
         if item.type == "textarea" {
-            var c = tableView.dequeueReusableCellWithIdentifier("TextBlockTableViewCell", forIndexPath: indexPath) as! TextBlockTableViewCell
-            var text = item.dispValue()
+            let c = tableView.dequeueReusableCellWithIdentifier("TextBlockTableViewCell", forIndexPath: indexPath) as! TextBlockTableViewCell
+            let text = item.dispValue()
             if text.isEmpty {
                 c.placeholderLabel?.text = (item as! EntryTextAreaItem).placeholder()
                 c.placeholderLabel.hidden = false
@@ -154,7 +154,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             }
             cell = c
         } else {
-            var c = tableView.dequeueReusableCellWithIdentifier("ImageBlockTableViewCell", forIndexPath: indexPath) as! ImageBlockTableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("ImageBlockTableViewCell", forIndexPath: indexPath) as! ImageBlockTableViewCell
             c.blockImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
             cell = c
         }
@@ -272,19 +272,19 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     private func makeToolbarItems(editMode: Bool) {
         var buttons = [UIBarButtonItem]()
         if editMode {
-            var flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-            var doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
+            let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+            let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
             
             buttons = [flexible, doneButton]
         } else {
-            var cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
-            var textAddButton = UIBarButtonItem(image: UIImage(named: "btn_textadd"), left: false, target: self, action: "textAddButtonPushed:")
+            let cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
+            let textAddButton = UIBarButtonItem(image: UIImage(named: "btn_textadd"), left: false, target: self, action: "textAddButtonPushed:")
             
-            var flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+            let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
             
-            var previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
+            let previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
 
-            var editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editButtonPushed:")
+            let editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editButtonPushed:")
             
             buttons = [cameraButton, textAddButton, flexible, previewButton, editButton]
 
@@ -306,7 +306,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
     
     @IBAction func cameraButtonPushed(sender: UIBarButtonItem) {
-        var item = BlockImageItem()
+        let item = BlockImageItem()
         item.label = NSLocalizedString("Image", comment: "Image")
         items.append(item)
         self.tableView.reloadData()
@@ -324,7 +324,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
     
     @IBAction func textAddButtonPushed(sender: UIBarButtonItem) {
-        var item = BlockTextItem()
+        let item = BlockTextItem()
         item.label = NSLocalizedString("Text", comment: "Text")
         items.append(item)
         self.tableView.reloadData()
@@ -335,7 +335,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     @IBAction func previewButtonPushed(sender: UIBarButtonItem) {
         let vc = PreviewViewController()
         let nav = UINavigationController(rootViewController: vc)
-        var html = self.makeHTML()
+        let html = self.makeHTML()
         vc.html = html
         self.presentViewController(nav, animated: true, completion: nil)
     }

@@ -1,8 +1,8 @@
 platform :ios, "8.0"
 use_frameworks!
 
-pod 'Alamofire'
-pod 'SwiftyJSON'
+pod 'Alamofire', '~> 2.0'
+pod 'SwiftyJSON', :git => "https://github.com/SwiftyJSON/SwiftyJSON.git", :branch => 'xcode7'
 pod 'SVProgressHUD'
 pod 'TMReachability', :git => 'https://github.com/albertbori/Reachability', :commit => 'e34782b386307e386348b481c02c176d58ba45e6'
 pod 'SDWebImage'

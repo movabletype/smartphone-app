@@ -63,13 +63,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     
     private func makeToolbarItems() {
         var buttons = [UIBarButtonItem]()
-        var settingsButtonPushed = UIBarButtonItem(image: UIImage(named: "btn_entry_setting"), left: true, target: self, action: "settingsButtonPushed:")
+        let settingsButtonPushed = UIBarButtonItem(image: UIImage(named: "btn_entry_setting"), left: true, target: self, action: "settingsButtonPushed:")
         
-        var flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        var previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
+        let previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
         
-        var editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editButtonPushed:")
+        let editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editButtonPushed:")
             
         buttons = [settingsButtonPushed, flexible, previewButton, editButton]
         
@@ -240,7 +240,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let list = self.list {
             if indexPath.section == 0 {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntryPermalinkTableViewCell", forIndexPath: indexPath) as! EntryPermalinkTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("EntryPermalinkTableViewCell", forIndexPath: indexPath) as! EntryPermalinkTableViewCell
                 self.adjustCellLayoutMargins(c)
                 c.iconImageView.hidden = object.permalink.isEmpty
                 c.permalinkLabel.text = object.permalink
@@ -260,8 +260,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             var cell = UITableViewCell()
             
             if item.type == "title" {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntryTextTableViewCell", forIndexPath: indexPath) as! EntryTextTableViewCell
-                var text = item.dispValue()
+                let c = tableView.dequeueReusableCellWithIdentifier("EntryTextTableViewCell", forIndexPath: indexPath) as! EntryTextTableViewCell
+                let text = item.dispValue()
                 if text.isEmpty {
                     c.textLabel?.text = (item as! EntryTextItem).placeholder()
                     c.textLabel?.textColor = Color.placeholderText
@@ -271,21 +271,21 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 }
                 cell = c
             } else if item.type == "text" {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
 
             } else if item.type == "textarea" || item.type == "embed" {
                 if indexPath.row == 0 {
-                    var c = tableView.dequeueReusableCellWithIdentifier("EntryHeaderTableViewCell", forIndexPath: indexPath) as! EntryHeaderTableViewCell
+                    let c = tableView.dequeueReusableCellWithIdentifier("EntryHeaderTableViewCell", forIndexPath: indexPath) as! EntryHeaderTableViewCell
                     c.textLabel?.text = item.label
                     c.backgroundColor = Color.tableBg
                     c.selectionStyle = UITableViewCellSelectionStyle.None
                     cell = c
                 } else {
-                    var c = tableView.dequeueReusableCellWithIdentifier("EntryTextAreaTableViewCell", forIndexPath: indexPath) as! EntryTextAreaTableViewCell
-                    var text = item.dispValue()
+                    let c = tableView.dequeueReusableCellWithIdentifier("EntryTextAreaTableViewCell", forIndexPath: indexPath) as! EntryTextAreaTableViewCell
+                    let text = item.dispValue()
                     if text.isEmpty {
                         c.placeholderLabel?.text = (item as! EntryTextAreaItem).placeholder()
                         c.placeholderLabel.hidden = false
@@ -299,7 +299,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 }
             } else if item.type == "blocks" {
                 if indexPath.row == 0 {
-                    var c = tableView.dequeueReusableCellWithIdentifier("EntryHeaderTableViewCell", forIndexPath: indexPath) as! EntryHeaderTableViewCell
+                    let c = tableView.dequeueReusableCellWithIdentifier("EntryHeaderTableViewCell", forIndexPath: indexPath) as! EntryHeaderTableViewCell
                     c.textLabel?.text = item.label
                     c.backgroundColor = Color.tableBg
                     c.selectionStyle = UITableViewCellSelectionStyle.None
@@ -307,7 +307,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 } else {
                     let blockItem = item as! EntryBlocksItem
                     if blockItem.isImageCell() {
-                        var c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
+                        let c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
                         LOG(blockItem.dispValue())
                         let url = blockItem.dispValue()
                         if url.isEmpty {
@@ -321,8 +321,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                         }
                         cell = c
                     } else {
-                        var c = tableView.dequeueReusableCellWithIdentifier("EntryTextAreaTableViewCell", forIndexPath: indexPath) as! EntryTextAreaTableViewCell
-                        var text = blockItem.dispValue()
+                        let c = tableView.dequeueReusableCellWithIdentifier("EntryTextAreaTableViewCell", forIndexPath: indexPath) as! EntryTextAreaTableViewCell
+                        let text = blockItem.dispValue()
                         if text.isEmpty {
                             c.placeholderLabel?.text = blockItem.placeholder()
                             c.placeholderLabel.hidden = false
@@ -337,10 +337,10 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     
                 }
             } else if item.type == "checkbox" {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntryCheckboxTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("EntryCheckboxTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = ""
-                var switchCtrl = UISwitch()
+                let switchCtrl = UISwitch()
                 switchCtrl.tag = indexPath.section
                 switchCtrl.on = (item.dispValue() == "true")
                 switchCtrl.addTarget(self, action: "switchChanged:", forControlEvents: UIControlEvents.ValueChanged)
@@ -348,34 +348,34 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 c.selectionStyle = UITableViewCellSelectionStyle.None
                 cell = c
             } else if item.type == "url" {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else if item.type == "datetime" || item.type == "date" || item.type == "time"  {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else if item.type == "select" {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntrySelectTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("EntrySelectTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else if item.type == "radio" {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntryRadioTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("EntryRadioTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else if item.type == "image" {
                 if indexPath.row == 0 {
-                    var c = tableView.dequeueReusableCellWithIdentifier("EntryHeaderTableViewCell", forIndexPath: indexPath) as! EntryHeaderTableViewCell
+                    let c = tableView.dequeueReusableCellWithIdentifier("EntryHeaderTableViewCell", forIndexPath: indexPath) as! EntryHeaderTableViewCell
                     c.textLabel?.text = item.label
                     c.backgroundColor = Color.tableBg
                     c.selectionStyle = UITableViewCellSelectionStyle.None
                     cell = c
                 } else {
-                    var c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
+                    let c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
                     if item.dispValue().isEmpty {
                         c.placeholderLabel.hidden = false
                         c.assetImageView.hidden = true
@@ -392,7 +392,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     cell = c
                 }
             } else if item.type == "status" {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntryStatusTableViewCell", forIndexPath: indexPath) as! EntryStatusTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("EntryStatusTableViewCell", forIndexPath: indexPath) as! EntryStatusTableViewCell
                 let status = item as! EntryStatusItem
                 c.segmentedControl.selectedSegmentIndex = status.selected
                 c.segmentedControl.tag = indexPath.section
@@ -410,12 +410,12 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 
                 cell = c
             } else if item.type == "category" || item.type == "folder" {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else {
-                var c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
@@ -618,7 +618,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
             style: UIAlertActionStyle.Cancel,
             handler:{
-                (action:UIAlertAction!) -> Void in
+                (action:UIAlertAction) -> Void in
                 LOG("cancelAction")
             }
         )
@@ -626,7 +626,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let selectAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Select Image", comment: "Select Image"),
             style: UIAlertActionStyle.Default,
             handler:{
-                (action:UIAlertAction!) -> Void in
+                (action:UIAlertAction) -> Void in
                 self.showAssetSelector(item)
             }
         )
@@ -634,7 +634,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let deleteAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Delete Image", comment: "Delete Image"),
             style: UIAlertActionStyle.Destructive,
             handler:{
-                (action:UIAlertAction!) -> Void in
+                (action:UIAlertAction) -> Void in
                 item.clear()
                 item.isDirty = true
                 self.tableView.reloadData()
@@ -809,13 +809,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             //Assets
             var assetIDs = [String]()
             func appendID(id: String) {
-                if !id.isEmpty && !contains(assetIDs, id) {
+                if !id.isEmpty && !assetIDs.contains(id) {
                     assetIDs.append(id)
                 }
             }
             
             for asset in object.assets {
-                if !contains(assetIDs, asset.id) {
+                if !assetIDs.contains(asset.id) {
                     assetIDs.append(asset.id)
                 }
             }
@@ -1045,7 +1045,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
             style: UIAlertActionStyle.Cancel,
             handler:{
-                (action:UIAlertAction!) -> Void in
+                (action:UIAlertAction) -> Void in
                 LOG("cancelAction")
             }
         )
@@ -1053,7 +1053,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let submitAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Submit", comment: "Submit"),
             style: UIAlertActionStyle.Default,
             handler:{
-                (action:UIAlertAction!) -> Void in
+                (action:UIAlertAction) -> Void in
                 
                 if !self.object.id.isEmpty && !self.list!.filename.isEmpty {
                     self.checkModified()
@@ -1066,7 +1066,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let saveLocalAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Save Local", comment: "Save Local"),
             style: UIAlertActionStyle.Default,
             handler:{
-                (action:UIAlertAction!) -> Void in
+                (action:UIAlertAction) -> Void in
                 self.saveLocal()
             }
         )

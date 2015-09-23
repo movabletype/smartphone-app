@@ -45,7 +45,7 @@ class AssetSelectorTableViewController: AssetListTableViewController {
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
         
         // Configure the cell...
         cell.accessoryType = UITableViewCellAccessoryType.None

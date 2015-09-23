@@ -132,14 +132,14 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         
-        var separatorLineView = UIView(frame: CGRectMake(0.0, 0.0, tableView.frame.size.width, 1.0))
+        let separatorLineView = UIView(frame: CGRectMake(0.0, 0.0, tableView.frame.size.width, 1.0))
         separatorLineView.backgroundColor = Color.separatorLine
         
         // Configure the cell...
-        var item = items[indexPath.row]
+        let item = items[indexPath.row]
         switch item {
         case Item.Tags:
-            var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) 
             c.textLabel?.text = NSLocalizedString("Tags", comment: "Tags")
             c.detailTextLabel?.text = tagObject.text
             c.contentView.addSubview(separatorLineView)
@@ -147,7 +147,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             cell = c
             
         case Item.PublishDate:
-            var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) 
             c.textLabel?.text = NSLocalizedString("Publish at", comment: "Publishat ")
             if let date = publishDate {
                 c.detailTextLabel?.text = Utils.mediumDateTimeFromDate(date)
@@ -159,10 +159,10 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             cell = c
             
         case Item.UnpublishDateEnabled:
-            var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) 
             c.textLabel?.text = NSLocalizedString("Unpublish at", comment: "Unpublish at")
             c.detailTextLabel?.text = ""
-            var switchCtrl = UISwitch()
+            let switchCtrl = UISwitch()
             switchCtrl.on = (unpublishDate != nil)
             switchCtrl.addTarget(self, action: "unpublishEnabledChenged:", forControlEvents: UIControlEvents.ValueChanged)
             c.accessoryView = switchCtrl
@@ -171,7 +171,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             cell = c
             
         case Item.UnpublishDate:
-            var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) 
             c.textLabel?.text = ""
             if let date = unpublishDate {
                 c.detailTextLabel?.text = Utils.mediumDateTimeFromDate(date)
@@ -183,7 +183,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             cell = c
             
         case Item.EditorMode:
-            var c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) as! UITableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("BasicCell", forIndexPath: indexPath) 
             c.textLabel?.text = NSLocalizedString("Editor Mode", comment: "Editor Mode")
             if self.editorMode == Entry.EditMode.RichText {
                 c.detailTextLabel?.text = Entry.EditMode.RichText.label()
@@ -195,7 +195,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             cell = c
             
         case Item.DeleteButton:
-            var c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
             var titleText: String
             if object is Entry {
                 if list!.filename.isEmpty {
@@ -249,7 +249,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
     
     //MARK: - Table view delegate
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var item = items[indexPath.row]
+        let item = items[indexPath.row]
         switch item {
         case Item.Tags:
             return 48.0
@@ -274,7 +274,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         selectedIndexPath = indexPath
-        var item = items[indexPath.row]
+        let item = items[indexPath.row]
         switch item {
         case Item.Tags:
             let vc = EntrySingleLineTextEditorViewController()
@@ -357,7 +357,7 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
             return
         }
         
-        var item = items[selectedIndexPath!.row]
+        let item = items[selectedIndexPath!.row]
         switch item {
         case Item.PublishDate:
             self.publishDate = date

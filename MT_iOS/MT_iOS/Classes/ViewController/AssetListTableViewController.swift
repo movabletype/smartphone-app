@@ -89,7 +89,7 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
         searchBar.placeholder = NSLocalizedString("Search", comment: "Search")
         searchBar.delegate = self
         
-        var textField = Utils.getTextFieldFromView(searchBar)
+        let textField = Utils.getTextFieldFromView(searchBar)
         if textField != nil {
             textField!.enablesReturnKeyAutomatically = false
         }
@@ -240,7 +240,7 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
     // MARK: --
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        self.list.searchText = searchBar.text
+        self.list.searchText = searchBar.text!
         if self.list.count > 0 {
             self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         }

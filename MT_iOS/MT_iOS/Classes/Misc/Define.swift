@@ -19,7 +19,7 @@ let REPORT_BUG_URL = "http://www.movabletype.jp/documentation/mtios/inquiry"
 
 func LOG(_ info: String = "") {
     #if DEBUG
-        println("\(info)")
+        print("\(info)")
     #endif
 }
 
@@ -27,6 +27,6 @@ func LOG_METHOD(_ info: String = "", function: String = __FUNCTION__, file: Stri
     #if DEBUG
         let fileName = file.lastPathComponent.stringByDeletingPathExtension
         let sourceInfo = "\(fileName).\(function)-line\(line)"
-        println("[\(sourceInfo)]\(info)")
+        print("[\(sourceInfo)]\(info)")
     #endif
 }

@@ -23,7 +23,7 @@ class EntryDateItem: BaseEntryItem {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.date = aDecoder.decodeObjectForKey("date") as? NSDate
     }
 

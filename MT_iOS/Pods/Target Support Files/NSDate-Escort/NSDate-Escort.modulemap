@@ -1,0 +1,6 @@
+framework module NSDate_Escort {
+  umbrella header "NSDate-Escort-umbrella.h"
+
+  export *
+  module * { export * }
+}

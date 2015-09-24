@@ -237,7 +237,7 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
         let api = DataAPI.sharedInstance
         api.APIBaseURL = endpoint
         
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)

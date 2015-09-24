@@ -115,7 +115,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: (JSON!-> Void) = {
+        let success: (JSON!-> Void) = {
             (result: JSON!)-> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
@@ -134,7 +134,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             
             self.tableView.reloadData()
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
@@ -727,7 +727,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: (JSON!-> Void) = {
+        let success: (JSON!-> Void) = {
             (result: JSON!)-> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
@@ -739,7 +739,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             vc.url = url
             self.presentViewController(nav, animated: true, completion: nil)
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
@@ -873,13 +873,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let isEntry = object is Entry
         
         let blogID = blog.id
-        var id = object.id
+        let id = object.id
         
         let api = DataAPI.sharedInstance
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: (JSON!-> Void) = {
+        let success: (JSON!-> Void) = {
             (result: JSON!)-> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
@@ -905,7 +905,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             SVProgressHUD.showSuccessWithStatus(NSLocalizedString("Success", comment: "Success"))
             self.list!.clean()
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
@@ -948,7 +948,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: (JSON!-> Void) = {
+        let success: (JSON!-> Void) = {
             (result: JSON!)-> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
@@ -983,7 +983,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 self.saveEntry()
             }
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
@@ -1097,7 +1097,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: ((JSON!)-> Void) = {
+        let success: ((JSON!)-> Void) = {
             (result: JSON!)-> Void in
             LOG("\(result)")
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -1105,7 +1105,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             
             self.navigationController?.popViewControllerAnimated(true)
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false

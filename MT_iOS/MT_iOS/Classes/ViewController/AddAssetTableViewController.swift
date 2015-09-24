@@ -316,7 +316,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: ((JSON!)-> Void) = {
+        let success: ((JSON!)-> Void) = {
             (result: JSON!)-> Void in
             LOG("\(result)")
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -325,7 +325,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             let asset = Asset(json: result)
             self.delegate?.AddAssetDone(self, asset: asset)
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false

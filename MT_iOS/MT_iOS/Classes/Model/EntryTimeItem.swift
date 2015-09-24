@@ -44,7 +44,7 @@ class EntryTimeItem: BaseEntryItem {
     }
     
     override func makeParams()-> [String : AnyObject] {
-        if let dt = self.time {
+        if let _ = self.time {
             return [self.id:self.value()]
         }
         return [self.id:""]

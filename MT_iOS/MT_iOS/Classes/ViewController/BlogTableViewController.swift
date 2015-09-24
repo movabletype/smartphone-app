@@ -74,7 +74,7 @@ class BlogTableViewController: BaseTableViewController {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
@@ -83,7 +83,7 @@ class BlogTableViewController: BaseTableViewController {
         
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
-                var params = ["includeShared":"system", "systemObject":"entry"]
+                let params = ["includeShared":"system", "systemObject":"entry"]
                 api.listFields(siteID: self.blog.id, options: params, success:
                     {(result: [JSON]!, total: Int!)-> Void in
                         LOG("\(result)")
@@ -93,7 +93,7 @@ class BlogTableViewController: BaseTableViewController {
                             self.blog.customfieldsForEntry.append(field)
                         }
                         
-                        var params = ["includeShared":"system", "systemObject":"page"]
+                        let params = ["includeShared":"system", "systemObject":"page"]
                         api.listFields(siteID: self.blog.id, options: params, success:
                             {(result: [JSON]!, total: Int!)-> Void in
                                 LOG("\(result)")
@@ -120,7 +120,7 @@ class BlogTableViewController: BaseTableViewController {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
@@ -129,7 +129,7 @@ class BlogTableViewController: BaseTableViewController {
         
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
-                var params = ["fields":"permissions"]
+                let params = ["fields":"permissions"]
                 api.listPermissionsForSite(self.blog.id, options: params, success: {
                     (result: [JSON]!, total: Int!)-> Void in
                         LOG("\(result)")

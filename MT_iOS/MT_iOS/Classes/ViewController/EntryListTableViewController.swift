@@ -26,7 +26,7 @@ class EntryList: ItemList {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             LOG("\(result)")
             if self.refresh {
@@ -38,7 +38,7 @@ class EntryList: ItemList {
             self.postProcess()
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             failure(error)

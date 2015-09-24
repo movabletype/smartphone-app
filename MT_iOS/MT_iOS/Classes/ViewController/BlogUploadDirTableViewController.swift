@@ -65,6 +65,7 @@ class BlogUploadDirTableViewController: BaseTableViewController {
         // Configure the cell...
         field = cell.viewWithTag(99) as? UITextField
         field?.keyboardType = UIKeyboardType.URL
+        field?.autocorrectionType = UITextAutocorrectionType.No
         field?.text = directory
         field?.becomeFirstResponder()
 

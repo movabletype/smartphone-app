@@ -133,13 +133,15 @@ class SettingTableViewController: BaseTableViewController {
     
     // MARK: - Table view delegte
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let lang = Utils.preferredLanguage()
+        let isJP = (lang as NSString).substringToIndex(2) == "ja" ? true : false
         switch indexPath.section {
         case Section.Item.rawValue:
             switch indexPath.row {
             case Item.Help.rawValue:
                 let vc = CommonWebViewController()
                 vc.urlString = HELP_URL
-                if Utils.preferredLanguage() != "ja" {
+                if !isJP {
                     vc.urlString += "en"
                 }
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -151,7 +153,7 @@ class SettingTableViewController: BaseTableViewController {
             case Item.ReportBug.rawValue:
                 let vc = CommonWebViewController()
                 vc.urlString = REPORT_BUG_URL
-                if Utils.preferredLanguage() != "ja" {
+                if !isJP {
                     vc.urlString += "/en"
                 }
                 self.navigationController?.pushViewController(vc, animated: true)

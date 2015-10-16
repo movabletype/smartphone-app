@@ -60,6 +60,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="cfz-j9-uba" firstAttribute="centerX" secondItem="w3x-8Z-9ca" secondAttribute="centerX" id="5zE-if-os5"/>
                             <constraint firstItem="s03-AJ-wMI" firstAttribute="top" secondItem="cfz-j9-uba" secondAttribute="bottom" constant="8" symbolic="YES" id="A2g-HO-mZ7"/>
                             <constraint firstItem="s03-AJ-wMI" firstAttribute="centerX" secondItem="5FZ-Wh-3oe" secondAttribute="centerX" id="AVp-C8-QJ5"/>
                             <constraint firstItem="gqZ-5H-PSL" firstAttribute="top" secondItem="5FZ-Wh-3oe" secondAttribute="bottom" constant="8" symbolic="YES" id="JS0-fX-NZA"/>

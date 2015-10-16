@@ -49,7 +49,7 @@ class EntryList: ItemList {
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 var params = ["limit":"10", "no_text_filter":"1"]
-                params["fields"] = "id,title,status,date"
+                params["fields"] = "id,title,status,date,author"
                 if !self.refresh {
                     params["offset"] = "\(self.items.count)"
                 }

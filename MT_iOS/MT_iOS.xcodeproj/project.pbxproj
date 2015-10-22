@@ -1528,7 +1528,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "3888abc6-4b04-442f-93de-f4228cafd40d";
+				PROVISIONING_PROFILE = "81a7c9d2-6e4a-4fec-911e-6d7971cedea7";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1553,7 +1553,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.sixapart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2166bc6a-e914-4772-9342-0efbcbe9caaa";
+				PROVISIONING_PROFILE = "81a7c9d2-6e4a-4fec-911e-6d7971cedea7";
 				SWIFT_OBJC_BRIDGING_HEADER = "MT_iOS/MT_iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1577,7 +1577,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.sixapart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2166bc6a-e914-4772-9342-0efbcbe9caaa";
+				PROVISIONING_PROFILE = "81a7c9d2-6e4a-4fec-911e-6d7971cedea7";
 				SWIFT_OBJC_BRIDGING_HEADER = "MT_iOS/MT_iOS-Bridging-Header.h";
 			};
 			name = Release;

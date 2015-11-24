@@ -69,11 +69,12 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
         // Configure the cell...
         switch indexPath.row {
         case Item.Username.rawValue:
-            var c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
             c.textField.placeholder = NSLocalizedString("username", comment: "username")
             c.textField.keyboardType = UIKeyboardType.Default
             c.textField.returnKeyType = UIReturnKeyType.Done
             c.textField.secureTextEntry = false
+            c.textField.autocorrectionType = UITextAutocorrectionType.No
             c.textField.text = username
             c.textField.tag = indexPath.row
             c.textField.delegate = self
@@ -82,11 +83,12 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
             cell = c
             
         case Item.Email.rawValue:
-            var c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
             c.textField.placeholder = NSLocalizedString("email", comment: "email")
             c.textField.keyboardType = UIKeyboardType.EmailAddress
             c.textField.returnKeyType = UIReturnKeyType.Done
             c.textField.secureTextEntry = false
+            c.textField.autocorrectionType = UITextAutocorrectionType.No
             c.textField.text = email
             c.textField.tag = indexPath.row
             c.textField.delegate = self
@@ -95,11 +97,12 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
             cell = c
 
         case Item.Endpoint.rawValue:
-            var c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
             c.textField.placeholder = NSLocalizedString("endpoint", comment: "endpoint")
             c.textField.keyboardType = UIKeyboardType.URL
             c.textField.returnKeyType = UIReturnKeyType.Done
             c.textField.secureTextEntry = false
+            c.textField.autocorrectionType = UITextAutocorrectionType.No
             c.textField.text = endpoint
             c.textField.tag = indexPath.row
             c.textField.delegate = self
@@ -108,7 +111,7 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
             cell = c
             
         case Item.Button.rawValue:
-            var c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
             c.button.setTitle(NSLocalizedString("Reset", comment: "Reset"), forState: UIControlState.Normal)
             c.button.titleLabel?.font = UIFont.systemFontOfSize(17.0)
             c.button.setTitleColor(Color.buttonText, forState: UIControlState.Normal)
@@ -136,7 +139,7 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var headerView: GroupedHeaderView = GroupedHeaderView.instanceFromNib() as! GroupedHeaderView
+        let headerView: GroupedHeaderView = GroupedHeaderView.instanceFromNib() as! GroupedHeaderView
         headerView.label.text = NSLocalizedString("Reset password", comment: "Reset password")
         return headerView
     }
@@ -218,11 +221,11 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
     @IBAction func textFieldChanged(field: UITextField) {
         switch field.tag {
         case Item.Username.rawValue:
-            username = field.text
+            username = field.text!
         case Item.Email.rawValue:
-            email = field.text
+            email = field.text!
         case Item.Endpoint.rawValue:
-            endpoint = field.text
+            endpoint = field.text!
         default:
             break
         }
@@ -237,7 +240,7 @@ class ResetPasswordTableViewController: BaseTableViewController, UITextFieldDele
         let api = DataAPI.sharedInstance
         api.APIBaseURL = endpoint
         
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)

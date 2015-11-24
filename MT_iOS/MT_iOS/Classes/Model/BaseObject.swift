@@ -30,7 +30,7 @@ class BaseObject: NSObject, NSCoding {
         aCoder.encodeObject(self.assets, forKey: "assets")
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init()
         self.id = aDecoder.decodeObjectForKey("id") as! String
         if let object: AnyObject = aDecoder.decodeObjectForKey("assets") {

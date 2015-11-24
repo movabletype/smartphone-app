@@ -43,7 +43,7 @@ class BlockImageItem: EntryImageItem {
             return ""
         }
         
-        var html = self.asHtml()
+        let html = self.asHtml()
         
         return html
     }

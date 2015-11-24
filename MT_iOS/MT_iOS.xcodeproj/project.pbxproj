@@ -229,6 +229,7 @@
 		79FD0E0F1B33E409008EFC16 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79FD0DFF1B33E409008EFC16 /* Login.storyboard */; };
 		79FD0E101B33E409008EFC16 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79FD0E001B33E409008EFC16 /* Setting.storyboard */; };
 		79FD0E111B33E409008EFC16 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79FD0E011B33E409008EFC16 /* SignIn.storyboard */; };
+		B9C63E8F1BB2870D00917CEE /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C63E8E1BB2870D00917CEE /* SwiftyJSON.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -474,6 +475,7 @@
 		79FD0E001B33E409008EFC16 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		79FD0E011B33E409008EFC16 /* SignIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		8BD41296E3EA0DAFD8BC50C7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9C63E8E1BB2870D00917CEE /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		BD8FFE520DCD5B3F56881964 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -482,6 +484,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9C63E8F1BB2870D00917CEE /* SwiftyJSON.framework in Frameworks */,
 				658C5F1F4CAF5AECCB20577F /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,6 +511,7 @@
 		642FF40DAB7708EBCAC3233C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B9C63E8E1BB2870D00917CEE /* SwiftyJSON.framework */,
 				8BD41296E3EA0DAFD8BC50C7 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -1075,7 +1079,9 @@
 		7919739B1B09DF2A003EA459 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Six Apart, Ltd.";
 				TargetAttributes = {
 					791973A21B09DF2A003EA459 = {
@@ -1464,6 +1470,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1535,13 +1542,18 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Six Apart KK (ELVUVVS7EM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Six Apart KK (ELVUVVS7EM)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = MT_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.sixapart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2166bc6a-e914-4772-9342-0efbcbe9caaa";
+				PROVISIONING_PROFILE = "81a7c9d2-6e4a-4fec-911e-6d7971cedea7";
 				SWIFT_OBJC_BRIDGING_HEADER = "MT_iOS/MT_iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1555,12 +1567,17 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Six Apart KK (ELVUVVS7EM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Six Apart KK (ELVUVVS7EM)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = MT_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.sixapart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2166bc6a-e914-4772-9342-0efbcbe9caaa";
+				PROVISIONING_PROFILE = "81a7c9d2-6e4a-4fec-911e-6d7971cedea7";
 				SWIFT_OBJC_BRIDGING_HEADER = "MT_iOS/MT_iOS-Bridging-Header.h";
 			};
 			name = Release;
@@ -1579,6 +1596,7 @@
 				);
 				INFOPLIST_FILE = MT_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.sixapart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MT_iOS.app/MT_iOS";
 			};
@@ -1594,6 +1612,7 @@
 				);
 				INFOPLIST_FILE = MT_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.sixapart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MT_iOS.app/MT_iOS";
 			};

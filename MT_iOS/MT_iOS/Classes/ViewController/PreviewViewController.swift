@@ -136,11 +136,11 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
         self.makeWebView()
         
         if html == nil {
-            let escapedURL = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-            var request = NSMutableURLRequest(URL: NSURL(string: escapedURL!)!)
+            let escapedURL = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+            let request = NSMutableURLRequest(URL: NSURL(string: escapedURL!)!)
             self.webView.loadRequest(request)
         } else {
-            self.webView.loadHTMLString(html, baseURL: nil)
+            self.webView.loadHTMLString(html!, baseURL: nil)
         }
     }
     
@@ -184,7 +184,7 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
         }
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         self.indicator.stopAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }

@@ -1,6 +1,0 @@
-framework module TMReachability {
-  umbrella header "Pods-TMReachability-umbrella.h"
-
-  export *
-  module * { export * }
-}

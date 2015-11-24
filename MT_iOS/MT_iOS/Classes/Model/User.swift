@@ -30,7 +30,7 @@ class User: BaseObject {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.displayName = aDecoder.decodeObjectForKey("displayName") as! String
         self.userpicUrl = aDecoder.decodeObjectForKey("userpicUrl") as! String
         self.isSuperuser = aDecoder.decodeBoolForKey("isSuperuser")

@@ -23,7 +23,7 @@ class PageFolderItem: BaseEntryItem {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.selected = aDecoder.decodeObjectForKey("selected") as! [Folder]
     }
 
@@ -33,7 +33,7 @@ class PageFolderItem: BaseEntryItem {
         for item in selected {
             array.append(item.label)
         }
-        return join(",", array)
+        return array.joinWithSeparator(",")
     }
     
     override func dispValue()-> String {

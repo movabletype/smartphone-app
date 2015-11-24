@@ -40,12 +40,14 @@ class CategoryTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let indentPoints = CGFloat(object!.level) * 20.0;
+        if object != nil {
+            let indentPoints = CGFloat(object!.level) * 20.0;
         
-        self.contentView.frame = CGRectMake(indentPoints,
-            self.contentView.frame.origin.y,
-            self.contentView.frame.size.width - indentPoints,
-            self.contentView.frame.size.height);
+            self.contentView.frame = CGRectMake(indentPoints,
+                self.contentView.frame.origin.y,
+                self.contentView.frame.size.width - indentPoints,
+                self.contentView.frame.size.height);
+        }
     }
     
 }

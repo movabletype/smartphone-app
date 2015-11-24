@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         authInfo.load()
         
-        if authInfo.username.isEmpty || authInfo.password.isEmpty || count(authInfo.endpoint) < 8 {
+        if authInfo.username.isEmpty || authInfo.password.isEmpty || authInfo.endpoint.characters.count < 8 {
             self.goLoginView()
         } else {
             if Utils.hasConnectivity() {
@@ -84,14 +84,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK: -
     private func goLoginView() {
         let storyboard: UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! UIViewController
+        let vc = storyboard.instantiateInitialViewController()
         self.window?.rootViewController = vc
         self.window?.makeKeyAndVisible()
     }
     
     private func goBlogList() {
         let storyboard: UIStoryboard = UIStoryboard(name: "BlogList", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! UIViewController
+        let vc = storyboard.instantiateInitialViewController()
         self.window?.rootViewController = vc
         self.window?.makeKeyAndVisible()
     }
@@ -109,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.authInfo = auth
         self.authInfo.save()
         
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             if showHud {
@@ -207,4 +207,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
     }
 }
+
+extension String {
+    
+    var lastPathComponent: String {
+            
+        get {
+            return (self as NSString).lastPathComponent
+        }
+    }
+
+    var pathExtension: String {
+            
+        get {
+            return (self as NSString).pathExtension
+        }
+    }
+    
+    var stringByDeletingLastPathComponent: String {
+
+        get {
+            return (self as NSString).stringByDeletingLastPathComponent
+        }
+    }
+    
+    var stringByDeletingPathExtension: String {
+            
+        get {
+            return (self as NSString).stringByDeletingPathExtension
+        }
+    }
+    
+    var pathComponents: [String] {
+            
+        get {
+            return (self as NSString).pathComponents
+        }
+    }
+        
+    func stringByAppendingPathComponent(path: String) -> String {
+            
+        let nsSt = self as NSString
+        return nsSt.stringByAppendingPathComponent(path)
+    }
+        
+    func stringByAppendingPathExtension(ext: String) -> String? {
+            
+        let nsSt = self as NSString
+        return nsSt.stringByAppendingPathExtension(ext)
+    }
+}
+
 

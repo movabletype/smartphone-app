@@ -184,7 +184,7 @@ class Blog: BaseObject {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.name = aDecoder.decodeObjectForKey("name") as! String
         self.url = aDecoder.decodeObjectForKey("url") as! String
         if let object: AnyObject = aDecoder.decodeObjectForKey("parentName") {
@@ -197,15 +197,15 @@ class Blog: BaseObject {
 
     //MARK: - Permissions
     func hasPermission(permission: String)-> Bool {
-        return contains(permissions, permission)
+        return permissions.contains(permission)
     }
     
-    func canCreateEntry(#user: User)-> Bool {
+    func canCreateEntry(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("create_post")
     }
 
-    func canUpdateEntry(#user: User, entry: Entry)-> Bool {
+    func canUpdateEntry(user user: User, entry: Entry)-> Bool {
         if user.isSuperuser { return true }
         if self.hasPermission("edit_all_posts") {
             return true
@@ -228,7 +228,7 @@ class Blog: BaseObject {
         return false
     }
     
-    func canDeleteEntry(#user: User, entry: Entry)-> Bool {
+    func canDeleteEntry(user user: User, entry: Entry)-> Bool {
         if user.isSuperuser { return true }
         if self.hasPermission("edit_all_posts") {
             return true
@@ -245,52 +245,52 @@ class Blog: BaseObject {
         return false
     }
     
-    func canPublishEntry(#user: User)-> Bool {
+    func canPublishEntry(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("publish_post")
     }
     
-    func canCreateCategory(#user: User)-> Bool {
+    func canCreateCategory(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("edit_categories")
     }
 
-    func canCreatePage(#user: User)-> Bool {
+    func canCreatePage(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("manage_pages")
     }
 
-    func canUpdatePage(#user: User)-> Bool {
+    func canUpdatePage(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("manage_pages")
     }
 
-    func canDeletePage(#user: User)-> Bool {
+    func canDeletePage(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("manage_pages")
     }
 
-    func canListAsset(#user: User)-> Bool {
+    func canListAsset(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("edit_assets")
     }
     
-    func canDeleteAsset(#user: User)-> Bool {
+    func canDeleteAsset(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("edit_assets")
     }
     
-    func canListAssetForEntry(#user: User)-> Bool {
+    func canListAssetForEntry(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("create_post") || self.hasPermission("edit_all_posts")
     }
 
-    func canListAssetForPage(#user: User)-> Bool {
+    func canListAssetForPage(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("manage_pages")
     }
     
-    func canUpload(#user: User)-> Bool {
+    func canUpload(user user: User)-> Bool {
         if user.isSuperuser { return true }
         return self.hasPermission("upload")
     }
@@ -302,7 +302,7 @@ class Blog: BaseObject {
     
     func dataDirPath()-> String {
         let dir = self.endpoint + "_blog\(id)"
-        return dir.stringByReplacingOccurrencesOfString("/", withString: "_", options: nil, range: nil)
+        return dir.stringByReplacingOccurrencesOfString("/", withString: "_", options: [], range: nil)
     }
     
     func draftDirPath(object: BaseEntry)-> String {

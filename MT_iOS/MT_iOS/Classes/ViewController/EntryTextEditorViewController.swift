@@ -22,7 +22,7 @@ class EntryTextEditorViewController: BaseViewController, UITextViewDelegate {
         self.textView.autocapitalizationType = UITextAutocapitalizationType.None
         self.textView.autocorrectionType = UITextAutocorrectionType.No
         self.textView.font = UIFont.systemFontOfSize(13.0)
-        self.textView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        self.textView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         self.textView.autoresizesSubviews = true
         self.textView.delegate = self
         
@@ -67,7 +67,7 @@ class EntryTextEditorViewController: BaseViewController, UITextViewDelegate {
     
     func keyboardWillShow(notification: NSNotification) {
         var info = notification.userInfo!
-        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         let duration: NSTimeInterval = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
         
         var insets = self.textView.contentInset
@@ -81,7 +81,7 @@ class EntryTextEditorViewController: BaseViewController, UITextViewDelegate {
     
     func keyboardWillHide(notification: NSNotification) {
         var info = notification.userInfo!
-        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+//        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         let duration: NSTimeInterval = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
         
         var insets = self.textView.contentInset

@@ -98,7 +98,7 @@ class PageDraftTableViewController: BaseDraftTableViewController {
         let item = EntryItemList.loadFromFile(path, filename: filename)
         item.blog = blog
         
-        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        _ = UIApplication.sharedApplication().delegate as! AppDelegate
         let vc = PageDetailTableViewController()
         vc.list = item
         vc.object = item.object

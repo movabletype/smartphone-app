@@ -54,7 +54,7 @@ class PrimaryCategorySelectorTableViewController: BaseTableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
 
         self.adjustCellLayoutMargins(cell)
         
@@ -62,7 +62,7 @@ class PrimaryCategorySelectorTableViewController: BaseTableViewController {
         let item = items[indexPath.row]
         
         var path = item.path
-        path = path.stringByReplacingOccurrencesOfString("/", withString: " > ", options: nil, range: nil)
+        path = path.stringByReplacingOccurrencesOfString("/", withString: " > ", options: [], range: nil)
         
         cell.textLabel?.text = path
         cell.selectionStyle = UITableViewCellSelectionStyle.None

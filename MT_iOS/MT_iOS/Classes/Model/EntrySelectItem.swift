@@ -25,7 +25,7 @@ class EntrySelectItem: BaseEntryItem {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.list = aDecoder.decodeObjectForKey("list") as! [String]
         self.selected = aDecoder.decodeObjectForKey("selected") as! String
     }

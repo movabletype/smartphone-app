@@ -27,17 +27,17 @@ class Asset: BaseObject {
         url = json["url"].stringValue
         filename = json["filename"].stringValue
         if !json["meta"]["fileSize"].stringValue.isEmpty {
-            if let int = json["meta"]["fileSize"].stringValue.toInt() {
+            if let int = Int(json["meta"]["fileSize"].stringValue) {
                 fileSize = int
             }
         }
         if !json["meta"]["width"].stringValue.isEmpty {
-            if let int = json["meta"]["width"].stringValue.toInt() {
+            if let int = Int(json["meta"]["width"].stringValue) {
                 width = int
             }
         }
         if !json["meta"]["height"].stringValue.isEmpty {
-            if let int = json["meta"]["height"].stringValue.toInt() {
+            if let int = Int(json["meta"]["height"].stringValue) {
                 height = int
             }
         }
@@ -63,7 +63,7 @@ class Asset: BaseObject {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.label = aDecoder.decodeObjectForKey("label") as! String
         self.url = aDecoder.decodeObjectForKey("url") as! String
         self.filename = aDecoder.decodeObjectForKey("filename") as! String
@@ -84,7 +84,7 @@ class Asset: BaseObject {
     }
     
     func imageHTML(align: Blog.ImageAlign)-> String {
-        var dimmensions = "width=\(self.width) height=\(self.height)"
+        let dimmensions = "width=\(self.width) height=\(self.height)"
         
         var wrapStyle = "class=\"mt-image-\(align.value().lowercaseString)\" "
         switch align {

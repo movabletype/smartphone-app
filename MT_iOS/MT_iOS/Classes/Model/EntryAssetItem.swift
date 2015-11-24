@@ -46,7 +46,7 @@ class EntryAssetItem: BaseEntryItem {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self._asset = aDecoder.decodeObjectForKey("_asset") as? Asset
         self.url = aDecoder.decodeObjectForKey("url") as! String
         self.assetID = aDecoder.decodeObjectForKey("assetID") as! String
@@ -62,8 +62,8 @@ class EntryAssetItem: BaseEntryItem {
             return ""
         }
         
-        var html = self.asHtml()
-        var form = "<form mt:asset-id=\"\(self.assetID)\" class=\"mt-enclosure mt-enclosure-\(self.type)\" style=\"display: inline;\">\(html)</form>"
+        let html = self.asHtml()
+        let form = "<form mt:asset-id=\"\(self.assetID)\" class=\"mt-enclosure mt-enclosure-\(self.type)\" style=\"display: inline;\">\(html)</form>"
         
         return form
     }
@@ -83,8 +83,8 @@ class EntryAssetItem: BaseEntryItem {
 
     private func extractFromHTML(html: String, pattern: String)-> String {
         let content: NSString = html
-        let regex = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
-        if let result = regex?.firstMatchInString(content as String, options: NSMatchingOptions.allZeros, range: NSMakeRange(0, content.length)) {
+        let regex = try? NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
+        if let result = regex?.firstMatchInString(content as String, options: NSMatchingOptions(), range: NSMakeRange(0, content.length)) {
             if result.numberOfRanges < 1 {
                 return ""
             }

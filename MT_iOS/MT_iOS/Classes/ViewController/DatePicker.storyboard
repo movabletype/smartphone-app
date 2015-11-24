@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9y3-Ho-AqF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9y3-Ho-AqF">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -47,7 +48,7 @@
                                     <action selector="setNowButtonPushed:" destination="9y3-Ho-AqF" eventType="touchUpInside" id="1dB-yt-po6"/>
                                 </connections>
                             </button>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gqZ-5H-PSL">
+                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gqZ-5H-PSL">
                                 <rect key="frame" x="0.0" y="131" width="320" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="454919562.10135102">
                                     <!--2015-06-02 06:32:42 +0000-->
@@ -59,6 +60,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="cfz-j9-uba" firstAttribute="centerX" secondItem="w3x-8Z-9ca" secondAttribute="centerX" id="5zE-if-os5"/>
                             <constraint firstItem="s03-AJ-wMI" firstAttribute="top" secondItem="cfz-j9-uba" secondAttribute="bottom" constant="8" symbolic="YES" id="A2g-HO-mZ7"/>
                             <constraint firstItem="s03-AJ-wMI" firstAttribute="centerX" secondItem="5FZ-Wh-3oe" secondAttribute="centerX" id="AVp-C8-QJ5"/>
                             <constraint firstItem="gqZ-5H-PSL" firstAttribute="top" secondItem="5FZ-Wh-3oe" secondAttribute="bottom" constant="8" symbolic="YES" id="JS0-fX-NZA"/>

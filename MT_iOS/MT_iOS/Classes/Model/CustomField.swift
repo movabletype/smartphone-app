@@ -49,7 +49,7 @@ class CustomField: BaseObject {
             "image",
         ]
         
-        return contains(supportedType, self.type)
+        return supportedType.contains(self.type)
     }
     
     override func encodeWithCoder(aCoder: NSCoder) {
@@ -67,7 +67,7 @@ class CustomField: BaseObject {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.value = aDecoder.decodeObjectForKey("value") as! String
         self.basename = aDecoder.decodeObjectForKey("basename") as! String
         self.descriptionText = aDecoder.decodeObjectForKey("descriptionText") as! String

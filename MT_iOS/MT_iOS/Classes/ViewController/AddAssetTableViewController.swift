@@ -93,7 +93,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
         case Section.Buttons.rawValue:
-            let cell = tableView.dequeueReusableCellWithIdentifier("ButtonCell", forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("ButtonCell", forIndexPath: indexPath) 
             
             self.adjustCellLayoutMargins(cell)
             
@@ -122,7 +122,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             
             return cell
         case Section.Items.rawValue:
-            let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) 
             
             self.adjustCellLayoutMargins(cell)
             
@@ -290,7 +290,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             ipc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         }
         
-        ipc.mediaTypes = [kUTTypeImage]
+        ipc.mediaTypes = [kUTTypeImage as String]
         
         self.presentViewController(ipc, animated:true, completion:nil)
     }
@@ -300,7 +300,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         ipc.delegate = self
         ipc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         
-        ipc.mediaTypes = [kUTTypeImage]
+        ipc.mediaTypes = [kUTTypeImage as String]
         
         self.presentViewController(ipc, animated:true, completion:nil)
     }
@@ -316,7 +316,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: ((JSON!)-> Void) = {
+        let success: ((JSON!)-> Void) = {
             (result: JSON!)-> Void in
             LOG("\(result)")
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -325,7 +325,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             let asset = Asset(json: result)
             self.delegate?.AddAssetDone(self, asset: asset)
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -334,7 +334,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
-                api.uploadAssetForSite(siteID: self.blog.id, assetData: data, fileName: filename, options: ["path":path, "autoRenameIfExists":"true"], success: success, failure: failure)
+                api.uploadAssetForSite(self.blog.id, assetData: data, fileName: filename, options: ["path":path, "autoRenameIfExists":"true"], success: success, failure: failure)
             },
             failure: failure
         )
@@ -348,7 +348,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         self.uploadData(jpeg, filename: filename, path: uploadDir)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
             picker.dismissViewControllerAnimated(true, completion:
                 {_ in
                     if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {

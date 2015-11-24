@@ -25,7 +25,7 @@ class EntryTextAreaItem: BaseEntryItem {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.text = aDecoder.decodeObjectForKey("text") as! String
         if let object = aDecoder.decodeObjectForKey("assets") as? [Asset] {
             self.assets = object

@@ -86,7 +86,7 @@
 "Data on the server seems to be new . Do you want to overwrite it ?" = "サーバー側で更新されているようです。上書き保存しますか？";
 
 /* Date */
-"Date" = "日時";
+"Date" = "日付";
 
 /* Delete Entry... */
 "Delete Entry..." = "記事を削除しています...";

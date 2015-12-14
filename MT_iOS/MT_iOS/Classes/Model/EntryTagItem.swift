@@ -24,7 +24,7 @@ class EntryTagItem: EntryTextItem {
     }
 
     override func makeParams()-> [String : AnyObject] {
-        let list = split(self.value()) { $0 == "," }
+        let list = self.value().characters.split { $0 == "," }.map { String($0) }
         
         return ["tags":list]
     }

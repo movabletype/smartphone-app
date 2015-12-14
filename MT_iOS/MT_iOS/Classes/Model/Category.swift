@@ -34,7 +34,7 @@ class Category: BaseObject {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.label = aDecoder.decodeObjectForKey("label") as! String
         self.basename = aDecoder.decodeObjectForKey("basename") as! String
         self.parent = aDecoder.decodeObjectForKey("parent") as! String

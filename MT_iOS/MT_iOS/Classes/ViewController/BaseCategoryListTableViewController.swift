@@ -49,7 +49,7 @@ class CategoryList: ItemList {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             LOG("\(result)")
             if self.refresh {
@@ -62,7 +62,7 @@ class CategoryList: ItemList {
             self.postProcess()
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             failure(error)
@@ -72,7 +72,7 @@ class CategoryList: ItemList {
         
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
-                var params = ["limit":"9999", "sortOrder":"ascend"]
+                let params = ["limit":"9999", "sortOrder":"ascend"]
                 
                 api.listCategories(siteID: self.blog.id, options: params, success: success, failure: failure)
             },
@@ -226,13 +226,13 @@ class BaseCategoryListTableViewController: BaseTableViewController {
     // MARK: - fetch
     func fetch() {
         SVProgressHUD.showWithStatus(actionMessage + "...")
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             SVProgressHUD.dismiss()
             self.tableView.reloadData()
             self.refreshControl!.endRefreshing()
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             SVProgressHUD.showErrorWithStatus(String(format: NSLocalizedString("%@ failured.", comment: "%@ failured."), arguments: [self.actionMessage]))
             self.refreshControl!.endRefreshing()
@@ -241,12 +241,12 @@ class BaseCategoryListTableViewController: BaseTableViewController {
     }
     
     func more() {
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             self.tableView.reloadData()
             self.refreshControl!.endRefreshing()
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             self.refreshControl!.endRefreshing()
         }

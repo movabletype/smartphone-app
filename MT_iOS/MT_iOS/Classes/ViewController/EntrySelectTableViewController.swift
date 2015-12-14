@@ -51,12 +51,12 @@ class EntrySelectTableViewController: BaseTableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
 
         self.adjustCellLayoutMargins(cell)
         
         // Configure the cell...
-        var text = object.list[indexPath.row]
+        let text = object.list[indexPath.row]
         cell.textLabel?.text = text
         
         if selected == text {

@@ -34,7 +34,7 @@ class BaseEntryItem: NSObject, NSCoding {
         aCoder.encodeBool(self.required, forKey: "required")
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         self.id = aDecoder.decodeObjectForKey("id") as! String
         self.type = aDecoder.decodeObjectForKey("type") as! String
         self.label = aDecoder.decodeObjectForKey("label") as! String

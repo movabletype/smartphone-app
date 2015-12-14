@@ -91,7 +91,7 @@ class ItemList: NSObject {
     
     func parseItems(jsonItems: [JSON]!) {
         for jsonItem in jsonItems {
-            var item: BaseObject = self.toModel(jsonItem)
+            let item: BaseObject = self.toModel(jsonItem)
             let index = self.existsIndex(item)
             if index < 0 {
                 self.items.append(item)

@@ -26,18 +26,18 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         scrollView.scrollEnabled = true
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.showsVerticalScrollIndicator = true
-        scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+        scrollView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         view.addSubview(scrollView)
         
         imageView = UIImageView(frame: scrollView.bounds)
         imageView.contentMode = UIViewContentMode.ScaleAspectFit
-        imageView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+        imageView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         scrollView.addSubview(imageView)
         
         self.title = asset.dispName()
         self.imageView.sd_setImageWithURL(NSURL(string: asset.url))
         
-        var doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:"doubleTap:")
+        let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:"doubleTap:")
         doubleTapGesture.numberOfTapsRequired = 2
         imageView.userInteractionEnabled = true
         imageView.addGestureRecognizer(doubleTapGesture)
@@ -55,7 +55,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
 
     func doubleTap(gesture: UITapGestureRecognizer) -> Void {
         if scrollView.zoomScale < scrollView.maximumZoomScale {
-            var scale = scrollView.maximumZoomScale
+            let scale = scrollView.maximumZoomScale
             scrollView.setZoomScale(scale, animated: true)
         } else {
             scrollView.setZoomScale(1.0, animated: true)

@@ -26,7 +26,7 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         self.sourceView.autocapitalizationType = UITextAutocapitalizationType.None
         self.sourceView.autocorrectionType = UITextAutocorrectionType.No
         //self.sourceView.font = UIFont.systemFontOfSize(16.0)
-        self.sourceView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        self.sourceView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         self.sourceView.autoresizesSubviews = true
         self.sourceView.delegate = self
         self.view.addSubview(self.sourceView)
@@ -37,7 +37,7 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         let toolBar = UIToolbar(frame: CGRectMake(0.0, 0.0, self.view.frame.size.width, 44.0))
         let cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
         let flexibleButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        var previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
+        let previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
         
         if object is BlockTextItem {
@@ -82,7 +82,7 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
     
     func keyboardWillShow(notification: NSNotification) {
         var info = notification.userInfo!
-        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         let duration: NSTimeInterval = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
         
         var insets = self.sourceView.contentInset
@@ -96,7 +96,7 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
     
     func keyboardWillHide(notification: NSNotification) {
         var info = notification.userInfo!
-        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+//        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         let duration: NSTimeInterval = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
         
         var insets = self.sourceView.contentInset

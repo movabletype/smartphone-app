@@ -26,7 +26,7 @@ class EntryList: ItemList {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             LOG("\(result)")
             if self.refresh {
@@ -38,7 +38,7 @@ class EntryList: ItemList {
             self.postProcess()
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             failure(error)
@@ -49,7 +49,7 @@ class EntryList: ItemList {
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 var params = ["limit":"10", "no_text_filter":"1"]
-                params["fields"] = "id,title,status,date"
+                params["fields"] = "id,title,status,date,author"
                 if !self.refresh {
                     params["offset"] = "\(self.items.count)"
                 }

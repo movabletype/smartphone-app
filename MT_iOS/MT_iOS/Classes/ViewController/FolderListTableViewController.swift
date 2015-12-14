@@ -24,7 +24,7 @@ class FolderList: CategoryList {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             LOG("\(result)")
             if self.refresh {
@@ -37,7 +37,7 @@ class FolderList: CategoryList {
             self.postProcess()
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             failure(error)
@@ -47,7 +47,7 @@ class FolderList: CategoryList {
         
         api.authentication(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
-                var params = ["limit":"9999", "sortOrder":"ascend"]
+                let params = ["limit":"9999", "sortOrder":"ascend"]
                 
                 api.listFolders(siteID: self.blog.id, options: params, success: success, failure: failure)
             },

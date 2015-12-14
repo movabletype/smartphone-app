@@ -29,7 +29,7 @@ class BaseEntryListTableViewController: BaseTableViewController, UISearchBarDele
         searchBar.placeholder = NSLocalizedString("Search", comment: "Search")
         searchBar.delegate = self
         
-        var textField = Utils.getTextFieldFromView(searchBar)
+        let textField = Utils.getTextFieldFromView(searchBar)
         if textField != nil {
             textField!.enablesReturnKeyAutomatically = false
         }
@@ -55,13 +55,13 @@ class BaseEntryListTableViewController: BaseTableViewController, UISearchBarDele
     // MARK: - fetch
     func fetch() {
         SVProgressHUD.showWithStatus(actionMessage + "...")
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             SVProgressHUD.dismiss()
             self.tableView.reloadData()
             self.refreshControl!.endRefreshing()
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             SVProgressHUD.showErrorWithStatus(String(format: NSLocalizedString("%@ failured.", comment: "%@ failured."), arguments: [self.actionMessage]))
             self.refreshControl!.endRefreshing()
@@ -70,12 +70,12 @@ class BaseEntryListTableViewController: BaseTableViewController, UISearchBarDele
     }
     
     func more() {
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             self.tableView.reloadData()
             self.refreshControl!.endRefreshing()
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             self.refreshControl!.endRefreshing()
         }
@@ -140,7 +140,7 @@ class BaseEntryListTableViewController: BaseTableViewController, UISearchBarDele
     // MARK: --
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        self.list.searchText = searchBar.text
+        self.list.searchText = searchBar.text!
         if self.list.count > 0 {
             self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         }

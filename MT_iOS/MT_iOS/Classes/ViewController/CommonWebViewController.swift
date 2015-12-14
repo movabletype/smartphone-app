@@ -22,7 +22,7 @@ class CommonWebViewController: BaseViewController, UIWebViewDelegate {
         self.webView = UIWebView(frame: self.view.bounds)
         self.view.addSubview(self.webView)
         self.webView.delegate = self;
-        self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.backgroundColor = Color.bg
         
         let leading: NSLayoutConstraint = NSLayoutConstraint(
@@ -68,7 +68,7 @@ class CommonWebViewController: BaseViewController, UIWebViewDelegate {
             url = NSURL(fileURLWithPath: filePath)
         }
         
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         
         self.webView.loadRequest(request)
         
@@ -124,14 +124,14 @@ class CommonWebViewController: BaseViewController, UIWebViewDelegate {
     
     func webViewDidFinishLoad(webView: UIWebView) {
         self.indicator.removeFromSuperview()
-        var title = webView.stringByEvaluatingJavaScriptFromString("document.title")
+        let title = webView.stringByEvaluatingJavaScriptFromString("document.title")
         self.title = title
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         self.indicator.removeFromSuperview()
-        if error.code != -999 {
+        if error!.code != -999 {
             self.title = NSLocalizedString("Error", comment: "Error")
         }
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false

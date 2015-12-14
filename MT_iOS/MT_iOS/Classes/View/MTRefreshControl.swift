@@ -41,7 +41,7 @@ class MTRefreshControl: UIRefreshControl {
         tophImage.startAnimating()
     }
 
-    required convenience init(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
         self.init()
     }
 }

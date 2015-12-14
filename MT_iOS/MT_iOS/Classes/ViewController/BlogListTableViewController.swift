@@ -25,7 +25,7 @@ class BlogList: ItemList {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
     
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             LOG("\(result)")
             if self.refresh {
@@ -41,7 +41,7 @@ class BlogList: ItemList {
             self.postProcess()
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             failure(error)
@@ -87,7 +87,7 @@ class BlogListTableViewController: BaseTableViewController, UISearchBarDelegate 
         searchBar.placeholder = NSLocalizedString("Search", comment: "Search")
         searchBar.delegate = self
         
-        var textField = Utils.getTextFieldFromView(searchBar)
+        let textField = Utils.getTextFieldFromView(searchBar)
         if textField != nil {
             textField!.enablesReturnKeyAutomatically = false
         }
@@ -130,13 +130,13 @@ class BlogListTableViewController: BaseTableViewController, UISearchBarDelegate 
     // MARK: - fetch
     func fetch() {
         SVProgressHUD.showWithStatus(NSLocalizedString("Fetch sites...", comment: "Fetch sites..."))
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             SVProgressHUD.dismiss()
             self.tableView.reloadData()
             self.refreshControl!.endRefreshing()
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             SVProgressHUD.showErrorWithStatus(NSLocalizedString("Fetch sites failured.", comment: "Fetch sites failured."))
             self.refreshControl!.endRefreshing()
@@ -145,12 +145,12 @@ class BlogListTableViewController: BaseTableViewController, UISearchBarDelegate 
     }
     
     func more() {
-        var success: (([JSON]!, Int!)-> Void) = {
+        let success: (([JSON]!, Int!)-> Void) = {
             (result: [JSON]!, total: Int!)-> Void in
             self.tableView.reloadData()
             self.refreshControl!.endRefreshing()
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             self.refreshControl!.endRefreshing()
         }
@@ -172,7 +172,7 @@ class BlogListTableViewController: BaseTableViewController, UISearchBarDelegate 
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BlogCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("BlogCell", forIndexPath: indexPath) 
     
         self.adjustCellLayoutMargins(cell)
         
@@ -224,14 +224,14 @@ class BlogListTableViewController: BaseTableViewController, UISearchBarDelegate 
     //MARK: -
     func settingButtonPushed(sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Setting", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! UIViewController
-        self.presentViewController(vc, animated: true, completion: nil)
+        let vc = storyboard.instantiateInitialViewController()
+        self.presentViewController(vc!, animated: true, completion: nil)
     }
     
     // MARK: --
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        self.list.searchText = searchBar.text
+        self.list.searchText = searchBar.text!
         if self.list.count > 0 {
             self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         }

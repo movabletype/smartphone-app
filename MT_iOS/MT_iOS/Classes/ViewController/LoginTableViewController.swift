@@ -76,7 +76,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
         self.tableView.backgroundColor = Color.clear
         
         let app: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        var authInfo = app.authInfo
+        let authInfo = app.authInfo
         if authInfo.username.isEmpty && authInfo.endpoint.isEmpty {
             authInfo.clear()
             authInfo.save()
@@ -140,13 +140,13 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
         
         switch indexPath.section {
         case Section.Logo.rawValue:
-            var c = tableView.dequeueReusableCellWithIdentifier("LogoTableViewCell", forIndexPath: indexPath) as! LogoTableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("LogoTableViewCell", forIndexPath: indexPath) as! LogoTableViewCell
             cell = c
             
         case Section.AuthInfo.rawValue:
             switch indexPath.row {
             case AuthInfoItem.Username.rawValue:
-                var c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
                 c.textField.placeholder = NSLocalizedString("username", comment: "username")
                 c.textField.keyboardType = UIKeyboardType.Default
                 c.textField.returnKeyType = UIReturnKeyType.Done
@@ -159,7 +159,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.bgImageView.image = UIImage(named: "signin_table_1")
                 cell = c
             case AuthInfoItem.Password.rawValue:
-                var c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
                 c.textField.placeholder = NSLocalizedString("password", comment: "password")
                 c.textField.keyboardType = UIKeyboardType.Default
                 c.textField.returnKeyType = UIReturnKeyType.Done
@@ -172,7 +172,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.bgImageView.image = UIImage(named: "signin_table_2")
                 cell = c
             case AuthInfoItem.Endpoint.rawValue:
-                var c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
                 c.textField.placeholder = NSLocalizedString("endpoint", comment: "endpoint")
                 c.textField.keyboardType = UIKeyboardType.URL
                 c.textField.returnKeyType = UIReturnKeyType.Done
@@ -191,7 +191,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
         case Section.BasicAuth.rawValue:
             switch indexPath.row {
             case BasicAuthItem.Button.rawValue:
-                var c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
                 c.button.setTitle(NSLocalizedString("Basic Auth", comment: "Basic Auth"), forState: UIControlState.Normal)
                 c.button.titleLabel?.font = UIFont.systemFontOfSize(16.0)
                 c.button.setTitleColor(Color.buttonText, forState: UIControlState.Normal)
@@ -203,7 +203,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.button.addTarget(self, action: "basicAuthButtonPushed:", forControlEvents: UIControlEvents.TouchUpInside)
                 cell = c
             case BasicAuthItem.Username.rawValue:
-                var c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
                 c.textField.placeholder = NSLocalizedString("username", comment: "username")
                 c.textField.keyboardType = UIKeyboardType.Default
                 c.textField.returnKeyType = UIReturnKeyType.Done
@@ -216,7 +216,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
                 c.bgImageView.image = UIImage(named: "signin_table_1")
                 cell = c
             case BasicAuthItem.Password.rawValue:
-                var c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+                let c = tableView.dequeueReusableCellWithIdentifier("TextFieldTableViewCell", forIndexPath: indexPath) as! TextFieldTableViewCell
                 c.textField.placeholder = NSLocalizedString("password", comment: "password")
                 c.textField.keyboardType = UIKeyboardType.Default
                 c.textField.returnKeyType = UIReturnKeyType.Done
@@ -233,7 +233,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
             }
 
         case Section.LoginButton.rawValue:
-            var c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
+            let c = tableView.dequeueReusableCellWithIdentifier("ButtonTableViewCell", forIndexPath: indexPath) as! ButtonTableViewCell
             c.button.setTitle(NSLocalizedString("Sign In", comment: "Sign In"), forState: UIControlState.Normal)
             c.button.titleLabel?.font = UIFont.systemFontOfSize(17.0)
             c.button.setTitleColor(Color.buttonText, forState: UIControlState.Normal)
@@ -357,7 +357,7 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
     @IBAction func basicAuthButtonPushed(sender: AnyObject) {
         basicAuthVisibled = !basicAuthVisibled
         
-        var indexPaths = [
+        let indexPaths = [
             NSIndexPath(forRow: BasicAuthItem.Spacer1.rawValue, inSection: Section.BasicAuth.rawValue),
             NSIndexPath(forRow: BasicAuthItem.Username.rawValue, inSection: Section.BasicAuth.rawValue),
             NSIndexPath(forRow: BasicAuthItem.Password.rawValue, inSection: Section.BasicAuth.rawValue)
@@ -389,15 +389,15 @@ class LoginTableViewController: BaseTableViewController, UITextFieldDelegate {
     @IBAction func textFieldChanged(field: UITextField) {
         switch field.tag {
         case FieldType.Username.rawValue:
-            auth.username = field.text
+            auth.username = field.text!
         case FieldType.Password.rawValue:
-            auth.password = field.text
+            auth.password = field.text!
         case FieldType.Endpoint.rawValue:
-            auth.endpoint = field.text
+            auth.endpoint = field.text!
         case FieldType.BasicAuthUsername.rawValue:
-            auth.basicAuthUsername = field.text
+            auth.basicAuthUsername = field.text!
         case FieldType.BasicAuthPassword.rawValue:
-            auth.basicAuthPassword = field.text
+            auth.basicAuthPassword = field.text!
         default:
             break
         }

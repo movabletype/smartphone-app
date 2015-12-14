@@ -22,7 +22,7 @@ class EntryTableViewCell: UITableViewCell {
                 self.titleLabel.text = item.title
                 self.titleLabel.sizeToFit()
                 
-                let dateFormatter = NSDateFormatter()
+                _ = NSDateFormatter()
                 
                 if let date = item.date {
                     self.timeLabel.text = Utils.fullDateTimeFromDate(date)

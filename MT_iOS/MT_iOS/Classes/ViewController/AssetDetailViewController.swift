@@ -65,7 +65,7 @@ class AssetDetailViewController: BaseViewController {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let authInfo = app.authInfo
         
-        var success: ((JSON!)-> Void) = {
+        let success: ((JSON!)-> Void) = {
             (result: JSON!)-> Void in
             LOG("\(result)")
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -76,7 +76,7 @@ class AssetDetailViewController: BaseViewController {
 
             self.navigationController?.popViewControllerAnimated(true)
         }
-        var failure: (JSON!-> Void) = {
+        let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false

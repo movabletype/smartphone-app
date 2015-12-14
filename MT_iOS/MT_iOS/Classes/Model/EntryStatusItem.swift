@@ -23,7 +23,7 @@ class EntryStatusItem: BaseEntryItem {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.selected = aDecoder.decodeIntegerForKey("selected")
     }
 

@@ -28,7 +28,7 @@ class Utils {
     }
 
     class func ISO8601StringFromDate(date: NSDate) -> String {
-        var formatter = NSDateFormatter()
+        let formatter = NSDateFormatter()
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         formatter.timeZone = NSTimeZone(abbreviation: "GMT")
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
@@ -53,8 +53,8 @@ class Utils {
     }
 
     class func dateTimeStringFromDate(date: NSDate, template: String)->String {
-        var dateFormatter: NSDateFormatter = NSDateFormatter()
-        var dateFormat: NSString = NSDateFormatter.dateFormatFromTemplate(template, options: 0, locale: NSLocale.currentLocale())!
+        let dateFormatter: NSDateFormatter = NSDateFormatter()
+        let dateFormat: NSString = NSDateFormatter.dateFormatFromTemplate(template, options: 0, locale: NSLocale.currentLocale())!
         dateFormatter.dateFormat = dateFormat as String
         return dateFormatter.stringFromDate(date)
     }
@@ -84,7 +84,7 @@ class Utils {
     }
     
     class func getTextFieldFromView(view: UIView)->UITextField? {
-        for subview in view.subviews as! [UIView] {
+        for subview in view.subviews {
             if subview.isKindOfClass(UITextField) {
                 return subview as? UITextField
             } else {
@@ -106,7 +106,7 @@ class Utils {
     
     class func performAfterDelay(block: dispatch_block_t, delayTime: Double) {
         let delay = delayTime * Double(NSEC_PER_SEC)
-        var time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         dispatch_after(time, dispatch_get_main_queue(), block)
     }
     
@@ -125,7 +125,7 @@ class Utils {
         let size = CGSize(width: w, height: h)
         UIGraphicsBeginImageContext(size)
         image.drawInRect(CGRectMake(0, 0, size.width, size.height))
-        var resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
         return resizedImage
@@ -133,7 +133,7 @@ class Utils {
     
     class func convertImageToJPEG(image: UIImage, quality: CGFloat)-> NSData {
         let imageData = UIImageJPEGRepresentation(image, quality)
-        return imageData
+        return imageData!
     }
     
     class func makeJPEGFilename()-> String {
@@ -150,7 +150,7 @@ class Utils {
 
     class func preferredLanguage()-> String {
         let languages = NSLocale.preferredLanguages()
-        let language = languages[0] as! String
+        let language = languages[0] 
         return language
     }
     

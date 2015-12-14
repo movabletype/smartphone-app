@@ -23,7 +23,7 @@ class EntryCategoryItem: BaseEntryItem {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.selected = aDecoder.decodeObjectForKey("selected") as! [Category]
     }
 
@@ -32,7 +32,7 @@ class EntryCategoryItem: BaseEntryItem {
         for item in selected {
             array.append(item.label)
         }
-        return join(",", array)
+        return array.joinWithSeparator(",")
     }
     
     override func dispValue()-> String {

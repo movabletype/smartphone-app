@@ -23,7 +23,7 @@ class EntryTimeItem: BaseEntryItem {
     }
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.time = aDecoder.decodeObjectForKey("time") as? NSDate
     }
     
@@ -44,7 +44,7 @@ class EntryTimeItem: BaseEntryItem {
     }
     
     override func makeParams()-> [String : AnyObject] {
-        if let dt = self.time {
+        if let _ = self.time {
             return [self.id:self.value()]
         }
         return [self.id:""]

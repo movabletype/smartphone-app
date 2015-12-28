@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		658C5F1F4CAF5AECCB20577F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD41296E3EA0DAFD8BC50C7 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		658C5F1F4CAF5AECCB20577F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD41296E3EA0DAFD8BC50C7 /* Pods.framework */; };
 		7904EBB31B0AE58800216EC9 /* DataAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904EBB21B0AE58800216EC9 /* DataAPI.swift */; };
 		7904EBB71B0AF57700216EC9 /* BaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904EBB61B0AF57700216EC9 /* BaseObject.swift */; };
 		7904EBB91B0AF85C00216EC9 /* Define.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904EBB81B0AF85C00216EC9 /* Define.swift */; };
@@ -1081,7 +1081,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Six Apart, Ltd.";
 				TargetAttributes = {
 					791973A21B09DF2A003EA459 = {
@@ -1090,6 +1090,7 @@
 					};
 					791973B71B09DF2B003EA459 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = ELVUVVS7EM;
 						TestTargetID = 791973A21B09DF2A003EA459;
 					};
 				};
@@ -1488,7 +1489,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "cb1f61e1-d16f-43c5-9a18-b4a8d1b5be30";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1528,7 +1530,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "3888abc6-4b04-442f-93de-f4228cafd40d";
+				PROVISIONING_PROFILE = "cb1f61e1-d16f-43c5-9a18-b4a8d1b5be30";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1540,8 +1542,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Six Apart KK (ELVUVVS7EM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Six Apart KK (ELVUVVS7EM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -1553,7 +1555,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.sixapart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "81a7c9d2-6e4a-4fec-911e-6d7971cedea7";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MT_iOS/MT_iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1565,8 +1567,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Six Apart KK (ELVUVVS7EM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Six Apart KK (ELVUVVS7EM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -1577,7 +1579,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.sixapart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "81a7c9d2-6e4a-4fec-911e-6d7971cedea7";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MT_iOS/MT_iOS-Bridging-Header.h";
 			};
 			name = Release;
@@ -1586,6 +1588,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1598,6 +1602,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.sixapart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MT_iOS.app/MT_iOS";
 			};
 			name = Debug;
@@ -1606,6 +1611,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1614,6 +1621,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.sixapart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MT_iOS.app/MT_iOS";
 			};
 			name = Release;

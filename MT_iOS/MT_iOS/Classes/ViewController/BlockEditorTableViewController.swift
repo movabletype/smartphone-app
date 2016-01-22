@@ -308,7 +308,6 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     @IBAction func cameraButtonPushed(sender: UIBarButtonItem) {
         let item = BlockImageItem()
         item.label = NSLocalizedString("Image", comment: "Image")
-        items.append(item)
         self.tableView.reloadData()
 
         self.showAssetSelector(item)
@@ -320,6 +319,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         let item = vc.object
         item.asset = asset
         (item as! BlockImageItem).align = controller.imageAlign
+        items.append(item)
         self.tableView.reloadData()
     }
     

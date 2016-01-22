@@ -486,7 +486,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func showHTMLEditor(object: EntryTextAreaItem) {
+    private func showRichTextEditor(object: EntryTextAreaItem) {
         if self.object.editMode == Entry.EditMode.PlainText || !self.object.id.isEmpty {
             let vc = EntryHTMLEditorViewController()
             vc.object = object
@@ -498,6 +498,14 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             vc.object = object
             self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    private func showHTMLEditor(object: EntryTextAreaItem) {
+        let vc = EntryHTMLEditorViewController()
+        vc.object = object
+        vc.blog = blog
+        vc.entry = self.object
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func showSelector(object: EntrySelectItem) {

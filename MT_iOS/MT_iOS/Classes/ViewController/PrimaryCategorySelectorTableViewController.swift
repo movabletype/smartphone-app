@@ -28,7 +28,9 @@ class PrimaryCategorySelectorTableViewController: BaseTableViewController {
         self.title = NSLocalizedString("Select a primary category", comment: "Select a primary category")
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        selected = items[0].id
+        if selected.isEmpty {
+            selected = items[0].id
+        }
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: self, action: "closeButtonPushed:")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "saveButtonPushed:")

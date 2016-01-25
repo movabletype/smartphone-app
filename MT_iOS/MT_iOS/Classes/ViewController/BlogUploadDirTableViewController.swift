@@ -133,13 +133,25 @@ class BlogUploadDirTableViewController: BaseTableViewController {
     */
     
     @IBAction func doneButtonPushed(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
         if field != nil {
             var dir = field!.text
-            if !dir!.hasPrefix("/") {
-                dir = "/" + dir!
+            if Utils.validatePath(dir!) {
+                if !dir!.hasPrefix("/") {
+                    dir = "/" + dir!
+                }
+                delegate?.blogUploadDirDone(self, directory: dir!)
+                self.navigationController?.popViewControllerAnimated(true)
+            } else {
+                let alertController = UIAlertController(
+                    title: NSLocalizedString("Error", comment: "Error"),
+                    message: NSLocalizedString("You must set a valid Local file Path.", comment: "You must set a valid Local file Path."),
+                    preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                    action in
+                }
+                alertController.addAction(okAction)
+                presentViewController(alertController, animated: true, completion: nil)
             }
-            delegate?.blogUploadDirDone(self, directory: dir!)
         }
     }
 

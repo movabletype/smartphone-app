@@ -181,4 +181,21 @@ class Utils {
     class func trimSpace(src: String)-> String {
         return src.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
     }
+    
+    class func regexpMatch(pattern: String, text: String)-> Bool {
+        let regexp = try! NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
+        let matches = regexp.matchesInString(text, options: [], range:NSMakeRange(0, text.characters.count))
+        return matches.count > 0
+    }
+    
+    class func validatePath(path: String)-> Bool {
+        let pattern = "[ \"%<>\\[\\\\\\]\\^`{\\|}~]"
+        let replaceString = path.stringByReplacingOccurrencesOfString(pattern, withString: "", options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
+        let api = DataAPI.sharedInstance
+        let str = api.urlencoding(replaceString)
+        if let _ = str.rangeOfString("%") {
+            return false
+        }
+        return true
+    }
 }

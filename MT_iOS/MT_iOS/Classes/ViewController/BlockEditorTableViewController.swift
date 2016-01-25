@@ -33,10 +33,12 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             if block is BlockImageItem {
                 let item = BlockImageItem()
                 item.asset = (block as! BlockImageItem).asset
+                item.label = block.label
                 items.append(item)
             } else {
                 let item = BlockTextItem()
                 item.text = (block as! BlockTextItem).text
+                item.label = block.label
                 items.append(item)
             }
         }

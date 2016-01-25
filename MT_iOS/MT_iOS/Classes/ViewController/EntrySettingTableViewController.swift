@@ -315,6 +315,22 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
     }
     
     @IBAction func doneButtonPushed(sender: AnyObject) {
+        if let date = unpublishDate {
+            if date.isInPast() {
+                let alertController = UIAlertController(
+                    title: NSLocalizedString("Error", comment: "Error"),
+                    message: NSLocalizedString("'Unpublished on' dates should be dates in the future.", comment: "'Unpublished on' dates should be dates in the future."),
+                    preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                    action in
+                }
+                alertController.addAction(okAction)
+                presentViewController(alertController, animated: true, completion: nil)
+                
+                return
+            }
+        }
+        
         object.date = publishDate
         object.unpublishedDate = unpublishDate
         object.setTagsFromString(tagObject.text)

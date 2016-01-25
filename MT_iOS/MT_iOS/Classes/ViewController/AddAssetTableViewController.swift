@@ -10,6 +10,8 @@ import UIKit
 import MobileCoreServices
 import SVProgressHUD
 import SwiftyJSON
+import AVFoundation
+import AssetsLibrary
 
 protocol AddAssetDelegate {
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset)
@@ -281,7 +283,25 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         self.tableView.reloadData()
     }
     
+    private func showAlertView() {
+        let storyboard: UIStoryboard = UIStoryboard(name: "NotAccessPhotos", bundle: nil)
+        let vc = storyboard.instantiateInitialViewController() as! NotAccessPhotosViewController
+        let nav = UINavigationController(rootViewController: vc)
+        self.presentViewController(nav, animated: true, completion: nil)
+    }
+    
     @IBAction func cameraButtonPushed(sender: UIButton) {
+        if !UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            self.showAlertView()
+            return
+        }
+        
+        let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+        if status == AVAuthorizationStatus.Denied || status == AVAuthorizationStatus.Restricted {
+            self.showAlertView()
+            return
+        }
+        
         let ipc: UIImagePickerController = UIImagePickerController()
         ipc.delegate = self
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
@@ -296,6 +316,12 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     }
     
     @IBAction func libraryButtonPushed(sender: UIButton) {
+        let status = ALAssetsLibrary.authorizationStatus()
+        if status == ALAuthorizationStatus.Denied || status == ALAuthorizationStatus.Restricted {
+            self.showAlertView()
+            return
+        }
+        
         let ipc: UIImagePickerController = UIImagePickerController()
         ipc.delegate = self
         ipc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary

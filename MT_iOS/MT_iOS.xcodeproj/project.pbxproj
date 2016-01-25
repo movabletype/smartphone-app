@@ -111,6 +111,8 @@
 		794854511B2523C90074EF55 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7948544F1B2523C90074EF55 /* CategoryTableViewCell.swift */; };
 		794854521B2523C90074EF55 /* CategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 794854501B2523C90074EF55 /* CategoryTableViewCell.xib */; };
 		794854541B2574AB0074EF55 /* EntryTagItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794854531B2574AB0074EF55 /* EntryTagItem.swift */; };
+		794E76DD1C56131A0032297A /* NotAccessPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794E76DB1C56131A0032297A /* NotAccessPhotosViewController.swift */; };
+		794E76E01C5616AD0032297A /* NotAccessPhotos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 794E76DF1C5616AD0032297A /* NotAccessPhotos.storyboard */; };
 		7956DA621B27BFA50002B705 /* EntryBlocksItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956DA611B27BFA50002B705 /* EntryBlocksItem.swift */; };
 		7956DA641B27CE2F0002B705 /* BlockEditorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956DA631B27CE2F0002B705 /* BlockEditorTableViewController.swift */; };
 		7956DA681B27D8C30002B705 /* TextBlockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956DA661B27D8C30002B705 /* TextBlockTableViewCell.swift */; };
@@ -354,6 +356,8 @@
 		7948544F1B2523C90074EF55 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		794854501B2523C90074EF55 /* CategoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryTableViewCell.xib; sourceTree = "<group>"; };
 		794854531B2574AB0074EF55 /* EntryTagItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTagItem.swift; sourceTree = "<group>"; };
+		794E76DB1C56131A0032297A /* NotAccessPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAccessPhotosViewController.swift; sourceTree = "<group>"; };
+		794E76DF1C5616AD0032297A /* NotAccessPhotos.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotAccessPhotos.storyboard; sourceTree = "<group>"; };
 		7956DA611B27BFA50002B705 /* EntryBlocksItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryBlocksItem.swift; sourceTree = "<group>"; };
 		7956DA631B27CE2F0002B705 /* BlockEditorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockEditorTableViewController.swift; sourceTree = "<group>"; };
 		7956DA661B27D8C30002B705 /* TextBlockTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBlockTableViewCell.swift; sourceTree = "<group>"; };
@@ -804,6 +808,8 @@
 				79FD0DFA1B33E409008EFC16 /* DatePicker.storyboard */,
 				79CFBDDC1B1D83A200283780 /* DatePickerViewController.swift */,
 				79BF57E61B3106B200B4B13C /* ImageViewController.swift */,
+				794E76DB1C56131A0032297A /* NotAccessPhotosViewController.swift */,
+				794E76DF1C5616AD0032297A /* NotAccessPhotos.storyboard */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1218,6 +1224,7 @@
 				79FD0E0B1B33E409008EFC16 /* EntrySetting.storyboard in Resources */,
 				79FD0E101B33E409008EFC16 /* Setting.storyboard in Resources */,
 				790B7D991B219C6C0083EBB4 /* ZSSrightjustify.png in Resources */,
+				794E76E01C5616AD0032297A /* NotAccessPhotos.storyboard in Resources */,
 				790B7D811B219C6C0083EBB4 /* ZSSindent.png in Resources */,
 				790B7D801B219C6C0083EBB4 /* ZSSimage@2x.png in Resources */,
 				79592A481B200EC4004DDB4E /* EntryTextTableViewCell.xib in Resources */,
@@ -1324,6 +1331,7 @@
 				79CFBDD51B1D63EB00283780 /* EntrySettingTableViewController.swift in Sources */,
 				794854481B2522260074EF55 /* BaseCategoryListTableViewController.swift in Sources */,
 				79132B5A1B16F63B002064C7 /* LogoTableViewCell.swift in Sources */,
+				794E76DD1C56131A0032297A /* NotAccessPhotosViewController.swift in Sources */,
 				795E207E1B1DAE0600FA7857 /* EntrySelectItem.swift in Sources */,
 				7904EBB31B0AE58800216EC9 /* DataAPI.swift in Sources */,
 				79BB892B1B214725000BE6CD /* EntryHTMLEditorViewController.swift in Sources */,

@@ -303,13 +303,31 @@ class Blog: BaseObject {
         return self.endpoint + "_blog\(id)_\(name)"
     }
     
-    func dataDirPath()-> String {
-        let dir = self.endpoint + "_blog\(id)"
+    func dataDirPath(user: User? = nil)-> String {
+        var dir = self.endpoint + "_blog\(id)"
+        if user != nil {
+            dir = self.endpoint + "_blog\(id)_user\(user!.id)"
+        }
         return dir.stringByReplacingOccurrencesOfString("/", withString: "_", options: [], range: nil)
     }
     
-    func draftDirPath(object: BaseEntry)-> String {
-        var path = self.dataDirPath()
+    func renameOldDataDir(user: User) {
+        let fileManager = NSFileManager.defaultManager()
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let oldDir = self.dataDirPath()
+        let oldPath = paths[0].stringByAppendingPathComponent(oldDir)
+        let newDir = self.dataDirPath(user)
+        let newPath = paths[0].stringByAppendingPathComponent(newDir)
+        if fileManager.fileExistsAtPath(oldPath) {
+            do {
+                try fileManager.moveItemAtPath(oldPath, toPath: newPath)
+            } catch {
+            }
+        }
+    }
+    
+    func draftDirPath(object: BaseEntry, user: User? = nil)-> String {
+        var path = self.dataDirPath(user)
         path = path.stringByAppendingPathComponent(object is Entry ? "draft_entry" : "draft_page")
         
         return path
@@ -330,18 +348,26 @@ class Blog: BaseObject {
             }
         }
 
-        //V1.0.0との互換性のため
+        //V1.0.xとの互換性のため
+        var saveFlag = false
         if let value: AnyObject = defaults.objectForKey(self.settingKey("blogsettings_uploaddir")) {
             uploadDir = value as! String
             defaults.removeObjectForKey(self.settingKey("blogsettings_uploaddir"))
+            saveFlag = true
         }
         if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagesize")) as? Int {
             imageSize = Blog.ImageSize(rawValue: value)!
             defaults.removeObjectForKey(self.settingKey("blogsettings_imagesize"))
+            saveFlag = true
         }
         if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagequality")) as? Int {
             imageQuality = Blog.ImageQuality(rawValue: value)!
             defaults.removeObjectForKey(self.settingKey("blogsettings_imagequality"))
+            saveFlag = true
+        }
+
+        if saveFlag {
+            self.saveSettings()
         }
         
         return

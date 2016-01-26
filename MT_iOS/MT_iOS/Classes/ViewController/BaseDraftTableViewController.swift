@@ -25,7 +25,11 @@ class BaseDraftTableViewController: BaseTableViewController {
     
     func dataDir()-> String {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let dir = blog.dataDirPath()
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        var dir = blog.dataDirPath()
+        if let user = app.currentUser {
+            dir = blog.dataDirPath(user)
+        }
         var path = paths[0].stringByAppendingPathComponent(dir)
         path = path.stringByAppendingPathComponent(self is EntryDraftTableViewController ? "draft_entry" : "draft_page")
         
@@ -40,7 +44,8 @@ class BaseDraftTableViewController: BaseTableViewController {
     
     func fetch() {
         let manager = NSFileManager.defaultManager()
-        let paths = try! manager.contentsOfDirectoryAtPath(self.dataDir())
+        let dir = self.dataDir()
+        let paths = try! manager.contentsOfDirectoryAtPath(dir)
         files = [String]()
         for path in paths {
             if !path.hasPrefix(".") {

@@ -67,6 +67,12 @@ class BlogTableViewController: BaseTableViewController {
                 )
             }
         )
+        
+        //V1.0.xとの互換性のため
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let user = app.currentUser {
+            self.blog.renameOldDataDir(user)
+        }
     }
     
     private func getCustomFields(completion: (Bool)-> Void) {

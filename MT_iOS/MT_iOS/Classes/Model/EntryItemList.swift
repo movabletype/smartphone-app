@@ -289,9 +289,13 @@ class EntryItemList: NSObject, NSCoding {
             return value as? [Dictionary]
         }
         
-        //V1.0.0との互換性のため
+        //V1.0.xとの互換性のため
         if let value: AnyObject = defaults.objectForKey(self.orderSettingKeyOld()) {
             defaults.removeObjectForKey(self.orderSettingKeyOld())
+            
+            defaults.setObject(value, forKey:self.orderSettingKey())
+            defaults.synchronize()
+            
             return value as? [Dictionary]
         }
         return nil
@@ -358,8 +362,11 @@ class EntryItemList: NSObject, NSCoding {
     }
     
     func dataDir()-> String {
-        let path = blog.draftDirPath(object)
-
+        var path = blog.draftDirPath(object)
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let user = app.currentUser {
+            path = blog.draftDirPath(object, user: user)
+        }
         return path
     }
     

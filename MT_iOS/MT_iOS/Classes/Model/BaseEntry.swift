@@ -13,7 +13,8 @@ class BaseEntry: BaseObject {
     enum Status: Int {
         case Publish = 0,
         Draft,
-        Future
+        Future,
+        Unpublish
         
         func text()-> String {
             switch(self) {
@@ -23,6 +24,8 @@ class BaseEntry: BaseObject {
                 return "Draft"
             case .Future:
                 return "Future"
+            case .Unpublish:
+                return "Unpublish"
             }
         }
 
@@ -34,6 +37,8 @@ class BaseEntry: BaseObject {
                 return NSLocalizedString("Draft", comment: "Draft")
             case .Future:
                 return NSLocalizedString("Future", comment: "Future")
+            case .Unpublish:
+                return NSLocalizedString("Unpublish", comment: "Unpublish")
             }
         }
     }

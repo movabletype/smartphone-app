@@ -40,7 +40,7 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         let previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
         
-        if object is BlockTextItem {
+        if object is BlockTextItem || object.isCustomField {
             toolBar.items = [flexibleButton, previewButton, doneButton]
         } else {
             toolBar.items = [cameraButton, flexibleButton, previewButton, doneButton]

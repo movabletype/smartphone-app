@@ -296,7 +296,10 @@ class Blog: BaseObject {
     }
     
     //MARK: - Settings
-    func settingKey(name: String)-> String {
+    func settingKey(name: String, user: User? = nil)-> String {
+        if user != nil {
+            return self.endpoint + "_blog\(id)_user\(user!.id)_\(name)"
+        }
         return self.endpoint + "_blog\(id)_\(name)"
     }
     
@@ -312,25 +315,46 @@ class Blog: BaseObject {
         return path
     }
     
-    func loadSettings()-> [[String:AnyObject]]? {
+    func loadSettings() {
         let defaults = NSUserDefaults.standardUserDefaults()
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let user = app.currentUser {
+            if let value: AnyObject = defaults.objectForKey(self.settingKey("blogsettings_uploaddir", user: user)) {
+                uploadDir = value as! String
+            }
+            if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagesize", user: user)) as? Int {
+                imageSize = Blog.ImageSize(rawValue: value)!
+            }
+            if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagequality", user: user)) as? Int {
+                imageQuality = Blog.ImageQuality(rawValue: value)!
+            }
+        }
+
+        //V1.0.0との互換性のため
         if let value: AnyObject = defaults.objectForKey(self.settingKey("blogsettings_uploaddir")) {
             uploadDir = value as! String
+            defaults.removeObjectForKey(self.settingKey("blogsettings_uploaddir"))
         }
         if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagesize")) as? Int {
             imageSize = Blog.ImageSize(rawValue: value)!
+            defaults.removeObjectForKey(self.settingKey("blogsettings_imagesize"))
         }
         if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagequality")) as? Int {
             imageQuality = Blog.ImageQuality(rawValue: value)!
+            defaults.removeObjectForKey(self.settingKey("blogsettings_imagequality"))
         }
-        return nil
+        
+        return
     }
     
     func saveSettings() {
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(uploadDir, forKey:self.settingKey("blogsettings_uploaddir"))
-        defaults.setInteger(imageSize.rawValue, forKey:self.settingKey("blogsettings_imagesize"))
-        defaults.setInteger(imageQuality.rawValue, forKey:self.settingKey("blogsettings_imagequality"))
-        defaults.synchronize()
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let user = app.currentUser {
+            defaults.setObject(uploadDir, forKey:self.settingKey("blogsettings_uploaddir", user: user))
+            defaults.setInteger(imageSize.rawValue, forKey:self.settingKey("blogsettings_imagesize", user: user))
+            defaults.setInteger(imageQuality.rawValue, forKey:self.settingKey("blogsettings_imagequality", user: user))
+            defaults.synchronize()
+        }
     }
 }

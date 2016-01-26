@@ -261,7 +261,7 @@ class EntryItemList: NSObject, NSCoding {
         self.saveOrderSettings()
     }
     
-    func orderSettingKey()-> String {
+    func orderSettingKeyOld()-> String {
         if object is Entry {
             return blog.settingKey("entryitem_order_entry")
         } else {
@@ -269,10 +269,29 @@ class EntryItemList: NSObject, NSCoding {
         }
     }
     
+    func orderSettingKey()-> String {
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let user = app.currentUser {
+            if object is Entry {
+                return blog.settingKey("entryitem_order_entry", user: user)
+            } else {
+                return blog.settingKey("entryitem_order_page", user: user)
+            }
+        }
+
+        return self.orderSettingKeyOld()
+    }
+    
     func loadOrderSettings()-> [[String:AnyObject]]? {
         let defaults = NSUserDefaults.standardUserDefaults()
-        let key = self.orderSettingKey()
-        if let value: AnyObject = defaults.objectForKey(key) {
+        
+        if let value: AnyObject = defaults.objectForKey(self.orderSettingKey()) {
+            return value as? [Dictionary]
+        }
+        
+        //V1.0.0との互換性のため
+        if let value: AnyObject = defaults.objectForKey(self.orderSettingKeyOld()) {
+            defaults.removeObjectForKey(self.orderSettingKeyOld())
             return value as? [Dictionary]
         }
         return nil

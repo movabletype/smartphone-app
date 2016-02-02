@@ -16,9 +16,11 @@ class DataAPI: NSObject {
     private(set) var token = ""
     private(set) var sessionID = ""
 
-    var APIVersion = "v3"
+    var endpointVersion = "v3"
     var APIBaseURL = "http://localhost/cgi-bin/MT-6.1/mt-data-api.cgi"
-
+    
+    private(set) var apiVersion = "3.01"
+    
     var clientID = "MTDataAPIClient"
 
     struct BasicAuth {
@@ -31,7 +33,7 @@ class DataAPI: NSObject {
 
     //MARK: - Methods
     private func APIURL()->String! {
-        return APIBaseURL + "/\(APIVersion)"
+        return APIBaseURL + "/\(endpointVersion)"
     }
 
     private func APIURL_V2()->String! {
@@ -1639,9 +1641,21 @@ class DataAPI: NSObject {
     //MARK: - # V3
     //MARK: - Version
     func version(options: [String: AnyObject]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
-        let url = APIURL() + "/version"
+        let url = APIBaseURL + "/version"
         
-        self.get(url, params: options, success: success, failure: failure)
+        self.get(url,
+            success: {(result: JSON!)-> Void in
+                if let value = result["endpointVersion"].string {
+                    self.endpointVersion = value
+                }
+                if let value = result["apiVersion"].string {
+                    self.apiVersion = value
+                }
+
+                success(result)
+            },
+            failure: failure
+        )
     }
 
 }

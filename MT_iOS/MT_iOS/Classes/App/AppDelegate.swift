@@ -149,14 +149,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.authInfo = auth
         self.authInfo.save()
         
-        api.APIVersion = "v3"
         api.version(
             success: {_ in
-                //TODO:Version取得
                 self.getUser(auth, showHud: showHud)
             },
             failure: {_ in
-                api.APIVersion = "v2"
+                api.endpointVersion = "v2"
                 self.getUser(auth, showHud: showHud)
             }
         )

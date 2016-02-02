@@ -1638,8 +1638,8 @@ class DataAPI: NSObject {
 
     //MARK: - # V3
     //MARK: - Version
-    func version(pluginID: String, options: [String: AnyObject]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
-        let url = APIURL() + "/plugins/\(pluginID)"
+    func version(options: [String: AnyObject]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
+        let url = APIURL() + "/version"
         
         self.get(url, params: options, success: success, failure: failure)
     }

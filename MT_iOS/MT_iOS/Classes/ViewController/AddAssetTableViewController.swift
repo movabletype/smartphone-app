@@ -358,7 +358,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
         }
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 api.uploadAssetForSite(self.blog.id, assetData: data, fileName: filename, options: ["path":path, "autoRenameIfExists":"true"], success: success, failure: failure)
             },

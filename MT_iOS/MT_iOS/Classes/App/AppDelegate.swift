@@ -125,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
         }
         
-        api.authentication(auth.username, password: auth.password, remember: true,
+        api.authenticationV2(auth.username, password: auth.password, remember: true,
             success:{_ in
                 api.getUser("me",
                     success: {(user: JSON!)-> Void in

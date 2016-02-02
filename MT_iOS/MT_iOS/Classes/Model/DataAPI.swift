@@ -16,7 +16,7 @@ class DataAPI: NSObject {
     private(set) var token = ""
     private(set) var sessionID = ""
 
-    var APIVersion = "v2"
+    var APIVersion = "v3"
     var APIBaseURL = "http://localhost/cgi-bin/MT-6.1/mt-data-api.cgi"
 
     var clientID = "MTDataAPIClient"
@@ -34,6 +34,10 @@ class DataAPI: NSObject {
         return APIBaseURL + "/\(APIVersion)"
     }
 
+    private func APIURL_V2()->String! {
+        return APIBaseURL + "/v2"
+    }
+    
     func urlencoding(src: String)->String! {
         return src.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
     }
@@ -65,7 +69,6 @@ class DataAPI: NSObject {
     }
 
     private func makeRequest(method: Alamofire.Method, url: URLStringConvertible, parameters: [String: AnyObject]? = nil, encoding: ParameterEncoding = .URL, useSession: Bool = (false)) -> Request {
-
         var headers = Dictionary<String, String>()
         
         if token != "" {
@@ -194,9 +197,7 @@ class DataAPI: NSObject {
     }
 
     //MARK: - Authentication
-    func authentication(username: String, password: String, remember: Bool, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
-        let url = APIURL() + "/authentication"
-        
+    func authenticationCommon(url: String, username: String, password: String, remember: Bool, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
         resetAuth()
 
         let params = ["username":username,
@@ -227,6 +228,16 @@ class DataAPI: NSObject {
         }
     }
 
+    func authentication(username: String, password: String, remember: Bool, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
+        let url = APIURL() + "/authentication"
+        self.authenticationCommon(url, username: username, password: password, remember: remember, success: success, failure: failure)
+    }
+
+    func authenticationV2(username: String, password: String, remember: Bool, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
+        let url = APIURL_V2() + "/authentication"
+        self.authenticationCommon(url, username: username, password: password, remember: remember, success: success, failure: failure)
+    }
+    
     func getToken(success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
         let url = APIURL() + "/token"
 
@@ -1624,5 +1635,14 @@ class DataAPI: NSObject {
     func disableAllPlugin(options: [String: AnyObject]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
         self.togglePlugin("*", enable: false, options: options, success: success, failure: failure)
     }
+
+    //MARK: - # V3
+    //MARK: - Version
+    func version(pluginID: String, options: [String: AnyObject]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
+        let url = APIURL() + "/plugins/\(pluginID)"
+        
+        self.get(url, params: options, success: success, failure: failure)
+    }
+    
 
 }

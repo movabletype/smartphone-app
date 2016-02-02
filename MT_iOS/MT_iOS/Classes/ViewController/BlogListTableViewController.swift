@@ -49,7 +49,7 @@ class BlogList: ItemList {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 var params = ["limit":"20"]
                 params["fields"] = "id,name,url,parent"

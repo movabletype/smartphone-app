@@ -144,7 +144,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         SVProgressHUD.showWithStatus(NSLocalizedString("Get detail...", comment: "Get detail..."))
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 if isEntry {
                     api.getEntry(siteID: blogID, entryID: id, success: success, failure: failure)
@@ -751,7 +751,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         SVProgressHUD.showWithStatus(NSLocalizedString("Make preview...", comment: "Make preview..."))
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 if isEntry {
                     api.previewEntry(siteID: blogID, entryID: id, entry: json, success: success, failure: failure)
@@ -917,7 +917,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         SVProgressHUD.showWithStatus(NSLocalizedString("Save...", comment: "Save..."))
 
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 if create {
                     if isEntry {
@@ -995,7 +995,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         SVProgressHUD.showWithStatus(NSLocalizedString("Check modified at...", comment: "Check modified at..."))
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 let params = ["fields":"id,modifiedDate"]
                 if isEntry {
@@ -1114,7 +1114,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
         }
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 if object is Entry {
                     api.deleteEntry(siteID: self.blog.id, entryID: object.id, success: success, failure: failure)

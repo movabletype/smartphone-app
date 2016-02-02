@@ -226,7 +226,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     return 90.0
                 }
             } else if item.type == "status" {
-                return 53.0
+                return 58.0
             } else if item.type == "category" || item.type == "folder" {
                 return 58.0
             }
@@ -392,22 +392,9 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     cell = c
                 }
             } else if item.type == "status" {
-                let c = tableView.dequeueReusableCellWithIdentifier("EntryStatusTableViewCell", forIndexPath: indexPath) as! EntryStatusTableViewCell
-                let status = item as! EntryStatusItem
-                c.segmentedControl.selectedSegmentIndex = status.selected
-                c.segmentedControl.tag = indexPath.section
-                c.segmentedControl.addTarget(self, action: "statusChanged:", forControlEvents: UIControlEvents.ValueChanged)
-                
-                if object is Entry {
-                    let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
-                    if !blog.canPublishEntry(user: user) {
-                        c.segmentedControl.setEnabled(false, forSegmentAtIndex: Entry.Status.Publish.rawValue)
-                        c.segmentedControl.setEnabled(true, forSegmentAtIndex: Entry.Status.Draft.rawValue)
-                        c.segmentedControl.setEnabled(false, forSegmentAtIndex: Entry.Status.Future.rawValue)
-                        c.segmentedControl.selectedSegmentIndex = Entry.Status.Draft.rawValue
-                    }
-                }
-                
+                let c = tableView.dequeueReusableCellWithIdentifier("EntrySelectTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
+                c.textLabel?.text = item.label
+                c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
                 cell = c
             } else if item.type == "category" || item.type == "folder" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
@@ -513,6 +500,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         vc.object = object
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    private func showStatusSelector(object: EntryStatusItem) {
+        let vc = EntryStatusSelectTableViewController()
+        vc.object = object
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
     
     private func showCategorySelector(object: BaseEntryItem) {
         let vc = CategoryListTableViewController()
@@ -700,7 +694,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             } else if item.type == "image" {
                 self.imageAction(item as! EntryImageItem)
             } else if item.type == "status" {
-                // Do nothing
+                self.showStatusSelector(item as! EntryStatusItem)
             } else if item.type == "category" {
                 self.showCategorySelector(item as! EntryCategoryItem)
             } else if item.type == "folder" {

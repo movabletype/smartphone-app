@@ -186,6 +186,7 @@
 		7986975D1B14591900DC7A18 /* AssetListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986975C1B14591900DC7A18 /* AssetListTableViewController.swift */; };
 		7986975F1B145AC600DC7A18 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986975E1B145AC600DC7A18 /* Asset.swift */; };
 		799724081B189F9700FEE683 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799724071B189F9700FEE683 /* SignInViewController.swift */; };
+		799ED9CC1C60665900392EA9 /* EntryStatusSelectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799ED9CB1C60665900392EA9 /* EntryStatusSelectTableViewController.swift */; };
 		79A715381B2685AA005A09ED /* BlogImageSizeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A715371B2685AA005A09ED /* BlogImageSizeTableViewController.swift */; };
 		79A7153D1B2685E7005A09ED /* BlogImageQualityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A7153C1B2685E7005A09ED /* BlogImageQualityTableViewController.swift */; };
 		79A812831B3BE91600D0E995 /* EditorModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A812821B3BE91600D0E995 /* EditorModeTableViewController.swift */; };
@@ -432,6 +433,7 @@
 		7986975C1B14591900DC7A18 /* AssetListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetListTableViewController.swift; sourceTree = "<group>"; };
 		7986975E1B145AC600DC7A18 /* Asset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		799724071B189F9700FEE683 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		799ED9CB1C60665900392EA9 /* EntryStatusSelectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryStatusSelectTableViewController.swift; sourceTree = "<group>"; };
 		79A715371B2685AA005A09ED /* BlogImageSizeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogImageSizeTableViewController.swift; sourceTree = "<group>"; };
 		79A7153C1B2685E7005A09ED /* BlogImageQualityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogImageQualityTableViewController.swift; sourceTree = "<group>"; };
 		79A812821B3BE91600D0E995 /* EditorModeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModeTableViewController.swift; sourceTree = "<group>"; };
@@ -907,6 +909,7 @@
 				79BB892A1B214725000BE6CD /* EntryHTMLEditorViewController.swift */,
 				790B7D101B215B1A0083EBB4 /* EntrySelectTableViewController.swift */,
 				790B7D141B2195860083EBB4 /* EntryRichTextViewController.swift */,
+				799ED9CB1C60665900392EA9 /* EntryStatusSelectTableViewController.swift */,
 				794854461B2521EC0074EF55 /* Category&Folder */,
 			);
 			name = EntryEditor;
@@ -1348,6 +1351,7 @@
 				7956DA681B27D8C30002B705 /* TextBlockTableViewCell.swift in Sources */,
 				79132B501B16EFD6002064C7 /* TextFieldTableViewCell.swift in Sources */,
 				79EEE9551B29867B007D9407 /* BaseDraftTableViewController.swift in Sources */,
+				799ED9CC1C60665900392EA9 /* EntryStatusSelectTableViewController.swift in Sources */,
 				790B7D151B2195860083EBB4 /* EntryRichTextViewController.swift in Sources */,
 				797603BC1B0EEAEC00F9AC09 /* BaseEntry.swift in Sources */,
 				79CFBDDD1B1D83A200283780 /* DatePickerViewController.swift in Sources */,

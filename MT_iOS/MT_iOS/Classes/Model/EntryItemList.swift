@@ -63,12 +63,16 @@ class EntryItemList: NSObject, NSCoding {
         
         let statusItem = EntryStatusItem()
         statusItem.id = "status"
+        statusItem.unpublished = false
         if object.status == Entry.Status.Publish.text() {
             statusItem.selected = Entry.Status.Publish.rawValue
         } else if object.status == Entry.Status.Draft.text() {
             statusItem.selected = Entry.Status.Draft.rawValue
         } else if object.status == Entry.Status.Future.text() {
             statusItem.selected = Entry.Status.Future.rawValue
+        } else if object.status == Entry.Status.Unpublish.text() {
+            statusItem.selected = Entry.Status.Unpublish.rawValue
+            statusItem.unpublished = true
         }
         
         statusItem.label = NSLocalizedString("Status", comment: "Status")

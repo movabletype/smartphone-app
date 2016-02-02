@@ -10,6 +10,7 @@ import UIKit
 
 class EntryStatusItem: BaseEntryItem {
     var selected = NOTSELECTED
+    var unpublished = false
 
     override init() {
         super.init()

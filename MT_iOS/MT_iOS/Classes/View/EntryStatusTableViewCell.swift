@@ -17,7 +17,7 @@ class EntryStatusTableViewCell: UITableViewCell {
         // Initialization code
         
         segmentedControl.setTitle(NSLocalizedString("Published", comment: "Published"), forSegmentAtIndex: 0)
-        segmentedControl.setTitle(NSLocalizedString("Unpublished", comment: "Unpublished"), forSegmentAtIndex: 1)
+        segmentedControl.setTitle(NSLocalizedString("Draft", comment: "Draft"), forSegmentAtIndex: 1)
         segmentedControl.setTitle(NSLocalizedString("Scheduled", comment: "Scheduled"), forSegmentAtIndex: 2)
         
         segmentedControl.selectedSegmentIndex = 1

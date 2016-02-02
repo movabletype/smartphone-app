@@ -1643,6 +1643,5 @@ class DataAPI: NSObject {
         
         self.get(url, params: options, success: success, failure: failure)
     }
-    
 
 }

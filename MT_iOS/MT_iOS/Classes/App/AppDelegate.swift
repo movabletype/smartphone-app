@@ -96,19 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
     }
     
-    func signIn(auth: AuthInfo, showHud: Bool) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        if showHud {
-            SVProgressHUD.showWithStatus(NSLocalizedString("Sign In...", comment: "Sign In..."))
-        }
-        let api = DataAPI.sharedInstance
-        api.APIBaseURL = auth.endpoint
-        api.basicAuth.username = auth.basicAuthUsername
-        api.basicAuth.password = auth.basicAuthPassword
-        
-        self.authInfo = auth
-        self.authInfo.save()
-        
+    func getUser(auth: AuthInfo, showHud: Bool){
         let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
@@ -124,7 +112,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 delayTime: 2.0
             )
         }
-        
+
+        let api = DataAPI.sharedInstance
         api.authenticationV2(auth.username, password: auth.password, remember: true,
             success:{_ in
                 api.getUser("me",
@@ -144,6 +133,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 )
             },
             failure: failure
+        )
+    }
+    
+    func signIn(auth: AuthInfo, showHud: Bool) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        if showHud {
+            SVProgressHUD.showWithStatus(NSLocalizedString("Sign In...", comment: "Sign In..."))
+        }
+        let api = DataAPI.sharedInstance
+        api.APIBaseURL = auth.endpoint
+        api.basicAuth.username = auth.basicAuthUsername
+        api.basicAuth.password = auth.basicAuthPassword
+        
+        self.authInfo = auth
+        self.authInfo.save()
+        
+        api.APIVersion = "v3"
+        api.version(
+            success: {_ in
+                //TODO:Version取得
+                self.getUser(auth, showHud: showHud)
+            },
+            failure: {_ in
+                api.APIVersion = "v2"
+                self.getUser(auth, showHud: showHud)
+            }
         )
     }
     

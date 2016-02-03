@@ -33,7 +33,11 @@ class EntryBlocksItem: EntryTextAreaItem {
             if block is BlockImageItem {
                 value += block.value() + "\n"
             } else {
-                value += "<p>" + block.value() + "</p>" + "\n"
+                if (block as! BlockTextItem).format == Entry.EditMode.Markdown {
+                    value += block.value() + "\n"
+                } else {
+                    value += "<p>" + block.value() + "</p>" + "\n"
+                }
             }
         }
         

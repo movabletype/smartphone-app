@@ -215,7 +215,8 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         items.insert(item, atIndex: destinationIndexPath.row)
     }
     
-    private func showHTMLEditor(object: EntryTextAreaItem) {
+    private func showHTMLEditor(object: BlockTextItem) {
+        object.format = self.entry.editMode
         if self.entry.editMode == Entry.EditMode.PlainText {
             let vc = EntryHTMLEditorViewController()
             vc.object = object
@@ -254,9 +255,9 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             let item = items[indexPath.row]
             
             if item.type == "textarea"  {
-                self.showHTMLEditor(item as! EntryTextAreaItem)
+                self.showHTMLEditor(item as! BlockTextItem)
             } else if item.type == "image" {
-                self.showAssetSelector(item as! EntryImageItem)
+                self.showAssetSelector(item as! BlockImageItem)
             }
         }
     }
@@ -354,7 +355,11 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             if item is BlockImageItem {
                 html += item.value() + "\n"
             } else {
-                html += "<p>" + item.value() + "</p>" + "\n"
+                if (item as! BlockTextItem).format == Entry.EditMode.Markdown {
+                    html += item.value() + "\n"
+                } else {
+                    html += "<p>" + item.value() + "</p>" + "\n"
+                }
             }
         }
         return html

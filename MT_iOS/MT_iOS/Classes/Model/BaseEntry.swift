@@ -45,7 +45,8 @@ class BaseEntry: BaseObject {
 
     enum EditMode: Int {
         case PlainText = 0,
-        RichText
+        RichText,
+        Markdown
         
         func text()-> String {
             switch(self) {
@@ -53,6 +54,8 @@ class BaseEntry: BaseObject {
                 return "PlainText"
             case .RichText:
                 return "RichText"
+            case .Markdown:
+                return "Markdown"
             }
         }
         
@@ -62,6 +65,8 @@ class BaseEntry: BaseObject {
                 return NSLocalizedString("PlainText", comment: "PlainText")
             case .RichText:
                 return NSLocalizedString("RichText", comment: "RichText")
+            case .Markdown:
+                return NSLocalizedString("Markdown", comment: "Markdown")
             }
         }
     }
@@ -81,6 +86,7 @@ class BaseEntry: BaseObject {
     var customFields = [CustomField]()
     var permalink = ""
     var basename = ""
+    var format = ""
     
     var editMode: EditMode = .RichText
 
@@ -124,6 +130,7 @@ class BaseEntry: BaseObject {
 
         permalink = json["permalink"].stringValue
 
+        format = json["format"].stringValue
     }
     
     override func encodeWithCoder(aCoder: NSCoder) {
@@ -141,6 +148,7 @@ class BaseEntry: BaseObject {
         aCoder.encodeObject(self.customFields, forKey: "customFields")
         aCoder.encodeObject(self.permalink, forKey: "permalink")
         aCoder.encodeObject(self.basename, forKey: "basename")
+        aCoder.encodeObject(self.format, forKey: "format")
         aCoder.encodeInteger(self.editMode.rawValue, forKey: "editMode")
     }
     
@@ -159,6 +167,7 @@ class BaseEntry: BaseObject {
         self.customFields = aDecoder.decodeObjectForKey("customFields") as! [CustomField]
         self.permalink = aDecoder.decodeObjectForKey("permalink") as! String
         self.basename = aDecoder.decodeObjectForKey("basename") as! String
+        self.format = aDecoder.decodeObjectForKey("format") as! String
         self.editMode = BaseEntry.EditMode(rawValue: aDecoder.decodeIntegerForKey("editMode"))!
     }
     

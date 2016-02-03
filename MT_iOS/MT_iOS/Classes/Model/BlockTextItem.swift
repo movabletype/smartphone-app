@@ -9,5 +9,6 @@
 import UIKit
 
 class BlockTextItem: EntryTextAreaItem {
+    var format = Entry.EditMode.RichText
 
 }

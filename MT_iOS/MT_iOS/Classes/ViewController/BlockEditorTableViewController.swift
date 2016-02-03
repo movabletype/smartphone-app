@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MMMarkdown
 
 class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate {
     var blog: Blog!
@@ -39,6 +40,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
                 let item = BlockTextItem()
                 item.text = (block as! BlockTextItem).text
                 item.label = block.label
+                item.format = self.entry.editMode
                 items.append(item)
             }
         }
@@ -215,9 +217,16 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         items.insert(item, atIndex: destinationIndexPath.row)
     }
     
-    private func showHTMLEditor(object: EntryTextAreaItem) {
+    private func showHTMLEditor(object: BlockTextItem) {
+        object.format = self.entry.editMode
         if self.entry.editMode == Entry.EditMode.PlainText {
             let vc = EntryHTMLEditorViewController()
+            vc.object = object
+            vc.blog = blog
+            vc.entry = entry
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else if self.entry.editMode == Entry.EditMode.Markdown {
+            let vc = EntryMarkdownEditorViewController()
             vc.object = object
             vc.blog = blog
             vc.entry = entry
@@ -248,9 +257,9 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             let item = items[indexPath.row]
             
             if item.type == "textarea"  {
-                self.showHTMLEditor(item as! EntryTextAreaItem)
+                self.showHTMLEditor(item as! BlockTextItem)
             } else if item.type == "image" {
-                self.showAssetSelector(item as! EntryImageItem)
+                self.showAssetSelector(item as! BlockImageItem)
             }
         }
     }
@@ -348,7 +357,17 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             if item is BlockImageItem {
                 html += item.value() + "\n"
             } else {
-                html += "<p>" + item.value() + "</p>" + "\n"
+                if (item as! BlockTextItem).format == Entry.EditMode.Markdown {
+                    let sourceText = item.value()
+                    do {
+                        let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
+                        html += markdown + "\n"
+                    } catch _ {
+                        html += sourceText + "\n"
+                    }
+                } else {
+                    html += "<p>" + item.value() + "</p>" + "\n"
+                }
             }
         }
         return html

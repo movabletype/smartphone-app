@@ -146,10 +146,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         
         api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
+                let params = ["no_text_filter":"1"]
                 if isEntry {
-                    api.getEntry(siteID: blogID, entryID: id, success: success, failure: failure)
+                    api.getEntry(siteID: blogID, entryID: id, options: params, success: success, failure: failure)
                 } else {
-                    api.getPage(siteID: blogID, pageID: id, success: success, failure: failure)
+                    api.getPage(siteID: blogID, pageID: id, options: params, success: success, failure: failure)
                 }
             },
             failure: failure
@@ -495,6 +496,14 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    private func showMarkdownEditor(object: EntryTextAreaItem) {
+        let vc = EntryMarkdownEditorViewController()
+        vc.object = object
+        vc.blog = blog
+        vc.entry = self.object
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     private func showSelector(object: EntrySelectItem) {
         let vc = EntrySelectTableViewController()
         vc.object = object
@@ -677,7 +686,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     // Do nothing
                     return
                 } else {
-                    self.showHTMLEditor(item as! EntryTextAreaItem)
+                    if item.id == "body" || item.id == "more" {
+                        if self.object.format.hasPrefix(Entry.EditMode.Markdown.label().lowercaseString) {
+                            self.showMarkdownEditor(item as! EntryTextAreaItem)
+                        }
+                    } else {
+                        self.showHTMLEditor(item as! EntryTextAreaItem)
+                    }
                 }
             } else if item.type == "blocks" {
                 self.showBlockEditor(item as! EntryBlocksItem)
@@ -856,6 +871,10 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             //UnpublishDate
             if object.unpublishedDate != nil {
                 params!["unpublishedDate"] = Utils.ISO8601StringFromDate(object.unpublishedDate!)
+            }
+            
+            if object.id.isEmpty && object.editMode == Entry.EditMode.Markdown {
+                params!["format"] = Entry.EditMode.Markdown.label().lowercaseString
             }
             
             LOG("params:\(params)")

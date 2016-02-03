@@ -189,6 +189,8 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
                 c.detailTextLabel?.text = Entry.EditMode.RichText.label()
             } else if editorMode == Entry.EditMode.PlainText {
                 c.detailTextLabel?.text = Entry.EditMode.PlainText.label()
+            } else if editorMode == Entry.EditMode.Markdown {
+                c.detailTextLabel?.text = Entry.EditMode.Markdown.label()
             }
             c.contentView.addSubview(separatorLineView)
             c.backgroundColor = Color.bg

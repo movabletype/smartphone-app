@@ -20,11 +20,16 @@ class EntryMarkdownEditorViewController: EntryHTMLEditorViewController {
         modeLabel.text = "Markdown"
         modeLabel.sizeToFit()
         let modeButton = UIBarButtonItem(customView: modeLabel)
+        let cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
         let flexibleButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         let previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
         
-        toolBar.items = [modeButton, flexibleButton, previewButton, doneButton]
+        if object is BlockTextItem || object.isCustomField {
+            toolBar.items = [modeButton, flexibleButton, previewButton, doneButton]
+        } else {
+            toolBar.items = [cameraButton, flexibleButton, previewButton, doneButton]
+        }
 
         self.sourceView.inputAccessoryView = toolBar
     }

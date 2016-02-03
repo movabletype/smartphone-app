@@ -35,13 +35,17 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         self.sourceView.selectedRange = NSRange()
 
         let toolBar = UIToolbar(frame: CGRectMake(0.0, 0.0, self.view.frame.size.width, 44.0))
+        let modeLabel = UILabel()
+        modeLabel.text = "HTML"
+        modeLabel.sizeToFit()
+        let modeButton = UIBarButtonItem(customView: modeLabel)
         let cameraButton = UIBarButtonItem(image: UIImage(named: "btn_camera"), left: true, target: self, action: "cameraButtonPushed:")
         let flexibleButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         let previewButton = UIBarButtonItem(image: UIImage(named: "btn_preview"), style: UIBarButtonItemStyle.Plain, target: self, action: "previewButtonPushed:")
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
         
         if object is BlockTextItem || object.isCustomField {
-            toolBar.items = [flexibleButton, previewButton, doneButton]
+            toolBar.items = [modeButton, flexibleButton, previewButton, doneButton]
         } else {
             toolBar.items = [cameraButton, flexibleButton, previewButton, doneButton]
         }

@@ -495,6 +495,14 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    private func showMarkdownEditor(object: EntryTextAreaItem) {
+        let vc = EntryMarkdownEditorViewController()
+        vc.object = object
+        vc.blog = blog
+        vc.entry = self.object
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     private func showSelector(object: EntrySelectItem) {
         let vc = EntrySelectTableViewController()
         vc.object = object
@@ -677,7 +685,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     // Do nothing
                     return
                 } else {
-                    self.showHTMLEditor(item as! EntryTextAreaItem)
+                    if item.id == "body" || item.id == "more" {
+                        if self.object.format.hasPrefix(Entry.EditMode.Markdown.label().lowercaseString) {
+                            self.showMarkdownEditor(item as! EntryTextAreaItem)
+                        }
+                    } else {
+                        self.showHTMLEditor(item as! EntryTextAreaItem)
+                    }
                 }
             } else if item.type == "blocks" {
                 self.showBlockEditor(item as! EntryBlocksItem)

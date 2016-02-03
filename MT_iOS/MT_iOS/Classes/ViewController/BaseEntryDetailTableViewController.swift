@@ -146,10 +146,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         
         api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
+                let params = ["no_text_filter":"1"]
                 if isEntry {
-                    api.getEntry(siteID: blogID, entryID: id, success: success, failure: failure)
+                    api.getEntry(siteID: blogID, entryID: id, options: params, success: success, failure: failure)
                 } else {
-                    api.getPage(siteID: blogID, pageID: id, success: success, failure: failure)
+                    api.getPage(siteID: blogID, pageID: id, options: params, success: success, failure: failure)
                 }
             },
             failure: failure

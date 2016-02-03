@@ -222,6 +222,12 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             vc.blog = blog
             vc.entry = entry
             self.navigationController?.pushViewController(vc, animated: true)
+        } else if self.entry.editMode == Entry.EditMode.Markdown {
+            let vc = EntryMarkdownEditorViewController()
+            vc.object = object
+            vc.blog = blog
+            vc.entry = entry
+            self.navigationController?.pushViewController(vc, animated: true)
         } else {
             let vc = EntryRichTextViewController()
             vc.object = object

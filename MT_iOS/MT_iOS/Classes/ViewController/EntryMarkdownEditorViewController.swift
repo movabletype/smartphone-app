@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MMMarkdown
 
 class EntryMarkdownEditorViewController: EntryHTMLEditorViewController {
 
@@ -56,10 +57,14 @@ class EntryMarkdownEditorViewController: EntryHTMLEditorViewController {
         
         var html = "<!DOCTYPE html><html><head><title>Preview</title><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"></head><body>"
         
-        //TODO:Markdownフォーマット
-        html += "# Markdown"
-        html += self.sourceView.text
-        
+        let sourceText = self.sourceView.text
+        do {
+            let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
+            html += markdown
+        } catch _ {
+            html += sourceText
+        }
+
         html += "</body></html>"
         
         vc.html = html

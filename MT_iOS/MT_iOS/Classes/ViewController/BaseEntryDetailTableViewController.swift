@@ -873,7 +873,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 params!["unpublishedDate"] = Utils.ISO8601StringFromDate(object.unpublishedDate!)
             }
             
-            if object.id.isEmpty || object.editMode == Entry.EditMode.Markdown {
+            if object.id.isEmpty && object.editMode == Entry.EditMode.Markdown {
                 params!["format"] = Entry.EditMode.Markdown.label().lowercaseString
             }
             

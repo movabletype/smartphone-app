@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MMMarkdown
 
 class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate {
     var blog: Blog!
@@ -39,6 +40,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
                 let item = BlockTextItem()
                 item.text = (block as! BlockTextItem).text
                 item.label = block.label
+                item.format = self.entry.editMode
                 items.append(item)
             }
         }
@@ -356,7 +358,13 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
                 html += item.value() + "\n"
             } else {
                 if (item as! BlockTextItem).format == Entry.EditMode.Markdown {
-                    html += item.value() + "\n"
+                    let sourceText = item.value()
+                    do {
+                        let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
+                        html += markdown + "\n"
+                    } catch _ {
+                        html += sourceText + "\n"
+                    }
                 } else {
                     html += "<p>" + item.value() + "</p>" + "\n"
                 }

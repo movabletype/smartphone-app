@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (2.0.2)
   - LUKeychainAccess (1.2.5)
+  - MMMarkdown (0.5.1)
   - NSDate-Escort (1.7.0)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
@@ -13,6 +14,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 2.0)
   - LUKeychainAccess
+  - MMMarkdown
   - NSDate-Escort
   - SDWebImage
   - SVProgressHUD
@@ -39,6 +41,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
   LUKeychainAccess: d22fc00b33ad92c7532962b86daa94c14b85ecbe
+  MMMarkdown: 06f7989e0350d10a7de50516af6c812402ce554b
   NSDate-Escort: 3469fefab423c094108c2e864416b61b6ac0edbc
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1

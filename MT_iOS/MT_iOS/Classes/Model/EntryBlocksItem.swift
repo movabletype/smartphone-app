@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MMMarkdown
 
 class EntryBlocksItem: EntryTextAreaItem {
     var blocks = [BaseEntryItem]()
@@ -34,7 +35,13 @@ class EntryBlocksItem: EntryTextAreaItem {
                 value += block.value() + "\n"
             } else {
                 if (block as! BlockTextItem).format == Entry.EditMode.Markdown {
-                    value += block.value() + "\n"
+                    let sourceText = block.value()
+                    do {
+                        let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
+                        value += markdown + "\n"
+                    } catch _ {
+                        value += sourceText + "\n"
+                    }
                 } else {
                     value += "<p>" + block.value() + "</p>" + "\n"
                 }

@@ -36,6 +36,7 @@ class BlogList: ItemList {
             for item in self.items as! [Blog] {
                 item.endpoint = authInfo.endpoint
                 item.loadSettings()
+                item.adjustUploadDestination()
             }
             success(items: result, total: total)
             self.postProcess()

@@ -420,4 +420,24 @@ class Blog: BaseObject {
             defaults.synchronize()
         }
     }
+    
+    //MARK: -
+    func adjustUploadDestination() {
+        if let uploadDestination = self.uploadDestination {
+            if allowToChangeAtUpload {
+                if self.uploadDir == "/" {
+                    self.uploadDir = uploadDestination.path
+                    self.saveSettings()
+                } else {
+                    //MTiOSの設定有効
+                }
+            } else {
+                self.uploadDir = uploadDestination.path
+                self.saveSettings()
+            }
+        } else {
+            //MTiOSの設定有効
+        }
+    }
+
 }

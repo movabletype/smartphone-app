@@ -9,6 +9,30 @@
 import UIKit
 import SwiftyJSON
 
+class UploadDestination: BaseObject {
+    var path: String = ""
+    var raw: String = ""
+    
+    override init(json: JSON) {
+        super.init(json: json)
+        
+        path = json["path"].stringValue
+        raw = json["raw"].stringValue
+    }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.path, forKey: "path")
+        aCoder.encodeObject(self.raw, forKey: "raw")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+        self.path = aDecoder.decodeObjectForKey("path") as! String
+        self.raw = aDecoder.decodeObjectForKey("raw") as! String
+    }
+}
+
 class Blog: BaseObject {
     enum ImageSize: Int {
         case Original = 0
@@ -155,6 +179,9 @@ class Blog: BaseObject {
     var parentName: String = ""
     var parentID: String = ""
     
+    var allowToChangeAtUpload = true
+    var uploadDestination: UploadDestination!
+
     var permissions: [String] = []
     var customfieldsForEntry: [CustomField] = []
     var customfieldsForPage: [CustomField] = []
@@ -173,6 +200,9 @@ class Blog: BaseObject {
         url = json["url"].stringValue
         parentName = json["parent"]["name"].stringValue
         parentID = json["parent"]["id"].stringValue
+        
+        allowToChangeAtUpload = (json["allowToChangeAtUpload"].stringValue == "true")
+        uploadDestination = UploadDestination(json: json["uploadDestination"])
     }
     
     override func encodeWithCoder(aCoder: NSCoder) {
@@ -181,6 +211,8 @@ class Blog: BaseObject {
         aCoder.encodeObject(self.url, forKey: "url")
         aCoder.encodeObject(self.parentName, forKey: "parentName")
         aCoder.encodeObject(self.parentID, forKey: "parentID")
+        aCoder.encodeObject(self.allowToChangeAtUpload, forKey: "allowToChangeAtUpload")
+        aCoder.encodeObject(self.uploadDestination, forKey: "uploadDestination")
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -192,6 +224,11 @@ class Blog: BaseObject {
         }
         if let object: AnyObject = aDecoder.decodeObjectForKey("parentID") {
             self.parentID = object as! String
+        }
+
+        self.allowToChangeAtUpload = aDecoder.decodeBoolForKey("allowToChangeAtUpload")
+        if let object: AnyObject = aDecoder.decodeObjectForKey("uploadDestination") {
+            self.uploadDestination = object as! UploadDestination
         }
     }
 
@@ -383,4 +420,24 @@ class Blog: BaseObject {
             defaults.synchronize()
         }
     }
+    
+    //MARK: -
+    func adjustUploadDestination() {
+        if let uploadDestination = self.uploadDestination {
+            if allowToChangeAtUpload {
+                if self.uploadDir == "/" {
+                    self.uploadDir = uploadDestination.path
+                    self.saveSettings()
+                } else {
+                    //MTiOSの設定有効
+                }
+            } else {
+                self.uploadDir = uploadDestination.path
+                self.saveSettings()
+            }
+        } else {
+            //MTiOSの設定有効
+        }
+    }
+
 }

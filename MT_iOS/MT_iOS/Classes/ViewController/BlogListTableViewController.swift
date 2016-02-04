@@ -36,6 +36,7 @@ class BlogList: ItemList {
             for item in self.items as! [Blog] {
                 item.endpoint = authInfo.endpoint
                 item.loadSettings()
+                item.adjustUploadDestination()
             }
             success(items: result, total: total)
             self.postProcess()
@@ -52,7 +53,7 @@ class BlogList: ItemList {
         api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 var params = ["limit":"20"]
-                params["fields"] = "id,name,url,parent"
+                params["fields"] = "id,name,url,parent,allowToChangeAtUpload,uploadDestination"
 
                 if !self.refresh {
                     params["offset"] = "\(self.items.count)"

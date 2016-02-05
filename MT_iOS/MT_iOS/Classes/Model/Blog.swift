@@ -201,7 +201,9 @@ class Blog: BaseObject {
         parentName = json["parent"]["name"].stringValue
         parentID = json["parent"]["id"].stringValue
         
-        allowToChangeAtUpload = (json["allowToChangeAtUpload"].stringValue == "true")
+        if !json["allowToChangeAtUpload"].stringValue.isEmpty {
+            allowToChangeAtUpload = (json["allowToChangeAtUpload"].stringValue == "true")
+        }
         uploadDestination = UploadDestination(json: json["uploadDestination"])
     }
     
@@ -424,20 +426,29 @@ class Blog: BaseObject {
     
     //MARK: -
     func adjustUploadDestination() {
+        func setDestination(destination: UploadDestination) {
+            if !destination.raw.isEmpty {
+                self.uploadDir = destination.path
+                self.saveSettings()
+            }
+        }
+        
         if let uploadDestination = self.uploadDestination {
             if allowToChangeAtUpload {
-                if self.uploadDir == "/" {
-                    self.uploadDir = uploadDestination.path
-                    self.saveSettings()
+                if self.uploadDir == "/" || self.uploadDir.isEmpty {
+                    setDestination(uploadDestination)
                 } else {
                     //MTiOSの設定有効
                 }
             } else {
-                self.uploadDir = uploadDestination.path
-                self.saveSettings()
+                setDestination(uploadDestination)
             }
         } else {
             //MTiOSの設定有効
+        }
+        
+        if  self.uploadDir.isEmpty {
+            self.uploadDir = "/"
         }
     }
 

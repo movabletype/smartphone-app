@@ -18,7 +18,7 @@ class BlogUploadDirTableViewController: BaseTableViewController {
     var directory = ""
     var delegate: BlogUploadDirDelegate?
     var field: UITextField?
-
+    var editable = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,9 @@ class BlogUploadDirTableViewController: BaseTableViewController {
             directory = (directory as NSString).substringFromIndex(1)
         }
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
+        if self.editable {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,6 +69,7 @@ class BlogUploadDirTableViewController: BaseTableViewController {
         field?.keyboardType = UIKeyboardType.URL
         field?.autocorrectionType = UITextAutocorrectionType.No
         field?.text = directory
+        field?.enabled = self.editable
         field?.becomeFirstResponder()
 
         return cell

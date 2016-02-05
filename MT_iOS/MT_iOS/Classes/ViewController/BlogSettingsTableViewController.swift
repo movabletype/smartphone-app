@@ -80,17 +80,13 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
             cell.detailTextLabel?.text = uploadDir
             
             if self.blog.allowToChangeAtUpload {
-                cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 cell.textLabel?.textColor = Color.cellText
                 cell.detailTextLabel?.textColor = Color.black
                 cell.imageView?.alpha = 1.0
-                cell.selectionStyle = UITableViewCellSelectionStyle.Default
             } else {
-                cell.accessoryType = UITableViewCellAccessoryType.None
                 cell.textLabel?.textColor = Color.placeholderText
                 cell.detailTextLabel?.textColor = Color.placeholderText
                 cell.imageView?.alpha = 0.5
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
             }
             
         case Item.Size.rawValue:
@@ -157,13 +153,12 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case Item.UploadDir.rawValue:
-            if self.blog.allowToChangeAtUpload {
-                let storyboard: UIStoryboard = UIStoryboard(name: "BlogUploadDir", bundle: nil)
-                let vc = storyboard.instantiateInitialViewController() as! BlogUploadDirTableViewController
-                vc.directory = uploadDir
-                vc.delegate = self
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+            let storyboard: UIStoryboard = UIStoryboard(name: "BlogUploadDir", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController() as! BlogUploadDirTableViewController
+            vc.directory = uploadDir
+            vc.delegate = self
+            vc.editable = self.blog.allowToChangeAtUpload
+            self.navigationController?.pushViewController(vc, animated: true)
         case Item.Size.rawValue:
             let storyboard: UIStoryboard = UIStoryboard(name: "BlogImageSize", bundle: nil)
             let vc = storyboard.instantiateInitialViewController() as! BlogImageSizeTableViewController

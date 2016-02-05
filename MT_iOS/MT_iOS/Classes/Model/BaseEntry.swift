@@ -167,7 +167,9 @@ class BaseEntry: BaseObject {
         self.customFields = aDecoder.decodeObjectForKey("customFields") as! [CustomField]
         self.permalink = aDecoder.decodeObjectForKey("permalink") as! String
         self.basename = aDecoder.decodeObjectForKey("basename") as! String
-        self.format = aDecoder.decodeObjectForKey("format") as! String
+        if let object: AnyObject = aDecoder.decodeObjectForKey("format") {
+            self.format = object as! String
+        }
         self.editMode = BaseEntry.EditMode(rawValue: aDecoder.decodeIntegerForKey("editMode"))!
     }
     

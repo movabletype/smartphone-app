@@ -225,8 +225,9 @@ class Blog: BaseObject {
         if let object: AnyObject = aDecoder.decodeObjectForKey("parentID") {
             self.parentID = object as! String
         }
-
-        self.allowToChangeAtUpload = aDecoder.decodeBoolForKey("allowToChangeAtUpload")
+        if let object: AnyObject = aDecoder.decodeObjectForKey("allowToChangeAtUpload") {
+            self.allowToChangeAtUpload = object as! Bool
+        }
         if let object: AnyObject = aDecoder.decodeObjectForKey("uploadDestination") {
             self.uploadDestination = object as! UploadDestination
         }

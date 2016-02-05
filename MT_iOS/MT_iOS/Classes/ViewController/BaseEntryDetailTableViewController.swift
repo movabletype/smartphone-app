@@ -1033,6 +1033,9 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             self.object.title = titleItem.value()
             self.title = titleItem.value()
         }
+        if let statusItem = self.list!.itemWithID("status", isCustomField: false) {
+            self.object.status = statusItem.value()
+        }
         let success = self.list!.saveToFile()
         if !success {
             SVProgressHUD.showErrorWithStatus(NSLocalizedString("Save failed", comment: "Save failed"))

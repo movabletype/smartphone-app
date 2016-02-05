@@ -339,6 +339,11 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         
         if self.multiSelect {
             //TODO:複数選択
+            let ipc: UIImagePickerController = UIImagePickerController()
+            ipc.delegate = self
+            ipc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            ipc.mediaTypes = [kUTTypeImage as String]
+            self.presentViewController(ipc, animated:true, completion:nil)
         } else {
             let ipc: UIImagePickerController = UIImagePickerController()
             ipc.delegate = self

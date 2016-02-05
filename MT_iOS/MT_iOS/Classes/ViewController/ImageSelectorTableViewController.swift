@@ -22,6 +22,7 @@ class ImageSelectorTableViewController: AddAssetTableViewController, AssetSelect
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.title = NSLocalizedString("Photos", comment: "Photos")
 
+        self.multiSelect = false
     }
 
     override func didReceiveMemoryWarning() {

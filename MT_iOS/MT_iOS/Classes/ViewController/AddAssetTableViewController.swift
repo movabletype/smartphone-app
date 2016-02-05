@@ -41,6 +41,8 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     var imageAlign = Blog.ImageAlign.None
     
     var showAlign = false
+    
+    var multiSelect = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +61,8 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         uploadDir = blog.uploadDir
         imageSize = blog.imageSize
         imageQuality = blog.imageQuality
+
+        self.multiSelect = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -333,19 +337,25 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             return
         }
         
-        let ipc: UIImagePickerController = UIImagePickerController()
-        ipc.delegate = self
-        ipc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        
-        ipc.mediaTypes = [kUTTypeImage as String]
-        
-        self.presentViewController(ipc, animated:true, completion:nil)
+        if self.multiSelect {
+            //TODO:複数選択
+        } else {
+            let ipc: UIImagePickerController = UIImagePickerController()
+            ipc.delegate = self
+            ipc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            ipc.mediaTypes = [kUTTypeImage as String]
+            self.presentViewController(ipc, animated:true, completion:nil)
+        }
     }
     
     @IBAction func assetListButtonPushed(sender: UIButton) {
         //Implement Subclass
     }
     
+    //MARK: - multi select
+    //TODO: 実装する
+
+    //MARK: - single select
     private func uploadData(data: NSData, filename: String, path: String) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         SVProgressHUD.showWithStatus(NSLocalizedString("Upload data...", comment: "Upload data..."))
@@ -386,13 +396,13 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-            picker.dismissViewControllerAnimated(true, completion:
-                {_ in
-                    if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                        self.uploadImage(image)
-                    }
+        picker.dismissViewControllerAnimated(true, completion:
+            {_ in
+                if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                    self.uploadImage(image)
                 }
-            );
+            }
+        );
     }
 
     

@@ -94,8 +94,8 @@ class DataAPI: NSObject {
     func fetchList(url: String, params: [String: AnyObject]? = nil, success: ((items:[JSON]!, total:Int!) -> Void)!, failure: (JSON! -> Void)!)->Void {
         let request = makeRequest(.GET, url: url, parameters: params)
         request
-            .responseJSON { (request, response, json) -> Void in
-                switch json {
+            .responseJSON { response in
+                switch response.result {
                     case .Success(let data):
                         let json = JSON(data)
                         if json["error"].dictionary != nil {
@@ -106,7 +106,7 @@ class DataAPI: NSObject {
                         let total = json["totalResults"].intValue
                         success(items:items, total:total)
                     
-                    case .Failure(_, _):
+                    case .Failure(_):
                         failure(self.errorJSON())
                 }
         }
@@ -115,8 +115,8 @@ class DataAPI: NSObject {
     private func actionCommon(action: Alamofire.Method, url: String, params: [String: AnyObject]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
         let request = makeRequest(action, url: url, parameters: params)
         request
-            .responseJSON { (request, response, json) -> Void in
-                switch json {
+            .responseJSON { response in
+                switch response.result {
                 case .Success(let data):
                     let json = JSON(data)
                     if json["error"].dictionary != nil {
@@ -125,7 +125,7 @@ class DataAPI: NSObject {
                     }
                     success(json)
                     
-                case .Failure(_, _):
+                case .Failure(_):
                     failure(self.errorJSON())
                 }
 
@@ -163,8 +163,8 @@ class DataAPI: NSObject {
     private func repeatAction(action: Alamofire.Method, url: String, options: [String: AnyObject]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
         let request = makeRequest(action, url: url, parameters: options)
         request
-            .responseJSON { (request, response, json) -> Void in
-                switch json {
+            .responseJSON { response in
+                switch response.result {
                 case .Success(let data):
                     let json = JSON(data)
                     if json["error"].dictionary != nil {
@@ -174,7 +174,7 @@ class DataAPI: NSObject {
                     if json["status"].string == "Complete" || json["restIds"].string == "" {
                         success(json)
                     } else {
-                        let headers: NSDictionary = response!.allHeaderFields
+                        let headers: NSDictionary = response.response!.allHeaderFields
                         if let nextURL = headers["X-MT-Next-Phase-URL"] as? String {
                             let url = self.APIURL() + "/" + nextURL
                             self.repeatAction(action, url: url, options: options, success: success, failure: failure)
@@ -183,7 +183,7 @@ class DataAPI: NSObject {
                         }
                     }
                     
-                case .Failure(_, _):
+                case .Failure(_):
                     failure(self.errorJSON())
                 }
         }
@@ -208,8 +208,8 @@ class DataAPI: NSObject {
                       "clientId":self.clientID]
         let request = makeRequest(.POST, url: url, parameters: params)
         request
-            .responseJSON { (request, response, json) -> Void in
-                switch json {
+            .responseJSON { response in
+                switch response.result {
                 case .Success(let data):
                     let json = JSON(data)
                     if json["error"].dictionary != nil {
@@ -224,7 +224,7 @@ class DataAPI: NSObject {
                     }
                     success(json)
                     
-                case .Failure(_, _):
+                case .Failure(_):
                     failure(self.errorJSON())
                 }
         }
@@ -250,8 +250,8 @@ class DataAPI: NSObject {
             return
         }
         request
-            .responseJSON { (request, response, json) -> Void in
-                switch json {
+            .responseJSON { response in
+                switch response.result {
                 case .Success(let data):
                     let json = JSON(data)
                     if json["error"].dictionary != nil {
@@ -263,7 +263,7 @@ class DataAPI: NSObject {
                     }
                     success(json)
                     
-                case .Failure(_, _):
+                case .Failure(_):
                     failure(self.errorJSON())
                 }
         }
@@ -279,8 +279,8 @@ class DataAPI: NSObject {
             return
         }
         request
-            .responseJSON { (request, response, json) -> Void in
-                switch json {
+            .responseJSON { response in
+                switch response.result {
                 case .Success(let data):
                     let json = JSON(data)
                     if json["error"].dictionary != nil {
@@ -290,7 +290,7 @@ class DataAPI: NSObject {
                     self.sessionID = ""
                     success(json)
                     
-                case .Failure(_, _):
+                case .Failure(_):
                     failure(self.errorJSON())
                 }
         }
@@ -493,8 +493,8 @@ class DataAPI: NSObject {
 
         let request = makeUploadRequest(importData, fileName: "import.dat", url: url, parameters: options)
         request
-            .responseJSON { (request, response, json) -> Void in
-                switch json {
+            .responseJSON { response in
+                switch response.result {
                 case .Success(let data):
                     let json = JSON(data)
                     if json["error"].dictionary != nil {
@@ -503,7 +503,7 @@ class DataAPI: NSObject {
                     }
                     success(json)
                     
-                case .Failure(_, _):
+                case .Failure(_):
                     failure(self.errorJSON())
                 }
         }
@@ -890,8 +890,8 @@ class DataAPI: NSObject {
 
         let request = makeUploadRequest(assetData, fileName: fileName, url: url, parameters: options)
         request
-            .responseJSON { (request, response, json) -> Void in
-                switch json {
+            .responseJSON { response in
+                switch response.result {
                 case .Success(let data):
                     let json = JSON(data)
                     if json["error"].dictionary != nil {
@@ -900,7 +900,7 @@ class DataAPI: NSObject {
                     }
                     success(json)
                     
-                case .Failure(_, _):
+                case .Failure(_):
                     failure(self.errorJSON())
                 }
         }

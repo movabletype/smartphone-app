@@ -689,6 +689,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     if item.id == "body" || item.id == "more" {
                         if self.object.format.hasPrefix(Entry.EditMode.Markdown.label().lowercaseString) {
                             self.showMarkdownEditor(item as! EntryTextAreaItem)
+                        } else {
+                            self.showRichTextEditor(item as! EntryTextAreaItem)
                         }
                     } else {
                         self.showHTMLEditor(item as! EntryTextAreaItem)

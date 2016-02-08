@@ -12,12 +12,13 @@ import SVProgressHUD
 import SwiftyJSON
 import AVFoundation
 import AssetsLibrary
+import QBImagePickerController
 
 protocol AddAssetDelegate {
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset)
 }
 
-class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate {
+class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate, QBImagePickerControllerDelegate {
     enum Section:Int {
         case Buttons = 0,
         Items,
@@ -338,11 +339,19 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         }
         
         if self.multiSelect {
-            //TODO:複数選択
-            let ipc: UIImagePickerController = UIImagePickerController()
+            let ipc: QBImagePickerController = QBImagePickerController()
             ipc.delegate = self
-            ipc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-            ipc.mediaTypes = [kUTTypeImage as String]
+            ipc.allowsMultipleSelection = true;
+            ipc.maximumNumberOfSelection = 8;
+            ipc.showsNumberOfSelectedAssets = true;
+            let types = [
+                PHAssetCollectionSubtype.SmartAlbumRecentlyAdded.rawValue,
+                PHAssetCollectionSubtype.SmartAlbumUserLibrary.rawValue,
+                PHAssetCollectionSubtype.AlbumMyPhotoStream.rawValue,
+                PHAssetCollectionSubtype.SmartAlbumPanoramas.rawValue,
+            ];
+            ipc.assetCollectionSubtypes = types
+            ipc.mediaType = QBImagePickerMediaType.Image
             self.presentViewController(ipc, animated:true, completion:nil)
         } else {
             let ipc: UIImagePickerController = UIImagePickerController()
@@ -358,8 +367,19 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     }
     
     //MARK: - multi select
-    //TODO: 実装する
+    func qb_imagePickerController(imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [AnyObject]!) {
+        for asset in assets {
+        }
+        
+        //TODO: 実装する
 
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func qb_imagePickerControllerDidCancel(imagePickerController: QBImagePickerController!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     //MARK: - single select
     private func uploadData(data: NSData, filename: String, path: String) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true

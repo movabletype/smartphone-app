@@ -136,6 +136,12 @@ class Utils {
         return imageData!
     }
     
+    class func convertJpegData(image: UIImage, width: CGFloat, quality: CGFloat)->NSData {
+        let resizedImage = Utils.resizeImage(image, width: width)
+        let jpeg = Utils.convertImageToJPEG(resizedImage, quality: quality)
+        return jpeg
+    }
+    
     class func makeJPEGFilename()-> String {
         let date = NSDate()
         let filename = String(format: "mt-%04d%02d%02d%02d%02d%02d.jpg", arguments: [date.year, date.month, date.day, date.hour, date.minute, date.seconds])

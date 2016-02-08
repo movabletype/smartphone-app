@@ -273,4 +273,12 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
             }
         )
     }
+
+    func AddAssetsDone(controller: AddAssetTableViewController) {
+        self.dismissViewControllerAnimated(false, completion:
+            {_ in
+                self.fetch()
+            }
+        )
+    }
 }

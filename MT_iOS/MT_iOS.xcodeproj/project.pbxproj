@@ -186,6 +186,11 @@
 		7986975D1B14591900DC7A18 /* AssetListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986975C1B14591900DC7A18 /* AssetListTableViewController.swift */; };
 		7986975F1B145AC600DC7A18 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7986975E1B145AC600DC7A18 /* Asset.swift */; };
 		799724081B189F9700FEE683 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799724071B189F9700FEE683 /* SignInViewController.swift */; };
+		799B289B1C684A5300A57300 /* MultiUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799B289A1C684A5300A57300 /* MultiUploader.swift */; };
+		799B289D1C684AFE00A57300 /* UploadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799B289C1C684AFE00A57300 /* UploadItem.swift */; };
+		799B28A01C684B2700A57300 /* UploadItemAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799B289F1C684B2700A57300 /* UploadItemAsset.swift */; };
+		799B28A21C684B3400A57300 /* UploadItemImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799B28A11C684B3400A57300 /* UploadItemImageFile.swift */; };
+		799B28A41C68543200A57300 /* UploadItemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799B28A31C68543200A57300 /* UploadItemImage.swift */; };
 		799ED9CC1C60665900392EA9 /* EntryStatusSelectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799ED9CB1C60665900392EA9 /* EntryStatusSelectTableViewController.swift */; };
 		799ED9D01C619C6D00392EA9 /* EntryMarkdownEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799ED9CF1C619C6D00392EA9 /* EntryMarkdownEditorViewController.swift */; };
 		79A715381B2685AA005A09ED /* BlogImageSizeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A715371B2685AA005A09ED /* BlogImageSizeTableViewController.swift */; };
@@ -434,6 +439,11 @@
 		7986975C1B14591900DC7A18 /* AssetListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetListTableViewController.swift; sourceTree = "<group>"; };
 		7986975E1B145AC600DC7A18 /* Asset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		799724071B189F9700FEE683 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		799B289A1C684A5300A57300 /* MultiUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiUploader.swift; sourceTree = "<group>"; };
+		799B289C1C684AFE00A57300 /* UploadItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadItem.swift; sourceTree = "<group>"; };
+		799B289F1C684B2700A57300 /* UploadItemAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadItemAsset.swift; sourceTree = "<group>"; };
+		799B28A11C684B3400A57300 /* UploadItemImageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadItemImageFile.swift; sourceTree = "<group>"; };
+		799B28A31C68543200A57300 /* UploadItemImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadItemImage.swift; sourceTree = "<group>"; };
 		799ED9CB1C60665900392EA9 /* EntryStatusSelectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryStatusSelectTableViewController.swift; sourceTree = "<group>"; };
 		799ED9CF1C619C6D00392EA9 /* EntryMarkdownEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryMarkdownEditorViewController.swift; sourceTree = "<group>"; };
 		79A715371B2685AA005A09ED /* BlogImageSizeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogImageSizeTableViewController.swift; sourceTree = "<group>"; };
@@ -885,6 +895,26 @@
 			name = Asset;
 			sourceTree = "<group>";
 		};
+		799B28991C684A2F00A57300 /* Uploader */ = {
+			isa = PBXGroup;
+			children = (
+				799B289E1C684B0300A57300 /* Item */,
+				799B289A1C684A5300A57300 /* MultiUploader.swift */,
+			);
+			name = Uploader;
+			sourceTree = "<group>";
+		};
+		799B289E1C684B0300A57300 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				799B289C1C684AFE00A57300 /* UploadItem.swift */,
+				799B28A31C68543200A57300 /* UploadItemImage.swift */,
+				799B289F1C684B2700A57300 /* UploadItemAsset.swift */,
+				799B28A11C684B3400A57300 /* UploadItemImageFile.swift */,
+			);
+			name = Item;
+			sourceTree = "<group>";
+		};
 		79A715361B268538005A09ED /* Blog Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -954,6 +984,7 @@
 				795E206C1B1DA8CE00FA7857 /* BlockItem */,
 				795E206B1B1DA8C000FA7857 /* EntryItem */,
 				7904EBB51B0AF54B00216EC9 /* Object */,
+				799B28991C684A2F00A57300 /* Uploader */,
 				7904EBB41B0AE59100216EC9 /* API */,
 			);
 			path = Model;
@@ -1098,7 +1129,7 @@
 				TargetAttributes = {
 					791973A21B09DF2A003EA459 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = ELVUVVS7EM;
+						DevelopmentTeam = XGR4L2TKWW;
 					};
 					791973B71B09DF2B003EA459 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -1318,6 +1349,7 @@
 				797603C01B0EEB1600F9AC09 /* Page.swift in Sources */,
 				7928D3051B26DAD30053457F /* BlockTextItem.swift in Sources */,
 				797603A21B0D8F4800F9AC09 /* BlogInfoView.swift in Sources */,
+				799B28A01C684B2700A57300 /* UploadItemAsset.swift in Sources */,
 				79132B4D1B16ECAC002064C7 /* BaseViewController.swift in Sources */,
 				7904EBB71B0AF57700216EC9 /* BaseObject.swift in Sources */,
 				79592A571B200F56004DDB4E /* EntryImageTableViewCell.swift in Sources */,
@@ -1328,6 +1360,7 @@
 				794854511B2523C90074EF55 /* CategoryTableViewCell.swift in Sources */,
 				79E654BB1B0B2697007E4D4C /* Color.swift in Sources */,
 				797603B01B0ECE5B00F9AC09 /* BaseEntryListTableViewController.swift in Sources */,
+				799B289D1C684AFE00A57300 /* UploadItem.swift in Sources */,
 				79A7153D1B2685E7005A09ED /* BlogImageQualityTableViewController.swift in Sources */,
 				797603B81B0EEA3F00F9AC09 /* EntryListTableViewController.swift in Sources */,
 				795E206E1B1DAC1400FA7857 /* BaseEntryItem.swift in Sources */,
@@ -1363,6 +1396,7 @@
 				797603A91B0DBC1A00F9AC09 /* PreviewViewController.swift in Sources */,
 				797603BA1B0EEAB700F9AC09 /* PageListTableViewController.swift in Sources */,
 				7986975D1B14591900DC7A18 /* AssetListTableViewController.swift in Sources */,
+				799B289B1C684A5300A57300 /* MultiUploader.swift in Sources */,
 				79C87F1E1B3257440053478F /* MTRefreshControl.swift in Sources */,
 				79592A4F1B200F14004DDB4E /* EntryStatusTableViewCell.swift in Sources */,
 				79592A621B203323004DDB4E /* EntryTitleItem.swift in Sources */,
@@ -1378,6 +1412,7 @@
 				795E20761B1DACCF00FA7857 /* EntryImageItem.swift in Sources */,
 				797603AB1B0DC05800F9AC09 /* Utils.swift in Sources */,
 				7956DA641B27CE2F0002B705 /* BlockEditorTableViewController.swift in Sources */,
+				799B28A41C68543200A57300 /* UploadItemImage.swift in Sources */,
 				79E654AE1B0B11F3007E4D4C /* BlogListTableViewController.swift in Sources */,
 				7956DA6C1B27D8D30002B705 /* ImageBlockTableViewCell.swift in Sources */,
 				79CFBDCD1B1D3CE100283780 /* PageDetailTableViewController.swift in Sources */,
@@ -1405,6 +1440,7 @@
 				79132B5D1B170B0C002064C7 /* ResetPasswordTableViewController.swift in Sources */,
 				798697591B143CDE00DC7A18 /* CustomField.swift in Sources */,
 				799724081B189F9700FEE683 /* SignInViewController.swift in Sources */,
+				799B28A21C684B3400A57300 /* UploadItemImageFile.swift in Sources */,
 				79BF57E71B3106B200B4B13C /* ImageViewController.swift in Sources */,
 				79EEE9531B292211007D9407 /* AssetSelectorTableViewController.swift in Sources */,
 				798697571B143AC000DC7A18 /* Tag.swift in Sources */,

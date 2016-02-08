@@ -12,12 +12,14 @@ import SVProgressHUD
 import SwiftyJSON
 import AVFoundation
 import AssetsLibrary
+import QBImagePickerController
 
 protocol AddAssetDelegate {
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset)
+    func AddAssetsDone(controller: AddAssetTableViewController)
 }
 
-class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate {
+class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate, QBImagePickerControllerDelegate {
     enum Section:Int {
         case Buttons = 0,
         Items,
@@ -41,6 +43,8 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     var imageAlign = Blog.ImageAlign.None
     
     var showAlign = false
+    
+    var multiSelect = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +63,8 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         uploadDir = blog.uploadDir
         imageSize = blog.imageSize
         imageQuality = blog.imageQuality
+
+        self.multiSelect = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -333,19 +339,101 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             return
         }
         
-        let ipc: UIImagePickerController = UIImagePickerController()
-        ipc.delegate = self
-        ipc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        
-        ipc.mediaTypes = [kUTTypeImage as String]
-        
-        self.presentViewController(ipc, animated:true, completion:nil)
+        if self.multiSelect {
+            let ipc: QBImagePickerController = QBImagePickerController()
+            ipc.delegate = self
+            ipc.allowsMultipleSelection = true;
+            ipc.maximumNumberOfSelection = 8;
+            ipc.showsNumberOfSelectedAssets = true;
+            let types = [
+                PHAssetCollectionSubtype.SmartAlbumRecentlyAdded.rawValue,
+                PHAssetCollectionSubtype.SmartAlbumUserLibrary.rawValue,
+                PHAssetCollectionSubtype.AlbumMyPhotoStream.rawValue,
+                PHAssetCollectionSubtype.SmartAlbumPanoramas.rawValue,
+            ];
+            ipc.assetCollectionSubtypes = types
+            ipc.mediaType = QBImagePickerMediaType.Image
+            self.presentViewController(ipc, animated:true, completion:nil)
+        } else {
+            let ipc: UIImagePickerController = UIImagePickerController()
+            ipc.delegate = self
+            ipc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            ipc.mediaTypes = [kUTTypeImage as String]
+            self.presentViewController(ipc, animated:true, completion:nil)
+        }
     }
     
     @IBAction func assetListButtonPushed(sender: UIButton) {
         //Implement Subclass
     }
     
+    //MARK: - multi select
+    var uploader = MultiUploader()
+    
+    func uploadRestart() {
+        let alertController = UIAlertController(
+            title: NSLocalizedString("Image upload", comment: "Image upload"),
+            message: NSLocalizedString("There is the rest of the items , you sure that you want to upload again ?", comment: "There is the rest of the items , you sure that you want to upload again ?"),
+            preferredStyle: .Alert)
+        
+        let yesAction = UIAlertAction(title: NSLocalizedString("YES", comment: "YES"), style: .Default) {
+            action in
+            let success: (Int-> Void) = {
+                (processed: Int) in
+                
+                self.delegate?.AddAssetsDone(self)
+            }
+            let failure: (Int-> Void) = {
+                (processed: Int) in
+                
+                if self.uploader.queueCount() > 0 {
+                    self.uploadRestart()
+                }
+            }
+
+            self.uploader.restart(success, failure: failure)
+        }
+        let noAction = UIAlertAction(title: NSLocalizedString("NO", comment: "NO"), style: .Default) {
+            action in
+            self.delegate?.AddAssetsDone(self)
+        }
+        
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func qb_imagePickerController(imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [AnyObject]!) {
+
+        self.dismissViewControllerAnimated(true, completion: {
+            self.uploader = MultiUploader()
+            self.uploader.blogID = self.blog.id
+            self.uploader.uploadPath = self.uploadDir
+            for asset in assets {
+                self.uploader.addAsset(asset as! PHAsset, width: self.imageSize.size(), quality: self.imageQuality.quality() / 100.0)
+            }
+            let success: (Int-> Void) = {
+                (processed: Int) in
+                
+                self.delegate?.AddAssetsDone(self)
+            }
+            let failure: (Int-> Void) = {
+                (processed: Int) in
+                
+                if self.uploader.queueCount() > 0 {
+                    self.uploadRestart()
+                }
+            }
+
+            self.uploader.start(success, failure: failure)
+        })
+    }
+    
+    func qb_imagePickerControllerDidCancel(imagePickerController: QBImagePickerController!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: - single select
     private func uploadData(data: NSData, filename: String, path: String) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         SVProgressHUD.showWithStatus(NSLocalizedString("Upload data...", comment: "Upload data..."))
@@ -378,21 +466,20 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     }
     
     private func uploadImage(image: UIImage) {
-        let resizedImage = Utils.resizeImage(image, width: imageSize.size())
-        let jpeg = Utils.convertImageToJPEG(resizedImage, quality: imageQuality.quality() / 100.0)
+        let data = Utils.convertJpegData(image, width: imageSize.size(), quality: imageQuality.quality() / 100.0)
         let filename = Utils.makeJPEGFilename()
 
-        self.uploadData(jpeg, filename: filename, path: uploadDir)
+        self.uploadData(data, filename: filename, path: uploadDir)
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-            picker.dismissViewControllerAnimated(true, completion:
-                {_ in
-                    if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                        self.uploadImage(image)
-                    }
+        picker.dismissViewControllerAnimated(true, completion:
+            {_ in
+                if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                    self.uploadImage(image)
                 }
-            );
+            }
+        );
     }
 
     

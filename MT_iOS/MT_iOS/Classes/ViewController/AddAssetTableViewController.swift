@@ -369,6 +369,40 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     
     //MARK: - multi select
     var uploader = MultiUploader()
+    
+    func uploadRestart() {
+        let alertController = UIAlertController(
+            title: NSLocalizedString("Image upload", comment: "Image upload"),
+            message: NSLocalizedString("There is the rest of the items , you sure that you want to upload again ?", comment: "There is the rest of the items , you sure that you want to upload again ?"),
+            preferredStyle: .Alert)
+        
+        let yesAction = UIAlertAction(title: NSLocalizedString("YES", comment: "YES"), style: .Default) {
+            action in
+            let success: (Int-> Void) = {
+                (processed: Int) in
+                
+                self.delegate?.AddAssetsDone(self)
+            }
+            let failure: (Int-> Void) = {
+                (processed: Int) in
+                
+                if self.uploader.queueCount() > 0 {
+                    self.uploadRestart()
+                }
+            }
+
+            self.uploader.restart(success, failure: failure)
+        }
+        let noAction = UIAlertAction(title: NSLocalizedString("NO", comment: "NO"), style: .Default) {
+            action in
+            self.delegate?.AddAssetsDone(self)
+        }
+        
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     func qb_imagePickerController(imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [AnyObject]!) {
 
         self.dismissViewControllerAnimated(true, completion: {
@@ -385,6 +419,10 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             }
             let failure: (Int-> Void) = {
                 (processed: Int) in
+                
+                if self.uploader.queueCount() > 0 {
+                    self.uploadRestart()
+                }
             }
 
             self.uploader.start(success, failure: failure)

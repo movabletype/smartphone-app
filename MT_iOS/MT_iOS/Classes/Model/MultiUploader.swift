@@ -98,8 +98,8 @@ class MultiUploader: NSObject {
                 item.upload(success, failure: failure)
             })
         } else {
-            SVProgressHUD.showErrorWithStatus(NSLocalizedString("Upload error.", comment: "Upload error."))
-            failureFinish()
+            SVProgressHUD.dismiss()
+            successFinish()
             return
         }
     }
@@ -107,6 +107,11 @@ class MultiUploader: NSObject {
     func start(success: (Int->Void)?, failure: (Int->Void)?) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         self.queue = self.items
+        self.upload(success, failure: failure)
+    }
+
+    func restart(success: (Int->Void)?, failure: (Int->Void)?) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         self.upload(success, failure: failure)
     }
 }

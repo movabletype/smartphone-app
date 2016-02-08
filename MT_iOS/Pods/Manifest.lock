@@ -3,6 +3,7 @@ PODS:
   - LUKeychainAccess (1.2.5)
   - MMMarkdown (0.5.1)
   - NSDate-Escort (1.7.0)
+  - QBImagePickerController (3.4.0)
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
@@ -16,6 +17,7 @@ DEPENDENCIES:
   - LUKeychainAccess
   - MMMarkdown
   - NSDate-Escort
+  - QBImagePickerController
   - SDWebImage
   - SVProgressHUD
   - SwiftyJSON
@@ -37,6 +39,7 @@ SPEC CHECKSUMS:
   LUKeychainAccess: d22fc00b33ad92c7532962b86daa94c14b85ecbe
   MMMarkdown: 06f7989e0350d10a7de50516af6c812402ce554b
   NSDate-Escort: 3469fefab423c094108c2e864416b61b6ac0edbc
+  QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a

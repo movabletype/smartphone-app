@@ -16,6 +16,7 @@ import QBImagePickerController
 
 protocol AddAssetDelegate {
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset)
+    func AddAssetsDone(controller: AddAssetTableViewController)
 }
 
 class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate, QBImagePickerControllerDelegate {
@@ -367,13 +368,27 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     }
     
     //MARK: - multi select
+    var uploader = MultiUploader()
     func qb_imagePickerController(imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [AnyObject]!) {
-        for asset in assets {
-        }
-        
-        //TODO: 実装する
 
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: {
+            self.uploader = MultiUploader()
+            self.uploader.blogID = self.blog.id
+            self.uploader.uploadPath = self.uploadDir
+            for asset in assets {
+                self.uploader.addAsset(asset as! PHAsset, width: self.imageSize.size(), quality: self.imageQuality.quality() / 100.0)
+            }
+            let success: (Int-> Void) = {
+                (processed: Int) in
+                
+                self.delegate?.AddAssetsDone(self)
+            }
+            let failure: (Int-> Void) = {
+                (processed: Int) in
+            }
+
+            self.uploader.start(success, failure: failure)
+        })
     }
     
     func qb_imagePickerControllerDidCancel(imagePickerController: QBImagePickerController!) {
@@ -413,11 +428,10 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     }
     
     private func uploadImage(image: UIImage) {
-        let resizedImage = Utils.resizeImage(image, width: imageSize.size())
-        let jpeg = Utils.convertImageToJPEG(resizedImage, quality: imageQuality.quality() / 100.0)
+        let data = Utils.convertJpegData(image, width: imageSize.size(), quality: imageQuality.quality() / 100.0)
         let filename = Utils.makeJPEGFilename()
 
-        self.uploadData(jpeg, filename: filename, path: uploadDir)
+        self.uploadData(data, filename: filename, path: uploadDir)
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {

@@ -150,6 +150,9 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
         self.sourceView.replaceRange(self.sourceView.selectedTextRange!, withText: asset.imageHTML(align))
     }
     
+    func AddAssetsDone(controller: AddAssetTableViewController) {
+    }
+
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
         if self.sourceView.text == object.text {
             self.navigationController?.popViewControllerAnimated(true)

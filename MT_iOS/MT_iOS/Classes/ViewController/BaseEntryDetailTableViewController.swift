@@ -1176,6 +1176,9 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.tableView.reloadData()
     }
     
+    func AddAssetsDone(controller: AddAssetTableViewController) {
+    }
+
     @IBAction func closeButtonPushed(sender: AnyObject) {
         for item in self.list!.items {
             if item.isDirty {

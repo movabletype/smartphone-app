@@ -334,6 +334,9 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         self.tableView.reloadData()
     }
     
+    func AddAssetsDone(controller: AddAssetTableViewController) {
+    }
+    
     @IBAction func textAddButtonPushed(sender: UIBarButtonItem) {
         let item = BlockTextItem()
         item.label = NSLocalizedString("Text", comment: "Text")

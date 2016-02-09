@@ -60,16 +60,12 @@ class MultiUploader: NSObject {
     
     private func upload(success: (Int->Void)?, failure: (Int->Void)?) {
         func successFinish() {
-            if let closure = success {
-                closure(self.processed())
-            }
+            success?(self.processed())
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
         
         func failureFinish() {
-            if let closure = failure {
-                closure(self.processed())
-            }
+            failure?(self.processed())
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
 
@@ -78,11 +74,21 @@ class MultiUploader: NSObject {
 
         if let item = self.queue.first {
             item.setup({
+                let status = String(format: NSLocalizedString("Upload images(%d/%d)", comment: "Upload images(%d/%d)"), arguments: [self.processed(), self.items.count])
+                SVProgressHUD.showProgress(0.0, status: status)
+
+                let progress: ((Int64!, Int64!, Int64!) -> Void) = {
+                    (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
+                    var progress: Float = 0.5
+                    if totalBytesExpectedToWrite > 0 {
+                        progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+                    }
+                    SVProgressHUD.showProgress(progress, status: status)
+                }
                 let success: ((JSON!)-> Void) = {
                     (result: JSON!)-> Void in
                     self.queue.removeFirst()
                     if self.queue.count == 0 {
-                        let status = String(format: NSLocalizedString("Upload images(%d/%d)", comment: "Upload images(%d/%d)"), arguments: [self.processed(), self.items.count])
                         SVProgressHUD.showProgress(1.0, status: status)
                         successFinish()
                     } else {
@@ -95,7 +101,7 @@ class MultiUploader: NSObject {
                     failureFinish()
                 }
 
-                item.upload(success, failure: failure)
+                item.upload(progress: progress, success: success, failure: failure)
             })
         } else {
             SVProgressHUD.dismiss()

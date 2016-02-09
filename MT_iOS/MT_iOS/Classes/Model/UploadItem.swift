@@ -14,6 +14,7 @@ class UploadItem: NSObject {
     var blogID = ""
     var uploadPath = ""
     var uploaded = false
+    var progress: Float = 0.0
     
     func setup(completion: (() -> Void)) {
         completion()
@@ -34,9 +35,14 @@ class UploadItem: NSObject {
         
         api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
-                api.uploadAssetForSite(self.blogID, assetData:  self.data, fileName: self.filename(), options: ["path":self.uploadPath, "autoRenameIfExists":"true"], progress: progress, success: success, failure: failure)
+                let filename = self.filename()
+                api.uploadAssetForSite(self.blogID, assetData:  self.data, fileName: filename, options: ["path":self.uploadPath, "autoRenameIfExists":"true"], progress: progress, success: success, failure: failure)
             },
             failure: failure
         )
+    }
+    
+    func thumbnail(size: CGSize, completion: (UIImage->Void)) {
+        completion(UIImage())
     }
 }

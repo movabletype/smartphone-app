@@ -19,7 +19,7 @@ protocol AddAssetDelegate {
     func AddAssetsDone(controller: AddAssetTableViewController)
 }
 
-class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate, QBImagePickerControllerDelegate {
+class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate, QBImagePickerControllerDelegate, UploaderTableViewControllerDelegate {
     enum Section:Int {
         case Buttons = 0,
         Items,
@@ -368,100 +368,30 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     }
     
     //MARK: - multi select
-    var uploader = MultiUploader()
-    
-    func uploadRestart() {
-        let alertController = UIAlertController(
-            title: NSLocalizedString("Image upload", comment: "Image upload"),
-            message: NSLocalizedString("There is the rest of the items , you sure that you want to upload again ?", comment: "There is the rest of the items , you sure that you want to upload again ?"),
-            preferredStyle: .Alert)
-        
-        let yesAction = UIAlertAction(title: NSLocalizedString("YES", comment: "YES"), style: .Default) {
-            action in
-            let progress: ((UploadItem, Float)-> Void) = {
-                (item: UploadItem, progress: Float) in
-                var count = self.uploader.processed() + 1
-                if count > self.uploader.count() {
-                    count = self.uploader.count()
-                }
-                let status = String(format: NSLocalizedString("Upload images(%d/%d)", comment: "Upload images(%d/%d)"), arguments: [count, self.uploader.count()])
-                SVProgressHUD.showProgress(progress, status: status)
-            }
-            let success: (Int-> Void) = {
-                (processed: Int) in
-                
-                SVProgressHUD.dismiss()
-                self.delegate?.AddAssetsDone(self)
-            }
-            let failure: ((Int, JSON) -> Void) = {
-                (processed: Int, error: JSON) in
-                
-                SVProgressHUD.dismiss()
-                self.uploadError(error)
-            }
-
-            self.uploader.restart(progress: progress, success: success, failure: failure)
-        }
-        let noAction = UIAlertAction(title: NSLocalizedString("NO", comment: "NO"), style: .Default) {
-            action in
-            self.delegate?.AddAssetsDone(self)
-        }
-        
-        alertController.addAction(yesAction)
-        alertController.addAction(noAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    func uploadError(error: JSON) {
-        let alertController = UIAlertController(
-            title: NSLocalizedString("Upload error", comment: "Upload error"),
-            message: error["message"].stringValue,
-            preferredStyle: .Alert)
-        
-        let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
-            action in
-            if self.uploader.queueCount() > 0 {
-                self.uploadRestart()
-            }
-        }
-        
-        alertController.addAction(okAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
     func qb_imagePickerController(imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [AnyObject]!) {
 
         self.dismissViewControllerAnimated(true, completion: {
-            self.uploader = MultiUploader()
-            self.uploader.blogID = self.blog.id
-            self.uploader.uploadPath = self.uploadDir
+            let uploader = MultiUploader()
+            uploader.blogID = self.blog.id
+            uploader.uploadPath = self.uploadDir
             for asset in assets {
-                self.uploader.addAsset(asset as! PHAsset, width: self.imageSize.size(), quality: self.imageQuality.quality() / 100.0)
+                uploader.addAsset(asset as! PHAsset, width: self.imageSize.size(), quality: self.imageQuality.quality() / 100.0)
             }
-            let progress: ((UploadItem, Float)-> Void) = {
-                (item: UploadItem, progress: Float) in
-                var count = self.uploader.processed() + 1
-                if count > self.uploader.count() {
-                    count = self.uploader.count()
-                }
-                let status = String(format: NSLocalizedString("Upload images(%d/%d)", comment: "Upload images(%d/%d)"), arguments: [count, self.uploader.count()])
-                SVProgressHUD.showProgress(progress, status: status)
-            }
-            let success: (Int-> Void) = {
-                (processed: Int) in
-                
-                SVProgressHUD.dismiss()
+            
+            let vc = UploaderTableViewController()
+            vc.uploader = uploader
+            vc.delegate = self
+            let nav = UINavigationController(rootViewController: vc)
+            self.presentViewController(nav, animated: false, completion: nil)
+        })
+    }
+    
+    func UploaderFinish(controller: UploaderTableViewController) {
+        controller.dismissViewControllerAnimated(false,
+            completion: {
                 self.delegate?.AddAssetsDone(self)
             }
-            let failure: ((Int, JSON) -> Void) = {
-                (processed: Int, error: JSON) in
-
-                SVProgressHUD.dismiss()
-                self.uploadError(error)
-            }
-
-            self.uploader.start(progress: progress, success: success, failure: failure)
-        })
+        )
     }
     
     func qb_imagePickerControllerDidCancel(imagePickerController: QBImagePickerController!) {

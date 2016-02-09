@@ -11,7 +11,7 @@ import SwiftyJSON
 import SVProgressHUD
 
 class MultiUploader: NSObject {
-    private var items = [UploadItem]()
+    private(set) var items = [UploadItem]()
     private var queue = [UploadItem]()
     
     var blogID = ""
@@ -79,6 +79,7 @@ class MultiUploader: NSObject {
                     if totalBytesExpectedToWrite > 0 {
                         progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
                     }
+                    item.progress = progress
                     progressHandler?(item, progress)
                 }
                 let success: ((JSON!)-> Void) = {

@@ -25,4 +25,19 @@ class UploadItemImageFile: UploadItemImage {
             completion()
         }
     }
+    
+    override func thumbnail(size: CGSize, completion: (UIImage->Void)) {
+        if let image = UIImage(contentsOfFile: path) {
+            let widthRatio = size.width / image.size.width
+            let heightRatio = size.height / image.size.height
+            let ratio = (widthRatio < heightRatio) ? widthRatio : heightRatio
+            let resizedSize = CGSize(width: (image.size.width * ratio), height: (image.size.height * ratio))
+            UIGraphicsBeginImageContext(resizedSize)
+            image.drawInRect(CGRect(x: 0, y: 0, width: resizedSize.width, height: resizedSize.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+
+            completion(resizedImage)
+        }
+    }
 }

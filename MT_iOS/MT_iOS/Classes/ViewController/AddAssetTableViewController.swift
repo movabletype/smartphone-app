@@ -19,7 +19,7 @@ protocol AddAssetDelegate {
     func AddAssetsDone(controller: AddAssetTableViewController)
 }
 
-class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate, QBImagePickerControllerDelegate {
+class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageAlignDelegate, QBImagePickerControllerDelegate, UploaderTableViewControllerDelegate {
     enum Section:Int {
         case Buttons = 0,
         Items,
@@ -368,65 +368,30 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     }
     
     //MARK: - multi select
-    var uploader = MultiUploader()
-    
-    func uploadRestart() {
-        let alertController = UIAlertController(
-            title: NSLocalizedString("Image upload", comment: "Image upload"),
-            message: NSLocalizedString("There is the rest of the items , you sure that you want to upload again ?", comment: "There is the rest of the items , you sure that you want to upload again ?"),
-            preferredStyle: .Alert)
-        
-        let yesAction = UIAlertAction(title: NSLocalizedString("YES", comment: "YES"), style: .Default) {
-            action in
-            let success: (Int-> Void) = {
-                (processed: Int) in
-                
-                self.delegate?.AddAssetsDone(self)
-            }
-            let failure: (Int-> Void) = {
-                (processed: Int) in
-                
-                if self.uploader.queueCount() > 0 {
-                    self.uploadRestart()
-                }
-            }
-
-            self.uploader.restart(success, failure: failure)
-        }
-        let noAction = UIAlertAction(title: NSLocalizedString("NO", comment: "NO"), style: .Default) {
-            action in
-            self.delegate?.AddAssetsDone(self)
-        }
-        
-        alertController.addAction(yesAction)
-        alertController.addAction(noAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
     func qb_imagePickerController(imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [AnyObject]!) {
 
         self.dismissViewControllerAnimated(true, completion: {
-            self.uploader = MultiUploader()
-            self.uploader.blogID = self.blog.id
-            self.uploader.uploadPath = self.uploadDir
+            let uploader = MultiUploader()
+            uploader.blogID = self.blog.id
+            uploader.uploadPath = self.uploadDir
             for asset in assets {
-                self.uploader.addAsset(asset as! PHAsset, width: self.imageSize.size(), quality: self.imageQuality.quality() / 100.0)
+                uploader.addAsset(asset as! PHAsset, width: self.imageSize.size(), quality: self.imageQuality.quality() / 100.0)
             }
-            let success: (Int-> Void) = {
-                (processed: Int) in
-                
+            
+            let vc = UploaderTableViewController()
+            vc.uploader = uploader
+            vc.delegate = self
+            let nav = UINavigationController(rootViewController: vc)
+            self.presentViewController(nav, animated: false, completion: nil)
+        })
+    }
+    
+    func UploaderFinish(controller: UploaderTableViewController) {
+        controller.dismissViewControllerAnimated(false,
+            completion: {
                 self.delegate?.AddAssetsDone(self)
             }
-            let failure: (Int-> Void) = {
-                (processed: Int) in
-                
-                if self.uploader.queueCount() > 0 {
-                    self.uploadRestart()
-                }
-            }
-
-            self.uploader.start(success, failure: failure)
-        })
+        )
     }
     
     func qb_imagePickerControllerDidCancel(imagePickerController: QBImagePickerController!) {

@@ -191,6 +191,9 @@
 		799B28A01C684B2700A57300 /* UploadItemAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799B289F1C684B2700A57300 /* UploadItemAsset.swift */; };
 		799B28A21C684B3400A57300 /* UploadItemImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799B28A11C684B3400A57300 /* UploadItemImageFile.swift */; };
 		799B28A41C68543200A57300 /* UploadItemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799B28A31C68543200A57300 /* UploadItemImage.swift */; };
+		799B28A71C69CDEA00A57300 /* UploaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799B28A51C69CDEA00A57300 /* UploaderTableViewCell.swift */; };
+		799B28A81C69CDEA00A57300 /* UploaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 799B28A61C69CDEA00A57300 /* UploaderTableViewCell.xib */; };
+		799B28AC1C69D38000A57300 /* UploaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799B28AB1C69D38000A57300 /* UploaderTableViewController.swift */; };
 		799ED9CC1C60665900392EA9 /* EntryStatusSelectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799ED9CB1C60665900392EA9 /* EntryStatusSelectTableViewController.swift */; };
 		799ED9D01C619C6D00392EA9 /* EntryMarkdownEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799ED9CF1C619C6D00392EA9 /* EntryMarkdownEditorViewController.swift */; };
 		79A715381B2685AA005A09ED /* BlogImageSizeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A715371B2685AA005A09ED /* BlogImageSizeTableViewController.swift */; };
@@ -444,6 +447,9 @@
 		799B289F1C684B2700A57300 /* UploadItemAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadItemAsset.swift; sourceTree = "<group>"; };
 		799B28A11C684B3400A57300 /* UploadItemImageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadItemImageFile.swift; sourceTree = "<group>"; };
 		799B28A31C68543200A57300 /* UploadItemImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadItemImage.swift; sourceTree = "<group>"; };
+		799B28A51C69CDEA00A57300 /* UploaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderTableViewCell.swift; sourceTree = "<group>"; };
+		799B28A61C69CDEA00A57300 /* UploaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploaderTableViewCell.xib; sourceTree = "<group>"; };
+		799B28AB1C69D38000A57300 /* UploaderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderTableViewController.swift; sourceTree = "<group>"; };
 		799ED9CB1C60665900392EA9 /* EntryStatusSelectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryStatusSelectTableViewController.swift; sourceTree = "<group>"; };
 		799ED9CF1C619C6D00392EA9 /* EntryMarkdownEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryMarkdownEditorViewController.swift; sourceTree = "<group>"; };
 		79A715371B2685AA005A09ED /* BlogImageSizeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogImageSizeTableViewController.swift; sourceTree = "<group>"; };
@@ -845,6 +851,7 @@
 				794854501B2523C90074EF55 /* CategoryTableViewCell.xib */,
 				79592A441B200E6E004DDB4E /* Entry */,
 				7956DA651B27D8990002B705 /* BlockEditor */,
+				799B28A91C69D34300A57300 /* Uploader */,
 			);
 			name = TableCell;
 			sourceTree = "<group>";
@@ -913,6 +920,23 @@
 				799B28A11C684B3400A57300 /* UploadItemImageFile.swift */,
 			);
 			name = Item;
+			sourceTree = "<group>";
+		};
+		799B28A91C69D34300A57300 /* Uploader */ = {
+			isa = PBXGroup;
+			children = (
+				799B28A51C69CDEA00A57300 /* UploaderTableViewCell.swift */,
+				799B28A61C69CDEA00A57300 /* UploaderTableViewCell.xib */,
+			);
+			name = Uploader;
+			sourceTree = "<group>";
+		};
+		799B28AA1C69D35600A57300 /* Uploader */ = {
+			isa = PBXGroup;
+			children = (
+				799B28AB1C69D38000A57300 /* UploaderTableViewController.swift */,
+			);
+			name = Uploader;
 			sourceTree = "<group>";
 		};
 		79A715361B268538005A09ED /* Blog Settings */ = {
@@ -1013,6 +1037,7 @@
 				797603AC1B0ECDEA00F9AC09 /* Blog */,
 				797603AD1B0ECE0A00F9AC09 /* Entry&Page */,
 				7986975B1B1458DE00DC7A18 /* Asset */,
+				799B28AA1C69D35600A57300 /* Uploader */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1190,6 +1215,7 @@
 				790B7D9E1B219C6C0083EBB4 /* ZSSsubscript@2x.png in Resources */,
 				790B7DAD1B219C6C0083EBB4 /* ZSSviewsource.png in Resources */,
 				7971DDFD1B339AFE007E91C3 /* BlockGuidanceView.xib in Resources */,
+				799B28A81C69CDEA00A57300 /* UploaderTableViewCell.xib in Resources */,
 				790B7DA61B219C6C0083EBB4 /* ZSSunderline@2x.png in Resources */,
 				79FD0E0D1B33E409008EFC16 /* ImageSelector.storyboard in Resources */,
 				791973B01B09DF2B003EA459 /* Images.xcassets in Resources */,
@@ -1388,6 +1414,7 @@
 				7956DA681B27D8C30002B705 /* TextBlockTableViewCell.swift in Sources */,
 				79132B501B16EFD6002064C7 /* TextFieldTableViewCell.swift in Sources */,
 				79EEE9551B29867B007D9407 /* BaseDraftTableViewController.swift in Sources */,
+				799B28AC1C69D38000A57300 /* UploaderTableViewController.swift in Sources */,
 				799ED9CC1C60665900392EA9 /* EntryStatusSelectTableViewController.swift in Sources */,
 				790B7D151B2195860083EBB4 /* EntryRichTextViewController.swift in Sources */,
 				797603BC1B0EEAEC00F9AC09 /* BaseEntry.swift in Sources */,
@@ -1398,6 +1425,7 @@
 				7986975D1B14591900DC7A18 /* AssetListTableViewController.swift in Sources */,
 				799B289B1C684A5300A57300 /* MultiUploader.swift in Sources */,
 				79C87F1E1B3257440053478F /* MTRefreshControl.swift in Sources */,
+				799B28A71C69CDEA00A57300 /* UploaderTableViewCell.swift in Sources */,
 				79592A4F1B200F14004DDB4E /* EntryStatusTableViewCell.swift in Sources */,
 				79592A621B203323004DDB4E /* EntryTitleItem.swift in Sources */,
 				795E207A1B1DADD200FA7857 /* EntryURLItem.swift in Sources */,

@@ -188,6 +188,57 @@ class DataAPI: NSObject {
                 }
         }
     }
+    
+    
+    func upload(data: NSData, fileName: String, url: String, parameters: [String:String]? = nil, progress: ((Int64!, Int64!, Int64!) -> Void)? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
+        var headers = Dictionary<String, String>()
+        
+        if token != "" {
+            headers["X-MT-Authorization"] = "MTAuth accessToken=" + token
+        }
+        
+        Alamofire.upload(
+            .POST,
+            url,
+            headers: headers,
+            multipartFormData: { multipartFormData in
+                multipartFormData.appendBodyPart(data: data, name: "file", fileName: fileName, mimeType: "application/octet-stream")
+                if let params = parameters {
+                    for (key, value) in params {
+                        multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
+                    }
+                }
+            },
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .Success(let upload, _, _):
+                    if !self.basicAuth.username.isEmpty && !self.basicAuth.password.isEmpty {
+                        upload.authenticate(user: self.basicAuth.username, password: self.basicAuth.password)
+                    }
+                    upload.progress{ (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
+                        dispatch_async(dispatch_get_main_queue()) {
+                            progress?(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
+                        }
+                    }.responseJSON { response in
+                        switch response.result {
+                        case .Success(let data):
+                            let json = JSON(data)
+                            if json["error"].dictionary != nil {
+                                failure(json["error"])
+                                return
+                            }
+                            success(json)
+                            
+                        case .Failure(_):
+                            failure(self.errorJSON())
+                        }
+                    }
+                case .Failure(_):
+                    failure(self.errorJSON())
+                }
+            }
+        )
+    }
 
     //MARK: - APIs
 
@@ -489,16 +540,16 @@ class DataAPI: NSObject {
     }
 
 
-    private func importEntriesWithFile(siteID siteID: String, importData: NSData, options: [String: String]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
+    private func importEntriesWithFile(siteID siteID: String, importData: NSData, options: [String: String]? = nil, progress: ((Int64!, Int64!, Int64!) -> Void)? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
         let url = APIURL() + "/sites/\(siteID)/entries/import"
 
-        self.upload(importData, fileName: "import.dat", url: url, parameters: options, success: success, failure: failure)
+        self.upload(importData, fileName: "import.dat", url: url, parameters: options, progress: progress, success: success, failure: failure)
     }
 
-    func importEntries(siteID siteID: String, importData: NSData? = nil, options: [String: String]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
+    func importEntries(siteID siteID: String, importData: NSData? = nil, options: [String: String]? = nil, progress: ((Int64!, Int64!, Int64!) -> Void)? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
 
         if importData != nil {
-            self.importEntriesWithFile(siteID: siteID, importData: importData!, options: options, success: success, failure: failure)
+            self.importEntriesWithFile(siteID: siteID, importData: importData!, options: options, progress: progress, success: success, failure: failure)
             return
         }
 
@@ -817,102 +868,12 @@ class DataAPI: NSObject {
 
         self.fetchList(url, params: options, success: success, failure: failure)
     }
-
-//    private func makeUploadRequest(data: NSData, fileName: String, url: String, parameters: [String:String]? = nil)->Request {
-//        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: url)!)
-//        mutableURLRequest.HTTPMethod = "POST"
-//
-//        let mutableData = NSMutableData()
-//        let boundary = "Boundary+\(arc4random())\(arc4random())"
-//        var bodyStr = "\r\n--" + boundary + "\r\n"
-//        mutableData.appendData(bodyStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-//        if let params = parameters {
-//            for (key, value) in params {
-//                bodyStr = "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)"
-//                mutableData.appendData(bodyStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-//                let bodyStr = "\r\n--" + boundary + "\r\n"
-//                mutableData.appendData(bodyStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-//            }
-//        }
-//        bodyStr = "Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n"
-//        mutableData.appendData(bodyStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-//        bodyStr = "Content-Type: application/octet-stream\r\n\r\n"
-//        mutableData.appendData(bodyStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-//        mutableData.appendData(data)
-//        bodyStr = "\r\n\r\n"
-//        mutableData.appendData(bodyStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-//
-//        let tailStr = "--\(boundary)--\r\n\r\n"
-//        mutableData.appendData(tailStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-//
-//        mutableURLRequest.HTTPBody = mutableData
-//        bodyStr = "multipart/form-data; boundary=\(boundary)"
-//        mutableURLRequest.setValue(bodyStr, forHTTPHeaderField: "Content-Type")
-//
-//        if token != "" {
-//            mutableURLRequest.setValue("MTAuth accessToken=" + token, forHTTPHeaderField: "X-MT-Authorization")
-//        }
-//
-//        var request = Alamofire.request(mutableURLRequest)
-//
-//        if !self.basicAuth.username.isEmpty && !self.basicAuth.password.isEmpty {
-//            request = request.authenticate(user: self.basicAuth.username, password: self.basicAuth.password)
-//        }
-//
-//        return request
-//    }
     
-    func upload(data: NSData, fileName: String, url: String, parameters: [String:String]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
-        var headers = Dictionary<String, String>()
-        
-        if token != "" {
-            headers["X-MT-Authorization"] = "MTAuth accessToken=" + token
-        }
-        
-        Alamofire.upload(
-            .POST,
-            url,
-            headers: headers,
-            multipartFormData: { multipartFormData in
-                multipartFormData.appendBodyPart(data: data, name: "file", fileName: fileName, mimeType: "application/octet-stream")
-                if let params = parameters {
-                    for (key, value) in params {
-                        multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
-                    }
-                }
-            },
-            encodingCompletion: { encodingResult in
-                switch encodingResult {
-                case .Success(let upload, _, _):
-                    if !self.basicAuth.username.isEmpty && !self.basicAuth.password.isEmpty {
-                        upload.authenticate(user: self.basicAuth.username, password: self.basicAuth.password)
-                    }
-                    upload.responseJSON { response in
-                        switch response.result {
-                        case .Success(let data):
-                            let json = JSON(data)
-                            if json["error"].dictionary != nil {
-                                failure(json["error"])
-                                return
-                            }
-                            success(json)
-                            
-                        case .Failure(_):
-                            failure(self.errorJSON())
-                        }
-                    }
-                case .Failure(_):
-                    failure(self.errorJSON())
-                }
-            }
-        )
-    }
-    
-    func uploadAsset(assetData: NSData, fileName: String, options: [String: String]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
-        self.uploadAssetForSite(nil, assetData: assetData, fileName: fileName, options: options, success: success, failure: failure)
+    func uploadAsset(assetData: NSData, fileName: String, options: [String: String]? = nil, progress: ((Int64!, Int64!, Int64!) -> Void)? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
+        self.uploadAssetForSite(nil, assetData: assetData, fileName: fileName, options: options, progress: progress, success: success, failure: failure)
     }
 
-    func uploadAssetForSite(siteID: String? = nil, assetData: NSData, fileName: String, options: [String: String]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
+    func uploadAssetForSite(siteID: String? = nil, assetData: NSData, fileName: String, options: [String: String]? = nil, progress: ((Int64!, Int64!, Int64!) -> Void)? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {
         var url = APIURL() + "/"
         if let siteID = siteID {
             url += "sites/\(siteID)/assets/upload"
@@ -920,7 +881,7 @@ class DataAPI: NSObject {
             url += "assets/upload"
         }
 
-        self.upload(assetData, fileName: fileName, url: url, parameters: options, success: success, failure: failure)
+        self.upload(assetData, fileName: fileName, url: url, parameters: options, progress: progress, success: success, failure: failure)
     }
 
     private func assetAction(action: Alamofire.Method, siteID: String, assetID: String, asset: [String: AnyObject]? = nil, options: [String: AnyObject]? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!)->Void {

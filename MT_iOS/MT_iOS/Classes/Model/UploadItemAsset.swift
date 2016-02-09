@@ -32,5 +32,15 @@ class UploadItemAsset: UploadItemImage {
             }
         )
     }
-
+    
+    override func thumbnail(size: CGSize, completion: (UIImage->Void)) {
+        let manager = PHImageManager.defaultManager()
+        manager.requestImageForAsset(self.asset, targetSize: size, contentMode: .Default, options: nil,
+            resultHandler: {image, Info in
+                if let image = image {
+                    completion(image)
+                }
+            }
+        )
+    }
 }

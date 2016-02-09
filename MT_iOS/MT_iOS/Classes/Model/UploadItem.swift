@@ -13,6 +13,7 @@ class UploadItem: NSObject {
     internal(set) var data: NSData! = nil
     var blogID = ""
     var uploadPath = ""
+    var uploaded = false
     
     func setup(completion: (() -> Void)) {
         completion()

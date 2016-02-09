@@ -83,6 +83,7 @@ class MultiUploader: NSObject {
                 }
                 let success: ((JSON!)-> Void) = {
                     (result: JSON!)-> Void in
+                    item.uploaded = true
                     self.queue.removeFirst()
                     if self.queue.count == 0 {
                         progressHandler?(item, 1.0)

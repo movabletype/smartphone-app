@@ -390,14 +390,14 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             let success: (Int-> Void) = {
                 (processed: Int) in
                 
+                SVProgressHUD.dismiss()
                 self.delegate?.AddAssetsDone(self)
             }
-            let failure: (Int-> Void) = {
-                (processed: Int) in
+            let failure: ((Int, JSON) -> Void) = {
+                (processed: Int, error: JSON) in
                 
-                if self.uploader.queueCount() > 0 {
-                    self.uploadRestart()
-                }
+                SVProgressHUD.dismiss()
+                self.uploadError(error)
             }
 
             self.uploader.restart(progress: progress, success: success, failure: failure)
@@ -409,6 +409,23 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         
         alertController.addAction(yesAction)
         alertController.addAction(noAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func uploadError(error: JSON) {
+        let alertController = UIAlertController(
+            title: NSLocalizedString("Upload error", comment: "Upload error"),
+            message: error["message"].stringValue,
+            preferredStyle: .Alert)
+        
+        let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+            action in
+            if self.uploader.queueCount() > 0 {
+                self.uploadRestart()
+            }
+        }
+        
+        alertController.addAction(okAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
@@ -433,14 +450,14 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             let success: (Int-> Void) = {
                 (processed: Int) in
                 
+                SVProgressHUD.dismiss()
                 self.delegate?.AddAssetsDone(self)
             }
-            let failure: (Int-> Void) = {
-                (processed: Int) in
-                
-                if self.uploader.queueCount() > 0 {
-                    self.uploadRestart()
-                }
+            let failure: ((Int, JSON) -> Void) = {
+                (processed: Int, error: JSON) in
+
+                SVProgressHUD.dismiss()
+                self.uploadError(error)
             }
 
             self.uploader.start(progress: progress, success: success, failure: failure)

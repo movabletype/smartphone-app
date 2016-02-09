@@ -378,6 +378,15 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         
         let yesAction = UIAlertAction(title: NSLocalizedString("YES", comment: "YES"), style: .Default) {
             action in
+            let progress: ((UploadItem, Float)-> Void) = {
+                (item: UploadItem, progress: Float) in
+                var count = self.uploader.processed() + 1
+                if count > self.uploader.count() {
+                    count = self.uploader.count()
+                }
+                let status = String(format: NSLocalizedString("Upload images(%d/%d)", comment: "Upload images(%d/%d)"), arguments: [count, self.uploader.count()])
+                SVProgressHUD.showProgress(progress, status: status)
+            }
             let success: (Int-> Void) = {
                 (processed: Int) in
                 
@@ -391,7 +400,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
                 }
             }
 
-            self.uploader.restart(success, failure: failure)
+            self.uploader.restart(progress: progress, success: success, failure: failure)
         }
         let noAction = UIAlertAction(title: NSLocalizedString("NO", comment: "NO"), style: .Default) {
             action in
@@ -412,6 +421,15 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             for asset in assets {
                 self.uploader.addAsset(asset as! PHAsset, width: self.imageSize.size(), quality: self.imageQuality.quality() / 100.0)
             }
+            let progress: ((UploadItem, Float)-> Void) = {
+                (item: UploadItem, progress: Float) in
+                var count = self.uploader.processed() + 1
+                if count > self.uploader.count() {
+                    count = self.uploader.count()
+                }
+                let status = String(format: NSLocalizedString("Upload images(%d/%d)", comment: "Upload images(%d/%d)"), arguments: [count, self.uploader.count()])
+                SVProgressHUD.showProgress(progress, status: status)
+            }
             let success: (Int-> Void) = {
                 (processed: Int) in
                 
@@ -425,7 +443,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
                 }
             }
 
-            self.uploader.start(success, failure: failure)
+            self.uploader.start(progress: progress, success: success, failure: failure)
         })
     }
     

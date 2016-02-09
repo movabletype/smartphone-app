@@ -49,16 +49,16 @@ class MultiUploader: NSObject {
         items.removeAll()
     }
     
-    private func progress()->Float {
+    func progress()->Float {
         let progress: Float = Float(self.items.count - self.queue.count) / Float(self.items.count)
         return progress
     }
     
-    private func processed()->Int {
+    func processed()->Int {
         return self.items.count - self.queue.count
     }
     
-    private func upload(success: (Int->Void)?, failure: (Int->Void)?) {
+    private func upload(progress progressHandler:((UploadItem, Float)->Void)?, success: (Int->Void)?, failure: (Int->Void)?) {
         func successFinish() {
             success?(self.processed())
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -69,13 +69,9 @@ class MultiUploader: NSObject {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
 
-        let status = String(format: NSLocalizedString("Upload images(%d/%d)", comment: "Upload images(%d/%d)"), arguments: [self.processed(), self.items.count])
-        SVProgressHUD.showProgress(self.progress(), status: status)
-
         if let item = self.queue.first {
             item.setup({
-                let status = String(format: NSLocalizedString("Upload images(%d/%d)", comment: "Upload images(%d/%d)"), arguments: [self.processed(), self.items.count])
-                SVProgressHUD.showProgress(0.0, status: status)
+                progressHandler?(item, 0.0)
 
                 let progress: ((Int64!, Int64!, Int64!) -> Void) = {
                     (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
@@ -83,16 +79,16 @@ class MultiUploader: NSObject {
                     if totalBytesExpectedToWrite > 0 {
                         progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
                     }
-                    SVProgressHUD.showProgress(progress, status: status)
+                    progressHandler?(item, progress)
                 }
                 let success: ((JSON!)-> Void) = {
                     (result: JSON!)-> Void in
                     self.queue.removeFirst()
                     if self.queue.count == 0 {
-                        SVProgressHUD.showProgress(1.0, status: status)
+                        progressHandler?(item, 1.0)
                         successFinish()
                     } else {
-                        self.upload(success, failure: failure)
+                        self.upload(progress: progressHandler, success: success, failure: failure)
                     }
                 }
                 let failure: (JSON!-> Void) = {
@@ -104,20 +100,19 @@ class MultiUploader: NSObject {
                 item.upload(progress: progress, success: success, failure: failure)
             })
         } else {
-            SVProgressHUD.dismiss()
             successFinish()
             return
         }
     }
     
-    func start(success: (Int->Void)?, failure: (Int->Void)?) {
+    func start(progress progress:((UploadItem, Float)->Void)?, success: (Int->Void)?, failure: (Int->Void)?) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         self.queue = self.items
-        self.upload(success, failure: failure)
+        self.upload(progress: progress, success:success, failure: failure)
     }
 
-    func restart(success: (Int->Void)?, failure: (Int->Void)?) {
+    func restart(progress progress:((UploadItem, Float)->Void)?, success: (Int->Void)?, failure: (Int->Void)?) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        self.upload(success, failure: failure)
+        self.upload(progress: progress, success:success, failure: failure)
     }
 }

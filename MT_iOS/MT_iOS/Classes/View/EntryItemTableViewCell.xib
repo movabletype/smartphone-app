@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBr-tv-EwD">
-                        <rect key="frame" x="43" y="12" width="275" height="21"/>
+                        <rect key="frame" x="43" y="11.5" width="42" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.29019607843137257" green="0.29019607843137257" blue="0.29019607843137257" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -37,7 +37,6 @@
                 <constraints>
                     <constraint firstAttribute="centerY" secondItem="kV3-Se-oBX" secondAttribute="centerY" id="2cH-oU-L64"/>
                     <constraint firstItem="kV3-Se-oBX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="DMQ-gV-0ME"/>
-                    <constraint firstAttribute="trailing" secondItem="hBr-tv-EwD" secondAttribute="trailing" constant="2" id="QPT-uV-ZRJ"/>
                     <constraint firstAttribute="centerY" secondItem="hBr-tv-EwD" secondAttribute="centerY" id="Rd1-Gb-2oJ"/>
                     <constraint firstItem="hBr-tv-EwD" firstAttribute="leading" secondItem="kV3-Se-oBX" secondAttribute="trailing" constant="9" id="Ro8-rA-WUm"/>
                     <constraint firstItem="hBr-tv-EwD" firstAttribute="leading" secondItem="kV3-Se-oBX" secondAttribute="trailing" constant="9" id="gM0-Lc-Xn4"/>

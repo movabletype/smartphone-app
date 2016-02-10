@@ -275,6 +275,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
 
             } else if item.type == "textarea" || item.type == "embed" {
@@ -283,6 +284,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     c.textLabel?.text = item.label
                     c.backgroundColor = Color.tableBg
                     c.selectionStyle = UITableViewCellSelectionStyle.None
+                    c.require = item.required
                     cell = c
                 } else {
                     let c = tableView.dequeueReusableCellWithIdentifier("EntryTextAreaTableViewCell", forIndexPath: indexPath) as! EntryTextAreaTableViewCell
@@ -304,6 +306,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     c.textLabel?.text = item.label
                     c.backgroundColor = Color.tableBg
                     c.selectionStyle = UITableViewCellSelectionStyle.None
+                    c.require = item.required
                     cell = c
                 } else {
                     let blockItem = item as! EntryBlocksItem
@@ -347,26 +350,31 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 switchCtrl.addTarget(self, action: "switchChanged:", forControlEvents: UIControlEvents.ValueChanged)
                 c.accessoryView = switchCtrl
                 c.selectionStyle = UITableViewCellSelectionStyle.None
+                c.require = item.required
                 cell = c
             } else if item.type == "url" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else if item.type == "datetime" || item.type == "date" || item.type == "time"  {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else if item.type == "select" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntrySelectTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else if item.type == "radio" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryRadioTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else if item.type == "image" {
                 if indexPath.row == 0 {
@@ -374,6 +382,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     c.textLabel?.text = item.label
                     c.backgroundColor = Color.tableBg
                     c.selectionStyle = UITableViewCellSelectionStyle.None
+                    c.require = item.required
                     cell = c
                 } else {
                     let c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
@@ -396,16 +405,19 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 let c = tableView.dequeueReusableCellWithIdentifier("EntrySelectTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else if item.type == "category" || item.type == "folder" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             }
             

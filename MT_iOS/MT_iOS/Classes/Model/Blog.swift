@@ -428,9 +428,11 @@ class Blog: BaseObject {
     func adjustUploadDestination() {
         func setDestination(destination: UploadDestination) {
             if !destination.raw.isEmpty {
-                self.uploadDir = destination.path
-                self.saveSettings()
+                self.uploadDir = destination.raw
+            } else {
+                self.uploadDir = "/"
             }
+            self.saveSettings()
         }
         
         if let uploadDestination = self.uploadDestination {

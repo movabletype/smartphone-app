@@ -699,7 +699,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     return
                 } else {
                     if item.id == "body" || item.id == "more" {
-                        if self.object.format.hasPrefix(Entry.EditMode.Markdown.label().lowercaseString) {
+                        if self.object.format.hasPrefix(Entry.EditMode.Markdown.format()) {
                             self.showMarkdownEditor(item as! EntryTextAreaItem)
                         } else {
                             self.showRichTextEditor(item as! EntryTextAreaItem)
@@ -887,8 +887,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 params!["unpublishedDate"] = Utils.ISO8601StringFromDate(object.unpublishedDate!)
             }
             
-            if object.id.isEmpty && object.editMode == Entry.EditMode.Markdown {
-                params!["format"] = Entry.EditMode.Markdown.label().lowercaseString
+            if object.id.isEmpty {
+                params!["format"] = object.editMode.format()
             }
             
             LOG("params:\(params)")

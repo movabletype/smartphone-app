@@ -69,6 +69,17 @@ class BaseEntry: BaseObject {
                 return NSLocalizedString("Markdown", comment: "Markdown")
             }
         }
+
+        func format()-> String {
+            switch(self) {
+            case .PlainText:
+                return "0"
+            case .RichText:
+                return "richtext"
+            case .Markdown:
+                return "markdown"
+            }
+        }
     }
     
     var title = ""

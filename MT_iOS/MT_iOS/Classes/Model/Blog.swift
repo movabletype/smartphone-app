@@ -41,6 +41,7 @@ class Blog: BaseObject {
         ,M
         ,S
         ,XS
+        ,Custom
         ,_Num
         
         func size()-> CGFloat {
@@ -57,6 +58,8 @@ class Blog: BaseObject {
                 return 640.0
             case .XS:
                 return 320.0
+            case .Custom:
+                return 0.0
             case ._Num:
                 return 0
             }
@@ -75,6 +78,8 @@ class Blog: BaseObject {
                 return "640px"
             case .XS:
                 return "320px"
+            case .Custom:
+                return ""
             case ._Num:
                 return ""
             }
@@ -93,6 +98,8 @@ class Blog: BaseObject {
                 return NSLocalizedString("Small", comment: "Small")
             case .XS:
                 return NSLocalizedString("X-Small", comment: "X-Small")
+            case .Custom:
+                return NSLocalizedString("Custom", comment: "Custom")
             case ._Num:
                 return ""
             }
@@ -190,6 +197,7 @@ class Blog: BaseObject {
     var imageSize: ImageSize = .M
     var imageQuality: ImageQuality = .Normal
     var imageAlign: ImageAlign = .None
+    var imageCustomWidth = 0
     
     var endpoint = ""
    
@@ -386,6 +394,9 @@ class Blog: BaseObject {
             if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagequality", user: user)) as? Int {
                 imageQuality = Blog.ImageQuality(rawValue: value)!
             }
+            if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagecustomwidth", user: user)) as? Int {
+                imageCustomWidth = value
+            }
         }
 
         //V1.0.xとの互換性のため
@@ -420,6 +431,7 @@ class Blog: BaseObject {
             defaults.setObject(uploadDir, forKey:self.settingKey("blogsettings_uploaddir", user: user))
             defaults.setInteger(imageSize.rawValue, forKey:self.settingKey("blogsettings_imagesize", user: user))
             defaults.setInteger(imageQuality.rawValue, forKey:self.settingKey("blogsettings_imagequality", user: user))
+            defaults.setInteger(imageCustomWidth, forKey:self.settingKey("blogsettings_imagecustomwidth", user: user))
             defaults.synchronize()
         }
     }

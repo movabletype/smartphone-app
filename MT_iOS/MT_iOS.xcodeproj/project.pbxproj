@@ -199,6 +199,10 @@
 		79A715381B2685AA005A09ED /* BlogImageSizeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A715371B2685AA005A09ED /* BlogImageSizeTableViewController.swift */; };
 		79A7153D1B2685E7005A09ED /* BlogImageQualityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A7153C1B2685E7005A09ED /* BlogImageQualityTableViewController.swift */; };
 		79A812831B3BE91600D0E995 /* EditorModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A812821B3BE91600D0E995 /* EditorModeTableViewController.swift */; };
+		79ABB0021C71CF3500EBA259 /* ImageSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABB0001C71CF3500EBA259 /* ImageSizeTableViewCell.swift */; };
+		79ABB0031C71CF3500EBA259 /* ImageSizeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79ABB0011C71CF3500EBA259 /* ImageSizeTableViewCell.xib */; };
+		79ABB0061C71CF4A00EBA259 /* ImageCustomSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABB0041C71CF4A00EBA259 /* ImageCustomSizeTableViewCell.swift */; };
+		79ABB0071C71CF4A00EBA259 /* ImageCustomSizeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79ABB0051C71CF4A00EBA259 /* ImageCustomSizeTableViewCell.xib */; };
 		79BB89201B213DD4000BE6CD /* EntryTextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB891F1B213DD4000BE6CD /* EntryTextEditorViewController.swift */; };
 		79BB892B1B214725000BE6CD /* EntryHTMLEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB892A1B214725000BE6CD /* EntryHTMLEditorViewController.swift */; };
 		79BF57E71B3106B200B4B13C /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BF57E61B3106B200B4B13C /* ImageViewController.swift */; };
@@ -455,6 +459,10 @@
 		79A715371B2685AA005A09ED /* BlogImageSizeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogImageSizeTableViewController.swift; sourceTree = "<group>"; };
 		79A7153C1B2685E7005A09ED /* BlogImageQualityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogImageQualityTableViewController.swift; sourceTree = "<group>"; };
 		79A812821B3BE91600D0E995 /* EditorModeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModeTableViewController.swift; sourceTree = "<group>"; };
+		79ABB0001C71CF3500EBA259 /* ImageSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSizeTableViewCell.swift; sourceTree = "<group>"; };
+		79ABB0011C71CF3500EBA259 /* ImageSizeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageSizeTableViewCell.xib; sourceTree = "<group>"; };
+		79ABB0041C71CF4A00EBA259 /* ImageCustomSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCustomSizeTableViewCell.swift; sourceTree = "<group>"; };
+		79ABB0051C71CF4A00EBA259 /* ImageCustomSizeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCustomSizeTableViewCell.xib; sourceTree = "<group>"; };
 		79BB891F1B213DD4000BE6CD /* EntryTextEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryTextEditorViewController.swift; sourceTree = "<group>"; };
 		79BB892A1B214725000BE6CD /* EntryHTMLEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryHTMLEditorViewController.swift; sourceTree = "<group>"; };
 		79BF57E61B3106B200B4B13C /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
@@ -851,6 +859,7 @@
 				794854501B2523C90074EF55 /* CategoryTableViewCell.xib */,
 				79592A441B200E6E004DDB4E /* Entry */,
 				7956DA651B27D8990002B705 /* BlockEditor */,
+				79ABAFFD1C71CE9F00EBA259 /* ImageSetting */,
 				799B28A91C69D34300A57300 /* Uploader */,
 			);
 			name = TableCell;
@@ -952,6 +961,17 @@
 				79FD0DF91B33E409008EFC16 /* BlogUploadDir.storyboard */,
 			);
 			name = "Blog Settings";
+			sourceTree = "<group>";
+		};
+		79ABAFFD1C71CE9F00EBA259 /* ImageSetting */ = {
+			isa = PBXGroup;
+			children = (
+				79ABB0001C71CF3500EBA259 /* ImageSizeTableViewCell.swift */,
+				79ABB0011C71CF3500EBA259 /* ImageSizeTableViewCell.xib */,
+				79ABB0041C71CF4A00EBA259 /* ImageCustomSizeTableViewCell.swift */,
+				79ABB0051C71CF4A00EBA259 /* ImageCustomSizeTableViewCell.xib */,
+			);
+			name = ImageSetting;
 			sourceTree = "<group>";
 		};
 		79BB891E1B213D91000BE6CD /* EntryEditor */ = {
@@ -1203,6 +1223,7 @@
 				790B7D761B219C6C0083EBB4 /* ZSSh3@2x.png in Resources */,
 				790B7DAE1B219C6C0083EBB4 /* ZSSviewsource@2x.png in Resources */,
 				790B7D751B219C6C0083EBB4 /* ZSSh3.png in Resources */,
+				79ABB0031C71CF3500EBA259 /* ImageSizeTableViewCell.xib in Resources */,
 				790B7D661B219C6C0083EBB4 /* editor.html in Resources */,
 				796189731B1C54D70017747A /* GroupedHeaderView.xib in Resources */,
 				796DD50A1B1460DA00D14704 /* AssetTableViewCell.xib in Resources */,
@@ -1245,6 +1266,7 @@
 				79592A581B200F56004DDB4E /* EntryImageTableViewCell.xib in Resources */,
 				790B7D981B219C6C0083EBB4 /* ZSSredo@2x.png in Resources */,
 				790B7DAC1B219C6C0083EBB4 /* ZSSunorderedlist@2x.png in Resources */,
+				79ABB0071C71CF4A00EBA259 /* ImageCustomSizeTableViewCell.xib in Resources */,
 				790B7D911B219C6C0083EBB4 /* ZSSparagraph.png in Resources */,
 				790B7D971B219C6C0083EBB4 /* ZSSredo.png in Resources */,
 				790B7D671B219C6C0083EBB4 /* ZSSbgcolor.png in Resources */,
@@ -1368,6 +1390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				795E20781B1DAD0000FA7857 /* EntryStatusItem.swift in Sources */,
+				79ABB0021C71CF3500EBA259 /* ImageSizeTableViewCell.swift in Sources */,
 				79592A5F1B202688004DDB4E /* EntryHeaderTableViewCell.swift in Sources */,
 				79E654C01B0B3349007E4D4C /* SettingTableViewController.swift in Sources */,
 				796DD50C1B14737100D14704 /* BlogSettingsTableViewController.swift in Sources */,
@@ -1419,6 +1442,7 @@
 				790B7D151B2195860083EBB4 /* EntryRichTextViewController.swift in Sources */,
 				797603BC1B0EEAEC00F9AC09 /* BaseEntry.swift in Sources */,
 				79CFBDDD1B1D83A200283780 /* DatePickerViewController.swift in Sources */,
+				79ABB0061C71CF4A00EBA259 /* ImageCustomSizeTableViewCell.swift in Sources */,
 				797603A41B0D931000F9AC09 /* UIViewExtention.swift in Sources */,
 				797603A91B0DBC1A00F9AC09 /* PreviewViewController.swift in Sources */,
 				797603BA1B0EEAB700F9AC09 /* PageListTableViewController.swift in Sources */,

@@ -41,6 +41,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     var imageSize = Blog.ImageSize.M
     var imageQuality = Blog.ImageQuality.Normal
     var imageAlign = Blog.ImageAlign.None
+    var imageCustomWidth = 0
     
     var showAlign = false
     
@@ -63,6 +64,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         uploadDir = blog.uploadDir
         imageSize = blog.imageSize
         imageQuality = blog.imageQuality
+        imageCustomWidth =  blog.imageCustomWidth
 
         self.multiSelect = true
     }
@@ -158,7 +160,11 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             case Item.Size.rawValue:
                 cell.textLabel?.text = NSLocalizedString("Image Size", comment: "Image Size")
                 cell.imageView?.image = UIImage(named: "ico_size")
-                cell.detailTextLabel?.text = imageSize.label() + "(" + imageSize.pix() + ")"
+                if self.imageSize == Blog.ImageSize.Custom {
+                    cell.detailTextLabel?.text = imageSize.label() + "(\(imageCustomWidth)px)"
+                } else {
+                    cell.detailTextLabel?.text = imageSize.label() + "(" + imageSize.pix() + ")"
+                }
             case Item.Quality.rawValue:
                 cell.textLabel?.text = NSLocalizedString("Image Quality", comment: "Image Quality")
                 cell.imageView?.image = UIImage(named: "ico_quality")
@@ -247,6 +253,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             let storyboard: UIStoryboard = UIStoryboard(name: "BlogImageSize", bundle: nil)
             let vc = storyboard.instantiateInitialViewController() as! BlogImageSizeTableViewController
             vc.selected = imageSize.rawValue
+            vc.customWidth = imageCustomWidth
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         case Item.Quality.rawValue:
@@ -280,8 +287,9 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func blogImageSizeDone(controller: BlogImageSizeTableViewController, selected: Int) {
+    func blogImageSizeDone(controller: BlogImageSizeTableViewController, selected: Int, customWidth: Int) {
         imageSize = Blog.ImageSize(rawValue: selected)!
+        imageCustomWidth = customWidth
         self.tableView.reloadData()
     }
     
@@ -375,7 +383,11 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             uploader.blogID = self.blog.id
             uploader.uploadPath = self.uploadDir
             for asset in assets {
-                uploader.addAsset(asset as! PHAsset, width: self.imageSize.size(), quality: self.imageQuality.quality() / 100.0)
+                var width = self.imageSize.size()
+                if self.imageSize == Blog.ImageSize.Custom {
+                    width = CGFloat(self.imageCustomWidth)
+                }
+                uploader.addAsset(asset as! PHAsset, width: width, quality: self.imageQuality.quality() / 100.0)
             }
             
             let vc = UploaderTableViewController()
@@ -431,7 +443,11 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
     }
     
     private func uploadImage(image: UIImage) {
-        let data = Utils.convertJpegData(image, width: imageSize.size(), quality: imageQuality.quality() / 100.0)
+        var width = self.imageSize.size()
+        if self.imageSize == Blog.ImageSize.Custom {
+            width = CGFloat(self.imageCustomWidth)
+        }
+        let data = Utils.convertJpegData(image, width: width, quality: imageQuality.quality() / 100.0)
         let filename = Utils.makeJPEGFilename()
 
         self.uploadData(data, filename: filename, path: uploadDir)

@@ -21,6 +21,7 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
     var uploadDir = "/"
     var imageSize = Blog.ImageSize.M
     var imageQuality = Blog.ImageQuality.Normal
+    var imageCustomWidth = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,7 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
         uploadDir = blog.uploadDir
         imageSize = blog.imageSize
         imageQuality = blog.imageQuality
+        imageCustomWidth = blog.imageCustomWidth
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,7 +94,11 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
         case Item.Size.rawValue:
             cell.textLabel?.text = NSLocalizedString("Image Size", comment: "Image Size")
             cell.imageView?.image = UIImage(named: "ico_size")
-            cell.detailTextLabel?.text = imageSize.label() + "(" + imageSize.pix() + ")"
+            if self.imageSize == Blog.ImageSize.Custom {
+                cell.detailTextLabel?.text = imageSize.label() + "(\(imageCustomWidth)px)"
+            } else {
+                cell.detailTextLabel?.text = imageSize.label() + "(" + imageSize.pix() + ")"
+            }
         case Item.Quality.rawValue:
             cell.textLabel?.text = NSLocalizedString("Image Quality", comment: "Image Quality")
             cell.imageView?.image = UIImage(named: "ico_quality")
@@ -163,6 +169,7 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
             let storyboard: UIStoryboard = UIStoryboard(name: "BlogImageSize", bundle: nil)
             let vc = storyboard.instantiateInitialViewController() as! BlogImageSizeTableViewController
             vc.selected = imageSize.rawValue
+            vc.customWidth = imageCustomWidth
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         case Item.Quality.rawValue:
@@ -194,12 +201,14 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
         blog.uploadDir = uploadDir
         blog.imageSize = imageSize
         blog.imageQuality = imageQuality
+        blog.imageCustomWidth = imageCustomWidth
         blog.saveSettings()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func blogImageSizeDone(controller: BlogImageSizeTableViewController, selected: Int) {
+    func blogImageSizeDone(controller: BlogImageSizeTableViewController, selected: Int, customWidth: Int) {
         imageSize = Blog.ImageSize(rawValue: selected)!
+        imageCustomWidth = customWidth
         self.tableView.reloadData()
     }
     

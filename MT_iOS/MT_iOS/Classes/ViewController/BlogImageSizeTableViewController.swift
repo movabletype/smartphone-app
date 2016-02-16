@@ -165,6 +165,25 @@ class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDele
     }
     
     @IBAction func doneButtonPushed(sender: AnyObject) {
+        if selected == Blog.ImageSize.Custom.rawValue {
+            if customWidth == 0 {
+                let alertController = UIAlertController(
+                    title: NSLocalizedString("Error", comment: "Error"),
+                    message: NSLocalizedString("Please enter a custom size.", comment: "Please enter a custom size."),
+                    preferredStyle: .Alert)
+                
+                let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                    action in
+                    return
+                }
+
+                alertController.addAction(okAction)
+
+                presentViewController(alertController, animated: true, completion: nil)
+                return
+            }
+        }
+        
         self.navigationController?.popViewControllerAnimated(true)
         delegate?.blogImageSizeDone(self, selected: selected, customWidth: customWidth)
     }

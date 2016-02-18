@@ -40,4 +40,17 @@ class UploadItemImageFile: UploadItemImage {
             completion(resizedImage)
         }
     }
+    
+    override func makeFilename()->String {
+        let fileManager = NSFileManager.defaultManager()
+        do {
+            let attributes = try fileManager.attributesOfFileSystemForPath(path)
+            if let date = attributes[NSFileCreationDate] as? NSDate {
+                return Utils.makeJPEGFilename(date)
+            }
+        } catch _ {
+        }
+        
+        return Utils.makeJPEGFilename(NSDate())
+    }
 }

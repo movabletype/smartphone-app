@@ -82,7 +82,7 @@ class UploaderTableViewController: BaseTableViewController {
         cell.progress = item.progress
         cell.nameLabel.text = ""
         if item is UploadItemImage {
-            cell.nameLabel.text = NSLocalizedString("Image", comment: "Image")
+            cell.nameLabel.text = item.filename
         }
         item.thumbnail(CGSize(width: IMAGE_SIZE, height: IMAGE_SIZE),
             completion: { image in

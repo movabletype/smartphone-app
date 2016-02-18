@@ -442,13 +442,14 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         )
     }
     
-    private func uploadImage(image: UIImage) {
+    private func uploadImage(image: UIImage, date: NSDate) {
         var width = self.imageSize.size()
         if self.imageSize == Blog.ImageSize.Custom {
             width = CGFloat(self.imageCustomWidth)
         }
         let data = Utils.convertJpegData(image, width: width, quality: imageQuality.quality() / 100.0)
-        let filename = Utils.makeJPEGFilename()
+        
+        let filename = Utils.makeJPEGFilename(date)
 
         self.uploadData(data, filename: filename, path: uploadDir)
     }
@@ -457,7 +458,16 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         picker.dismissViewControllerAnimated(true, completion:
             {_ in
                 if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                    self.uploadImage(image)
+                    if let url = info[UIImagePickerControllerReferenceURL] as? NSURL {
+                        let fetchResult = PHAsset.fetchAssetsWithALAssetURLs([url], options: nil)
+                        if let asset = fetchResult.firstObject as? PHAsset {
+                            if let date = asset.creationDate {
+                                self.uploadImage(image, date: date)
+                            } else {
+                                self.uploadImage(image, date: NSDate())
+                            }
+                        }
+                    }
                 }
             }
         );

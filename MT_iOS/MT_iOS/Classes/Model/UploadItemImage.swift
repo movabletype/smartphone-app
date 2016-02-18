@@ -12,7 +12,4 @@ class UploadItemImage: UploadItem {
     var width: CGFloat = Blog.ImageSize.Original.size()
     var quality: CGFloat = Blog.ImageQuality.Normal.quality() / 100.0
     
-    override func filename()->String {
-        return Utils.makeJPEGFilename()
-    }
 }

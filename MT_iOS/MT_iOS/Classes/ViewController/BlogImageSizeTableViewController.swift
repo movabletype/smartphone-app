@@ -28,11 +28,24 @@ class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDele
         
         self.title = NSLocalizedString("Image Size", comment: "Image Size")
         self.tableView.backgroundColor = Color.tableBg
-
+        
+        self.tableView.delaysContentTouches = false
+        for case let view as UIScrollView in tableView.subviews {
+            view.delaysContentTouches = false
+        }
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
         
         self.tableView.registerNib(UINib(nibName: "ImageSizeTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageSizeTableViewCell")
         self.tableView.registerNib(UINib(nibName: "ImageCustomSizeTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageCustomSizeTableViewCell")
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,7 +84,7 @@ class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDele
             cell.sizeField.returnKeyType = UIReturnKeyType.Done
             cell.sizeField.autocorrectionType = UITextAutocorrectionType.No
             cell.sizeField.delegate = self
-            cell.sizeField.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
+            cell.sizeField.addTarget(self, action: "textFieldTouchDown:", forControlEvents: UIControlEvents.TouchDown)
             
             cell.checkIcon.hidden = (selected != indexPath.row)
             
@@ -160,9 +173,17 @@ class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDele
         if let text = field.text {
             if let width = Int(text) {
                 customWidth = width
+            } else {
+                customWidth = 0
             }
         }
     }
+    
+    @IBAction func textFieldTouchDown(field: UITextField) {
+        selected = Blog.ImageSize.Custom.rawValue
+        self.tableView.reloadData()
+    }
+    
     
     @IBAction func doneButtonPushed(sender: AnyObject) {
         if selected == Blog.ImageSize.Custom.rawValue {

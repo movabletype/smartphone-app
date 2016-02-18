@@ -142,8 +142,7 @@ class Utils {
         return jpeg
     }
     
-    class func makeJPEGFilename()-> String {
-        let date = NSDate()
+    class func makeJPEGFilename(date: NSDate)-> String {
         let filename = String(format: "mt-%04d%02d%02d%02d%02d%02d.jpg", arguments: [date.year, date.month, date.day, date.hour, date.minute, date.seconds])
         return filename
     }

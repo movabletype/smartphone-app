@@ -16,6 +16,16 @@ class UploadItem: NSObject {
     var uploaded = false
     var progress: Float = 0.0
     
+    var _filename: String = ""
+    var filename: String {
+        get {
+            if self._filename.isEmpty {
+                return self.makeFilename()
+            }
+            return _filename
+        }
+    }
+    
     func setup(completion: (() -> Void)) {
         completion()
     }
@@ -24,8 +34,8 @@ class UploadItem: NSObject {
         self.data = nil
     }
     
-    func filename()->String {
-        return ""
+    internal func makeFilename()->String {
+        return self._filename
     }
     
     func upload(progress progress: ((Int64!, Int64!, Int64!) -> Void)? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!) {
@@ -35,7 +45,7 @@ class UploadItem: NSObject {
         
         api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
-                let filename = self.filename()
+                let filename = self.makeFilename()
                 api.uploadAssetForSite(self.blogID, assetData:  self.data, fileName: filename, options: ["path":self.uploadPath, "autoRenameIfExists":"true"], progress: progress, success: success, failure: failure)
             },
             failure: failure

@@ -160,6 +160,8 @@ class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDele
         if let text = field.text {
             if let width = Int(text) {
                 customWidth = width
+            } else {
+                customWidth = 0
             }
         }
     }

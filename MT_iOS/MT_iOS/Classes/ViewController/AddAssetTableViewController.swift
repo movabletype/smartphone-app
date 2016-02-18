@@ -350,15 +350,15 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
         if self.multiSelect {
             let ipc: QBImagePickerController = QBImagePickerController()
             ipc.delegate = self
-            ipc.allowsMultipleSelection = true;
-            ipc.maximumNumberOfSelection = 8;
-            ipc.showsNumberOfSelectedAssets = true;
+            ipc.allowsMultipleSelection = true
+            ipc.maximumNumberOfSelection = 9
+            ipc.showsNumberOfSelectedAssets = true
             let types = [
                 PHAssetCollectionSubtype.SmartAlbumRecentlyAdded.rawValue,
                 PHAssetCollectionSubtype.SmartAlbumUserLibrary.rawValue,
                 PHAssetCollectionSubtype.AlbumMyPhotoStream.rawValue,
                 PHAssetCollectionSubtype.SmartAlbumPanoramas.rawValue,
-            ];
+            ]
             ipc.assetCollectionSubtypes = types
             ipc.mediaType = QBImagePickerMediaType.Image
             self.presentViewController(ipc, animated:true, completion:nil)
@@ -396,6 +396,28 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             let nav = UINavigationController(rootViewController: vc)
             self.presentViewController(nav, animated: false, completion: nil)
         })
+    }
+    
+    func qb_imagePickerController(imagePickerController: QBImagePickerController!, shouldSelectAsset asset: PHAsset!) -> Bool {
+        if imagePickerController.selectedAssets.count < 8 {
+            return true
+        } else {
+            let alertController = UIAlertController(
+                title: nil,
+                message: NSLocalizedString("You can upload 8 photos at once.", comment: "You can upload 8 photos at once."),
+                preferredStyle: .Alert)
+            
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                action in
+                return
+            }
+            
+            alertController.addAction(okAction)
+            
+            imagePickerController.presentViewController(alertController, animated: true, completion: nil)
+
+            return false
+        }
     }
     
     func UploaderFinish(controller: UploaderTableViewController) {

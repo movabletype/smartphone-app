@@ -84,6 +84,7 @@ class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDele
             cell.sizeField.returnKeyType = UIReturnKeyType.Done
             cell.sizeField.autocorrectionType = UITextAutocorrectionType.No
             cell.sizeField.delegate = self
+            cell.sizeField.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
             cell.sizeField.addTarget(self, action: "textFieldTouchDown:", forControlEvents: UIControlEvents.TouchDown)
             
             cell.checkIcon.hidden = (selected != indexPath.row)

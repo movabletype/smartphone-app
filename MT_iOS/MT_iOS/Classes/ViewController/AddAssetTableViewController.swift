@@ -485,11 +485,11 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
                         if let asset = fetchResult.firstObject as? PHAsset {
                             if let date = asset.creationDate {
                                 self.uploadImage(image, date: date)
-                            } else {
-                                self.uploadImage(image, date: NSDate())
+                                return
                             }
                         }
                     }
+                    self.uploadImage(image, date: NSDate())
                 }
             }
         );

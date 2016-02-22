@@ -147,7 +147,7 @@ class BlogUploadDirTableViewController: BaseTableViewController {
             } else {
                 let alertController = UIAlertController(
                     title: NSLocalizedString("Error", comment: "Error"),
-                    message: NSLocalizedString("You must set a valid Local file Path.", comment: "You must set a valid Local file Path."),
+                    message: NSLocalizedString("You must set a valid path.", comment: "You must set a valid path."),
                     preferredStyle: .Alert)
                 let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
                     action in

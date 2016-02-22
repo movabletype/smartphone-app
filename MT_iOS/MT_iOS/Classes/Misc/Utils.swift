@@ -196,10 +196,6 @@ class Utils {
     }
     
     class func validatePath(path: String)-> Bool {
-        if let _ = path.rangeOfString("./") {
-            return false
-        }
-        
         let pattern = "[ \"%<>\\[\\\\\\]\\^`{\\|}~]"
         let replaceString = path.stringByReplacingOccurrencesOfString(pattern, withString: "", options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
         let api = DataAPI.sharedInstance
@@ -207,6 +203,10 @@ class Utils {
         if let _ = str.rangeOfString("%") {
             return false
         }
+        if let _ = path.rangeOfString("..") {
+            return false
+        }
+        
         return true
     }
 }

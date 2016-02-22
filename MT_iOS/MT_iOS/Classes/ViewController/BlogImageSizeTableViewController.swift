@@ -173,7 +173,12 @@ class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDele
     @IBAction func textFieldChanged(field: UITextField) {
         if let text = field.text {
             if let width = Int(text) {
-                customWidth = width
+                if width > MAX_IMAGE_SIZE {
+                    customWidth = MAX_IMAGE_SIZE
+                    field.text = "\(customWidth)"
+                } else {
+                    customWidth = width
+                }
             } else {
                 customWidth = 0
             }

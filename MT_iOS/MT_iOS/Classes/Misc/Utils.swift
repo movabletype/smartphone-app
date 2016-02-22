@@ -111,16 +111,18 @@ class Utils {
     }
     
     class func resizeImage(image: UIImage, width: CGFloat)-> UIImage {
+        //オリジナルサイズのとき
+        if width == 0.0 {
+            return image
+        }
+        
         var w = image.size.width
         var h = image.size.height
-        var scale = width / w
-        //オリジナルサイズのとき
-        if width == 0 {
-            w = image.size.width
-            scale = 1.0
-        } else {
-            w = width
+        let scale = width / w
+        if scale >= 1.0 {
+            return image
         }
+        w = width
         h = h * scale
         let size = CGSize(width: w, height: h)
         UIGraphicsBeginImageContext(size)

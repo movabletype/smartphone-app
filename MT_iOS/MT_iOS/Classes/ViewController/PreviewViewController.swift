@@ -8,12 +8,13 @@
 
 import UIKit
 import SVProgressHUD
+import WebKit
 
-class PreviewViewController: BaseViewController, UIWebViewDelegate {
+class PreviewViewController: BaseViewController, WKUIDelegate, WKNavigationDelegate {
     var url: String!
     var html: String?
     
-    var webView: UIWebView!
+    var webView: WKWebView!
     var segmentedControl: UISegmentedControl!
     var indicator: UIActivityIndicatorView!
     
@@ -21,8 +22,32 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
         if self.webView != nil {
             self.webView.removeFromSuperview()
         }
-        self.webView = UIWebView(frame: self.view.bounds)
-        self.webView.scalesPageToFit = true
+        
+        if segmentedControl.selectedSegmentIndex == 1 {
+            var js = ""
+            js += "var metalist = document.getElementsByTagName('meta');"
+            js += "for(var i = 0; i < metalist.length; i++) {"
+            js += "  var name = metalist[i].getAttribute('name');"
+            js += "  if(name && name.toLowerCase() === 'viewport') {"
+            js += "    metalist[i].setAttribute('content', 'width=1024px');"
+            js += "    break;"
+            js += "  }"
+            js += "}"
+
+            let userScript = WKUserScript(source: js, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
+            
+            let controller = WKUserContentController()
+            controller.addUserScript(userScript)
+            
+            let configuration = WKWebViewConfiguration()
+            configuration.userContentController = controller
+            
+            self.webView = WKWebView(frame: view.bounds, configuration: configuration)
+        } else {
+            self.webView = WKWebView(frame: self.view.bounds)
+        }
+        
+        //self.webView.scalesPageToFit = true
         self.view.addSubview(self.webView)
 
         let leading: NSLayoutConstraint = NSLayoutConstraint(
@@ -74,7 +99,8 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
 
         self.webView.addSubview(self.indicator)
         
-        self.webView.delegate = self
+        self.webView.UIDelegate = self
+        self.webView.navigationDelegate = self
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: self, action: "closeButtonPushed:")
     }
@@ -156,37 +182,68 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
     }
     
     //MARK:-
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        return true
-    }
-    
-    func webViewDidStartLoad(webView: UIWebView) {
+    private func loadStart() {
         self.indicator.startAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     }
-    
-    func webViewDidFinishLoad(webView: UIWebView) {
+
+    private func loadFinish() {
         self.indicator.stopAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        
-        if self.segmentedControl.selectedSegmentIndex == 1 {
-            var js = ""
-            js += "var metalist = document.getElementsByTagName('meta');"
-            js += "for(var i = 0; i < metalist.length; i++) {"
-            js += "  var name = metalist[i].getAttribute('name');"
-            js += "  if(name && name.toLowerCase() === 'viewport') {"
-            js += "    metalist[i].setAttribute('content', 'width=1024px');"
-            js += "    break;"
-            js += "  }"
-            js += "}"
-            
-            webView.stringByEvaluatingJavaScriptFromString(js)
-        }
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        self.indicator.stopAnimating()
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        self.loadStart()
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        self.loadFinish()
+    }
+    
+    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+        self.loadFinish()
+    }
+    
+    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+        self.loadFinish()
+    }
+    
+    func webView(webView: WKWebView, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
+        
+        let alertController = UIAlertController(title: NSLocalizedString("Authentication Required", comment: "Authentication Required"), message: webView.URL!.host, preferredStyle: .Alert)
+
+        weak var usernameTextField: UITextField!
+        alertController.addTextFieldWithConfigurationHandler { textField in
+            textField.placeholder = NSLocalizedString("Username", comment: "Username")
+            usernameTextField = textField
+        }
+        
+        weak var passwordTextField: UITextField!
+        alertController.addTextFieldWithConfigurationHandler { textField in
+            textField.placeholder = NSLocalizedString("Password", comment: "Password")
+            textField.secureTextEntry = true
+            passwordTextField = textField
+        }
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .Cancel) {
+            action in
+            completionHandler(.CancelAuthenticationChallenge, nil)
+        }
+        
+        let loginAction = UIAlertAction(title: NSLocalizedString("Login", comment: "Login"), style: .Default) {
+            action in
+            if let username = usernameTextField.text {
+                if let password = passwordTextField.text {
+                    let credential = NSURLCredential(user: username, password: password, persistence: NSURLCredentialPersistence.ForSession)
+                    completionHandler(.UseCredential, credential)
+                }
+            }
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(loginAction)
+
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     //MARK: -

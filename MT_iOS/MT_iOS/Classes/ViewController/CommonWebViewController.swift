@@ -8,9 +8,10 @@
 
 import UIKit
 import SVProgressHUD
+import WebKit
 
-class CommonWebViewController: BaseViewController, UIWebViewDelegate {
-    var webView: UIWebView!
+class CommonWebViewController: BaseViewController, WKUIDelegate, WKNavigationDelegate {
+    var webView: WKWebView!
     var urlString: String = ""
     var filePath: String = ""
     var indicator: UIActivityIndicatorView!
@@ -19,9 +20,10 @@ class CommonWebViewController: BaseViewController, UIWebViewDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.webView = UIWebView(frame: self.view.bounds)
+        self.webView = WKWebView(frame: self.view.bounds)
         self.view.addSubview(self.webView)
-        self.webView.delegate = self;
+        self.webView.UIDelegate = self
+        self.webView.navigationDelegate = self
         self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.backgroundColor = Color.bg
         
@@ -135,5 +137,33 @@ class CommonWebViewController: BaseViewController, UIWebViewDelegate {
             self.title = NSLocalizedString("Error", comment: "Error")
         }
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
+    
+    //MARK:-
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        self.indicator.removeFromSuperview()
+        let title = webView.title
+        self.title = title
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
+    
+    private func didFail(error: NSError) {
+        self.indicator.removeFromSuperview()
+        if error.code != -999 {
+            self.title = NSLocalizedString("Error", comment: "Error")
+        }
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
+    
+    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+        self.didFail(error)
+    }
+    
+    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+        self.didFail(error)
     }
 }

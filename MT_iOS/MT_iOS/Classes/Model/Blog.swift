@@ -438,6 +438,10 @@ class Blog: BaseObject {
     
     //MARK: -
     func adjustUploadDestination() {
+        //なにもしない
+    }
+    /*
+    func adjustUploadDestination() {
         func setDestination(destination: UploadDestination) {
             if !destination.raw.isEmpty {
                 self.uploadDir = destination.raw
@@ -465,5 +469,6 @@ class Blog: BaseObject {
             self.uploadDir = "/"
         }
     }
-
+    */
+    
 }

@@ -148,15 +148,9 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
                 cell.imageView?.image = UIImage(named: "ico_upload")
                 cell.detailTextLabel?.text = uploadDir
                 
-                if self.blog.allowToChangeAtUpload {
-                    cell.textLabel?.textColor = Color.cellText
-                    cell.detailTextLabel?.textColor = Color.black
-                    cell.imageView?.alpha = 1.0
-                } else {
-                    cell.textLabel?.textColor = Color.placeholderText
-                    cell.detailTextLabel?.textColor = Color.placeholderText
-                    cell.imageView?.alpha = 0.5
-                }
+                cell.textLabel?.textColor = Color.cellText
+                cell.detailTextLabel?.textColor = Color.black
+                cell.imageView?.alpha = 1.0
             case Item.Size.rawValue:
                 cell.textLabel?.text = NSLocalizedString("Image Size", comment: "Image Size")
                 cell.imageView?.image = UIImage(named: "ico_size")
@@ -247,7 +241,8 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             let vc = storyboard.instantiateInitialViewController() as! BlogUploadDirTableViewController
             vc.directory = uploadDir
             vc.delegate = self
-            vc.editable = self.blog.allowToChangeAtUpload
+            //vc.editable = self.blog.allowToChangeAtUpload
+            vc.editable = true
             self.navigationController?.pushViewController(vc, animated: true)
         case Item.Size.rawValue:
             let storyboard: UIStoryboard = UIStoryboard(name: "BlogImageSize", bundle: nil)

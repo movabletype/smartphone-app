@@ -118,7 +118,6 @@ class PreviewViewController: BaseViewController, WKUIDelegate, WKNavigationDeleg
         segmentedControl .addTarget(self, action: "segmentedControlChanged:", forControlEvents: UIControlEvents.ValueChanged)
         segmentedControl.selectedSegmentIndex = 0
         self.navigationItem.titleView = segmentedControl
-        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -232,12 +231,17 @@ class PreviewViewController: BaseViewController, WKUIDelegate, WKNavigationDeleg
         
         let loginAction = UIAlertAction(title: NSLocalizedString("Login", comment: "Login"), style: .Default) {
             action in
-            if let username = usernameTextField.text {
-                if let password = passwordTextField.text {
-                    let credential = NSURLCredential(user: username, password: password, persistence: NSURLCredentialPersistence.ForSession)
-                    completionHandler(.UseCredential, credential)
-                }
+            var username = ""
+            var password = ""
+            if usernameTextField.text != nil {
+                username = usernameTextField.text!
             }
+            if passwordTextField.text != nil {
+                password = passwordTextField.text!
+            }
+            
+            let credential = NSURLCredential(user: username, password: password, persistence: NSURLCredentialPersistence.Permanent)
+            completionHandler(.UseCredential, credential)
         }
         
         alertController.addAction(cancelAction)

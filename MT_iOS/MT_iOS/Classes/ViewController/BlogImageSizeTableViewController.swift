@@ -85,7 +85,6 @@ class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDele
             cell.sizeField.autocorrectionType = UITextAutocorrectionType.No
             cell.sizeField.delegate = self
             cell.sizeField.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
-            cell.sizeField.addTarget(self, action: "textFieldTouchDown:", forControlEvents: UIControlEvents.TouchDown)
             
             cell.checkIcon.hidden = (selected != indexPath.row)
             
@@ -116,6 +115,13 @@ class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDele
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selected = indexPath.row
+        
+        if selected == Blog.ImageSize.Custom.rawValue {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! ImageCustomSizeTableViewCell
+            Utils.performAfterDelay({
+                cell.sizeField.becomeFirstResponder()
+                }, delayTime: 0.0)
+        }
         
         self.tableView.reloadData()
     }
@@ -184,12 +190,6 @@ class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDele
             }
         }
     }
-    
-    @IBAction func textFieldTouchDown(field: UITextField) {
-        selected = Blog.ImageSize.Custom.rawValue
-        self.tableView.reloadData()
-    }
-    
     
     @IBAction func doneButtonPushed(sender: AnyObject) {
         if selected == Blog.ImageSize.Custom.rawValue {

@@ -322,7 +322,7 @@ class EntryItemList: NSObject, NSCoding {
         defaults.synchronize()
     }
     
-    func makeParams()->[String: AnyObject] {
+    func makeParams(preview: Bool)->[String: AnyObject] {
         var params = [String: AnyObject]()
         var fields = [AnyObject]()
         for item in items {
@@ -343,6 +343,7 @@ class EntryItemList: NSObject, NSCoding {
                 }
                 fields.append(param)
             } else {
+                item.isPreview = preview
                 let itemParams = item.makeParams()
                 for key in itemParams.keys {
                     if !key.isEmpty {

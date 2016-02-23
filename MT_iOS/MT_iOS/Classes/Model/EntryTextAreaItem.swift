@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MMMarkdown
 
 class EntryTextAreaItem: BaseEntryItem {
     var text = ""
@@ -33,11 +34,24 @@ class EntryTextAreaItem: BaseEntryItem {
     }
 
     override func value()-> String {
-        return text
+        var value = ""
+        let sourceText = text
+        if isPreview {
+            do {
+                let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
+                value = markdown
+            } catch _ {
+                value = sourceText
+            }
+        } else {
+            value = sourceText
+        }
+        
+        return value
     }
     
     override func dispValue()-> String {
-        return self.value()
+        return text
     }
     
     func placeholder()-> String {

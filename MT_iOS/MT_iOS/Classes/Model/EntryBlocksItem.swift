@@ -34,16 +34,20 @@ class EntryBlocksItem: EntryTextAreaItem {
             if block is BlockImageItem {
                 value += block.value() + "\n"
             } else {
+                let sourceText = block.value()
                 if (block as! BlockTextItem).format == Entry.EditMode.Markdown {
-                    let sourceText = block.value()
-                    do {
-                        let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
-                        value += markdown + "\n"
-                    } catch _ {
+                    if isPreview {
+                        do {
+                            let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
+                            value += markdown + "\n"
+                        } catch _ {
+                            value += sourceText + "\n"
+                        }
+                    } else {
                         value += sourceText + "\n"
                     }
                 } else {
-                    value += "<p>" + block.value() + "</p>" + "\n"
+                    value += "<p>" + sourceText + "</p>" + "\n"
                 }
             }
         }

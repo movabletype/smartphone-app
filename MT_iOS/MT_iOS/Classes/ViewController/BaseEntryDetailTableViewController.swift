@@ -745,7 +745,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     private func preview() {
-        let json = self.makeParams()
+        let json = self.makeParams(true)
         if json == nil {
             return
         }
@@ -803,8 +803,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.presentViewController(nav, animated: true, completion: nil)
     }
     
-    private func makeParams()-> [String:AnyObject]? {
-        var params = list?.makeParams()
+    private func makeParams(preview: Bool)-> [String:AnyObject]? {
+        var params = list?.makeParams(preview)
         if params != nil {
             if object.id.isEmpty {
                 //新規作成時にカテゴリ未選択なら送信しない
@@ -899,7 +899,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     private func saveEntry() {
-        let json = self.makeParams()
+        let json = self.makeParams(false)
         if json == nil {
             return
         }
@@ -952,17 +952,18 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
 
         api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
+                let params = ["no_text_filter":"1"]
                 if create {
                     if isEntry {
-                        api.createEntry(siteID: blogID, entry: json!, success: success, failure: failure)
+                        api.createEntry(siteID: blogID, entry: json!, options: params, success: success, failure: failure)
                     } else {
-                        api.createPage(siteID: blogID, page: json!, success: success, failure: failure)
+                        api.createPage(siteID: blogID, page: json!, options: params, success: success, failure: failure)
                     }
                 } else {
                     if isEntry {
-                        api.updateEntry(siteID: blogID, entryID: id, entry: json!, success: success, failure: failure)
+                        api.updateEntry(siteID: blogID, entryID: id, entry: json!, options: params, success: success, failure: failure)
                     } else {
-                        api.updatePage(siteID: blogID, pageID: id, page: json!, success: success, failure: failure)
+                        api.updatePage(siteID: blogID, pageID: id, page: json!, options: params, success: success, failure: failure)
                     }
                 }
             },

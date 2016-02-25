@@ -240,8 +240,12 @@ class PreviewViewController: BaseViewController, WKUIDelegate, WKNavigationDeleg
                 password = passwordTextField.text!
             }
             
-            let credential = NSURLCredential(user: username, password: password, persistence: NSURLCredentialPersistence.Permanent)
-            completionHandler(.UseCredential, credential)
+            if username.isEmpty || password.isEmpty {
+                self.webView(webView, didReceiveAuthenticationChallenge: challenge, completionHandler: completionHandler)
+            } else {
+                let credential = NSURLCredential(user: username, password: password, persistence: NSURLCredentialPersistence.Permanent)
+                completionHandler(.UseCredential, credential)
+            }
         }
         
         alertController.addAction(cancelAction)

@@ -11,11 +11,16 @@ import ZSSRichTextEditor
 import SwiftyJSON
 import SVProgressHUD
 
+class stringArray {
+    var items = [String]()
+}
+
 class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingDelegate, DatePickerViewControllerDelegate, AddAssetDelegate {
     var object: BaseEntry!
     var blog: Blog!
     var list: EntryItemList?
     var selectedIndexPath: NSIndexPath?
+    var addedImageFiles = stringArray()
     
     let headerHeight: CGFloat = 30.0
     
@@ -313,13 +318,18 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     if blockItem.isImageCell() {
                         let c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
                         LOG(blockItem.dispValue())
-                        let url = blockItem.dispValue()
-                        if url.isEmpty {
+                        if item.dispValue().isEmpty {
                             c.assetImageView.hidden = true
                             c.placeholderLabel?.text = blockItem.placeholder()
                             c.placeholderLabel.hidden = false
                         } else {
-                            c.assetImageView.sd_setImageWithURL(NSURL(string: url))
+                            let value = item.dispValue()
+                            if !value.hasPrefix("/") {
+                                c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                            } else {
+                                c.assetImageView.image = UIImage(contentsOfFile: item.dispValue())
+                            }
+
                             c.assetImageView.hidden = false
                             c.placeholderLabel.hidden = true
                         }
@@ -397,7 +407,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     } else {
                         c.placeholderLabel.hidden = true
                         c.assetImageView.hidden = false
-                        c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                        
+                        if (item as! EntryImageItem).asset != nil {
+                            c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                        } else {
+                            LOG(item.dispValue())
+                            c.assetImageView.image = UIImage(contentsOfFile: item.dispValue())
+                        }
                     }
                     cell = c
                 }
@@ -548,6 +564,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         vc.blog = blog
         vc.blocks = item
         vc.entry = self.object
+        vc.entryAddedImageFiles = self.addedImageFiles
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -1212,11 +1229,28 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     
     func AddAssetsDone(controller: AddAssetTableViewController) {
     }
-
+    
+    func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        item.asset = nil
+        item.isDirty = true
+        addedImageFiles.items.append(item.imageFilename)
+        self.tableView.reloadData()
+    }
+    func cleanup() {
+        for path in self.addedImageFiles.items {
+            let fileManager = NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch {
+            }
+        }
+    }
+    
     @IBAction func closeButtonPushed(sender: AnyObject) {
         for item in self.list!.items {
             if item.isDirty {
-                Utils.confrimSave(self, dismiss: true)
+                Utils.confrimSave(self, dismiss: true, block: {self.cleanup()})
                 return
             }
         }
@@ -1226,7 +1260,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
         for item in self.list!.items {
             if item.isDirty {
-                Utils.confrimSave(self)
+                Utils.confrimSave(self, block: {self.cleanup()})
                 return
             }
         }

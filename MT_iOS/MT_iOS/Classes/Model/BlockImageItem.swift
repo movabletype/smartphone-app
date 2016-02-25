@@ -31,15 +31,38 @@ class BlockImageItem: EntryImageItem {
         self.align = Blog.ImageAlign(rawValue: aDecoder.decodeIntegerForKey("align"))!
     }
 
+    func imageHTML(align: Blog.ImageAlign)-> String {
+        var wrapStyle = "class=\"mt-image-\(align.value().lowercaseString)\" "
+        switch align {
+        case .Left:
+            wrapStyle += "style=\"float: left; margin: 0 20px 20px 0;\""
+        case .Right:
+            wrapStyle += "style=\"float: right; margin: 0 0 20px 20px;\""
+        case .Center:
+            wrapStyle += "style=\"text-align: center; display: block; margin: 0 auto 20px;\""
+        default:
+            wrapStyle += "style=\"\""
+        }
+        
+        let url = NSURL(fileURLWithPath: imageFilename)
+        //TODO:画像が読み込めない
+        let html = "<img alt=\"\(label)\" src=\"\(url.absoluteString)\" \(wrapStyle) />"
+        
+        return html
+    }
+    
     override func asHtml()-> String {
         if asset != nil {
             return asset!.imageHTML(align)
+        }
+        if !imageFilename.isEmpty {
+            return self.imageHTML(align)
         }
         return ""
     }
     
     override func value()-> String {
-        if url.isEmpty {
+        if url.isEmpty && imageFilename.isEmpty {
             return ""
         }
         

@@ -15,6 +15,7 @@ import AssetsLibrary
 import QBImagePickerController
 
 protocol AddAssetDelegate {
+    func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem)
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset)
     func AddAssetsDone(controller: AddAssetTableViewController)
 }

@@ -200,7 +200,7 @@ class Blog: BaseObject {
     var imageCustomWidth = 0
     
     var endpoint = ""
-   
+    
     override init(json: JSON) {
         super.init(json: json)
         
@@ -356,7 +356,9 @@ class Blog: BaseObject {
         if user != nil {
             dir = self.endpoint + "_blog\(id)_user\(user!.id)"
         }
-        return dir.stringByReplacingOccurrencesOfString("/", withString: "_", options: [], range: nil)
+        dir = dir.stringByReplacingOccurrencesOfString("/", withString: "_", options: [], range: nil)
+        
+        return dir
     }
     
     func renameOldDataDir(user: User) {

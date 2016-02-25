@@ -161,7 +161,7 @@ class Utils {
         return language
     }
     
-    class func confrimSave(vc: UIViewController, dismiss: Bool = false) {
+    class func confrimSave(vc: UIViewController, dismiss: Bool = false, block: (() -> Void)? = nil) {
         let alertController = UIAlertController(
             title: NSLocalizedString("Confirm", comment: "Confirm"),
             message: NSLocalizedString("Are you sure not have to save?", comment: "Are you sure not have to save?"),
@@ -169,6 +169,11 @@ class Utils {
         
         let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Destructive) {
             action in
+
+            if let block = block {
+                block()
+            }
+            
             if dismiss {
                 vc.dismissViewControllerAnimated(true, completion: nil)
             } else {

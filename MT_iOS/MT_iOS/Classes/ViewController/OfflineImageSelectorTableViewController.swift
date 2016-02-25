@@ -87,7 +87,27 @@ class OfflineImageSelectorTableViewController: ImageSelectorTableViewController 
     }
     */
     
-    override func AssetSelectorDone(controller: AssetSelectorTableViewController, asset: Asset) {
-        //TODO:
+    override func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        picker.dismissViewControllerAnimated(true, completion:
+            {_ in
+                if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                    var width = self.imageSize.size()
+                    if self.imageSize == Blog.ImageSize.Custom {
+                        width = CGFloat(self.imageCustomWidth)
+                    }
+                    self.object.clear()
+                    let path = self.object.jpegFilename(self.blog)
+                    let jpeg = Utils.convertJpegData(image, width: width, quality: self.imageQuality.quality() / 100.0)
+                    if jpeg.writeToFile(path, atomically: true) {
+                        self.object.imageFilename = path
+                    } else {
+                        //TODO:エラー表示
+                        self.object.imageFilename = ""
+                    }
+                    
+                    self.delegate?.AddOfflineImageDone(self, item: self.object)
+                }
+            }
+        );
     }
 }

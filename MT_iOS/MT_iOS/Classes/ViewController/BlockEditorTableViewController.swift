@@ -14,6 +14,8 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     var entry: BaseEntry!
     var blocks: EntryBlocksItem!
     var items: [BaseEntryItem]!
+    var addedImageFiles: [String]!
+    var entryAddedImageFiles: stringArray!
     
     var noItemLabel = UILabel()
     var tophImage = UIImageView(image: UIImage(named: "guide_toph_sleep"))
@@ -34,6 +36,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             if block is BlockImageItem {
                 let item = BlockImageItem()
                 item.asset = (block as! BlockImageItem).asset
+                item.imageFilename = (block as! BlockImageItem).imageFilename
                 item.label = block.label
                 items.append(item)
             } else {
@@ -44,6 +47,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
                 items.append(item)
             }
         }
+        addedImageFiles = [String]()
         
         self.tableView.registerNib(UINib(nibName: "TextBlockTableViewCell", bundle: nil), forCellReuseIdentifier: "TextBlockTableViewCell")
         self.tableView.registerNib(UINib(nibName: "ImageBlockTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageBlockTableViewCell")
@@ -159,7 +163,12 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             cell = c
         } else {
             let c = tableView.dequeueReusableCellWithIdentifier("ImageBlockTableViewCell", forIndexPath: indexPath) as! ImageBlockTableViewCell
-            c.blockImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+            if (item as! EntryImageItem).asset != nil {
+                c.blockImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+            } else {
+                LOG(item.dispValue())
+                c.blockImageView.image = UIImage(contentsOfFile: item.dispValue())
+            }
             cell = c
         }
         
@@ -259,9 +268,9 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
     
     private func showOfflineImageSelector(object: EntryImageItem) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "ImageSelector", bundle: nil)
+        let storyboard: UIStoryboard = UIStoryboard(name: "OfflineImageSelector", bundle: nil)
         let nav = storyboard.instantiateInitialViewController() as! UINavigationController
-        let vc = nav.topViewController as! ImageSelectorTableViewController
+        let vc = nav.topViewController as! OfflineImageSelectorTableViewController
         vc.blog = blog
         vc.delegate = self
         vc.showAlign = true
@@ -297,6 +306,9 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
         blocks.blocks = self.items
         blocks.isDirty = true
+        for filename in addedImageFiles {
+            entryAddedImageFiles.items.append(filename)
+        }
         self.navigationController?.popViewControllerAnimated(true)
     }
 
@@ -350,11 +362,24 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         let item = vc.object
         item.asset = asset
         (item as! BlockImageItem).align = controller.imageAlign
-        items.append(item)
+        if items.indexOf(item) < 0 {
+            items.append(item)
+        }
         self.tableView.reloadData()
     }
     
     func AddAssetsDone(controller: AddAssetTableViewController) {
+    }
+    
+    func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        item.asset = nil
+        (item as! BlockImageItem).align = controller.imageAlign
+        if items.indexOf(item) < 0 {
+            items.append(item)
+        }
+        addedImageFiles.append((item as! BlockImageItem).imageFilename)
+        self.tableView.reloadData()
     }
     
     @IBAction func textAddButtonPushed(sender: UIBarButtonItem) {
@@ -402,17 +427,27 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         html += self.makeItemsHTML()
 
         html += "</body></html>"
-        
+
         return html
     }
     
+    func cleanup() {
+        for path in self.addedImageFiles {
+            let fileManager = NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch {
+            }
+        }
+    }
+
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
         if self.makeItemsHTML() == blocks.value() {
             self.navigationController?.popViewControllerAnimated(true)
             return
         }
-        
-        Utils.confrimSave(self)
+                
+        Utils.confrimSave(self, block:{self.cleanup()})
     }
     
     func guidanceCloseButtonPushed(sender: UIButton) {

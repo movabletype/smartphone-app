@@ -151,6 +151,9 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
     func AddAssetsDone(controller: AddAssetTableViewController) {
     }
 
+    func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
+    }
+    
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
         if self.sourceView.text == object.text {
             self.navigationController?.popViewControllerAnimated(true)

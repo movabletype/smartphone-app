@@ -38,7 +38,7 @@ class EntryImageItem: EntryAssetItem {
     }
     
     override func dispValue()-> String {
-        if self.asset != nil {
+        if !url.isEmpty {
             return url
         }
         

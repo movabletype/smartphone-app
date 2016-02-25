@@ -354,6 +354,93 @@ class EntryItemList: NSObject, NSCoding {
         }
         params["customFields"] = fields
         
+        if object.id.isEmpty {
+            //新規作成時にカテゴリ未選択なら送信しない
+            if let categories = params["categories"] as? [[String: String]] {
+                if categories.count == 0 {
+                    params.removeValueForKey("categories")
+                }
+            }
+            //新規作成時にフォルダ未選択なら送信しない
+            if let folder = params["folder"] as? [String: String] {
+                if let id = folder["id"] {
+                    if id.isEmpty {
+                        params.removeValueForKey("folder")
+                    }
+                } else {
+                    params.removeValueForKey("folder")
+                }
+            }
+        }
+        
+        //id
+        if !object.id.isEmpty {
+            params["id"] = object.id
+        }
+        
+        //Tags
+        var tags = [String]()
+        for tag in object.tags {
+            tags.append(tag.name)
+        }
+        params["tags"] = tags
+        
+        //Assets
+        var assetIDs = [String]()
+        func appendID(id: String) {
+            if !id.isEmpty && !assetIDs.contains(id) {
+                assetIDs.append(id)
+            }
+        }
+        
+        for asset in object.assets {
+            if !assetIDs.contains(asset.id) {
+                assetIDs.append(asset.id)
+            }
+        }
+        for item in self.items {
+            if item is EntryAssetItem {
+                let id = (item as! EntryAssetItem).assetID
+                appendID(id)
+            } else if item is EntryBlocksItem {
+                for block in (item as! EntryBlocksItem).blocks {
+                    if block is EntryAssetItem {
+                        let id = (block as! EntryAssetItem).assetID
+                        appendID(id)
+                    }
+                }
+            } else if item is EntryTextAreaItem {
+                let assets = (item as! EntryTextAreaItem).assets
+                for asset in assets {
+                    let id = asset.id
+                    appendID(id)
+                }
+            }
+        }
+        var assets = [[String: String]]()
+        for id in assetIDs {
+            assets.append(["id":id])
+        }
+        if assets.count > 0 {
+            params["assets"] = assets
+        }
+        
+        //PublishDate
+        if object.date != nil {
+            params["date"] = Utils.ISO8601StringFromDate(object.date!)
+        }
+        
+        //UnpublishDate
+        if object.unpublishedDate != nil {
+            params["unpublishedDate"] = Utils.ISO8601StringFromDate(object.unpublishedDate!)
+        }
+        
+        if object.id.isEmpty {
+            params["format"] = object.editMode.format()
+        }
+        
+        LOG("params:\(params)")
+        
         return params
     }
     

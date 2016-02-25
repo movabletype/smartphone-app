@@ -408,7 +408,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                         c.placeholderLabel.hidden = true
                         c.assetImageView.hidden = false
                         
-                        if !(item as! EntryImageItem).url.isEmpty {
+                        if (item as! EntryImageItem).imageFilename.isEmpty {
                             c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
                         } else {
                             LOG(item.dispValue())

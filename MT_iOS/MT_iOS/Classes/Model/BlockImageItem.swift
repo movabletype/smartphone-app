@@ -44,11 +44,17 @@ class BlockImageItem: EntryImageItem {
             wrapStyle += "style=\"\""
         }
         
-        let url = NSURL(fileURLWithPath: imageFilename)
-        //TODO:画像が読み込めない
-        let html = "<img alt=\"\(label)\" src=\"\(url.absoluteString)\" \(wrapStyle) />"
+        if let data = NSData(contentsOfFile: imageFilename) {
+            var base64 = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding76CharacterLineLength)
+            base64 = base64.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.alphanumericCharacterSet())!
+            
+            let src = "data:image/jpeg;base64," + base64
+            
+            let html = "<img alt=\"\(label)\" src=\"\(src)\" \(wrapStyle) />"
+            return html
+        }
         
-        return html
+        return ""
     }
     
     override func asHtml()-> String {

@@ -618,6 +618,14 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     private func showAssetSelector(item: EntryImageItem) {
+        if object.id.isEmpty {
+            self.showOfflineImageSelector(item)
+        } else {
+            self.showImageSelector(item)
+        }
+    }
+    
+    private func showImageSelector(item: EntryImageItem) {
         let storyboard: UIStoryboard = UIStoryboard(name: "ImageSelector", bundle: nil)
         let nav = storyboard.instantiateInitialViewController() as! UINavigationController
         let vc = nav.topViewController as! ImageSelectorTableViewController
@@ -629,9 +637,22 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.presentViewController(nav, animated: true, completion: nil)
     }
     
+    private func showOfflineImageSelector(item: EntryImageItem) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "OfflineImageSelector", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nav.topViewController as! OfflineImageSelectorTableViewController
+        vc.blog = blog
+        vc.delegate = self
+        vc.showAlign = true
+        vc.object = item
+        vc.entry = self.object
+        self.presentViewController(nav, animated: true, completion: nil)
+    }
+    
     private func imageAction(item: EntryImageItem) {
         if item.dispValue().isEmpty {
             self.showAssetSelector(item)
+            return
         }
         
         let actionSheet: UIAlertController = UIAlertController(title:item.label,

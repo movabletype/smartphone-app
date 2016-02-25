@@ -22,10 +22,10 @@
             </objects>
             <point key="canvasLocation" x="-524" y="320"/>
         </scene>
-        <!--Image Selector Table View Controller-->
+        <!--Offline Image Selector Table View Controller-->
         <scene sceneID="vm9-5K-Lm9">
             <objects>
-                <tableViewController id="mtg-g8-Mkn" customClass="ImageSelectorTableViewController" customModule="MT_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="mtg-g8-Mkn" customClass="OfflineImageSelectorTableViewController" customModule="MT_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="335" sectionHeaderHeight="22" sectionFooterHeight="22" id="yn8-UB-ot4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

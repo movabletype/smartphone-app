@@ -239,6 +239,26 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
     
     private func showAssetSelector(object: EntryImageItem) {
+        if object.id.isEmpty {
+            self.showOfflineImageSelector(object)
+        } else {
+            self.showImageSelector(object)
+        }
+    }
+    
+    private func showImageSelector(object: EntryImageItem) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "ImageSelector", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nav.topViewController as! ImageSelectorTableViewController
+        vc.blog = blog
+        vc.delegate = self
+        vc.showAlign = true
+        vc.object = object
+        vc.entry = self.entry
+        self.presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    private func showOfflineImageSelector(object: EntryImageItem) {
         let storyboard: UIStoryboard = UIStoryboard(name: "ImageSelector", bundle: nil)
         let nav = storyboard.instantiateInitialViewController() as! UINavigationController
         let vc = nav.topViewController as! ImageSelectorTableViewController

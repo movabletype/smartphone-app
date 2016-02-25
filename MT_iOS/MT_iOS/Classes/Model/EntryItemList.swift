@@ -538,4 +538,27 @@ class EntryItemList: NSObject, NSCoding {
             item.isDirty = false
         }
     }
+    
+    func notUploadedImages()->[EntryImageItem] {
+        var images = [EntryImageItem]()
+        for item in items {
+            if item is EntryImageItem {
+                let imageItem = (item as! EntryImageItem)
+                if !imageItem.imageFilename.isEmpty {
+                    images.append(imageItem)
+                }
+            } else if item is EntryBlocksItem {
+                for block in (item as! EntryBlocksItem).blocks {
+                    if block is BlockImageItem {
+                        let imageItem = (block as! BlockImageItem)
+                        if !imageItem.imageFilename.isEmpty {
+                            images.append(imageItem)
+                        }
+                    }
+                }
+            }
+
+        }
+        return images
+    }
 }

@@ -7,46 +7,60 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" id="KGk-i7-Jjw" customClass="UploaderTableViewCell" customModule="MT_iOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="UploaderTableViewCell" customModule="MT_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="281" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dav-SW-4P1">
-                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="44" id="Pfx-8h-dit"/>
+                            <constraint firstAttribute="width" constant="50" id="2J5-yo-Bhg"/>
                         </constraints>
                     </imageView>
                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="z6b-0Q-KnG">
-                        <rect key="frame" x="52" y="33" width="221" height="2"/>
+                        <rect key="frame" x="58" y="35" width="221" height="2"/>
                     </progressView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aj7-00-VCP">
-                        <rect key="frame" x="52" y="8" width="221" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="58" y="8" width="221" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_selectcheck" translatesAutoresizingMaskIntoConstraints="NO" id="JB8-1q-dCw">
+                        <rect key="frame" x="287" y="12" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Gub-GI-x4A"/>
+                            <constraint firstAttribute="width" constant="25" id="qtc-QB-05w"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="aj7-00-VCP" firstAttribute="leading" secondItem="Dav-SW-4P1" secondAttribute="trailing" constant="8" id="7Dn-ZT-Ext"/>
-                    <constraint firstItem="aj7-00-VCP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="8Tl-Ai-XDI"/>
-                    <constraint firstItem="Dav-SW-4P1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9H9-Xf-SRo"/>
-                    <constraint firstAttribute="bottom" secondItem="Dav-SW-4P1" secondAttribute="bottom" id="FRo-2K-c8d"/>
-                    <constraint firstAttribute="trailing" secondItem="z6b-0Q-KnG" secondAttribute="trailing" constant="8" id="FeT-8j-I2H"/>
-                    <constraint firstItem="z6b-0Q-KnG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="52" id="Yn3-ym-U2h"/>
-                    <constraint firstItem="Dav-SW-4P1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="aGo-5a-xGQ"/>
-                    <constraint firstAttribute="trailing" secondItem="aj7-00-VCP" secondAttribute="trailing" constant="8" id="bKx-tR-A6o"/>
-                    <constraint firstAttribute="bottom" secondItem="z6b-0Q-KnG" secondAttribute="bottom" constant="8" id="iT6-Kr-DWc"/>
+                    <constraint firstItem="aj7-00-VCP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="HCB-No-Y17"/>
+                    <constraint firstAttribute="trailing" secondItem="z6b-0Q-KnG" secondAttribute="trailing" constant="41" id="IDx-KG-ZN3"/>
+                    <constraint firstItem="aj7-00-VCP" firstAttribute="leading" secondItem="Dav-SW-4P1" secondAttribute="trailing" constant="8" id="Ium-Yu-Xsm"/>
+                    <constraint firstAttribute="trailing" secondItem="JB8-1q-dCw" secondAttribute="trailing" constant="8" id="Jio-KZ-mG0"/>
+                    <constraint firstItem="Dav-SW-4P1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="PRr-NM-GxB"/>
+                    <constraint firstAttribute="bottom" secondItem="Dav-SW-4P1" secondAttribute="bottom" id="WFc-nl-itp"/>
+                    <constraint firstItem="z6b-0Q-KnG" firstAttribute="top" secondItem="aj7-00-VCP" secondAttribute="bottom" constant="9" id="lJp-MR-JmA"/>
+                    <constraint firstItem="Dav-SW-4P1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="lkf-cK-0VJ"/>
+                    <constraint firstItem="z6b-0Q-KnG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="58" id="mTt-Cq-8Ul"/>
+                    <constraint firstItem="JB8-1q-dCw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ovV-ok-lOL"/>
+                    <constraint firstAttribute="trailing" secondItem="aj7-00-VCP" secondAttribute="trailing" constant="41" id="rym-IK-egB"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="checkMark" destination="JB8-1q-dCw" id="Cxg-xr-xvU"/>
                 <outlet property="nameLabel" destination="aj7-00-VCP" id="d8o-N4-Swe"/>
                 <outlet property="progressView" destination="z6b-0Q-KnG" id="64w-tr-XzW"/>
                 <outlet property="thumbView" destination="Dav-SW-4P1" id="sds-3K-Icn"/>
             </connections>
+            <point key="canvasLocation" x="47" y="325"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ico_selectcheck" width="25" height="25"/>
+    </resources>
 </document>

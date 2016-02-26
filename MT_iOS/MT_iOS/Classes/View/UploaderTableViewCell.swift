@@ -12,11 +12,13 @@ class UploaderTableViewCell: UITableViewCell {
     @IBOutlet weak var thumbView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var checkMark: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         progress = 0.0
+        self.checkMark.alpha = 0.0
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -36,10 +38,10 @@ class UploaderTableViewCell: UITableViewCell {
 
     var uploaded: Bool {
         get {
-            return (self.accessoryType == .Checkmark)
+            return self.checkMark.alpha == 1.0
         }
         set {
-            self.accessoryType = newValue ? .Checkmark : .None
+            self.checkMark.alpha = newValue ? 1.0 : 0.0
         }
     }
 }

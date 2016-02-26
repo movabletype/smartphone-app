@@ -11,6 +11,7 @@ import MMMarkdown
 
 class EntryBlocksItem: EntryTextAreaItem {
     var blocks = [BaseEntryItem]()
+    var editMode = Entry.EditMode.RichText
    
     override init() {
         super.init()
@@ -35,7 +36,7 @@ class EntryBlocksItem: EntryTextAreaItem {
                 value += block.value() + "\n"
             } else {
                 let sourceText = block.value()
-                if (block as! BlockTextItem).format == Entry.EditMode.Markdown {
+                if self.editMode == Entry.EditMode.Markdown {
                     if isPreview {
                         do {
                             let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)

@@ -33,6 +33,12 @@ class EntryItemList: NSObject, NSCoding {
         self.visibledItems = aDecoder.decodeObjectForKey("visibledItems") as! [BaseEntryItem]
         self.blog = aDecoder.decodeObjectForKey("blog") as! Blog
         self.object = aDecoder.decodeObjectForKey("object") as! BaseEntry
+        
+        for item in items {
+            if item is EntryBlocksItem {
+                (item as! EntryBlocksItem).editMode = self.object.editMode
+            }
+        }
     }
     
     convenience init(blog: Blog, object: BaseEntry) {
@@ -80,6 +86,7 @@ class EntryItemList: NSObject, NSCoding {
         var bodyItem = EntryTextAreaItem()
         if object.id.isEmpty {
             bodyItem = EntryBlocksItem()
+            (bodyItem as! EntryBlocksItem).editMode = object.editMode
         }
         bodyItem.id = "body"
         bodyItem.label = NSLocalizedString("Body", comment: "Body")
@@ -88,6 +95,7 @@ class EntryItemList: NSObject, NSCoding {
         var moreItem = EntryTextAreaItem()
         if object.id.isEmpty {
             moreItem = EntryBlocksItem()
+            (bodyItem as! EntryBlocksItem).editMode = object.editMode
         }
         moreItem.id = "more"
         moreItem.label = NSLocalizedString("Extended", comment: "Extended")

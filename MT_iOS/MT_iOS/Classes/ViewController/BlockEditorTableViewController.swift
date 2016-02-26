@@ -405,7 +405,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             if item is BlockImageItem {
                 html += item.value() + "\n"
             } else {
-                if (item as! BlockTextItem).format == Entry.EditMode.Markdown {
+                if self.entry.editMode == Entry.EditMode.Markdown {
                     let sourceText = item.value()
                     do {
                         let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)

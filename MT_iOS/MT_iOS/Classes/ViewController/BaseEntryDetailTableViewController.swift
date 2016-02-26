@@ -1180,6 +1180,14 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     func entrySettingDone(controller: EntrySettingTableViewController, object: BaseEntry) {
+        if let list = self.list {
+            for item in list.items {
+                if item is EntryBlocksItem {
+                    (item as! EntryBlocksItem).editMode = object.editMode
+                }
+            }
+        }
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class UploadItemPreview: UploadItemPost {
     override func upload(progress progress: ((Int64!, Int64!, Int64!) -> Void)? = nil, success: (JSON! -> Void)!, failure: (JSON! -> Void)!) {
-        let json = itemList.makeParams(false)
+        let json = itemList.makeParams(true)
         
         let isEntry = itemList.object is Entry
         

@@ -46,9 +46,12 @@ class UploadItemAsset: UploadItemImage {
     
     override func makeFilename()->String {
         if let date = asset.creationDate {
-            return Utils.makeJPEGFilename(date)
+            self._filename =  Utils.makeJPEGFilename(date)
+        } else {
+            self._filename = Utils.makeJPEGFilename(NSDate())
         }
-        return Utils.makeJPEGFilename(NSDate())
+        
+        return self._filename
     }
 
 }

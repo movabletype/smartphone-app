@@ -387,6 +387,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             }
             
             let vc = UploaderTableViewController()
+            vc.mode = .Images
             vc.uploader = uploader
             vc.delegate = self
             let nav = UINavigationController(rootViewController: vc)

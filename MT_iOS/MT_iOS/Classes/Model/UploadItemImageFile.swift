@@ -46,11 +46,14 @@ class UploadItemImageFile: UploadItemImage {
         do {
             let attributes = try fileManager.attributesOfFileSystemForPath(path)
             if let date = attributes[NSFileCreationDate] as? NSDate {
-                return Utils.makeJPEGFilename(date)
+                self._filename = Utils.makeJPEGFilename(date)
+            } else {
+                self._filename = Utils.makeJPEGFilename(NSDate())
             }
         } catch _ {
+            self._filename = Utils.makeJPEGFilename(NSDate())
         }
         
-        return Utils.makeJPEGFilename(NSDate())
+        return self._filename
     }
 }

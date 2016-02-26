@@ -16,7 +16,7 @@ class UploadItem: NSObject {
     var uploaded = false
     var progress: Float = 0.0
     
-    var _filename: String = ""
+    internal(set) var _filename: String = ""
     var filename: String {
         get {
             if self._filename.isEmpty {

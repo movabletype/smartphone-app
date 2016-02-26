@@ -10,6 +10,8 @@ import UIKit
 
 class EntryImageItem: EntryAssetItem {
     var imageFilename = ""
+    var uploadPath = ""
+    var uploadFilename = ""
     
     override init() {
         super.init()
@@ -20,12 +22,20 @@ class EntryImageItem: EntryAssetItem {
     override func encodeWithCoder(aCoder: NSCoder) {
         super.encodeWithCoder(aCoder)
         aCoder.encodeObject(self.imageFilename, forKey: "imageFilename")
+        aCoder.encodeObject(self.uploadPath, forKey: "uploadPath")
+        aCoder.encodeObject(self.uploadFilename, forKey: "uploadFilename")
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         if let text = aDecoder.decodeObjectForKey("imageFilename") as? String {
             self.imageFilename = text
+        }
+        if let text = aDecoder.decodeObjectForKey("uploadPath") as? String {
+            self.uploadPath = text
+        }
+        if let text = aDecoder.decodeObjectForKey("uploadFilename") as? String {
+            self.uploadFilename = text
         }
     }
 

@@ -104,6 +104,16 @@ class OfflineImageSelectorTableViewController: ImageSelectorTableViewController 
                         //TODO:エラー表示
                         self.object.imageFilename = ""
                     }
+                    self.object.uploadPath = self.uploadDir
+                    
+                    var date = NSDate()
+                    if let url = info[UIImagePickerControllerReferenceURL] as? NSURL {
+                        let fetchResult = PHAsset.fetchAssetsWithALAssetURLs([url], options: nil)
+                        if let asset = fetchResult.firstObject as? PHAsset {
+                            date = asset.creationDate!
+                        }
+                    }
+                    self.object.uploadFilename = Utils.makeJPEGFilename(date)
                     
                     self.delegate?.AddOfflineImageDone(self, item: self.object)
                 }

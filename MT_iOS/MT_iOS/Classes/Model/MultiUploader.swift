@@ -13,6 +13,7 @@ import SVProgressHUD
 class MultiUploader: NSObject {
     private(set) var items = [UploadItem]()
     private var queue = [UploadItem]()
+    private(set) var result: JSON?
     
     var blogID = ""
     var uploadPath = ""
@@ -35,6 +36,24 @@ class MultiUploader: NSObject {
         item.width = width
         item.quality = quality
         self.addItem(item)
+    }
+    
+    func addImageItem(imageItem: EntryImageItem, blogID: String) {
+        let item = UploadItemImageItem(imageItem: imageItem)
+        item.blogID = blogID
+        items.append(item)
+    }
+    
+    func addPost(itemList: EntryItemList) {
+        let item = UploadItemPost(itemList: itemList)
+        item.blogID = itemList.blog.id
+        items.append(item)
+    }
+    
+    func addPreview(itemList: EntryItemList) {
+        let item = UploadItemPreview(itemList: itemList)
+        item.blogID = itemList.blog.id
+        items.append(item)
     }
     
     func count()->Int {
@@ -88,6 +107,7 @@ class MultiUploader: NSObject {
                     self.queue.removeFirst()
                     if self.queue.count == 0 {
                         progressHandler?(item, 1.0)
+                        self.result = result
                         successFinish()
                     } else {
                         self.upload(progress: progressHandler, success: successHandler, failure: failureHandler)

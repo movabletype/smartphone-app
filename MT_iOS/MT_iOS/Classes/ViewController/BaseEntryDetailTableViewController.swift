@@ -15,7 +15,7 @@ class stringArray {
     var items = [String]()
 }
 
-class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingDelegate, DatePickerViewControllerDelegate, AddAssetDelegate {
+class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingDelegate, DatePickerViewControllerDelegate, AddAssetDelegate, UploaderTableViewControllerDelegate {
     var object: BaseEntry!
     var blog: Blog!
     var list: EntryItemList?
@@ -23,6 +23,8 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     var addedImageFiles = stringArray()
     
     let headerHeight: CGFloat = 30.0
+    
+    var uploader = MultiUploader()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -781,7 +783,53 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         vc.delegate = self
         self.presentViewController(nav, animated: true, completion: nil)
     }
+
+    private func previewSuccess(controller: UploaderTableViewController) {
+        controller.dismissViewControllerAnimated(false,
+            completion: {
+                var url = ""
+                if let json = controller.result {
+                    url = json["preview"].stringValue
+                }
+                
+                if !url.isEmpty {
+                    let vc = PreviewViewController()
+                    let nav = UINavigationController(rootViewController: vc)
+                    vc.url = url
+                    self.presentViewController(nav, animated: true, completion: nil)
+                }
+            }
+        )
+    }
     
+    func UploaderFinish(controller: UploaderTableViewController) {
+        if controller.mode == .Preview {
+            self.previewSuccess(controller)
+        } else if controller.mode == .Post {
+            self.postSuccess(controller)
+        }
+    }
+    
+    private func preview() {
+        self.uploader = MultiUploader()
+        uploader.blogID = self.blog.id
+        if let items = self.list?.notUploadedImages() {
+            for item in items {
+                uploader.addImageItem(item, blogID: self.blog.id)
+            }
+        }
+        
+        uploader.addPreview(self.list!)
+        
+        let vc = UploaderTableViewController()
+        vc.mode = .Preview
+        vc.uploader = uploader
+        vc.delegate = self
+        let nav = UINavigationController(rootViewController: vc)
+        self.presentViewController(nav, animated: false, completion: nil)
+    }
+
+/*
     private func preview() {
         let json = self.makeParams(true)
         if json == nil {
@@ -829,6 +877,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             failure: failure
         )
     }
+*/
     
     @IBAction func previewButtonPushed(sender: UIBarButtonItem) {
         self.preview()
@@ -849,6 +898,58 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         return nil
     }
     
+    private func postSuccess(controller: UploaderTableViewController) {
+        controller.dismissViewControllerAnimated(false,
+            completion: {
+                let isEntry = self.object is Entry
+                
+                self.list!.removeDraftData()
+                
+                var newObject: BaseEntry? = nil
+                if let json = controller.result {
+                    if isEntry {
+                        newObject = Entry(json: json)
+                    } else {
+                        newObject = Page(json: json)
+                    }
+                }
+                
+                if newObject != nil {
+                    self.object = newObject
+                }
+                
+                self.title = self.object.title
+                
+                self.list = EntryItemList(blog: self.blog, object: self.object)
+                
+                self.tableView.reloadData()
+                self.makeToolbarItems()
+                
+                self.list!.clean()
+            }
+        )
+    }
+
+    private func saveEntry() {
+        self.uploader = MultiUploader()
+        uploader.blogID = self.blog.id
+        if let items = self.list?.notUploadedImages() {
+            for item in items {
+                uploader.addImageItem(item, blogID: self.blog.id)
+            }
+        }
+        
+        uploader.addPost(self.list!)
+        
+        let vc = UploaderTableViewController()
+        vc.mode = .Post
+        vc.uploader = uploader
+        vc.delegate = self
+        let nav = UINavigationController(rootViewController: vc)
+        self.presentViewController(nav, animated: false, completion: nil)
+    }
+    
+/*
     private func saveEntry() {
         let json = self.makeParams(false)
         if json == nil {
@@ -921,7 +1022,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             failure: failure
         )
     }
-    
+*/
     private func checkModified() {
         let id = self.object.id
         if id.isEmpty {

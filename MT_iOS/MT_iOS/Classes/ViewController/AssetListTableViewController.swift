@@ -285,4 +285,8 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
     func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
 
     }
+    
+    func AddOfflineImageStorageError(controller: AddAssetTableViewController, item: EntryImageItem) {
+        
+    }
 }

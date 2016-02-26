@@ -137,21 +137,25 @@ class EntryHTMLEditorViewController: BaseViewController, UITextViewDelegate, Add
     }
     
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        let vc = controller as! ImageSelectorTableViewController
-        let item = vc.object
-        item.asset = asset
-        let align = controller.imageAlign
-        
-        object.assets.append(asset)
-        
-        self.sourceView.replaceRange(self.sourceView.selectedTextRange!, withText: asset.imageHTML(align))
+        self.dismissViewControllerAnimated(false, completion: {
+            let vc = controller as! ImageSelectorTableViewController
+            let item = vc.object
+            item.asset = asset
+            let align = controller.imageAlign
+            
+            self.object.assets.append(asset)
+            
+            self.sourceView.replaceRange(self.sourceView.selectedTextRange!, withText: asset.imageHTML(align))
+        })
     }
     
     func AddAssetsDone(controller: AddAssetTableViewController) {
     }
 
     func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
+    }
+    
+    func AddOfflineImageStorageError(controller: AddAssetTableViewController, item: EntryImageItem) {
     }
     
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {

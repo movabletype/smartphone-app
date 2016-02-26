@@ -357,29 +357,46 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
     
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        let vc = controller as! ImageSelectorTableViewController
-        let item = vc.object
-        item.asset = asset
-        (item as! BlockImageItem).align = controller.imageAlign
-        if items.indexOf(item) < 0 {
-            items.append(item)
-        }
-        self.tableView.reloadData()
+        self.dismissViewControllerAnimated(false, completion: {
+            let vc = controller as! ImageSelectorTableViewController
+            let item = vc.object
+            item.asset = asset
+            (item as! BlockImageItem).align = controller.imageAlign
+            if self.items.indexOf(item) < 0 {
+                self.items.append(item)
+            }
+            self.tableView.reloadData()
+        })
     }
     
     func AddAssetsDone(controller: AddAssetTableViewController) {
     }
     
     func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        item.asset = nil
-        (item as! BlockImageItem).align = controller.imageAlign
-        if items.indexOf(item) < 0 {
-            items.append(item)
-        }
-        addedImageFiles.append((item as! BlockImageItem).imageFilename)
-        self.tableView.reloadData()
+        self.dismissViewControllerAnimated(false, completion: {
+            item.asset = nil
+            (item as! BlockImageItem).align = controller.imageAlign
+            if self.items.indexOf(item) < 0 {
+                self.items.append(item)
+            }
+            self.addedImageFiles.append((item as! BlockImageItem).imageFilename)
+            self.tableView.reloadData()
+        })
+    }
+    
+    func AddOfflineImageStorageError(controller: AddAssetTableViewController, item: EntryImageItem) {
+        self.dismissViewControllerAnimated(false, completion: {
+            let alertController = UIAlertController(
+                title: NSLocalizedString("Error", comment: "Error"),
+                message: NSLocalizedString("The selected image could not be saved to the storage.", comment: "The selected image could not be saved to the storage."),
+                preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                action in
+            }
+            
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        })
     }
     
     @IBAction func textAddButtonPushed(sender: UIBarButtonItem) {

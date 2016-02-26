@@ -1264,24 +1264,42 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        let vc = controller as! ImageSelectorTableViewController
-        let item = vc.object
-        item.asset = asset
-        item.isDirty = true
-        self.tableView.reloadData()
+        self.dismissViewControllerAnimated(false, completion: {
+            let vc = controller as! ImageSelectorTableViewController
+            let item = vc.object
+            item.asset = asset
+            item.isDirty = true
+            self.tableView.reloadData()
+        })
     }
     
     func AddAssetsDone(controller: AddAssetTableViewController) {
     }
     
     func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        item.asset = nil
-        item.isDirty = true
-        addedImageFiles.items.append(item.imageFilename)
-        self.tableView.reloadData()
+        self.dismissViewControllerAnimated(false, completion: {
+            item.asset = nil
+            item.isDirty = true
+            self.addedImageFiles.items.append(item.imageFilename)
+            self.tableView.reloadData()
+        })
     }
+    
+    func AddOfflineImageStorageError(controller: AddAssetTableViewController, item: EntryImageItem) {
+        self.dismissViewControllerAnimated(false, completion: {
+            let alertController = UIAlertController(
+                title: NSLocalizedString("Error", comment: "Error"),
+                message: NSLocalizedString("The selected image could not be saved to the storage.", comment: "The selected image could not be saved to the storage."),
+                preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                action in
+            }
+            
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        })
+    }
+
     func cleanup() {
         for path in self.addedImageFiles.items {
             let fileManager = NSFileManager.defaultManager()

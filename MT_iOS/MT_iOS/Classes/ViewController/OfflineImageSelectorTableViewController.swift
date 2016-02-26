@@ -103,6 +103,7 @@ class OfflineImageSelectorTableViewController: ImageSelectorTableViewController 
                     } else {
                         self.object.imageFilename = ""
                         self.delegate?.AddOfflineImageStorageError(self, item: self.object)
+                        return
                     }
                     self.object.uploadPath = self.uploadDir
                     

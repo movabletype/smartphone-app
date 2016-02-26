@@ -20,6 +20,8 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     var noItemLabel = UILabel()
     var tophImage = UIImageView(image: UIImage(named: "guide_toph_sleep"))
     var guidanceBgView = UIView()
+    
+    private var oldHTML: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +96,8 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         }
                 
         self.tableView.backgroundColor = Color.tableBg
+        
+        oldHTML = self.makeItemsHTML()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -459,7 +463,7 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
 
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
-        if self.makeItemsHTML() == blocks.value() {
+        if self.makeItemsHTML() == oldHTML {
             self.navigationController?.popViewControllerAnimated(true)
             return
         }

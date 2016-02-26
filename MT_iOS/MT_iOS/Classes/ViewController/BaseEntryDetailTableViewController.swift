@@ -787,8 +787,12 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     private func previewSuccess(controller: UploaderTableViewController) {
         controller.dismissViewControllerAnimated(false,
             completion: {
+                guard let json = controller.result else {
+                    return
+                }
+                
                 var url = ""
-                if let json = controller.result {
+                if json["preview"].isExists() {
                     url = json["preview"].stringValue
                 }
                 
@@ -901,17 +905,19 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     private func postSuccess(controller: UploaderTableViewController) {
         controller.dismissViewControllerAnimated(false,
             completion: {
+                guard let json = controller.result else {
+                    return
+                }
+
                 let isEntry = self.object is Entry
                 
                 self.list!.removeDraftData()
                 
                 var newObject: BaseEntry? = nil
-                if let json = controller.result {
-                    if isEntry {
-                        newObject = Entry(json: json)
-                    } else {
-                        newObject = Page(json: json)
-                    }
+                if isEntry {
+                    newObject = Entry(json: json)
+                } else {
+                    newObject = Page(json: json)
                 }
                 
                 if newObject != nil {

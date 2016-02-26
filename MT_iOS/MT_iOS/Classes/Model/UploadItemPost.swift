@@ -37,10 +37,16 @@ class UploadItemPost: UploadItem {
     }
     
     override func makeFilename()->String {
-        if itemList.object is Entry {
-            self._filename = NSLocalizedString("Entry", comment: "Entry")
-        } else {
-            self._filename = NSLocalizedString("Page", comment: "Page")
+        if let item = itemList.itemWithID("title", isCustomField: false) {
+            self._filename = item.dispValue()
+        }
+        
+        if self._filename.isEmpty {
+            if itemList.object is Entry {
+                self._filename = NSLocalizedString("Entry", comment: "Entry")
+            } else {
+                self._filename = NSLocalizedString("Page", comment: "Page")
+            }
         }
         
         return self._filename

@@ -166,8 +166,8 @@ class UploaderTableViewController: BaseTableViewController {
             self.delegate?.UploaderFinish(self)
         }
         
-        alertController.addAction(yesAction)
         alertController.addAction(noAction)
+        alertController.addAction(yesAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     

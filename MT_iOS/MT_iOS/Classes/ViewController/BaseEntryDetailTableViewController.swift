@@ -884,7 +884,24 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
 */
     
     @IBAction func previewButtonPushed(sender: UIBarButtonItem) {
-        self.preview()
+        let alertController = UIAlertController(
+            title: NSLocalizedString("Preview", comment: "Preview"),
+            message: NSLocalizedString("Need to upload the images to make a preview.\nAre you sure you want to continue a preview?", comment: "Need to upload the images to make a preview.\nAre you sure you want to continue a preview?"),
+            preferredStyle: .Alert)
+        
+        let yesAction = UIAlertAction(title: NSLocalizedString("YES", comment: "YES"), style: .Default) {
+            action in
+            
+            self.preview()
+        }
+        let noAction = UIAlertAction(title: NSLocalizedString("NO", comment: "NO"), style: .Default) {
+            action in
+
+        }
+        
+        alertController.addAction(noAction)
+        alertController.addAction(yesAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     @IBAction func editButtonPushed(sender: UIBarButtonItem) {

@@ -22,6 +22,7 @@
                     </imageView>
                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="z6b-0Q-KnG">
                         <rect key="frame" x="58" y="35" width="221" height="2"/>
+                        <color key="tintColor" red="0.0" green="0.69803921568627447" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                     </progressView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aj7-00-VCP">
                         <rect key="frame" x="58" y="8" width="221" height="18"/>
@@ -38,17 +39,17 @@
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="z6b-0Q-KnG" secondAttribute="trailing" constant="41" id="BiY-xQ-jaB"/>
                     <constraint firstItem="aj7-00-VCP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="HCB-No-Y17"/>
-                    <constraint firstAttribute="trailing" secondItem="z6b-0Q-KnG" secondAttribute="trailing" constant="41" id="IDx-KG-ZN3"/>
                     <constraint firstItem="aj7-00-VCP" firstAttribute="leading" secondItem="Dav-SW-4P1" secondAttribute="trailing" constant="8" id="Ium-Yu-Xsm"/>
+                    <constraint firstAttribute="bottom" secondItem="z6b-0Q-KnG" secondAttribute="bottom" constant="12.5" id="JYE-Q6-qia"/>
                     <constraint firstAttribute="trailing" secondItem="JB8-1q-dCw" secondAttribute="trailing" constant="8" id="Jio-KZ-mG0"/>
                     <constraint firstItem="Dav-SW-4P1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="PRr-NM-GxB"/>
                     <constraint firstAttribute="bottom" secondItem="Dav-SW-4P1" secondAttribute="bottom" id="WFc-nl-itp"/>
-                    <constraint firstItem="z6b-0Q-KnG" firstAttribute="top" secondItem="aj7-00-VCP" secondAttribute="bottom" constant="9" id="lJp-MR-JmA"/>
                     <constraint firstItem="Dav-SW-4P1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="lkf-cK-0VJ"/>
-                    <constraint firstItem="z6b-0Q-KnG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="58" id="mTt-Cq-8Ul"/>
                     <constraint firstItem="JB8-1q-dCw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ovV-ok-lOL"/>
                     <constraint firstAttribute="trailing" secondItem="aj7-00-VCP" secondAttribute="trailing" constant="41" id="rym-IK-egB"/>
+                    <constraint firstItem="z6b-0Q-KnG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="58" id="v3g-N9-7mT"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

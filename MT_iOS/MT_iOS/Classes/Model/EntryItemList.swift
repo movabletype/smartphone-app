@@ -354,6 +354,93 @@ class EntryItemList: NSObject, NSCoding {
         }
         params["customFields"] = fields
         
+        if object.id.isEmpty {
+            //新規作成時にカテゴリ未選択なら送信しない
+            if let categories = params["categories"] as? [[String: String]] {
+                if categories.count == 0 {
+                    params.removeValueForKey("categories")
+                }
+            }
+            //新規作成時にフォルダ未選択なら送信しない
+            if let folder = params["folder"] as? [String: String] {
+                if let id = folder["id"] {
+                    if id.isEmpty {
+                        params.removeValueForKey("folder")
+                    }
+                } else {
+                    params.removeValueForKey("folder")
+                }
+            }
+        }
+        
+        //id
+        if !object.id.isEmpty {
+            params["id"] = object.id
+        }
+        
+        //Tags
+        var tags = [String]()
+        for tag in object.tags {
+            tags.append(tag.name)
+        }
+        params["tags"] = tags
+        
+        //Assets
+        var assetIDs = [String]()
+        func appendID(id: String) {
+            if !id.isEmpty && !assetIDs.contains(id) {
+                assetIDs.append(id)
+            }
+        }
+        
+        for asset in object.assets {
+            if !assetIDs.contains(asset.id) {
+                assetIDs.append(asset.id)
+            }
+        }
+        for item in self.items {
+            if item is EntryAssetItem {
+                let id = (item as! EntryAssetItem).assetID
+                appendID(id)
+            } else if item is EntryBlocksItem {
+                for block in (item as! EntryBlocksItem).blocks {
+                    if block is EntryAssetItem {
+                        let id = (block as! EntryAssetItem).assetID
+                        appendID(id)
+                    }
+                }
+            } else if item is EntryTextAreaItem {
+                let assets = (item as! EntryTextAreaItem).assets
+                for asset in assets {
+                    let id = asset.id
+                    appendID(id)
+                }
+            }
+        }
+        var assets = [[String: String]]()
+        for id in assetIDs {
+            assets.append(["id":id])
+        }
+        if assets.count > 0 {
+            params["assets"] = assets
+        }
+        
+        //PublishDate
+        if object.date != nil {
+            params["date"] = Utils.ISO8601StringFromDate(object.date!)
+        }
+        
+        //UnpublishDate
+        if object.unpublishedDate != nil {
+            params["unpublishedDate"] = Utils.ISO8601StringFromDate(object.unpublishedDate!)
+        }
+        
+        if object.id.isEmpty {
+            params["format"] = object.editMode.format()
+        }
+        
+        LOG("params:\(params)")
+        
         return params
     }
     
@@ -417,6 +504,15 @@ class EntryItemList: NSObject, NSCoding {
     }
     
     func removeDraftData()-> Bool {
+        let paths = self.ImageFiles()
+        for path in paths {
+            let fileManager = NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch {
+            }
+        }
+        
         if !self.filename.isEmpty {
             let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
             var path = paths[0].stringByAppendingPathComponent(self.dataDir())
@@ -450,5 +546,51 @@ class EntryItemList: NSObject, NSCoding {
         for item in items {
             item.isDirty = false
         }
+    }
+    
+    func notUploadedImages()->[EntryImageItem] {
+        var images = [EntryImageItem]()
+        for item in items {
+            if item is EntryImageItem {
+                let imageItem = (item as! EntryImageItem)
+                if !imageItem.imageFilename.isEmpty {
+                    images.append(imageItem)
+                }
+            } else if item is EntryBlocksItem {
+                for block in (item as! EntryBlocksItem).blocks {
+                    if block is BlockImageItem {
+                        let imageItem = (block as! BlockImageItem)
+                        if !imageItem.imageFilename.isEmpty {
+                            images.append(imageItem)
+                        }
+                    }
+                }
+            }
+
+        }
+        return images
+    }
+
+    func ImageFiles()->[String] {
+        var files = [String]()
+        for item in items {
+            if item is EntryImageItem {
+                let imageItem = (item as! EntryImageItem)
+                if !imageItem.imageFilename.isEmpty {
+                    files.append(imageItem.imageFilename)
+                }
+            } else if item is EntryBlocksItem {
+                for block in (item as! EntryBlocksItem).blocks {
+                    if block is BlockImageItem {
+                        let imageItem = (block as! BlockImageItem)
+                        if !imageItem.imageFilename.isEmpty {
+                            files.append(imageItem.imageFilename)
+                        }
+                    }
+                }
+            }
+            
+        }
+        return files
     }
 }

@@ -31,15 +31,44 @@ class BlockImageItem: EntryImageItem {
         self.align = Blog.ImageAlign(rawValue: aDecoder.decodeIntegerForKey("align"))!
     }
 
+    func imageHTML(align: Blog.ImageAlign)-> String {
+        var wrapStyle = "class=\"mt-image-\(align.value().lowercaseString)\" "
+        switch align {
+        case .Left:
+            wrapStyle += "style=\"float: left; margin: 0 20px 20px 0;\""
+        case .Right:
+            wrapStyle += "style=\"float: right; margin: 0 0 20px 20px;\""
+        case .Center:
+            wrapStyle += "style=\"text-align: center; display: block; margin: 0 auto 20px;\""
+        default:
+            wrapStyle += "style=\"\""
+        }
+        
+        if let data = NSData(contentsOfFile: imageFilename) {
+            var base64 = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding76CharacterLineLength)
+            base64 = base64.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.alphanumericCharacterSet())!
+            
+            let src = "data:image/jpeg;base64," + base64
+            
+            let html = "<img alt=\"\(label)\" src=\"\(src)\" \(wrapStyle) />"
+            return html
+        }
+        
+        return ""
+    }
+    
     override func asHtml()-> String {
         if asset != nil {
             return asset!.imageHTML(align)
+        }
+        if !imageFilename.isEmpty {
+            return self.imageHTML(align)
         }
         return ""
     }
     
     override func value()-> String {
-        if url.isEmpty {
+        if url.isEmpty && imageFilename.isEmpty {
             return ""
         }
         

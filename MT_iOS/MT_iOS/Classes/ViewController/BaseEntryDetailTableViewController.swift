@@ -11,13 +11,20 @@ import ZSSRichTextEditor
 import SwiftyJSON
 import SVProgressHUD
 
-class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingDelegate, DatePickerViewControllerDelegate, AddAssetDelegate {
+class stringArray {
+    var items = [String]()
+}
+
+class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingDelegate, DatePickerViewControllerDelegate, AddAssetDelegate, UploaderTableViewControllerDelegate {
     var object: BaseEntry!
     var blog: Blog!
     var list: EntryItemList?
     var selectedIndexPath: NSIndexPath?
+    var addedImageFiles = stringArray()
     
     let headerHeight: CGFloat = 30.0
+    
+    var uploader = MultiUploader()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -313,13 +320,18 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     if blockItem.isImageCell() {
                         let c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
                         LOG(blockItem.dispValue())
-                        let url = blockItem.dispValue()
-                        if url.isEmpty {
+                        if item.dispValue().isEmpty {
                             c.assetImageView.hidden = true
                             c.placeholderLabel?.text = blockItem.placeholder()
                             c.placeholderLabel.hidden = false
                         } else {
-                            c.assetImageView.sd_setImageWithURL(NSURL(string: url))
+                            let value = item.dispValue()
+                            if !value.hasPrefix("/") {
+                                c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                            } else {
+                                c.assetImageView.image = UIImage(contentsOfFile: item.dispValue())
+                            }
+
                             c.assetImageView.hidden = false
                             c.placeholderLabel.hidden = true
                         }
@@ -397,7 +409,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     } else {
                         c.placeholderLabel.hidden = true
                         c.assetImageView.hidden = false
-                        c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                        
+                        if (item as! EntryImageItem).imageFilename.isEmpty {
+                            c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                        } else {
+                            LOG(item.dispValue())
+                            c.assetImageView.image = UIImage(contentsOfFile: item.dispValue())
+                        }
                     }
                     cell = c
                 }
@@ -548,6 +566,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         vc.blog = blog
         vc.blocks = item
         vc.entry = self.object
+        vc.entryAddedImageFiles = self.addedImageFiles
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -618,6 +637,14 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     private func showAssetSelector(item: EntryImageItem) {
+        if object.id.isEmpty {
+            self.showOfflineImageSelector(item)
+        } else {
+            self.showImageSelector(item)
+        }
+    }
+    
+    private func showImageSelector(item: EntryImageItem) {
         let storyboard: UIStoryboard = UIStoryboard(name: "ImageSelector", bundle: nil)
         let nav = storyboard.instantiateInitialViewController() as! UINavigationController
         let vc = nav.topViewController as! ImageSelectorTableViewController
@@ -629,9 +656,22 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.presentViewController(nav, animated: true, completion: nil)
     }
     
+    private func showOfflineImageSelector(item: EntryImageItem) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "OfflineImageSelector", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nav.topViewController as! OfflineImageSelectorTableViewController
+        vc.blog = blog
+        vc.delegate = self
+        vc.showAlign = true
+        vc.object = item
+        vc.entry = self.object
+        self.presentViewController(nav, animated: true, completion: nil)
+    }
+    
     private func imageAction(item: EntryImageItem) {
         if item.dispValue().isEmpty {
             self.showAssetSelector(item)
+            return
         }
         
         let actionSheet: UIAlertController = UIAlertController(title:item.label,
@@ -743,7 +783,57 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         vc.delegate = self
         self.presentViewController(nav, animated: true, completion: nil)
     }
+
+    private func previewSuccess(controller: UploaderTableViewController) {
+        controller.dismissViewControllerAnimated(false,
+            completion: {
+                guard let json = controller.result else {
+                    return
+                }
+                
+                var url = ""
+                if json["preview"].isExists() {
+                    url = json["preview"].stringValue
+                }
+                
+                if !url.isEmpty {
+                    let vc = PreviewViewController()
+                    let nav = UINavigationController(rootViewController: vc)
+                    vc.url = url
+                    self.presentViewController(nav, animated: true, completion: nil)
+                }
+            }
+        )
+    }
     
+    func UploaderFinish(controller: UploaderTableViewController) {
+        if controller.mode == .Preview {
+            self.previewSuccess(controller)
+        } else if controller.mode == .Post {
+            self.postSuccess(controller)
+        }
+    }
+    
+    private func preview() {
+        self.uploader = MultiUploader()
+        uploader.blogID = self.blog.id
+        if let items = self.list?.notUploadedImages() {
+            for item in items {
+                uploader.addImageItem(item, blogID: self.blog.id)
+            }
+        }
+        
+        uploader.addPreview(self.list!)
+        
+        let vc = UploaderTableViewController()
+        vc.mode = .Preview
+        vc.uploader = uploader
+        vc.delegate = self
+        let nav = UINavigationController(rootViewController: vc)
+        self.presentViewController(nav, animated: false, completion: nil)
+    }
+
+/*
     private func preview() {
         let json = self.makeParams(true)
         if json == nil {
@@ -791,6 +881,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             failure: failure
         )
     }
+*/
     
     @IBAction func previewButtonPushed(sender: UIBarButtonItem) {
         self.preview()
@@ -804,100 +895,67 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     private func makeParams(preview: Bool)-> [String:AnyObject]? {
-        var params = list?.makeParams(preview)
-        if params != nil {
-            if object.id.isEmpty {
-                //新規作成時にカテゴリ未選択なら送信しない
-                if let categories = params!["categories"] as? [[String: String]] {
-                    if categories.count == 0 {
-                        params?.removeValueForKey("categories")
-                    }
-                }
-                //新規作成時にフォルダ未選択なら送信しない
-                if let folder = params!["folder"] as? [String: String] {
-                    if let id = folder["id"] {
-                        if id.isEmpty {
-                            params?.removeValueForKey("folder")
-                        }
-                    } else {
-                        params?.removeValueForKey("folder")
-                    }
-                }
-            }
-            
-            //id
-            if !object.id.isEmpty {
-                params!["id"] = object.id
-            }
-            
-            //Tags
-            var tags = [String]()
-            for tag in object.tags {
-                tags.append(tag.name)
-            }
-            params!["tags"] = tags
-            
-            //Assets
-            var assetIDs = [String]()
-            func appendID(id: String) {
-                if !id.isEmpty && !assetIDs.contains(id) {
-                    assetIDs.append(id)
-                }
-            }
-            
-            for asset in object.assets {
-                if !assetIDs.contains(asset.id) {
-                    assetIDs.append(asset.id)
-                }
-            }
-            for item in list!.items {
-                if item is EntryAssetItem {
-                    let id = (item as! EntryAssetItem).assetID
-                    appendID(id)
-                } else if item is EntryBlocksItem {
-                    for block in (item as! EntryBlocksItem).blocks {
-                        if block is EntryAssetItem {
-                            let id = (block as! EntryAssetItem).assetID
-                            appendID(id)
-                        }
-                    }
-                } else if item is EntryTextAreaItem {
-                    let assets = (item as! EntryTextAreaItem).assets
-                    for asset in assets {
-                        let id = asset.id
-                        appendID(id)
-                    }
-                }
-            }
-            var assets = [[String: String]]()
-            for id in assetIDs {
-                assets.append(["id":id])
-            }
-            if assets.count > 0 {
-                params!["assets"] = assets
-            }
-
-            //PublishDate
-            if object.date != nil {
-                params!["date"] = Utils.ISO8601StringFromDate(object.date!)
-            }
-            
-            //UnpublishDate
-            if object.unpublishedDate != nil {
-                params!["unpublishedDate"] = Utils.ISO8601StringFromDate(object.unpublishedDate!)
-            }
-            
-            if object.id.isEmpty {
-                params!["format"] = object.editMode.format()
-            }
-            
-            LOG("params:\(params)")
-            
-            return params!
+        if let params = list?.makeParams(preview) {
+            return params
         }
+
         return nil
     }
     
+    private func postSuccess(controller: UploaderTableViewController) {
+        controller.dismissViewControllerAnimated(false,
+            completion: {
+                guard let json = controller.result else {
+                    return
+                }
+
+                let isEntry = self.object is Entry
+                
+                self.list!.removeDraftData()
+                
+                var newObject: BaseEntry? = nil
+                if isEntry {
+                    newObject = Entry(json: json)
+                } else {
+                    newObject = Page(json: json)
+                }
+                
+                if newObject != nil {
+                    self.object = newObject
+                }
+                
+                self.title = self.object.title
+                
+                self.list = EntryItemList(blog: self.blog, object: self.object)
+                
+                self.tableView.reloadData()
+                self.makeToolbarItems()
+                
+                self.list!.clean()
+            }
+        )
+    }
+
+    private func saveEntry() {
+        self.uploader = MultiUploader()
+        uploader.blogID = self.blog.id
+        if let items = self.list?.notUploadedImages() {
+            for item in items {
+                uploader.addImageItem(item, blogID: self.blog.id)
+            }
+        }
+        
+        uploader.addPost(self.list!)
+        
+        let vc = UploaderTableViewController()
+        vc.mode = .Post
+        vc.uploader = uploader
+        vc.delegate = self
+        let nav = UINavigationController(rootViewController: vc)
+        self.presentViewController(nav, animated: false, completion: nil)
+    }
+    
+/*
     private func saveEntry() {
         let json = self.makeParams(false)
         if json == nil {
@@ -970,7 +1028,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             failure: failure
         )
     }
-    
+*/
     private func checkModified() {
         let id = self.object.id
         if id.isEmpty {
@@ -1191,11 +1249,28 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     
     func AddAssetsDone(controller: AddAssetTableViewController) {
     }
-
+    
+    func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        item.asset = nil
+        item.isDirty = true
+        addedImageFiles.items.append(item.imageFilename)
+        self.tableView.reloadData()
+    }
+    func cleanup() {
+        for path in self.addedImageFiles.items {
+            let fileManager = NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch {
+            }
+        }
+    }
+    
     @IBAction func closeButtonPushed(sender: AnyObject) {
         for item in self.list!.items {
             if item.isDirty {
-                Utils.confrimSave(self, dismiss: true)
+                Utils.confrimSave(self, dismiss: true, block: {self.cleanup()})
                 return
             }
         }
@@ -1205,7 +1280,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
         for item in self.list!.items {
             if item.isDirty {
-                Utils.confrimSave(self)
+                Utils.confrimSave(self, block: {self.cleanup()})
                 return
             }
         }

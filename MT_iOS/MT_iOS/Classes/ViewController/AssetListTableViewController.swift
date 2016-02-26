@@ -281,4 +281,8 @@ class AssetListTableViewController: BaseTableViewController, UISearchBarDelegate
             }
         )
     }
+    
+    func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
+
+    }
 }

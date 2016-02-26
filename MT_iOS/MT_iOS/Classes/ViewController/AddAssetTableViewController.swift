@@ -15,6 +15,7 @@ import AssetsLibrary
 import QBImagePickerController
 
 protocol AddAssetDelegate {
+    func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem)
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset)
     func AddAssetsDone(controller: AddAssetTableViewController)
 }
@@ -386,6 +387,7 @@ class AddAssetTableViewController: BaseTableViewController, BlogImageSizeDelegat
             }
             
             let vc = UploaderTableViewController()
+            vc.mode = .Images
             vc.uploader = uploader
             vc.delegate = self
             let nav = UINavigationController(rootViewController: vc)

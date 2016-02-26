@@ -22,7 +22,17 @@ class UploaderTableViewController: BaseTableViewController {
     var success: (Int-> Void)!
     var failure: ((Int, JSON) -> Void)!
     
-    let IMAGE_SIZE: CGFloat = 44.0
+    enum Mode {
+        case Images,
+        Preview,
+        Post
+    }
+    
+    var mode = Mode.Images
+    
+    private(set) var result: JSON?
+    
+    let IMAGE_SIZE: CGFloat = 50.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +53,7 @@ class UploaderTableViewController: BaseTableViewController {
         self.success = {
             (processed: Int) in
             
+            self.result = self.uploader.result
             self.delegate?.UploaderFinish(self)
         }
         self.failure = {
@@ -80,10 +91,7 @@ class UploaderTableViewController: BaseTableViewController {
         let item = self.uploader.items[indexPath.row]
         cell.uploaded = item.uploaded
         cell.progress = item.progress
-        cell.nameLabel.text = ""
-        if item is UploadItemImage {
-            cell.nameLabel.text = item.filename
-        }
+        cell.nameLabel.text = item.filename
         item.thumbnail(CGSize(width: IMAGE_SIZE, height: IMAGE_SIZE),
             completion: { image in
                 cell.thumbView.image = image
@@ -144,7 +152,7 @@ class UploaderTableViewController: BaseTableViewController {
     
     func uploadRestart() {
         let alertController = UIAlertController(
-            title: NSLocalizedString("Image upload", comment: "Image upload"),
+            title: NSLocalizedString("Upload", comment: "Upload"),
             message: NSLocalizedString("There is the rest of the items , you sure that you want to upload again ?", comment: "There is the rest of the items , you sure that you want to upload again ?"),
             preferredStyle: .Alert)
         

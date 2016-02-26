@@ -62,7 +62,11 @@ class EntryBlocksItem: EntryTextAreaItem {
         
         if isImageCell() {
             let block = blocks[0] as! BlockImageItem
-            return block.url
+            if block.asset != nil {
+                return block.url
+            }
+            
+            return block.imageFilename
         } else {
             let block = blocks[0] as! BlockTextItem
             return block.text

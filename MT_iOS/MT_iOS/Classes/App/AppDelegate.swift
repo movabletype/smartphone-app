@@ -198,6 +198,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc.object = Entry(json: ["id":"", "status":"Draft"])
         vc.object.date = NSDate()
         vc.blog = blog
+        vc.object.editMode = blog.editorMode
         let nav = UINavigationController(rootViewController: vc)
         controller.presentViewController(nav, animated: true, completion:
             {_ in

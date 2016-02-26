@@ -198,6 +198,7 @@ class Blog: BaseObject {
     var imageQuality: ImageQuality = .Normal
     var imageAlign: ImageAlign = .None
     var imageCustomWidth = 0
+    var editorMode: BaseEntry.EditMode = .RichText
     
     var endpoint = ""
     
@@ -399,6 +400,9 @@ class Blog: BaseObject {
             if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagecustomwidth", user: user)) as? Int {
                 imageCustomWidth = value
             }
+            if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_editormode", user: user)) as? Int {
+                editorMode = Entry.EditMode(rawValue: value)!
+            }
         }
 
         //V1.0.xとの互換性のため
@@ -434,6 +438,7 @@ class Blog: BaseObject {
             defaults.setInteger(imageSize.rawValue, forKey:self.settingKey("blogsettings_imagesize", user: user))
             defaults.setInteger(imageQuality.rawValue, forKey:self.settingKey("blogsettings_imagequality", user: user))
             defaults.setInteger(imageCustomWidth, forKey:self.settingKey("blogsettings_imagecustomwidth", user: user))
+            defaults.setInteger(editorMode.rawValue, forKey:self.settingKey("blogsettings_editormode", user: user))
             defaults.synchronize()
         }
     }

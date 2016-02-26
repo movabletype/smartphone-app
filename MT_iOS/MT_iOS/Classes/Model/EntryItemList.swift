@@ -504,6 +504,15 @@ class EntryItemList: NSObject, NSCoding {
     }
     
     func removeDraftData()-> Bool {
+        let paths = self.ImageFiles()
+        for path in paths {
+            let fileManager = NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch {
+            }
+        }
+        
         if !self.filename.isEmpty {
             let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
             var path = paths[0].stringByAppendingPathComponent(self.dataDir())
@@ -560,5 +569,28 @@ class EntryItemList: NSObject, NSCoding {
 
         }
         return images
+    }
+
+    func ImageFiles()->[String] {
+        var files = [String]()
+        for item in items {
+            if item is EntryImageItem {
+                let imageItem = (item as! EntryImageItem)
+                if !imageItem.imageFilename.isEmpty {
+                    files.append(imageItem.imageFilename)
+                }
+            } else if item is EntryBlocksItem {
+                for block in (item as! EntryBlocksItem).blocks {
+                    if block is BlockImageItem {
+                        let imageItem = (block as! BlockImageItem)
+                        if !imageItem.imageFilename.isEmpty {
+                            files.append(imageItem.imageFilename)
+                        }
+                    }
+                }
+            }
+            
+        }
+        return files
     }
 }

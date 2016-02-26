@@ -39,9 +39,11 @@ class MultiUploader: NSObject {
     }
     
     func addImageItem(imageItem: EntryImageItem, blogID: String) {
-        let item = UploadItemImageItem(imageItem: imageItem)
-        item.blogID = blogID
-        items.append(item)
+        if let _ = NSData(contentsOfFile: imageItem.imageFilename) {
+            let item = UploadItemImageItem(imageItem: imageItem)
+            item.blogID = blogID
+            items.append(item)
+        }
     }
     
     func addPost(itemList: EntryItemList) {

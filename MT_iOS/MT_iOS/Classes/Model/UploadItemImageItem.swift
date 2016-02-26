@@ -61,7 +61,7 @@ class UploadItemImageItem: UploadItem {
             self.imageItem.asset = asset
             success(result)
         }
-
+        
         api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 let filename = self.makeFilename()

@@ -212,6 +212,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc.object = Page(json: ["id":"", "status":"Draft"])
         vc.object.date = NSDate()
         vc.blog = blog
+        vc.object.editMode = blog.editorMode
         let nav = UINavigationController(rootViewController: vc)
         vc.title = NSLocalizedString("Create page", comment: "Create page")
         controller.presentViewController(nav, animated: true, completion:

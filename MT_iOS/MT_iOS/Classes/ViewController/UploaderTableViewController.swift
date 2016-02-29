@@ -153,7 +153,7 @@ class UploaderTableViewController: BaseTableViewController {
     func uploadRestart() {
         let alertController = UIAlertController(
             title: NSLocalizedString("Upload", comment: "Upload"),
-            message: NSLocalizedString("There is the rest of the items , you sure that you want to upload again ?", comment: "There is the rest of the items , you sure that you want to upload again ?"),
+            message: NSLocalizedString("There is the rest of the items. Are you sure you want to upload again?", comment: "There is the rest of the items. Are you sure you want to upload again?"),
             preferredStyle: .Alert)
         
         let yesAction = UIAlertAction(title: NSLocalizedString("YES", comment: "YES"), style: .Default) {

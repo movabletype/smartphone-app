@@ -543,8 +543,17 @@ class EntryItemList: NSObject, NSCoding {
     
     func requiredCheck()-> BaseEntryItem? {
         for item in items {
-            if item.required && item.value().isEmpty {
-                return item
+            if item is EntryImageItem {
+                let imageItem = item as! EntryImageItem
+                if imageItem.required  {
+                    if imageItem.imageFilename.isEmpty && imageItem.url.isEmpty {
+                        return item
+                    }
+                }
+            } else {
+                if item.required && item.value().isEmpty {
+                    return item
+                }
             }
         }
         return nil

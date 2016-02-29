@@ -40,12 +40,12 @@ class UploadItemPost: UploadItem {
         if let item = itemList.itemWithID("title", isCustomField: false) {
             self._filename = item.dispValue()
         }
-        
+
         if self._filename.isEmpty {
             if itemList.object is Entry {
-                self._filename = NSLocalizedString("Entry", comment: "Entry")
+                self._filename = NSLocalizedString("Untitled entry", comment: "Untitled entry")
             } else {
-                self._filename = NSLocalizedString("Page", comment: "Page")
+                self._filename = NSLocalizedString("Untitled page", comment: "Untitled page")
             }
         }
         

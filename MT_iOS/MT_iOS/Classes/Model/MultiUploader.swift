@@ -101,14 +101,15 @@ class MultiUploader: NSObject {
                         progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
                     }
                     item.progress = progress
-                    progressHandler?(item, progress)
+                    progressHandler?(item, item.progress)
                 }
                 let success: ((JSON!)-> Void) = {
                     (result: JSON!)-> Void in
                     item.uploaded = true
+                    item.progress = 1.0
+                    progressHandler?(item, item.progress)
                     self.queue.removeFirst()
                     if self.queue.count == 0 {
-                        progressHandler?(item, 1.0)
                         self.result = result
                         successFinish()
                     } else {

@@ -17,11 +17,14 @@ class PreviewViewController: BaseViewController, WKUIDelegate, WKNavigationDeleg
     var webView: WKWebView!
     var segmentedControl: UISegmentedControl!
     var indicator: UIActivityIndicatorView!
+    var processPool: WKProcessPool!
     
     private func makeWebView() {
         if self.webView != nil {
             self.webView.removeFromSuperview()
         }
+        
+        self.processPool = WKProcessPool()
         
         if segmentedControl.selectedSegmentIndex == 1 {
             var js = ""
@@ -41,10 +44,14 @@ class PreviewViewController: BaseViewController, WKUIDelegate, WKNavigationDeleg
             
             let configuration = WKWebViewConfiguration()
             configuration.userContentController = controller
+            configuration.processPool = self.processPool;
             
-            self.webView = WKWebView(frame: view.bounds, configuration: configuration)
+            self.webView = WKWebView(frame: self.view.bounds, configuration: configuration)
         } else {
-            self.webView = WKWebView(frame: self.view.bounds)
+            let configuration = WKWebViewConfiguration()
+            configuration.processPool = self.processPool;
+            
+            self.webView = WKWebView(frame: self.view.bounds, configuration: configuration)
         }
         
         //self.webView.scalesPageToFit = true

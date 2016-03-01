@@ -33,22 +33,22 @@ class EntryBlocksItem: EntryTextAreaItem {
         var value = ""
         for block in blocks {
             if block is BlockImageItem {
-                value += block.value() + "\n"
+                value += block.value() + "\n\n"
             } else {
                 let sourceText = block.value()
                 if self.editMode == Entry.EditMode.Markdown {
                     if isPreview {
                         do {
                             let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
-                            value += markdown + "\n"
+                            value += markdown + "\n\n"
                         } catch _ {
-                            value += sourceText + "\n"
+                            value += sourceText + "\n\n"
                         }
                     } else {
-                        value += sourceText + "\n"
+                        value += sourceText + "\n\n"
                     }
                 } else {
-                    value += "<p>" + sourceText + "</p>" + "\n"
+                    value += "<p>" + sourceText + "</p>" + "\n\n"
                 }
             }
         }

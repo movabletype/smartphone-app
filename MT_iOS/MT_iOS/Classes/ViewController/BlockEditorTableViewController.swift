@@ -424,18 +424,18 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         var html = ""
         for item in items {
             if item is BlockImageItem {
-                html += item.value() + "\n"
+                html += item.value() + "\n\n"
             } else {
                 if self.entry.editMode == Entry.EditMode.Markdown {
                     let sourceText = item.value()
                     do {
                         let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
-                        html += markdown + "\n"
+                        html += markdown + "\n\n"
                     } catch _ {
-                        html += sourceText + "\n"
+                        html += sourceText + "\n\n"
                     }
                 } else {
-                    html += "<p>" + item.value() + "</p>" + "\n"
+                    html += "<p>" + item.value() + "</p>" + "\n\n"
                 }
             }
         }

@@ -34,9 +34,9 @@ class UploaderTableViewController: BaseTableViewController {
             case .Preview:
                 return NSLocalizedString("Make preview...", comment: "Make preview...")
             case .PostEntry:
-                return NSLocalizedString("Make entry...", comment: "Make entry...")
+                return NSLocalizedString("Sending entry...", comment: "Sending entry...")
             case .PostPage:
-                return NSLocalizedString("Make page...", comment: "Make page...")
+                return NSLocalizedString("Sending page...", comment: "Sending page...")
             }
         }
     }

@@ -1239,7 +1239,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
             
-            self.navigationController?.popViewControllerAnimated(true)
+            if self.presentingViewController != nil {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                self.navigationController?.popViewControllerAnimated(true)
+            }
         }
         let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in

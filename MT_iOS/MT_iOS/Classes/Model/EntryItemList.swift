@@ -95,7 +95,7 @@ class EntryItemList: NSObject, NSCoding {
         var moreItem = EntryTextAreaItem()
         if object.id.isEmpty {
             moreItem = EntryBlocksItem()
-            (bodyItem as! EntryBlocksItem).editMode = object.editMode
+            (moreItem as! EntryBlocksItem).editMode = object.editMode
         }
         moreItem.id = "more"
         moreItem.label = NSLocalizedString("Extended", comment: "Extended")

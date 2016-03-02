@@ -519,6 +519,12 @@
 		79FD0E001B33E409008EFC16 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		79FD0E011B33E409008EFC16 /* SignIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		8BD41296E3EA0DAFD8BC50C7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9AAE5F51C856AEC00D3C7A0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		B9AAE5F61C856AEC00D3C7A0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B9AAE5F71C856B5100D3C7A0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		B9AAE5F81C856B5100D3C7A0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B9AAE5F91C856B5900D3C7A0 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		B9AAE5FA1C856B5900D3C7A0 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B9C63E8E1BB2870D00917CEE /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		BD8FFE520DCD5B3F56881964 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1209,6 +1215,9 @@
 				Base,
 				ja,
 				fr,
+				de,
+				es,
+				nl,
 			);
 			mainGroup = 7919739A1B09DF2A003EA459;
 			productRefGroup = 791973A41B09DF2A003EA459 /* Products */;
@@ -1561,6 +1570,9 @@
 				790D5AA21B33E2F700D9DE9D /* en */,
 				790D5AA31B33E2F900D9DE9D /* ja */,
 				0F44CC231BA838A200E81517 /* fr */,
+				B9AAE5F61C856AEC00D3C7A0 /* de */,
+				B9AAE5F81C856B5100D3C7A0 /* es */,
+				B9AAE5FA1C856B5900D3C7A0 /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1571,6 +1583,9 @@
 				791973B21B09DF2B003EA459 /* Base */,
 				790D5A9E1B33E2E800D9DE9D /* ja */,
 				0F44CC221BA838A200E81517 /* fr */,
+				B9AAE5F51C856AEC00D3C7A0 /* de */,
+				B9AAE5F71C856B5100D3C7A0 /* es */,
+				B9AAE5F91C856B5900D3C7A0 /* nl */,
 			);
 			name = LaunchScreen.xib;
 			path = ..;

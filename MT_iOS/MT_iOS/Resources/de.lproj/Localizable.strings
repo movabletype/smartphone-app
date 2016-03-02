@@ -1,0 +1,480 @@
+/* Localizable.strings
+  MT_iOS
+
+  Created by CHEEBOW on 2015/06/19.
+  Copyright (c) 2015年 Six Apart, Ltd. All rights reserved. */
+
+/* %@ failured. */
+"%@ failured." = "%@ fehlgeschlagen.";
+
+/* Add Item */
+"Add Item" = "Fotos";
+
+/* Advanced Setting */
+"Advanced Setting" = "Erweiterte Einstellungen";
+
+/* Align */
+"Align" = "Ausrichten";
+
+/* Are you sure not have to save? */
+"Are you sure not have to save?" = "Wirklich verlassen, ohne zu speichern?";
+
+/* Are you sure you want to delete the Entry? */
+"Are you sure you want to delete the Entry?" = "Eintrag wirklich löschen?";
+
+/* Are you sure you want to delete the Item? */
+"Are you sure you want to delete the Item?" = "Element wirklich löschen?";
+
+/* Are you sure you want to delete the Page? */
+"Are you sure you want to delete the Page?" = "Seite wirklich löschen?";
+
+/* Assets */
+"Assets" = "Assets";
+
+/* Author： */
+"Author：" = "Autor:";
+
+/* Basename */
+"Basename" = "Basisname";
+
+/* Basic Auth */
+"Basic Auth" = "Basisauthentifizierung";
+
+/* Body */
+"Body" = "Eintragstext";
+
+/* Cancel */
+"Cancel" = "Abbrechen";
+
+/* Category */
+"Category" = "Kategorie";
+
+/* Caution */
+"Caution" = "Achtung";
+
+/* Center */
+"Center" = "Mitte";
+
+/* Check modified at... */
+"Check modified at..." = "Bearbeitungszeitpunkt prüfen...";
+
+/* Confirm */
+"Confirm" = "Confirm";
+
+/* Create entry */
+"Create entry" = "Eintrag anlegen";
+
+/* Create Entry */
+"Create Entry" = "Eintrag anlegen";
+
+/* Create page */
+"Create page" = "Seite anlegen";
+
+/* Create Page */
+"Create Page" = "Seite anlegen";
+
+/* Create */
+"Create" = "Anlegen";
+
+/* Created at：? */
+"Created at：?" = "Erstellt um: unbekannt";
+
+/* Created at：) */
+"Created at：" = "Erstellt um:";
+
+/* Data on the server seems to be new . Do you want to overwrite it ? */
+"Data on the server seems to be new . Do you want to overwrite it ?" = "Die Daten auf dem Server scheinen neu zu sein. Möchten Sie sie überschreiben?";
+
+/* Date */
+"Date" = "Datum";
+
+/* Delete Entry... */
+"Delete Entry..." = "Eintrag löschen...";
+
+/* Delete Entry */
+"Delete Entry" = "Eintrag löschen";
+
+/* Delete Image */
+"Delete Image" = "Bild löschen";
+
+/* Delete item... */
+"Delete item..." = "Element löschen...";
+
+/* Delete Item */
+"Delete Item" = "Element löschen";
+
+/* Delete Page... */
+"Delete Page..." = "Seite löschen...";
+
+/* Delete Page */
+"Delete Page" = "Seite löschen";
+
+/* Delete this Entry */
+"Delete this Entry" = "Diesen Eintrag löschen";
+
+/* Delete this Page */
+"Delete this Page" = "Diese Seite löschen";
+
+/* Draft */
+"Draft" = "Entwurf";
+
+/* Editor Mode */
+"Editor Mode" = "Editor-Modus";
+
+/* EditorMode */
+"EditorMode" = "Editor-Modus";
+
+/* email */
+"email" = "E-Mail";
+
+/* endpoint */
+"endpoint" = "Endpunkt";
+
+/* Entries of unsent */
+"Entries of unsent" = "Nicht gesendete Einträge";
+
+/* Entries */
+"Entries" = "Einträge";
+
+/* Error */
+"Error" = "Fehler";
+
+/* Excerpt */
+"Excerpt" = "Auszug";
+
+/* Extended */
+"Extended" = "Erweitert";
+
+/* Fetch categories */
+"Fetch categories" = "Kategorien laden";
+
+/* Fetch data */
+"Fetch data" = "Daten laden";
+
+/* Fetch entries */
+"Fetch entries" = "Einträge laden";
+
+/* Fetch folders */
+"Fetch folders" = "Ordner laden";
+
+/* Fetch items failured. */
+"Fetch items failured." = "Laden der Assets fehlgeschlagen.";
+
+/* Fetch pages */
+"Fetch pages" = "Seiten laden";
+
+/* Fetch sites failured. */
+"Fetch sites failured." = "Laden der Seiten fehlgeschlagen.";
+
+/* Fetch sites... */
+"Fetch sites..." = "Sites laden...";
+
+/* Fine */
+"Fine" = "Fein";
+
+/* Folder */
+"Folder" = "Ordner";
+
+/* Forgot password */
+"Forgot password" = "Passwort vergessen";
+
+/* Forgot your password? */
+"Forgot your password?" = "Passwort vergessen?";
+
+/* Future */
+"Future" = "Künftig";
+
+/* Get blog settings... */
+"Get blog settings..." = "Hole Blog-Einstellungen...";
+
+/* Help */
+"Help" = "Hilfe";
+
+/* Image Align */
+"Image Align" = "Bildausrichtung";
+
+/* Image Quality */
+"Image Quality" = "Bildqualität";
+
+/* Image Size */
+"Image Size" = "Bildgröße";
+
+/* Image */
+"Image" = "Bild";
+
+/* Input %@... */
+"Input %@..." = "%@ eingeben...";
+
+/* Items */
+"Items" = "Assets";
+
+/* Keywords */
+"Keywords" = "Schlüsselwörter";
+
+/* Large */
+"Large" = "Groß";
+
+/* Left */
+"Left" = "Links";
+
+/* License */
+"License" = "Lizenz";
+
+/* Loading... */
+"Loading..." = "Lade...";
+
+/* Local saved entries */
+"Local saved entries" = "Nicht gesendete Einträge";
+
+/* Local saved pages */
+"Local saved pages" = "Nicht gesendete Seiten";
+
+/* Logout... */
+"Logout..." = "Abmelden...";
+
+/* Logout */
+"Logout" = "Abmelden";
+
+/* Low */
+"Low" = "Gering";
+
+/* Make preview... */
+"Make preview..." = "Vorschau erzeugen...";
+
+/* Manage entries */
+"Manage entries" = "Einträge verwalten";
+
+/* Manage pages */
+"Manage pages" = "Seiten verwalten";
+
+/* Medium */
+"Medium" = "Mittel";
+
+/* Mobile */
+"Mobile" = "Smartphone";
+
+/* No %@ */
+"No %@" = "Kein(e) %@";
+
+/* None */
+"None" = "Kein(e)";
+
+/* Normal */
+"Normal" = "Normal";
+
+/* Not set */
+"Not set" = "Nicht gewählt";
+
+/* OK */
+"OK" = "OK";
+
+/* Original Size */
+"Original Size" = "Originalgröße";
+
+/* Original */
+"Original" = "Original";
+
+/* Pages of unsent */
+"Pages of unsent" = "Nicht gesendete Seiten";
+
+/* Pages */
+"Pages" = "Seiten";
+
+/* password */
+"password" = "Passwort";
+
+/* PC */
+"PC" = "Desktop";
+
+/* Permission denied */
+"Permission denied" = "Zugriff verweigert";
+
+/* Photos */
+"Photos" = "Fotos";
+
+/* PlainText */
+"PlainText" = "Nur-Text";
+
+/* Please enter some value for required '%@' field. */
+"Please enter some value for required '%@' field." = "Das Feld '%@' ist erforderlich. Bitte füllen Sie es aus.";
+
+/* Publishat */
+"Publish at" = "Veröffentlichen um";
+
+/* Publish */
+"Publish" = "Veröffentlichen";
+
+/* Published */
+"Published" = "Veröffentlicht";
+
+/* Report bug */
+"Report bug" = "Fehler melden";
+
+/* Reset password... */
+"Reset password..." = "Passwort zurücksetzen";
+
+/* Reset password */
+"Reset password" = "Passwort zurücksetzen";
+
+/* Reset */
+"Reset" = "Zurücksetzen";
+
+/* RichText */
+"RichText" = "Rich Text";
+
+/* Right */
+"Right" = "Rechts";
+
+/* Save failed */
+"Save failed" = "Speichern fehlgeschlagen";
+
+/* Save Local */
+"Save Local" = "Lokal speichern";
+
+/* Save... */
+"Save..." = "Speichern...";
+
+/* Scheduled */
+"Scheduled" = "Geplant";
+
+/* Search */
+"Search" = "Suchen";
+
+/* Select a primary category */
+"Select a primary category" = "Hauptkategorie wählen";
+
+/* Select categories */
+"Select categories" = "Kategorien wählen";
+
+/* Select folders */
+"Select folders" = "Ordner wählen";
+
+/* Select from Items */
+"Select from Items" = "Aus Assets wählen";
+
+/* Select from library */
+"Select from library" = "Aus Bibliothek wählen";
+
+/* Select Image */
+"Select Image" = "Bild wählen";
+
+/* Set now */
+"Set now" = "Einstellung";
+
+/* Setting */
+"Setting" = "Einstellung";
+
+/* Settings */
+"Settings" = "Einstellungen";
+
+/* Sign In... */
+"Sign In..." = "Anmelden...";
+
+/* Sign In */
+"Sign In" = "Anmelden";
+
+/* Size： */
+"Size：" = "Größe:";
+
+/* Small */
+"Small" = "Klein";
+
+/* Sorting */
+"Sorting" = "Sortierung";
+
+/* Status */
+"Status" = "Status";
+
+/* Submit */
+"Submit" = "Abschicken";
+
+/* Success */
+"Success" = "Erfolg";
+
+/* Super Fine */
+"Super Fine" = "Sehr fein";
+
+/* System */
+"System" = "System";
+
+/* Tag */
+"Tag" = "Tag";
+
+/* Tags */
+"Tags" = "Tags";
+
+/* Take a photo */
+"Take a photo" = "Foto aufnehmen";
+
+/* Tap camera icon or text icon in the bottom left corner for make a content block. */
+"Tap camera icon or text icon in the bottom left corner for make a content block." = "Tippen Sie auf das Kamera- oder das Text-Symbol unten links, um einen Inhaltsblock zu erstellen.";
+
+/* Text */
+"Text" = "Text";
+
+/* The operation couldn’t be completed. */
+"The operation couldn’t be completed." = "Der Vorgang konnte nicht abgeschlossen werden.";
+
+/* Time */
+"Time" = "Zeit";
+
+/* Title */
+"Title" = "Titel";
+
+/* Unpublish at */
+"Unpublish at" = "Nicht mehr veröffentlichen um";
+
+/* Unpublished */
+"Unpublished" = "Nicht mehr veröffentlicht";
+
+/* Upload data... */
+"Upload data..." = "Daten hochladen...";
+
+/* Upload Dir */
+"Upload Dir" = "Upload-Verzeichnis";
+
+/* Upload Directory */
+"Upload Directory" = "Upload-Verzeichnis";
+
+/* username */
+"username" = "Benutzername";
+
+/* X-Large */
+"X-Large" = "Extragroß";
+
+/* X-Small */
+"X-Small" = "Extraklein";
+
+/* You can not connect to the network. */
+"You can not connect to the network." = "Es konnte keine Verbindung zum Netzwerk hergestellt werden.";
+
+/* You do not have permission. */
+"You do not have permission." = "Sie verfügen nicht über die erforderlichen Rechte.";
+
+/* Delete this local saved entry */
+"Delete this local saved entry" = "Diesen lokal gesicherten Eintrag löschen";
+
+/* Delete this local saved page */
+"Delete this local saved page" = "Diese lokal gesicherte Seite löschen";
+
+/* Get detail... */
+"Get detail..." = "Hole Details...";
+
+/* Select Image... */
+"Select Image..." = "Jetzt";
+
+/* Fetch items... */
+"Fetch items..." = "Assets laden...";
+
+/* Markdown */
+"Markdown" = "Markdown";
+
+/* Movable Type for iOS ver. */
+"Movable Type for iOS ver. " = "Movable Type for iOS ver. ";
+
+/* NO */
+"NO" = "KEIN";
+
+/* Password */
+"Password" = "Passwort";
+

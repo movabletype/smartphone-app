@@ -1,7 +1,7 @@
 /* Localizable.strings
   MT_iOS
 
-  Created by François Nonnenmacher on 2015/069/15.
+  Created by CHEEBOW on 2015/06/19.
   Copyright (c) 2015年 Six Apart, Ltd. All rights reserved. */
 
 /* %@ failured. */
@@ -465,4 +465,19 @@
 
 /* Fetch items... */
 "Fetch items..." = "Récupération des éléments…";
+
+/* 'Unpublished on' dates should be dates in the future. */
+"'Unpublished on' dates should be dates in the future." = "";
+
+/* Markdown */
+"Markdown" = "Markdown";
+
+/* Movable Type for iOS ver. */
+"Movable Type for iOS ver. " = "Movable Type for iOS ver. ";
+
+/* NO */
+"NO" = "Aucun";
+
+/* Password */
+"Password" = "mot de passe";
 

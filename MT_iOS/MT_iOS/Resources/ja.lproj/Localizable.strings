@@ -422,10 +422,10 @@
 "Title" = "タイトル";
 
 /* Unpublish at */
-"Unpublish at" = "非公開日";
+"Unpublish at" = "公開終了日";
 
 /* Unpublished */
-"Unpublished" = "未公開";
+"Unpublished" = "公開終了";
 
 /* Upload data... */
 "Upload data..." = "アップロード中です...";
@@ -465,4 +465,91 @@
 
 /* Fetch items... */
 "Fetch items..." = "アイテムを取得しています...";
+
+/* 'Unpublished on' dates should be dates in the future. */
+"'Unpublished on' dates should be dates in the future." = "公開終了日は、未来の日付を指定してください。";
+
+/* Any size */
+"Any size" = "任意の大きさ";
+
+/* Authentication Required */
+"Authentication Required" = "認証が必要です";
+
+/* Custom */
+"Custom" = "カスタム";
+
+/* Login */
+"Login" = "サインイン";
+
+/* Markdown */
+"Markdown" = "Markdown";
+
+/* Movable Type for iOS ver. */
+"Movable Type for iOS ver. " = "Movable Type for iOS ver. ";
+
+/* Need to upload the images to make a preview.\nAre you sure you want to continue a preview? */
+"Need to upload the images to make a preview.\nAre you sure you want to continue a preview?" = "プレビュー作成のために画像をアップロードします。続けますか？";
+
+/* NO */
+"NO" = "NO";
+
+/* Password */
+"Password" = "パスワード";
+
+/* Please enter a custom size. */
+"Please enter a custom size." = "任意のサイズを入力してください。";
+
+/* Preview */
+"Preview" = "プレビュー";
+
+/* The selected image could not be saved to the storage. */
+"The selected image could not be saved to the storage." = "選択した画像を保存できませんでした。";
+
+/* There is the rest of the items. Are you sure you want to upload again? */
+"There is the rest of the items. Are you sure you want to upload again?" = "いくつかアップロードができませんでした。もう一度アップロードしますか？";
+
+/* This app does not have access to your photos or videos. */
+"This app does not have access to your photos or videos." = "写真へのアクセスが許可されていません。";
+
+/* Unpublish */
+"Unpublish" = "公開終了";
+
+/* Untitled entry */
+"Untitled entry" = "無題";
+
+/* Untitled page */
+"Untitled page" = "無題";
+
+/* Upload error */
+"Upload error" = "アップロードの失敗";
+
+/* Upload */
+"Upload" = "アップロード";
+
+/* Uploader */
+"Uploader" = "アップローダー";
+
+/* Username */
+"Username" = "ユーザー名";
+
+/* YES */
+"YES" = "YES";
+
+/* You can enable access in Privacy Settings. */
+"You can enable access in Privacy Settings." = "プライバシー設定からアクセスを許可してください。x";
+
+/* You can upload 8 photos at once. */
+"You can upload 8 photos at once." = "1度にアップロードできるのは8枚までです。";
+
+/* You must set a valid path. */
+"You must set a valid path." = "正しいパスを入力してください。";
+
+/* Sending entry... */
+"Sending entry..." = "記事を送信しています...";
+
+/* Sending page... */
+"Sending page..." = "ページを送信しています...";
+
+/* Upload images... */
+"Upload images..." = "画像をアップロードしています...";
 

@@ -1,0 +1,480 @@
+/* Localizable.strings
+  MT_iOS
+
+  Created by CHEEBOW on 2015/06/19.
+  Copyright (c) 2015年 Six Apart, Ltd. All rights reserved. */
+
+/* %@ failured. */
+"%@ failured." = "%@ mislukt.";
+
+/* Add Item */
+"Add Item" = "Foto's";
+
+/* Advanced Setting */
+"Advanced Setting" = "Geavanceerde instelling";
+
+/* Align */
+"Align" = "Uitlijnen";
+
+/* Are you sure not have to save? */
+"Are you sure not have to save?" = "Bent u zeker dat u zonder opslaan wenst weg te gaan?";
+
+/* Are you sure you want to delete the Entry? */
+"Are you sure you want to delete the Entry?" = "Bent u zeker dat u het bericht wenst te verwijderen?";
+
+/* Are you sure you want to delete the Item? */
+"Are you sure you want to delete the Item?" = "Bent u zeker dat u het item wenst te verwijderen?";
+
+/* Are you sure you want to delete the Page? */
+"Are you sure you want to delete the Page?" = "Bent u zeker dat u de pagina wenst te verwijderen?";
+
+/* Assets */
+"Assets" = "Mediabestanden";
+
+/* Author： */
+"Author：" = "Auteur:";
+
+/* Basename */
+"Basename" = "Basisnaam";
+
+/* Basic Auth */
+"Basic Auth" = "Basic Auth";
+
+/* Body */
+"Body" = "Tekst";
+
+/* Cancel */
+"Cancel" = "Annuleren";
+
+/* Category */
+"Category" = "Categorie";
+
+/* Caution */
+"Caution" = "Waarschuwing";
+
+/* Center */
+"Center" = "Centreren";
+
+/* Check modified at... */
+"Check modified at..." = "Laatste bewerkingsdatum controleren...";
+
+/* Confirm */
+"Confirm" = "Bevestigen";
+
+/* Create entry */
+"Create entry" = "Bericht aanmaken";
+
+/* Create Entry */
+"Create Entry" = "Bericht aanmaken";
+
+/* Create page */
+"Create page" = "Pagina aanmaken";
+
+/* Create Page */
+"Create Page" = "Pagina aanmaken";
+
+/* Create */
+"Create" = "Aanmaken";
+
+/* Created at：? */
+"Created at：?" = "Aangemaakt op: onbekend";
+
+/* Created at：) */
+"Created at：" = "Aangemaakt op:";
+
+/* Data on the server seems to be new . Do you want to overwrite it ? */
+"Data on the server seems to be new . Do you want to overwrite it ?" = "Gegevens op de server lijken nieuwer te zijn.  Wenst u ze te overschrijven?";
+
+/* Date */
+"Date" = "Datum";
+
+/* Delete Entry... */
+"Delete Entry..." = "Bericht verwijderen...";
+
+/* Delete Entry */
+"Delete Entry" = "Bericht verwijderen";
+
+/* Delete Image */
+"Delete Image" = "Afbeelding verwijderen";
+
+/* Delete item... */
+"Delete item..." = "Item verwijderen...";
+
+/* Delete Item */
+"Delete Item" = "Item verwijderen";
+
+/* Delete Page... */
+"Delete Page..." = "Pagina verwijderen...";
+
+/* Delete Page */
+"Delete Page" = "Pagina verwijderen";
+
+/* Delete this Entry */
+"Delete this Entry" = "Dit bericht verwijderen";
+
+/* Delete this Page */
+"Delete this Page" = "Deze pagina verwijderen";
+
+/* Draft */
+"Draft" = "Klad";
+
+/* Editor Mode */
+"Editor Mode" = "Bewerkingsmodus";
+
+/* EditorMode */
+"EditorMode" = "Bewerkingsmodus";
+
+/* email */
+"email" = "email";
+
+/* endpoint */
+"endpoint" = "eindpunt";
+
+/* Entries of unsent */
+"Entries of unsent" = "Niet verzonden berichten";
+
+/* Entries */
+"Entries" = "Berichten";
+
+/* Error */
+"Error" = "Fout";
+
+/* Excerpt */
+"Excerpt" = "Uittreksel";
+
+/* Extended */
+"Extended" = "Uitgebreide tekst";
+
+/* Fetch categories */
+"Fetch categories" = "Categorieën ophalen";
+
+/* Fetch data */
+"Fetch data" = "Gegevens ophalen";
+
+/* Fetch entries */
+"Fetch entries" = "Berichten ophalen";
+
+/* Fetch folders */
+"Fetch folders" = "Mappen ophalen";
+
+/* Fetch items failured. */
+"Fetch items failured." = "Ophalen mediabestanden mislukt.";
+
+/* Fetch pages */
+"Fetch pages" = "Pagina's ophalen";
+
+/* Fetch sites failured. */
+"Fetch sites failured." = "Ophalen sites mislukt.";
+
+/* Fetch sites... */
+"Fetch sites..." = "Sites ophalen...";
+
+/* Fine */
+"Fine" = "Fijn";
+
+/* Folder */
+"Folder" = "Map";
+
+/* Forgot password */
+"Forgot password" = "Wachtwoord vergeten";
+
+/* Forgot your password? */
+"Forgot your password?" = "Wachtwoord vergeten?";
+
+/* Future */
+"Future" = "Toekomst";
+
+/* Get blog settings... */
+"Get blog settings..." = "Bloginstellingen ophalen...";
+
+/* Help */
+"Help" = "Help";
+
+/* Image Align */
+"Image Align" = "Uitlijning afbeelding";
+
+/* Image Quality */
+"Image Quality" = "Kwaliteit afbeelding";
+
+/* Image Size */
+"Image Size" = "Grootte afbeelding";
+
+/* Image */
+"Image" = "Afbeelding";
+
+/* Input %@... */
+"Input %@..." = "Voer %@ in...";
+
+/* Items */
+"Items" = "Mediabestanden";
+
+/* Keywords */
+"Keywords" = "Sleutelwoorden";
+
+/* Large */
+"Large" = "Groot";
+
+/* Left */
+"Left" = "Links";
+
+/* License */
+"License" = "Licentie";
+
+/* Loading... */
+"Loading..." = "Laden...";
+
+/* Local saved entries */
+"Local saved entries" = "Niet verzonden berichten";
+
+/* Local saved pages */
+"Local saved pages" = "Niet verzonden pagina's";
+
+/* Logout... */
+"Logout..." = "Afmelden...";
+
+/* Logout */
+"Logout" = "Afmelden";
+
+/* Low */
+"Low" = "Laag";
+
+/* Make preview... */
+"Make preview..." = "Voorbeeld maken...";
+
+/* Manage entries */
+"Manage entries" = "Berichten beheren";
+
+/* Manage pages */
+"Manage pages" = "Pagina's beheren";
+
+/* Medium */
+"Medium" = "Medium";
+
+/* Mobile */
+"Mobile" = "Smartphone";
+
+/* No %@ */
+"No %@" = "Geen %@";
+
+/* None */
+"None" = "Geen";
+
+/* Normal */
+"Normal" = "Normaal";
+
+/* Not set */
+"Not set" = "Niet ingesteld";
+
+/* OK */
+"OK" = "OK";
+
+/* Original Size */
+"Original Size" = "Originele grootte";
+
+/* Original */
+"Original" = "Origineel";
+
+/* Pages of unsent */
+"Pages of unsent" = "Niet verzonden pagina's";
+
+/* Pages */
+"Pages" = "Pagina's";
+
+/* password */
+"password" = "wachtwoord";
+
+/* PC */
+"PC" = "Bureaublad";
+
+/* Permission denied */
+"Permission denied" = "Toestemming geweigerd";
+
+/* Photos */
+"Photos" = "Foto's";
+
+/* PlainText */
+"PlainText" = "Platte tekst";
+
+/* Please enter some value for required '%@' field. */
+"Please enter some value for required '%@' field." = "Gelieve een waarde op te geven voor het verplichte '@%' veld.";
+
+/* Publishat */
+"Publish at" = "Publiceren om";
+
+/* Publish */
+"Publish" = "Publiceren";
+
+/* Published */
+"Published" = "Gepubliceerd";
+
+/* Report bug */
+"Report bug" = "Bug melden";
+
+/* Reset password... */
+"Reset password..." = "Wachtwoord opnieuw instellen...";
+
+/* Reset password */
+"Reset password" = "Wachtwoord opnieuw instellen";
+
+/* Reset */
+"Reset" = "Opnieuw instellen";
+
+/* RichText */
+"RichText" = "Opgemaakte tekst";
+
+/* Right */
+"Right" = "Rechts";
+
+/* Save failed */
+"Save failed" = "Opslaan mislukt";
+
+/* Save Local */
+"Save Local" = "Lokaal opslaan";
+
+/* Save... */
+"Save..." = "Opslaan...";
+
+/* Scheduled */
+"Scheduled" = "Gepland";
+
+/* Search */
+"Search" = "Zoeken";
+
+/* Select a primary category */
+"Select a primary category" = "Selecteer een hoofdcategorie";
+
+/* Select categories */
+"Select categories" = "Selecteer categorieën";
+
+/* Select folders */
+"Select folders" = "Selecteer mappen";
+
+/* Select from Items */
+"Select from Items" = "Selecteer uit mediabestanden";
+
+/* Select from library */
+"Select from library" = "Selecteer uit bibliotheek";
+
+/* Select Image */
+"Select Image" = "Selecteer afbeelding";
+
+/* Set now */
+"Set now" = "Nu instellen";
+
+/* Setting */
+"Setting" = "Instelling";
+
+/* Settings */
+"Settings" = "Instellingen";
+
+/* Sign In... */
+"Sign In..." = "Aanmelden...";
+
+/* Sign In */
+"Sign In" = "Aanmelden";
+
+/* Size： */
+"Size：" = "Grootte:";
+
+/* Small */
+"Small" = "Klein";
+
+/* Sorting */
+"Sorting" = "Sorteren";
+
+/* Status */
+"Status" = "Status";
+
+/* Submit */
+"Submit" = "Indienen";
+
+/* Success */
+"Success" = "Succes";
+
+/* Super Fine */
+"Super Fine" = "Heel fijn";
+
+/* System */
+"System" = "Systeem";
+
+/* Tag */
+"Tag" = "Tag";
+
+/* Tags */
+"Tags" = "Tags";
+
+/* Take a photo */
+"Take a photo" = "Foto nemen";
+
+/* Tap camera icon or text icon in the bottom left corner for make a content block. */
+"Tap camera icon or text icon in the bottom left corner for make a content block." = "Tik op het camera- of teksticoon links onderaan om een blok inhoud te maken.";
+
+/* Text */
+"Text" = "Tekst";
+
+/* The operation couldn’t be completed. */
+"The operation couldn’t be completed." = "De actie kon niet worden afgewerkt.";
+
+/* Time */
+"Time" = "Tijd";
+
+/* Title */
+"Title" = "Titel";
+
+/* Unpublish at */
+"Unpublish at" = "Ontpubliceren om";
+
+/* Unpublished */
+"Unpublished" = "Niet gepubliceerd";
+
+/* Upload data... */
+"Upload data..." = "Gegevens uploaden...";
+
+/* Upload Dir */
+"Upload Dir" = "Uploadmap";
+
+/* Upload Directory */
+"Upload Directory" = "Uploadmap";
+
+/* username */
+"username" = "gebruikersnaam";
+
+/* X-Large */
+"X-Large" = "Xtra-groot";
+
+/* X-Small */
+"X-Small" = "Xtra-klein";
+
+/* You can not connect to the network. */
+"You can not connect to the network." = "U kunt geen verbinding maken met het netwerk.";
+
+/* You do not have permission. */
+"You do not have permission." = "U heeft geen toestemming.";
+
+/* Delete this local saved entry */
+"Delete this local saved entry" = "Dit plaatselijk opgeslagen bericht verwijderen";
+
+/* Delete this local saved page */
+"Delete this local saved page" = "Deze plaatselijk opgeslagen pagina verwijderen";
+
+/* Get detail... */
+"Get detail..." = "Detail ophalen...";
+
+/* Select Image... */
+"Select Image..." = "Selecteer afbeelding...";
+
+/* Fetch items... */
+"Fetch items..." = "Mediabestanden ophalen...";
+
+/* Markdown */
+"Markdown" = "Markdown";
+
+/* Movable Type for iOS ver. */
+"Movable Type for iOS ver. " = "Movable Type for iOS ver. ";
+
+/* Password */
+"Password" = "wachtwoord";
+
+/* Unpublish */
+"Unpublish" = "Niet gepubliceerd";
+

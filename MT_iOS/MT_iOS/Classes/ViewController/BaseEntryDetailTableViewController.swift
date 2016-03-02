@@ -1266,7 +1266,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     
     private func deleteDraft() {
         self.list!.removeDraftData()
-        self.navigationController?.popViewControllerAnimated(true)
+        if self.presentingViewController != nil {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     func entrySettingDelete(controller: EntrySettingTableViewController, object: BaseEntry) {

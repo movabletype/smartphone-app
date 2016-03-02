@@ -809,7 +809,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     func UploaderFinish(controller: UploaderTableViewController) {
         if controller.mode == .Preview {
             self.previewSuccess(controller)
-        } else if controller.mode == .Post {
+        } else if controller.mode == .PostEntry || controller.mode == .PostPage {
             self.postSuccess(controller)
         }
     }
@@ -979,7 +979,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         uploader.addPost(self.list!)
         
         let vc = UploaderTableViewController()
-        vc.mode = .Post
+        vc.mode = object is Entry ? .PostEntry : .PostPage
         vc.uploader = uploader
         vc.delegate = self
         let nav = UINavigationController(rootViewController: vc)

@@ -25,7 +25,20 @@ class UploaderTableViewController: BaseTableViewController {
     enum Mode {
         case Images,
         Preview,
-        Post
+        PostEntry,
+        PostPage
+        func title()->String {
+            switch(self) {
+            case .Images:
+                return NSLocalizedString("Upload images...", comment: "Upload images...")
+            case .Preview:
+                return NSLocalizedString("Make preview...", comment: "Make preview...")
+            case .PostEntry:
+                return NSLocalizedString("Make entry...", comment: "Make entry...")
+            case .PostPage:
+                return NSLocalizedString("Make page...", comment: "Make page...")
+            }
+        }
     }
     
     var mode = Mode.Images
@@ -42,7 +55,7 @@ class UploaderTableViewController: BaseTableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        self.title = NSLocalizedString("Uploader", comment: "Uploader")
+        self.title = self.mode.title()
         
         self.tableView.registerNib(UINib(nibName: "UploaderTableViewCell", bundle: nil), forCellReuseIdentifier: "UploaderTableViewCell")
         

@@ -168,15 +168,30 @@ class EntryItemList: NSObject, NSCoding {
             } else if field.type == "datetime" {
                 if field.options == "datetime" {
                     let item = EntryDateTimeItem()
-                    item.datetime = Utils.dateTimeFromString(customFieldObject!.value)
+                    let oldAPI = !customFieldObject!.value.containsString("T")
+                    if oldAPI {
+                        item.datetime = Utils.dateTimeFromString(customFieldObject!.value)
+                    } else {
+                        item.datetime = Utils.dateTimeFromISO8601String(customFieldObject!.value)
+                    }
                     entryItem = item
                 } else if field.options == "date" {
                     let item = EntryDateItem()
-                    item.date = Utils.dateTimeFromString(customFieldObject!.value)
+                    let oldAPI = !customFieldObject!.value.containsString("-")
+                    if oldAPI {
+                        item.date = Utils.dateTimeFromString(customFieldObject!.value)
+                    } else {
+                        item.date = Utils.dateFromISO8601String(customFieldObject!.value)
+                    }
                     entryItem = item
                 } else if field.options == "time" {
                     let item = EntryTimeItem()
-                    item.time = Utils.dateTimeFromString(customFieldObject!.value)
+                    let oldAPI = !customFieldObject!.value.containsString(":")
+                    if oldAPI {
+                        item.time = Utils.dateTimeFromString(customFieldObject!.value)
+                    } else {
+                        item.time = Utils.timeFromISO8601String(customFieldObject!.value)
+                    }
                     entryItem = item
                 }
             } else if field.type == "select" {

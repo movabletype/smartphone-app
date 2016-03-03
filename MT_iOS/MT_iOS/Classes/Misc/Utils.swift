@@ -18,37 +18,27 @@ class Utils {
         return userAgent
     }
 
-    class func dateTimeFromISO8601String(string: String)->NSDate? {
+    class func dateFromISO8601StringWithFormat(string: String, format: String)->NSDate? {
         if string.isEmpty {
             return nil
         }
         let formatter: NSDateFormatter = NSDateFormatter()
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         formatter.timeZone = NSTimeZone(abbreviation: "GMT")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
-        return formatter.dateFromString(string)
-    }
-
-    class func DateFromISO8601String(string: String)->NSDate? {
-        if string.isEmpty {
-            return nil
-        }
-        let formatter: NSDateFormatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        formatter.timeZone = NSTimeZone(abbreviation: "GMT")
-        formatter.dateFormat = "yyyy-MM-dd";
+        formatter.dateFormat = format
         return formatter.dateFromString(string)
     }
     
-    class func TimeFromISO8601String(string: String)->NSDate? {
-        if string.isEmpty {
-            return nil
-        }
-        let formatter: NSDateFormatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        formatter.timeZone = NSTimeZone(abbreviation: "GMT")
-        formatter.dateFormat = "HH:mm:ssZ";
-        return formatter.dateFromString(string)
+    class func dateTimeFromISO8601String(string: String)->NSDate? {
+        return Utils.dateFromISO8601StringWithFormat(string, format: "yyyy-MM-dd'T'HH:mm:ssZ")
+    }
+
+    class func dateFromISO8601String(string: String)->NSDate? {
+        return Utils.dateFromISO8601StringWithFormat(string, format: "yyyy-MM-dd")
+    }
+    
+    class func timeFromISO8601String(string: String)->NSDate? {
+        return Utils.dateFromISO8601StringWithFormat(string, format: "HH:mm:ssZ")
     }
     
     class func ISO8601StringFromDate(date: NSDate) -> String {

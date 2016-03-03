@@ -181,7 +181,7 @@ class EntryItemList: NSObject, NSCoding {
                     if oldAPI {
                         item.date = Utils.dateTimeFromString(customFieldObject!.value)
                     } else {
-                        item.date = Utils.DateFromISO8601String(customFieldObject!.value)
+                        item.date = Utils.dateFromISO8601String(customFieldObject!.value)
                     }
                     entryItem = item
                 } else if field.options == "time" {
@@ -190,7 +190,7 @@ class EntryItemList: NSObject, NSCoding {
                     if oldAPI {
                         item.time = Utils.dateTimeFromString(customFieldObject!.value)
                     } else {
-                        item.time = Utils.TimeFromISO8601String(customFieldObject!.value)
+                        item.time = Utils.timeFromISO8601String(customFieldObject!.value)
                     }
                     entryItem = item
                 }

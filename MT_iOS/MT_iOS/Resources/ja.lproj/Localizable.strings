@@ -536,7 +536,7 @@
 "YES" = "YES";
 
 /* You can enable access in Privacy Settings. */
-"You can enable access in Privacy Settings." = "プライバシー設定からアクセスを許可してください。x";
+"You can enable access in Privacy Settings." = "プライバシー設定からアクセスを許可してください。";
 
 /* You can upload 8 photos at once. */
 "You can upload 8 photos at once." = "1度にアップロードできるのは8枚までです。";

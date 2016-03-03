@@ -44,7 +44,7 @@ class Asset: BaseObject {
         createdByName = json["createdBy"]["displayName"].stringValue
         let dateString = json["createdDate"].stringValue
         if !dateString.isEmpty {
-            createdDate = Utils.dateFromISO8601String(dateString)
+            createdDate = Utils.dateTimeFromISO8601String(dateString)
         }
         blogID = json["blog"]["id"].stringValue
     }

@@ -18,15 +18,39 @@ class Utils {
         return userAgent
     }
 
-    class func dateFromISO8601String(string: String)->NSDate? {
+    class func dateTimeFromISO8601String(string: String)->NSDate? {
         if string.isEmpty {
             return nil
         }
         let formatter: NSDateFormatter = NSDateFormatter()
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        formatter.timeZone = NSTimeZone(abbreviation: "GMT")
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
         return formatter.dateFromString(string)
     }
 
+    class func DateFromISO8601String(string: String)->NSDate? {
+        if string.isEmpty {
+            return nil
+        }
+        let formatter: NSDateFormatter = NSDateFormatter()
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        formatter.timeZone = NSTimeZone(abbreviation: "GMT")
+        formatter.dateFormat = "yyyy-MM-dd";
+        return formatter.dateFromString(string)
+    }
+    
+    class func TimeFromISO8601String(string: String)->NSDate? {
+        if string.isEmpty {
+            return nil
+        }
+        let formatter: NSDateFormatter = NSDateFormatter()
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        formatter.timeZone = NSTimeZone(abbreviation: "GMT")
+        formatter.dateFormat = "HH:mm:ssZ";
+        return formatter.dateFromString(string)
+    }
+    
     class func ISO8601StringFromDate(date: NSDate) -> String {
         let formatter = NSDateFormatter()
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
@@ -36,7 +60,6 @@ class Utils {
         return formatter.stringFromDate(date).stringByAppendingString("Z")
     }
 
-    
     class func dateTimeFromString(string: String)->NSDate? {
         if string.isEmpty {
             return nil

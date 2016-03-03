@@ -1623,12 +1623,8 @@ class DataAPI: NSObject {
         
         self.get(url,
             success: {(result: JSON!)-> Void in
-                if let value = result["endpointVersion"].string {
-                    self.endpointVersion = value
-                }
-                if let value = result["apiVersion"].string {
-                    self.apiVersion = value
-                }
+                self.endpointVersion = result["endpointVersion"].stringValue
+                self.apiVersion = result["apiVersion"].stringValue
 
                 success(result)
             },

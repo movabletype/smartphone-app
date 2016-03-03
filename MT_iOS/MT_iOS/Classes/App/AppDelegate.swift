@@ -55,7 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 SVProgressHUD.showErrorWithStatus(NSLocalizedString("You can not connect to the network.", comment: "You can not connect to the network."))
             }
         }
-        
+
+        // Enable DeplyGate SDK
+        DeployGateSDK.sharedInstance().launchApplicationWithAuthor("swordbreaker", key: "48be5138028794bcf0cf4ead3c3ce1ac2deaadd5", userInfomationEnabled: true)
+
         return true
     }
 

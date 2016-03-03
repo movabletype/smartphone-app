@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (3.1.5)
+  - DeployGateSDK (1.0.7)
   - LUKeychainAccess (1.2.5)
   - MMMarkdown (0.5.1)
   - NSDate-Escort (1.7.0)
@@ -14,6 +15,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
+  - DeployGateSDK
   - LUKeychainAccess
   - MMMarkdown
   - NSDate-Escort
@@ -36,6 +38,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 5f730ba29fd113b7ddd71c1e65d0c630acf5d7b0
+  DeployGateSDK: df3d5838db7e35c05a711c35a3bdeef3c2b016ba
   LUKeychainAccess: d22fc00b33ad92c7532962b86daa94c14b85ecbe
   MMMarkdown: 06f7989e0350d10a7de50516af6c812402ce554b
   NSDate-Escort: 3469fefab423c094108c2e864416b61b6ac0edbc

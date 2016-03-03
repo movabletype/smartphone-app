@@ -13,3 +13,4 @@
 #import "MTRichTextEditor.h"
 #import <MMMarkdown/MMMarkdown.h>
 #import <QBImagePickerController/QBImagePickerController.h>
+#import <DeployGateSDK/DeployGateSDK.h>

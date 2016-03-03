@@ -11,3 +11,5 @@ pod 'NSDate-Escort'
 pod 'ZSSRichTextEditor'
 pod 'MMMarkdown'
 pod 'QBImagePickerController'
+
+pod "DeployGateSDK"

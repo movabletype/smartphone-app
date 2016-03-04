@@ -205,7 +205,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 return 44.0
             }
 
-            let item = list[indexPath.section - 1]
+            let index = indexPath.section - 1
+            
+            if list.count < index+1 {
+                return 0.0
+            }
+
+            let item = list[index]
             
             if item.type == "text" {
                 return 58.0
@@ -263,9 +269,15 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 return c
             }
 
-            let item = list[indexPath.section - 1]
-            
             var cell = UITableViewCell()
+
+            let index = indexPath.section - 1
+            
+            if list.count < index+1 {
+                return cell
+            }
+            
+            let item = list[index]
             
             if item.type == "title" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryTextTableViewCell", forIndexPath: indexPath) as! EntryTextTableViewCell

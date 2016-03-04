@@ -137,7 +137,7 @@ class EntryItemListTableViewController: BaseTableViewController {
     @IBAction func doneButtonPushed(sender: AnyObject) {
         list.items = sortedList
         list.makeVisibledItems()
-
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 

@@ -182,7 +182,7 @@ class SettingTableViewController: BaseTableViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             case Item.License.rawValue:
                 let vc = CommonWebViewController()
-                let path = NSBundle.mainBundle().pathForResource("license", ofType: "html")
+                let path = NSBundle(forClass: self.dynamicType).pathForResource("license", ofType: "html")
                 vc.filePath = path!
                 self.navigationController?.pushViewController(vc, animated: true)
             case Item.ReportBug.rawValue:

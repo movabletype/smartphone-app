@@ -21,11 +21,16 @@ class EntryStatusItem: BaseEntryItem {
     override func encodeWithCoder(aCoder: NSCoder) {
         super.encodeWithCoder(aCoder)
         aCoder.encodeInteger(self.selected, forKey: "selected")
+        aCoder.encodeBool(self.unpublished, forKey: "unpublished")
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         self.selected = aDecoder.decodeIntegerForKey("selected")
+        self.unpublished = aDecoder.decodeBoolForKey("unpublished")
+        if self.selected == Entry.Status.Unpublish.rawValue {
+            self.unpublished = true
+        }
     }
 
 

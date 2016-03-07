@@ -115,30 +115,6 @@ class CommonWebViewController: BaseViewController, WKUIDelegate, WKNavigationDel
     }
     */
     
-    // MARK: --
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        return true
-    }
-    
-    func webViewDidStartLoad(webView: UIWebView) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-    }
-    
-    func webViewDidFinishLoad(webView: UIWebView) {
-        self.indicator.removeFromSuperview()
-        let title = webView.stringByEvaluatingJavaScriptFromString("document.title")
-        self.title = title
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-    }
-    
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        self.indicator.removeFromSuperview()
-        if error!.code != -999 {
-            self.title = NSLocalizedString("Error", comment: "Error")
-        }
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-    }
-    
     //MARK:-
     func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true

@@ -65,14 +65,22 @@ class CommonWebViewController: BaseViewController, WKUIDelegate, WKNavigationDel
         
         self.view.addConstraints([leading, trailing, top, bottom])
         
-        var url = NSURL(string: urlString)
-        if !filePath.isEmpty {
-            url = NSURL(fileURLWithPath: filePath)
+        if filePath.isEmpty {
+            let url = NSURL(string: urlString)
+            let request = NSMutableURLRequest(URL: url!)
+            
+            self.webView.loadRequest(request)
+        } else {
+            do {
+                let html = try String(contentsOfFile: filePath,
+                    encoding: NSUTF8StringEncoding)
+                self.webView.loadHTMLString(html, baseURL: nil)
+            }
+            catch let error as NSError {
+                print(error.localizedDescription)
+            }
         }
         
-        let request = NSMutableURLRequest(URL: url!)
-        
-        self.webView.loadRequest(request)
         
         self.indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         self.webView.addSubview(self.indicator)

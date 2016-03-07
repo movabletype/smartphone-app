@@ -37,7 +37,10 @@ class EntryStatusItem: BaseEntryItem {
     }
     
     override func dispValue()-> String {
-        return self.value()
+        if selected == NOTSELECTED {
+            return ""
+        }
+        return Entry.Status(rawValue: selected)!.label()
     }
     
     override func makeParams()-> [String : AnyObject] {

@@ -60,10 +60,10 @@ class EntryStatusSelectTableViewController: BaseTableViewController {
         self.adjustCellLayoutMargins(cell)
         
         // Configure the cell...
-        let text = Entry.Status(rawValue: indexPath.row)!.text()
+        let text = Entry.Status(rawValue: indexPath.row)!.label()
         cell.textLabel?.text = text
         
-        if Entry.Status(rawValue: selected)!.text() == text {
+        if selected == indexPath.row {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
         } else {
             cell.accessoryType = UITableViewCellAccessoryType.None

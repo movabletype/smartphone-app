@@ -86,17 +86,22 @@ class ItemList: NSObject {
     }
     
     func isFinished()-> Bool {
+        if self.items.count == 0 && self.totalCount > 0 {
+            return true
+        }
         return self.totalCount <= self.items.count
     }
     
     func parseItems(jsonItems: [JSON]!) {
         for jsonItem in jsonItems {
             let item: BaseObject = self.toModel(jsonItem)
-            let index = self.existsIndex(item)
-            if index < 0 {
-                self.items.append(item)
-            } else {
-                self.items[index] = item
+            if !item.id.isEmpty {
+                let index = self.existsIndex(item)
+                if index < 0 {
+                    self.items.append(item)
+                } else {
+                    self.items[index] = item
+                }
             }
         }
     }

@@ -214,53 +214,6 @@ class PreviewViewController: BaseViewController, WKUIDelegate, WKNavigationDeleg
         self.loadFinish()
     }
     
-    func webView(webView: WKWebView, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
-        
-        let alertController = UIAlertController(title: NSLocalizedString("Authentication Required", comment: "Authentication Required"), message: webView.URL!.host, preferredStyle: .Alert)
-
-        weak var usernameTextField: UITextField!
-        alertController.addTextFieldWithConfigurationHandler { textField in
-            textField.placeholder = NSLocalizedString("Username", comment: "Username")
-            usernameTextField = textField
-        }
-        
-        weak var passwordTextField: UITextField!
-        alertController.addTextFieldWithConfigurationHandler { textField in
-            textField.placeholder = NSLocalizedString("Password", comment: "Password")
-            textField.secureTextEntry = true
-            passwordTextField = textField
-        }
-        
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .Cancel) {
-            action in
-            completionHandler(.CancelAuthenticationChallenge, nil)
-        }
-        
-        let loginAction = UIAlertAction(title: NSLocalizedString("Login", comment: "Login"), style: .Default) {
-            action in
-            var username = ""
-            var password = ""
-            if usernameTextField.text != nil {
-                username = usernameTextField.text!
-            }
-            if passwordTextField.text != nil {
-                password = passwordTextField.text!
-            }
-            
-            if username.isEmpty || password.isEmpty {
-                self.webView(webView, didReceiveAuthenticationChallenge: challenge, completionHandler: completionHandler)
-            } else {
-                let credential = NSURLCredential(user: username, password: password, persistence: NSURLCredentialPersistence.Permanent)
-                completionHandler(.UseCredential, credential)
-            }
-        }
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(loginAction)
-
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
     //MARK: -
     func closeButtonPushed(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)

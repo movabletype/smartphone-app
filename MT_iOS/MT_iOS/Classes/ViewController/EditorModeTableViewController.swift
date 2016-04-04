@@ -12,7 +12,7 @@ protocol EditorModeDelegate {
     func editorModeDone(controller: EditorModeTableViewController, selected: Entry.EditMode)
 }
 
-class EditorModeTableViewController: UITableViewController {
+class EditorModeTableViewController: BaseTableViewController {
     var selected = Entry.EditMode.RichText
     var oldSelected = Entry.EditMode.RichText
     var delegate: EditorModeDelegate?
@@ -52,11 +52,13 @@ class EditorModeTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
+
+        self.adjustCellLayoutMargins(cell)
 
         // Configure the cell...
         cell.textLabel?.text = Entry.EditMode(rawValue: indexPath.row)?.label()

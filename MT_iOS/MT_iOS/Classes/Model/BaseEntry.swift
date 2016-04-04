@@ -13,7 +13,8 @@ class BaseEntry: BaseObject {
     enum Status: Int {
         case Publish = 0,
         Draft,
-        Future
+        Future,
+        Unpublish
         
         func text()-> String {
             switch(self) {
@@ -23,6 +24,8 @@ class BaseEntry: BaseObject {
                 return "Draft"
             case .Future:
                 return "Future"
+            case .Unpublish:
+                return "Unpublish"
             }
         }
 
@@ -34,13 +37,16 @@ class BaseEntry: BaseObject {
                 return NSLocalizedString("Draft", comment: "Draft")
             case .Future:
                 return NSLocalizedString("Future", comment: "Future")
+            case .Unpublish:
+                return NSLocalizedString("Unpublish", comment: "Unpublish")
             }
         }
     }
 
     enum EditMode: Int {
         case PlainText = 0,
-        RichText
+        RichText,
+        Markdown
         
         func text()-> String {
             switch(self) {
@@ -48,6 +54,8 @@ class BaseEntry: BaseObject {
                 return "PlainText"
             case .RichText:
                 return "RichText"
+            case .Markdown:
+                return "Markdown"
             }
         }
         
@@ -57,6 +65,19 @@ class BaseEntry: BaseObject {
                 return NSLocalizedString("PlainText", comment: "PlainText")
             case .RichText:
                 return NSLocalizedString("RichText", comment: "RichText")
+            case .Markdown:
+                return NSLocalizedString("Markdown", comment: "Markdown")
+            }
+        }
+
+        func format()-> String {
+            switch(self) {
+            case .PlainText:
+                return "0"
+            case .RichText:
+                return "richtext"
+            case .Markdown:
+                return "markdown"
             }
         }
     }
@@ -76,6 +97,7 @@ class BaseEntry: BaseObject {
     var customFields = [CustomField]()
     var permalink = ""
     var basename = ""
+    var format = ""
     
     var editMode: EditMode = .RichText
 
@@ -85,15 +107,15 @@ class BaseEntry: BaseObject {
         title = json["title"].stringValue
         let dateString = json["date"].stringValue
         if !dateString.isEmpty {
-            date = Utils.dateFromISO8601String(dateString)
+            date = Utils.dateTimeFromISO8601String(dateString)
         }
         let modifiedDateString = json["modifiedDate"].stringValue
         if !modifiedDateString.isEmpty {
-            modifiedDate = Utils.dateFromISO8601String(modifiedDateString)
+            modifiedDate = Utils.dateTimeFromISO8601String(modifiedDateString)
         }
         let unpublishedDateString = json["unpublishedDate"].stringValue
         if !unpublishedDateString.isEmpty {
-            unpublishedDate = Utils.dateFromISO8601String(unpublishedDateString)
+            unpublishedDate = Utils.dateTimeFromISO8601String(unpublishedDateString)
         }
         status = json["status"].stringValue
         blogID = json["blog"]["id"].stringValue
@@ -119,6 +141,7 @@ class BaseEntry: BaseObject {
 
         permalink = json["permalink"].stringValue
 
+        format = json["format"].stringValue
     }
     
     override func encodeWithCoder(aCoder: NSCoder) {
@@ -136,6 +159,7 @@ class BaseEntry: BaseObject {
         aCoder.encodeObject(self.customFields, forKey: "customFields")
         aCoder.encodeObject(self.permalink, forKey: "permalink")
         aCoder.encodeObject(self.basename, forKey: "basename")
+        aCoder.encodeObject(self.format, forKey: "format")
         aCoder.encodeInteger(self.editMode.rawValue, forKey: "editMode")
     }
     
@@ -154,6 +178,9 @@ class BaseEntry: BaseObject {
         self.customFields = aDecoder.decodeObjectForKey("customFields") as! [CustomField]
         self.permalink = aDecoder.decodeObjectForKey("permalink") as! String
         self.basename = aDecoder.decodeObjectForKey("basename") as! String
+        if let object: AnyObject = aDecoder.decodeObjectForKey("format") {
+            self.format = object as! String
+        }
         self.editMode = BaseEntry.EditMode(rawValue: aDecoder.decodeIntegerForKey("editMode"))!
     }
     

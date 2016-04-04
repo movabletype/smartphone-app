@@ -9,14 +9,27 @@
 import UIKit
 
 class EntryItemTableViewCell: UITableViewCell {
-
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var visibleButton: UIButton!
     
+    let requireIcon = UIImageView(image: UIImage(named: "ico_require"))
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+     
+        self.contentView.addSubview(requireIcon)
+        require = false
+    }
+    
+    var _require: Bool = false
+    var require: Bool {
+        set {
+            _require = newValue
+            requireIcon.hidden = !_require
+        }
+        get {
+            return _require
+        }
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -32,9 +45,11 @@ class EntryItemTableViewCell: UITableViewCell {
             if self._item != nil {
                 self.titleLabel.text = self._item!.label
                 self.buttonImage(self._item!.visibled)
+                self.require = self._item!.required
             } else {
                 self.titleLabel.text = ""
                 self.buttonImage(false)
+                self.require = false
             }
         }
         get {
@@ -67,5 +82,14 @@ class EntryItemTableViewCell: UITableViewCell {
             }
             self.buttonImage(self._item!.visibled)
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.titleLabel.sizeToFit()
+        var rect = requireIcon.frame
+        rect.origin.x = self.titleLabel.frame.origin.x + self.titleLabel.frame.width + 8.0
+        rect.origin.y = 16.0
+        requireIcon.frame = rect
     }
 }

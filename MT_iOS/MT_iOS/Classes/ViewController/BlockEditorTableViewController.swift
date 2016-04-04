@@ -7,16 +7,21 @@
 //
 
 import UIKit
+import MMMarkdown
 
 class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate {
     var blog: Blog!
     var entry: BaseEntry!
     var blocks: EntryBlocksItem!
     var items: [BaseEntryItem]!
+    var addedImageFiles: [String]!
+    var entryAddedImageFiles: stringArray!
     
     var noItemLabel = UILabel()
     var tophImage = UIImageView(image: UIImage(named: "guide_toph_sleep"))
     var guidanceBgView = UIView()
+    
+    private var oldHTML: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,13 +38,18 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             if block is BlockImageItem {
                 let item = BlockImageItem()
                 item.asset = (block as! BlockImageItem).asset
+                item.imageFilename = (block as! BlockImageItem).imageFilename
+                item.label = block.label
                 items.append(item)
             } else {
                 let item = BlockTextItem()
                 item.text = (block as! BlockTextItem).text
+                item.label = block.label
+                item.format = self.entry.editMode
                 items.append(item)
             }
         }
+        addedImageFiles = [String]()
         
         self.tableView.registerNib(UINib(nibName: "TextBlockTableViewCell", bundle: nil), forCellReuseIdentifier: "TextBlockTableViewCell")
         self.tableView.registerNib(UINib(nibName: "ImageBlockTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageBlockTableViewCell")
@@ -86,6 +96,8 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         }
                 
         self.tableView.backgroundColor = Color.tableBg
+        
+        oldHTML = self.makeItemsHTML()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -155,7 +167,12 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             cell = c
         } else {
             let c = tableView.dequeueReusableCellWithIdentifier("ImageBlockTableViewCell", forIndexPath: indexPath) as! ImageBlockTableViewCell
-            c.blockImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+            if (item as! EntryImageItem).asset != nil {
+                c.blockImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+            } else {
+                LOG(item.dispValue())
+                c.blockImageView.image = UIImage(contentsOfFile: item.dispValue())
+            }
             cell = c
         }
         
@@ -213,9 +230,16 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         items.insert(item, atIndex: destinationIndexPath.row)
     }
     
-    private func showHTMLEditor(object: EntryTextAreaItem) {
+    private func showHTMLEditor(object: BlockTextItem) {
+        object.format = self.entry.editMode
         if self.entry.editMode == Entry.EditMode.PlainText {
             let vc = EntryHTMLEditorViewController()
+            vc.object = object
+            vc.blog = blog
+            vc.entry = entry
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else if self.entry.editMode == Entry.EditMode.Markdown {
+            let vc = EntryMarkdownEditorViewController()
             vc.object = object
             vc.blog = blog
             vc.entry = entry
@@ -228,9 +252,29 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     }
     
     private func showAssetSelector(object: EntryImageItem) {
+        if object.id.isEmpty {
+            self.showOfflineImageSelector(object)
+        } else {
+            self.showImageSelector(object)
+        }
+    }
+    
+    private func showImageSelector(object: EntryImageItem) {
         let storyboard: UIStoryboard = UIStoryboard(name: "ImageSelector", bundle: nil)
         let nav = storyboard.instantiateInitialViewController() as! UINavigationController
         let vc = nav.topViewController as! ImageSelectorTableViewController
+        vc.blog = blog
+        vc.delegate = self
+        vc.showAlign = true
+        vc.object = object
+        vc.entry = self.entry
+        self.presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    private func showOfflineImageSelector(object: EntryImageItem) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "OfflineImageSelector", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nav.topViewController as! OfflineImageSelectorTableViewController
         vc.blog = blog
         vc.delegate = self
         vc.showAlign = true
@@ -246,9 +290,9 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
             let item = items[indexPath.row]
             
             if item.type == "textarea"  {
-                self.showHTMLEditor(item as! EntryTextAreaItem)
+                self.showHTMLEditor(item as! BlockTextItem)
             } else if item.type == "image" {
-                self.showAssetSelector(item as! EntryImageItem)
+                self.showAssetSelector(item as! BlockImageItem)
             }
         }
     }
@@ -266,6 +310,9 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     @IBAction func saveButtonPushed(sender: UIBarButtonItem) {
         blocks.blocks = self.items
         blocks.isDirty = true
+        for filename in addedImageFiles {
+            entryAddedImageFiles.items.append(filename)
+        }
         self.navigationController?.popViewControllerAnimated(true)
     }
 
@@ -308,19 +355,52 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
     @IBAction func cameraButtonPushed(sender: UIBarButtonItem) {
         let item = BlockImageItem()
         item.label = NSLocalizedString("Image", comment: "Image")
-        items.append(item)
         self.tableView.reloadData()
 
         self.showAssetSelector(item)
     }
     
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        let vc = controller as! ImageSelectorTableViewController
-        let item = vc.object
-        item.asset = asset
-        (item as! BlockImageItem).align = controller.imageAlign
-        self.tableView.reloadData()
+        self.dismissViewControllerAnimated(false, completion: {
+            let vc = controller as! ImageSelectorTableViewController
+            let item = vc.object
+            item.asset = asset
+            (item as! BlockImageItem).align = controller.imageAlign
+            if self.items.indexOf(item) < 0 {
+                self.items.append(item)
+            }
+            self.tableView.reloadData()
+        })
+    }
+    
+    func AddAssetsDone(controller: AddAssetTableViewController) {
+    }
+    
+    func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
+        self.dismissViewControllerAnimated(false, completion: {
+            item.asset = nil
+            (item as! BlockImageItem).align = controller.imageAlign
+            if self.items.indexOf(item) < 0 {
+                self.items.append(item)
+            }
+            self.addedImageFiles.append((item as! BlockImageItem).imageFilename)
+            self.tableView.reloadData()
+        })
+    }
+    
+    func AddOfflineImageStorageError(controller: AddAssetTableViewController, item: EntryImageItem) {
+        self.dismissViewControllerAnimated(false, completion: {
+            let alertController = UIAlertController(
+                title: NSLocalizedString("Error", comment: "Error"),
+                message: NSLocalizedString("The selected image could not be saved to the storage.", comment: "The selected image could not be saved to the storage."),
+                preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                action in
+            }
+            
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        })
     }
     
     @IBAction func textAddButtonPushed(sender: UIBarButtonItem) {
@@ -344,9 +424,19 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         var html = ""
         for item in items {
             if item is BlockImageItem {
-                html += item.value() + "\n"
+                html += item.value() + "\n\n"
             } else {
-                html += "<p>" + item.value() + "</p>" + "\n"
+                if self.entry.editMode == Entry.EditMode.Markdown {
+                    let sourceText = item.value()
+                    do {
+                        let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
+                        html += markdown + "\n\n"
+                    } catch _ {
+                        html += sourceText + "\n\n"
+                    }
+                } else {
+                    html += "<p>" + item.value() + "</p>" + "\n\n"
+                }
             }
         }
         return html
@@ -358,17 +448,27 @@ class BlockEditorTableViewController: BaseTableViewController, AddAssetDelegate 
         html += self.makeItemsHTML()
 
         html += "</body></html>"
-        
+
         return html
     }
     
+    func cleanup() {
+        for path in self.addedImageFiles {
+            let fileManager = NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch {
+            }
+        }
+    }
+
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
-        if self.makeItemsHTML() == blocks.value() {
+        if self.makeItemsHTML() == oldHTML {
             self.navigationController?.popViewControllerAnimated(true)
             return
         }
-        
-        Utils.confrimSave(self)
+                
+        Utils.confrimSave(self, block:{self.cleanup()})
     }
     
     func guidanceCloseButtonPushed(sender: UIButton) {

@@ -1,6 +1,6 @@
 // ParameterEncoding.swift
 //
-// Copyright (c) 2014–2015 Alamofire Software Foundation (http://alamofire.org/)
+// Copyright (c) 2014–2016 Alamofire Software Foundation (http://alamofire.org/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -82,7 +82,7 @@ public enum ParameterEncoding {
     {
         var mutableURLRequest = URLRequest.URLRequest
 
-        guard let parameters = parameters else {
+        guard let parameters = parameters where !parameters.isEmpty else {
             return (mutableURLRequest, nil)
         }
 
@@ -92,7 +92,8 @@ public enum ParameterEncoding {
         case .URL, .URLEncodedInURL:
             func query(parameters: [String: AnyObject]) -> String {
                 var components: [(String, String)] = []
-                for key in Array(parameters.keys).sort(<) {
+
+                for key in parameters.keys.sort(<) {
                     let value = parameters[key]!
                     components += queryComponents(key, value)
                 }
@@ -174,6 +175,7 @@ public enum ParameterEncoding {
     */
     public func queryComponents(key: String, _ value: AnyObject) -> [(String, String)] {
         var components: [(String, String)] = []
+
         if let dictionary = value as? [String: AnyObject] {
             for (nestedKey, value) in dictionary {
                 components += queryComponents("\(key)[\(nestedKey)]", value)
@@ -212,6 +214,8 @@ public enum ParameterEncoding {
         let allowedCharacterSet = NSCharacterSet.URLQueryAllowedCharacterSet().mutableCopy() as! NSMutableCharacterSet
         allowedCharacterSet.removeCharactersInString(generalDelimitersToEncode + subDelimitersToEncode)
 
+        var escaped = ""
+
         //==========================================================================================================
         //
         //  Batching is required for escaping due to an internal bug in iOS 8.1 and 8.2. Encoding more than a few
@@ -223,21 +227,23 @@ public enum ParameterEncoding {
         //
         //==========================================================================================================
 
-        let batchSize = 50
-        var index = string.startIndex
+        if #available(iOS 8.3, OSX 10.10, *) {
+            escaped = string.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) ?? string
+        } else {
+            let batchSize = 50
+            var index = string.startIndex
 
-        var escaped = ""
+            while index != string.endIndex {
+                let startIndex = index
+                let endIndex = index.advancedBy(batchSize, limit: string.endIndex)
+                let range = Range(start: startIndex, end: endIndex)
 
-        while index != string.endIndex {
-            let startIndex = index
-            let endIndex = index.advancedBy(batchSize, limit: string.endIndex)
-            let range = Range(start: startIndex, end: endIndex)
+                let substring = string.substringWithRange(range)
 
-            let substring = string.substringWithRange(range)
+                escaped += substring.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) ?? substring
 
-            escaped += substring.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) ?? substring
-
-            index = endIndex
+                index = endIndex
+            }
         }
 
         return escaped

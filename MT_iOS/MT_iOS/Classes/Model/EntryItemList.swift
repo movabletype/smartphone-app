@@ -33,6 +33,12 @@ class EntryItemList: NSObject, NSCoding {
         self.visibledItems = aDecoder.decodeObjectForKey("visibledItems") as! [BaseEntryItem]
         self.blog = aDecoder.decodeObjectForKey("blog") as! Blog
         self.object = aDecoder.decodeObjectForKey("object") as! BaseEntry
+        
+        for item in items {
+            if item is EntryBlocksItem {
+                (item as! EntryBlocksItem).editMode = self.object.editMode
+            }
+        }
     }
     
     convenience init(blog: Blog, object: BaseEntry) {
@@ -63,12 +69,16 @@ class EntryItemList: NSObject, NSCoding {
         
         let statusItem = EntryStatusItem()
         statusItem.id = "status"
+        statusItem.unpublished = false
         if object.status == Entry.Status.Publish.text() {
             statusItem.selected = Entry.Status.Publish.rawValue
         } else if object.status == Entry.Status.Draft.text() {
             statusItem.selected = Entry.Status.Draft.rawValue
         } else if object.status == Entry.Status.Future.text() {
             statusItem.selected = Entry.Status.Future.rawValue
+        } else if object.status == Entry.Status.Unpublish.text() {
+            statusItem.selected = Entry.Status.Unpublish.rawValue
+            statusItem.unpublished = true
         }
         
         statusItem.label = NSLocalizedString("Status", comment: "Status")
@@ -76,6 +86,7 @@ class EntryItemList: NSObject, NSCoding {
         var bodyItem = EntryTextAreaItem()
         if object.id.isEmpty {
             bodyItem = EntryBlocksItem()
+            (bodyItem as! EntryBlocksItem).editMode = object.editMode
         }
         bodyItem.id = "body"
         bodyItem.label = NSLocalizedString("Body", comment: "Body")
@@ -84,6 +95,7 @@ class EntryItemList: NSObject, NSCoding {
         var moreItem = EntryTextAreaItem()
         if object.id.isEmpty {
             moreItem = EntryBlocksItem()
+            (moreItem as! EntryBlocksItem).editMode = object.editMode
         }
         moreItem.id = "more"
         moreItem.label = NSLocalizedString("Extended", comment: "Extended")
@@ -156,15 +168,30 @@ class EntryItemList: NSObject, NSCoding {
             } else if field.type == "datetime" {
                 if field.options == "datetime" {
                     let item = EntryDateTimeItem()
-                    item.datetime = Utils.dateTimeFromString(customFieldObject!.value)
+                    let oldAPI = !customFieldObject!.value.containsString("T")
+                    if oldAPI {
+                        item.datetime = Utils.dateTimeFromString(customFieldObject!.value)
+                    } else {
+                        item.datetime = Utils.dateTimeFromISO8601String(customFieldObject!.value)
+                    }
                     entryItem = item
                 } else if field.options == "date" {
                     let item = EntryDateItem()
-                    item.date = Utils.dateTimeFromString(customFieldObject!.value)
+                    let oldAPI = !customFieldObject!.value.containsString("-")
+                    if oldAPI {
+                        item.date = Utils.dateTimeFromString(customFieldObject!.value)
+                    } else {
+                        item.date = Utils.dateFromISO8601String(customFieldObject!.value)
+                    }
                     entryItem = item
                 } else if field.options == "time" {
                     let item = EntryTimeItem()
-                    item.time = Utils.dateTimeFromString(customFieldObject!.value)
+                    let oldAPI = !customFieldObject!.value.containsString(":")
+                    if oldAPI {
+                        item.time = Utils.dateTimeFromString(customFieldObject!.value)
+                    } else {
+                        item.time = Utils.timeFromISO8601String(customFieldObject!.value)
+                    }
                     entryItem = item
                 }
             } else if field.type == "select" {
@@ -261,7 +288,7 @@ class EntryItemList: NSObject, NSCoding {
         self.saveOrderSettings()
     }
     
-    func orderSettingKey()-> String {
+    func orderSettingKeyOld()-> String {
         if object is Entry {
             return blog.settingKey("entryitem_order_entry")
         } else {
@@ -269,10 +296,33 @@ class EntryItemList: NSObject, NSCoding {
         }
     }
     
+    func orderSettingKey()-> String {
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let user = app.currentUser {
+            if object is Entry {
+                return blog.settingKey("entryitem_order_entry", user: user)
+            } else {
+                return blog.settingKey("entryitem_order_page", user: user)
+            }
+        }
+
+        return self.orderSettingKeyOld()
+    }
+    
     func loadOrderSettings()-> [[String:AnyObject]]? {
         let defaults = NSUserDefaults.standardUserDefaults()
-        let key = self.orderSettingKey()
-        if let value: AnyObject = defaults.objectForKey(key) {
+        
+        if let value: AnyObject = defaults.objectForKey(self.orderSettingKey()) {
+            return value as? [Dictionary]
+        }
+        
+        //V1.0.xとの互換性のため
+        if let value: AnyObject = defaults.objectForKey(self.orderSettingKeyOld()) {
+            defaults.removeObjectForKey(self.orderSettingKeyOld())
+            
+            defaults.setObject(value, forKey:self.orderSettingKey())
+            defaults.synchronize()
+            
             return value as? [Dictionary]
         }
         return nil
@@ -295,7 +345,7 @@ class EntryItemList: NSObject, NSCoding {
         defaults.synchronize()
     }
     
-    func makeParams()->[String: AnyObject] {
+    func makeParams(preview: Bool)->[String: AnyObject] {
         var params = [String: AnyObject]()
         var fields = [AnyObject]()
         for item in items {
@@ -316,6 +366,7 @@ class EntryItemList: NSObject, NSCoding {
                 }
                 fields.append(param)
             } else {
+                item.isPreview = preview
                 let itemParams = item.makeParams()
                 for key in itemParams.keys {
                     if !key.isEmpty {
@@ -325,6 +376,93 @@ class EntryItemList: NSObject, NSCoding {
             }
         }
         params["customFields"] = fields
+        
+        if object.id.isEmpty {
+            //新規作成時にカテゴリ未選択なら送信しない
+            if let categories = params["categories"] as? [[String: String]] {
+                if categories.count == 0 {
+                    params.removeValueForKey("categories")
+                }
+            }
+            //新規作成時にフォルダ未選択なら送信しない
+            if let folder = params["folder"] as? [String: String] {
+                if let id = folder["id"] {
+                    if id.isEmpty {
+                        params.removeValueForKey("folder")
+                    }
+                } else {
+                    params.removeValueForKey("folder")
+                }
+            }
+        }
+        
+        //id
+        if !object.id.isEmpty {
+            params["id"] = object.id
+        }
+        
+        //Tags
+        var tags = [String]()
+        for tag in object.tags {
+            tags.append(tag.name)
+        }
+        params["tags"] = tags
+        
+        //Assets
+        var assetIDs = [String]()
+        func appendID(id: String) {
+            if !id.isEmpty && !assetIDs.contains(id) {
+                assetIDs.append(id)
+            }
+        }
+        
+        for asset in object.assets {
+            if !assetIDs.contains(asset.id) {
+                assetIDs.append(asset.id)
+            }
+        }
+        for item in self.items {
+            if item is EntryAssetItem {
+                let id = (item as! EntryAssetItem).assetID
+                appendID(id)
+            } else if item is EntryBlocksItem {
+                for block in (item as! EntryBlocksItem).blocks {
+                    if block is EntryAssetItem {
+                        let id = (block as! EntryAssetItem).assetID
+                        appendID(id)
+                    }
+                }
+            } else if item is EntryTextAreaItem {
+                let assets = (item as! EntryTextAreaItem).assets
+                for asset in assets {
+                    let id = asset.id
+                    appendID(id)
+                }
+            }
+        }
+        var assets = [[String: String]]()
+        for id in assetIDs {
+            assets.append(["id":id])
+        }
+        if assets.count > 0 {
+            params["assets"] = assets
+        }
+        
+        //PublishDate
+        if object.date != nil {
+            params["date"] = Utils.ISO8601StringFromDate(object.date!)
+        }
+        
+        //UnpublishDate
+        if object.unpublishedDate != nil {
+            params["unpublishedDate"] = Utils.ISO8601StringFromDate(object.unpublishedDate!)
+        }
+        
+        if object.id.isEmpty {
+            params["format"] = object.editMode.format()
+        }
+        
+        LOG("params:\(params)")
         
         return params
     }
@@ -339,8 +477,11 @@ class EntryItemList: NSObject, NSCoding {
     }
     
     func dataDir()-> String {
-        let path = blog.draftDirPath(object)
-
+        var path = blog.draftDirPath(object)
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let user = app.currentUser {
+            path = blog.draftDirPath(object, user: user)
+        }
         return path
     }
     
@@ -386,6 +527,15 @@ class EntryItemList: NSObject, NSCoding {
     }
     
     func removeDraftData()-> Bool {
+        let paths = self.ImageFiles()
+        for path in paths {
+            let fileManager = NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch {
+            }
+        }
+        
         if !self.filename.isEmpty {
             let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
             var path = paths[0].stringByAppendingPathComponent(self.dataDir())
@@ -408,8 +558,17 @@ class EntryItemList: NSObject, NSCoding {
     
     func requiredCheck()-> BaseEntryItem? {
         for item in items {
-            if item.required && item.value().isEmpty {
-                return item
+            if item is EntryImageItem {
+                let imageItem = item as! EntryImageItem
+                if imageItem.required  {
+                    if imageItem.imageFilename.isEmpty && imageItem.url.isEmpty {
+                        return item
+                    }
+                }
+            } else {
+                if item.required && item.value().isEmpty {
+                    return item
+                }
             }
         }
         return nil
@@ -419,5 +578,51 @@ class EntryItemList: NSObject, NSCoding {
         for item in items {
             item.isDirty = false
         }
+    }
+    
+    func notUploadedImages()->[EntryImageItem] {
+        var images = [EntryImageItem]()
+        for item in items {
+            if item is EntryImageItem {
+                let imageItem = (item as! EntryImageItem)
+                if !imageItem.imageFilename.isEmpty {
+                    images.append(imageItem)
+                }
+            } else if item is EntryBlocksItem {
+                for block in (item as! EntryBlocksItem).blocks {
+                    if block is BlockImageItem {
+                        let imageItem = (block as! BlockImageItem)
+                        if !imageItem.imageFilename.isEmpty {
+                            images.append(imageItem)
+                        }
+                    }
+                }
+            }
+
+        }
+        return images
+    }
+
+    func ImageFiles()->[String] {
+        var files = [String]()
+        for item in items {
+            if item is EntryImageItem {
+                let imageItem = (item as! EntryImageItem)
+                if !imageItem.imageFilename.isEmpty {
+                    files.append(imageItem.imageFilename)
+                }
+            } else if item is EntryBlocksItem {
+                for block in (item as! EntryBlocksItem).blocks {
+                    if block is BlockImageItem {
+                        let imageItem = (block as! BlockImageItem)
+                        if !imageItem.imageFilename.isEmpty {
+                            files.append(imageItem.imageFilename)
+                        }
+                    }
+                }
+            }
+            
+        }
+        return files
     }
 }

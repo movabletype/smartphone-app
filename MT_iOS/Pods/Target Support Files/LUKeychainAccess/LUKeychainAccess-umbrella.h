@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 
 #import "LUKeychainAccess.h"
+#import "LUKeychainAccessAccessibility.h"
 #import "LUKeychainErrorHandler.h"
 #import "LUKeychainServices.h"
 

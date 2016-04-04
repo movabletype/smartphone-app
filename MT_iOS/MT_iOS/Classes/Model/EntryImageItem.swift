@@ -9,6 +9,10 @@
 import UIKit
 
 class EntryImageItem: EntryAssetItem {
+    var imageFilename = ""
+    var uploadPath = ""
+    var uploadFilename = ""
+    
     override init() {
         super.init()
         
@@ -17,10 +21,22 @@ class EntryImageItem: EntryAssetItem {
     
     override func encodeWithCoder(aCoder: NSCoder) {
         super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.imageFilename, forKey: "imageFilename")
+        aCoder.encodeObject(self.uploadPath, forKey: "uploadPath")
+        aCoder.encodeObject(self.uploadFilename, forKey: "uploadFilename")
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        if let text = aDecoder.decodeObjectForKey("imageFilename") as? String {
+            self.imageFilename = text
+        }
+        if let text = aDecoder.decodeObjectForKey("uploadPath") as? String {
+            self.uploadPath = text
+        }
+        if let text = aDecoder.decodeObjectForKey("uploadFilename") as? String {
+            self.uploadFilename = text
+        }
     }
 
     override func asHtml()-> String {
@@ -32,6 +48,53 @@ class EntryImageItem: EntryAssetItem {
     }
     
     override func dispValue()-> String {
-        return url
+        if !url.isEmpty {
+            return url
+        }
+        
+        return imageFilename
+    }
+    
+    func jpegFilename(blog: Blog)->String {
+        let uuid: String = NSUUID().UUIDString
+        let filename = uuid + ".jpeg"
+        
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        let user = app.currentUser
+        var dir = blog.dataDirPath(user)
+        dir = dir.stringByReplacingOccurrencesOfString(":", withString: "", options: [], range: nil)
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        var path = paths[0].stringByAppendingPathComponent(dir)
+        
+        let fileManager = NSFileManager.defaultManager()
+        do {
+            try fileManager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+        }
+        
+        path = path.stringByAppendingPathComponent(filename)
+        
+        return path
+    }
+
+    func removeJpegFile() {
+        if !self.imageFilename.isEmpty {
+            let path = self.imageFilename
+            let fileManager = NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch {
+            }
+            self.imageFilename = ""
+        }
+    }
+    
+    override func clear() {
+        super.clear()
+        self.cleanup()
+    }
+    
+    func cleanup() {
+        self.removeJpegFile()
     }
 }

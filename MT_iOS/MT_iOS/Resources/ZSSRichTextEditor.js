@@ -65,7 +65,7 @@ zss_editor.init = function() {
                  zss_editor.isDragging = false;
                  });
     $(window).on('touchend', function(e) {
-                 if (!zss_editor.isDragging) {
+                 if (!zss_editor.isDragging && (e.target.id == "zss_editor_footer"||e.target.nodeName.toLowerCase() == "html")) {
                  zss_editor.focusEditor();
                  }
                  });
@@ -141,6 +141,7 @@ zss_editor.getCaretYPosition = function() {
     //sel.collapseToStart();
     var range = sel.getRangeAt(0);
     var span = document.createElement('span');// something happening here preventing selection of elements
+    range.collapse(false);
     range.insertNode(span);
     var topPosition = span.offsetTop;
     span.parentNode.removeChild(span);
@@ -364,6 +365,11 @@ zss_editor.insertLink = function(url, title) {
             sel.addRange(range);
         }
     }
+    else
+    {
+        document.execCommand("insertHTML",false,"<a href='"+url+"'>"+title+"</a>");
+    }
+    
     zss_editor.enabledEditingItems();
 }
 

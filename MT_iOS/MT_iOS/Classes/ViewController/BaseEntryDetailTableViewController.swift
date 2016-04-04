@@ -11,13 +11,20 @@ import ZSSRichTextEditor
 import SwiftyJSON
 import SVProgressHUD
 
-class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingDelegate, DatePickerViewControllerDelegate, AddAssetDelegate {
+class stringArray {
+    var items = [String]()
+}
+
+class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingDelegate, DatePickerViewControllerDelegate, AddAssetDelegate, UploaderTableViewControllerDelegate {
     var object: BaseEntry!
     var blog: Blog!
     var list: EntryItemList?
     var selectedIndexPath: NSIndexPath?
+    var addedImageFiles = stringArray()
     
     let headerHeight: CGFloat = 30.0
+    
+    var uploader = MultiUploader()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,12 +151,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         SVProgressHUD.showWithStatus(NSLocalizedString("Get detail...", comment: "Get detail..."))
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
+                let params = ["no_text_filter":"1"]
                 if isEntry {
-                    api.getEntry(siteID: blogID, entryID: id, success: success, failure: failure)
+                    api.getEntry(siteID: blogID, entryID: id, options: params, success: success, failure: failure)
                 } else {
-                    api.getPage(siteID: blogID, pageID: id, success: success, failure: failure)
+                    api.getPage(siteID: blogID, pageID: id, options: params, success: success, failure: failure)
                 }
             },
             failure: failure
@@ -197,7 +205,13 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 return 44.0
             }
 
-            let item = list[indexPath.section - 1]
+            let index = indexPath.section - 1
+            
+            if list.count < index+1 {
+                return 0.0
+            }
+
+            let item = list[index]
             
             if item.type == "text" {
                 return 58.0
@@ -226,7 +240,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     return 90.0
                 }
             } else if item.type == "status" {
-                return 53.0
+                return 58.0
             } else if item.type == "category" || item.type == "folder" {
                 return 58.0
             }
@@ -255,9 +269,15 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 return c
             }
 
-            let item = list[indexPath.section - 1]
-            
             var cell = UITableViewCell()
+
+            let index = indexPath.section - 1
+            
+            if list.count < index+1 {
+                return cell
+            }
+            
+            let item = list[index]
             
             if item.type == "title" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryTextTableViewCell", forIndexPath: indexPath) as! EntryTextTableViewCell
@@ -274,6 +294,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
 
             } else if item.type == "textarea" || item.type == "embed" {
@@ -282,6 +303,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     c.textLabel?.text = item.label
                     c.backgroundColor = Color.tableBg
                     c.selectionStyle = UITableViewCellSelectionStyle.None
+                    c.require = item.required
                     cell = c
                 } else {
                     let c = tableView.dequeueReusableCellWithIdentifier("EntryTextAreaTableViewCell", forIndexPath: indexPath) as! EntryTextAreaTableViewCell
@@ -303,19 +325,25 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     c.textLabel?.text = item.label
                     c.backgroundColor = Color.tableBg
                     c.selectionStyle = UITableViewCellSelectionStyle.None
+                    c.require = item.required
                     cell = c
                 } else {
                     let blockItem = item as! EntryBlocksItem
                     if blockItem.isImageCell() {
                         let c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
                         LOG(blockItem.dispValue())
-                        let url = blockItem.dispValue()
-                        if url.isEmpty {
+                        if item.dispValue().isEmpty {
                             c.assetImageView.hidden = true
                             c.placeholderLabel?.text = blockItem.placeholder()
                             c.placeholderLabel.hidden = false
                         } else {
-                            c.assetImageView.sd_setImageWithURL(NSURL(string: url))
+                            let value = item.dispValue()
+                            if !value.hasPrefix("/") {
+                                c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                            } else {
+                                c.assetImageView.image = UIImage(contentsOfFile: item.dispValue())
+                            }
+
                             c.assetImageView.hidden = false
                             c.placeholderLabel.hidden = true
                         }
@@ -346,26 +374,31 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                 switchCtrl.addTarget(self, action: "switchChanged:", forControlEvents: UIControlEvents.ValueChanged)
                 c.accessoryView = switchCtrl
                 c.selectionStyle = UITableViewCellSelectionStyle.None
+                c.require = item.required
                 cell = c
             } else if item.type == "url" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else if item.type == "datetime" || item.type == "date" || item.type == "time"  {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else if item.type == "select" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntrySelectTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else if item.type == "radio" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryRadioTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else if item.type == "image" {
                 if indexPath.row == 0 {
@@ -373,6 +406,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     c.textLabel?.text = item.label
                     c.backgroundColor = Color.tableBg
                     c.selectionStyle = UITableViewCellSelectionStyle.None
+                    c.require = item.required
                     cell = c
                 } else {
                     let c = tableView.dequeueReusableCellWithIdentifier("EntryImageTableViewCell", forIndexPath: indexPath) as! EntryImageTableViewCell
@@ -387,37 +421,33 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     } else {
                         c.placeholderLabel.hidden = true
                         c.assetImageView.hidden = false
-                        c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                        
+                        if (item as! EntryImageItem).imageFilename.isEmpty {
+                            c.assetImageView.sd_setImageWithURL(NSURL(string: item.dispValue()))
+                        } else {
+                            LOG(item.dispValue())
+                            c.assetImageView.image = UIImage(contentsOfFile: item.dispValue())
+                        }
                     }
                     cell = c
                 }
             } else if item.type == "status" {
-                let c = tableView.dequeueReusableCellWithIdentifier("EntryStatusTableViewCell", forIndexPath: indexPath) as! EntryStatusTableViewCell
-                let status = item as! EntryStatusItem
-                c.segmentedControl.selectedSegmentIndex = status.selected
-                c.segmentedControl.tag = indexPath.section
-                c.segmentedControl.addTarget(self, action: "statusChanged:", forControlEvents: UIControlEvents.ValueChanged)
-                
-                if object is Entry {
-                    let user = (UIApplication.sharedApplication().delegate as! AppDelegate).currentUser!
-                    if !blog.canPublishEntry(user: user) {
-                        c.segmentedControl.setEnabled(false, forSegmentAtIndex: Entry.Status.Publish.rawValue)
-                        c.segmentedControl.setEnabled(true, forSegmentAtIndex: Entry.Status.Draft.rawValue)
-                        c.segmentedControl.setEnabled(false, forSegmentAtIndex: Entry.Status.Future.rawValue)
-                        c.segmentedControl.selectedSegmentIndex = Entry.Status.Draft.rawValue
-                    }
-                }
-                
+                let c = tableView.dequeueReusableCellWithIdentifier("EntrySelectTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
+                c.textLabel?.text = item.label
+                c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else if item.type == "category" || item.type == "folder" {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             } else {
                 let c = tableView.dequeueReusableCellWithIdentifier("EntryBasicTableViewCell", forIndexPath: indexPath) as! EntryBasicTableViewCell
                 c.textLabel?.text = item.label
                 c.detailTextLabel?.text = item.dispValue().isEmpty ? " " : item.dispValue()
+                c.require = item.required
                 cell = c
             }
             
@@ -486,7 +516,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func showHTMLEditor(object: EntryTextAreaItem) {
+    private func showRichTextEditor(object: EntryTextAreaItem) {
         if self.object.editMode == Entry.EditMode.PlainText || !self.object.id.isEmpty {
             let vc = EntryHTMLEditorViewController()
             vc.object = object
@@ -500,11 +530,34 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         }
     }
     
+    private func showHTMLEditor(object: EntryTextAreaItem) {
+        let vc = EntryHTMLEditorViewController()
+        vc.object = object
+        vc.blog = blog
+        vc.entry = self.object
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func showMarkdownEditor(object: EntryTextAreaItem) {
+        let vc = EntryMarkdownEditorViewController()
+        vc.object = object
+        vc.blog = blog
+        vc.entry = self.object
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     private func showSelector(object: EntrySelectItem) {
         let vc = EntrySelectTableViewController()
         vc.object = object
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    private func showStatusSelector(object: EntryStatusItem) {
+        let vc = EntryStatusSelectTableViewController()
+        vc.object = object
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
     
     private func showCategorySelector(object: BaseEntryItem) {
         let vc = CategoryListTableViewController()
@@ -525,6 +578,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         vc.blog = blog
         vc.blocks = item
         vc.entry = self.object
+        vc.entryAddedImageFiles = self.addedImageFiles
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -595,6 +649,14 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     private func showAssetSelector(item: EntryImageItem) {
+        if object.id.isEmpty {
+            self.showOfflineImageSelector(item)
+        } else {
+            self.showImageSelector(item)
+        }
+    }
+    
+    private func showImageSelector(item: EntryImageItem) {
         let storyboard: UIStoryboard = UIStoryboard(name: "ImageSelector", bundle: nil)
         let nav = storyboard.instantiateInitialViewController() as! UINavigationController
         let vc = nav.topViewController as! ImageSelectorTableViewController
@@ -606,9 +668,22 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.presentViewController(nav, animated: true, completion: nil)
     }
     
+    private func showOfflineImageSelector(item: EntryImageItem) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "OfflineImageSelector", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
+        let vc = nav.topViewController as! OfflineImageSelectorTableViewController
+        vc.blog = blog
+        vc.delegate = self
+        vc.showAlign = true
+        vc.object = item
+        vc.entry = self.object
+        self.presentViewController(nav, animated: true, completion: nil)
+    }
+    
     private func imageAction(item: EntryImageItem) {
         if item.dispValue().isEmpty {
             self.showAssetSelector(item)
+            return
         }
         
         let actionSheet: UIAlertController = UIAlertController(title:item.label,
@@ -675,7 +750,15 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
                     // Do nothing
                     return
                 } else {
-                    self.showHTMLEditor(item as! EntryTextAreaItem)
+                    if item.id == "body" || item.id == "more" {
+                        if self.object.format.hasPrefix(Entry.EditMode.Markdown.format()) {
+                            self.showMarkdownEditor(item as! EntryTextAreaItem)
+                        } else {
+                            self.showRichTextEditor(item as! EntryTextAreaItem)
+                        }
+                    } else {
+                        self.showHTMLEditor(item as! EntryTextAreaItem)
+                    }
                 }
             } else if item.type == "blocks" {
                 self.showBlockEditor(item as! EntryBlocksItem)
@@ -692,7 +775,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             } else if item.type == "image" {
                 self.imageAction(item as! EntryImageItem)
             } else if item.type == "status" {
-                // Do nothing
+                self.showStatusSelector(item as! EntryStatusItem)
             } else if item.type == "category" {
                 self.showCategorySelector(item as! EntryCategoryItem)
             } else if item.type == "folder" {
@@ -712,9 +795,59 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         vc.delegate = self
         self.presentViewController(nav, animated: true, completion: nil)
     }
+
+    private func previewSuccess(controller: UploaderTableViewController) {
+        controller.dismissViewControllerAnimated(false,
+            completion: {
+                guard let json = controller.result else {
+                    return
+                }
+                
+                var url = ""
+                if json["preview"].isExists() {
+                    url = json["preview"].stringValue
+                }
+                
+                if !url.isEmpty {
+                    let vc = PreviewViewController()
+                    let nav = UINavigationController(rootViewController: vc)
+                    vc.url = url
+                    self.presentViewController(nav, animated: true, completion: nil)
+                }
+            }
+        )
+    }
+    
+    func UploaderFinish(controller: UploaderTableViewController) {
+        if controller.mode == .Preview {
+            self.previewSuccess(controller)
+        } else if controller.mode == .PostEntry || controller.mode == .PostPage {
+            self.postSuccess(controller)
+        }
+    }
     
     private func preview() {
-        let json = self.makeParams()
+        self.uploader = MultiUploader()
+        uploader.blogID = self.blog.id
+        if let items = self.list?.notUploadedImages() {
+            for item in items {
+                uploader.addImageItem(item, blogID: self.blog.id)
+            }
+        }
+        
+        uploader.addPreview(self.list!)
+        
+        let vc = UploaderTableViewController()
+        vc.mode = .Preview
+        vc.uploader = uploader
+        vc.delegate = self
+        let nav = UINavigationController(rootViewController: vc)
+        self.presentViewController(nav, animated: false, completion: nil)
+    }
+
+/*
+    private func preview() {
+        let json = self.makeParams(true)
         if json == nil {
             return
         }
@@ -749,7 +882,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         SVProgressHUD.showWithStatus(NSLocalizedString("Make preview...", comment: "Make preview..."))
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 if isEntry {
                     api.previewEntry(siteID: blogID, entryID: id, entry: json, success: success, failure: failure)
@@ -760,9 +893,41 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             failure: failure
         )
     }
+*/
     
     @IBAction func previewButtonPushed(sender: UIBarButtonItem) {
-        self.preview()
+        if !Utils.hasConnectivity() {
+            SVProgressHUD.showErrorWithStatus(NSLocalizedString("You can not connect to the network.", comment: "You can not connect to the network."))
+            return
+        }
+
+        if let items = self.list?.notUploadedImages() {
+            if items.count == 0 {
+                self.preview()
+                return
+            }
+            
+            let alertController = UIAlertController(
+                title: NSLocalizedString("Preview", comment: "Preview"),
+                message: NSLocalizedString("Need to upload the images to make a preview.\nAre you sure you want to continue a preview?", comment: "Need to upload the images to make a preview.\nAre you sure you want to continue a preview?"),
+                preferredStyle: .Alert)
+            
+            let yesAction = UIAlertAction(title: NSLocalizedString("YES", comment: "YES"), style: .Default) {
+                action in
+                
+                self.preview()
+            }
+            let noAction = UIAlertAction(title: NSLocalizedString("NO", comment: "NO"), style: .Default) {
+                action in
+                
+            }
+            
+            alertController.addAction(noAction)
+            alertController.addAction(yesAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        } else {
+            self.preview()
+        }
     }
     
     @IBAction func editButtonPushed(sender: UIBarButtonItem) {
@@ -772,99 +937,70 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         self.presentViewController(nav, animated: true, completion: nil)
     }
     
-    private func makeParams()-> [String:AnyObject]? {
-        var params = list?.makeParams()
-        if params != nil {
-            if object.id.isEmpty {
-                //新規作成時にカテゴリ未選択なら送信しない
-                if let categories = params!["categories"] as? [[String: String]] {
-                    if categories.count == 0 {
-                        params?.removeValueForKey("categories")
-                    }
-                }
-                //新規作成時にフォルダ未選択なら送信しない
-                if let folder = params!["folder"] as? [String: String] {
-                    if let id = folder["id"] {
-                        if id.isEmpty {
-                            params?.removeValueForKey("folder")
-                        }
-                    } else {
-                        params?.removeValueForKey("folder")
-                    }
-                }
-            }
-            
-            //id
-            if !object.id.isEmpty {
-                params!["id"] = object.id
-            }
-            
-            //Tags
-            var tags = [String]()
-            for tag in object.tags {
-                tags.append(tag.name)
-            }
-            params!["tags"] = tags
-            
-            //Assets
-            var assetIDs = [String]()
-            func appendID(id: String) {
-                if !id.isEmpty && !assetIDs.contains(id) {
-                    assetIDs.append(id)
-                }
-            }
-            
-            for asset in object.assets {
-                if !assetIDs.contains(asset.id) {
-                    assetIDs.append(asset.id)
-                }
-            }
-            for item in list!.items {
-                if item is EntryAssetItem {
-                    let id = (item as! EntryAssetItem).assetID
-                    appendID(id)
-                } else if item is EntryBlocksItem {
-                    for block in (item as! EntryBlocksItem).blocks {
-                        if block is EntryAssetItem {
-                            let id = (block as! EntryAssetItem).assetID
-                            appendID(id)
-                        }
-                    }
-                } else if item is EntryTextAreaItem {
-                    let assets = (item as! EntryTextAreaItem).assets
-                    for asset in assets {
-                        let id = asset.id
-                        appendID(id)
-                    }
-                }
-            }
-            var assets = [[String: String]]()
-            for id in assetIDs {
-                assets.append(["id":id])
-            }
-            if assets.count > 0 {
-                params!["assets"] = assets
-            }
-
-            //PublishDate
-            if object.date != nil {
-                params!["date"] = Utils.ISO8601StringFromDate(object.date!)
-            }
-            
-            //UnpublishDate
-            if object.unpublishedDate != nil {
-                params!["unpublishedDate"] = Utils.ISO8601StringFromDate(object.unpublishedDate!)
-            }
-            
-            LOG("params:\(params)")
-            
-            return params!
+    private func makeParams(preview: Bool)-> [String:AnyObject]? {
+        if let params = list?.makeParams(preview) {
+            return params
         }
+
         return nil
     }
     
+    private func postSuccess(controller: UploaderTableViewController) {
+        controller.dismissViewControllerAnimated(false,
+            completion: {
+                guard let json = controller.result else {
+                    return
+                }
+
+                let isEntry = self.object is Entry
+                
+                self.list!.removeDraftData()
+                
+                var newObject: BaseEntry? = nil
+                if isEntry {
+                    newObject = Entry(json: json)
+                } else {
+                    newObject = Page(json: json)
+                }
+                
+                if newObject != nil {
+                    self.object = newObject
+                }
+                
+                self.title = self.object.title
+                
+                self.list = EntryItemList(blog: self.blog, object: self.object)
+                
+                self.tableView.reloadData()
+                self.makeToolbarItems()
+                
+                self.list!.clean()
+            }
+        )
+    }
+
     private func saveEntry() {
-        let json = self.makeParams()
+        self.uploader = MultiUploader()
+        uploader.blogID = self.blog.id
+        if let items = self.list?.notUploadedImages() {
+            for item in items {
+                uploader.addImageItem(item, blogID: self.blog.id)
+            }
+        }
+        
+        uploader.addPost(self.list!)
+        
+        let vc = UploaderTableViewController()
+        vc.mode = object is Entry ? .PostEntry : .PostPage
+        vc.uploader = uploader
+        vc.delegate = self
+        let nav = UINavigationController(rootViewController: vc)
+        self.presentViewController(nav, animated: false, completion: nil)
+    }
+    
+/*
+    private func saveEntry() {
+        let json = self.makeParams(false)
         if json == nil {
             return
         }
@@ -915,26 +1051,27 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         SVProgressHUD.showWithStatus(NSLocalizedString("Save...", comment: "Save..."))
 
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
+                let params = ["no_text_filter":"1"]
                 if create {
                     if isEntry {
-                        api.createEntry(siteID: blogID, entry: json!, success: success, failure: failure)
+                        api.createEntry(siteID: blogID, entry: json!, options: params, success: success, failure: failure)
                     } else {
-                        api.createPage(siteID: blogID, page: json!, success: success, failure: failure)
+                        api.createPage(siteID: blogID, page: json!, options: params, success: success, failure: failure)
                     }
                 } else {
                     if isEntry {
-                        api.updateEntry(siteID: blogID, entryID: id, entry: json!, success: success, failure: failure)
+                        api.updateEntry(siteID: blogID, entryID: id, entry: json!, options: params, success: success, failure: failure)
                     } else {
-                        api.updatePage(siteID: blogID, pageID: id, page: json!, success: success, failure: failure)
+                        api.updatePage(siteID: blogID, pageID: id, page: json!, options: params, success: success, failure: failure)
                     }
                 }
             },
             failure: failure
         )
     }
-    
+*/
     private func checkModified() {
         let id = self.object.id
         if id.isEmpty {
@@ -993,7 +1130,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         SVProgressHUD.showWithStatus(NSLocalizedString("Check modified at...", comment: "Check modified at..."))
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 let params = ["fields":"id,modifiedDate"]
                 if isEntry {
@@ -1011,6 +1148,9 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
         if let titleItem = self.list!.itemWithID("title", isCustomField: false) {
             self.object.title = titleItem.value()
             self.title = titleItem.value()
+        }
+        if let statusItem = self.list!.itemWithID("status", isCustomField: false) {
+            self.object.status = statusItem.value()
         }
         let success = self.list!.saveToFile()
         if !success {
@@ -1083,6 +1223,14 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     func entrySettingDone(controller: EntrySettingTableViewController, object: BaseEntry) {
+        if let list = self.list {
+            for item in list.items {
+                if item is EntryBlocksItem {
+                    (item as! EntryBlocksItem).editMode = object.editMode
+                }
+            }
+        }
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -1103,7 +1251,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
             
-            self.navigationController?.popViewControllerAnimated(true)
+            if self.presentingViewController != nil {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                self.navigationController?.popViewControllerAnimated(true)
+            }
         }
         let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
@@ -1112,7 +1264,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
         }
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 if object is Entry {
                     api.deleteEntry(siteID: self.blog.id, entryID: object.id, success: success, failure: failure)
@@ -1126,7 +1278,11 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     
     private func deleteDraft() {
         self.list!.removeDraftData()
-        self.navigationController?.popViewControllerAnimated(true)
+        if self.presentingViewController != nil {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     func entrySettingDelete(controller: EntrySettingTableViewController, object: BaseEntry) {
@@ -1142,18 +1298,56 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     }
     
     func AddAssetDone(controller: AddAssetTableViewController, asset: Asset) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        let vc = controller as! ImageSelectorTableViewController
-        let item = vc.object
-        item.asset = asset
-        item.isDirty = true
-        self.tableView.reloadData()
+        self.dismissViewControllerAnimated(false, completion: {
+            let vc = controller as! ImageSelectorTableViewController
+            let item = vc.object
+            item.asset = asset
+            item.isDirty = true
+            self.tableView.reloadData()
+        })
+    }
+    
+    func AddAssetsDone(controller: AddAssetTableViewController) {
+    }
+    
+    func AddOfflineImageDone(controller: AddAssetTableViewController, item: EntryImageItem) {
+        self.dismissViewControllerAnimated(false, completion: {
+            item.asset = nil
+            item.isDirty = true
+            self.addedImageFiles.items.append(item.imageFilename)
+            self.tableView.reloadData()
+        })
+    }
+    
+    func AddOfflineImageStorageError(controller: AddAssetTableViewController, item: EntryImageItem) {
+        self.dismissViewControllerAnimated(false, completion: {
+            let alertController = UIAlertController(
+                title: NSLocalizedString("Error", comment: "Error"),
+                message: NSLocalizedString("The selected image could not be saved to the storage.", comment: "The selected image could not be saved to the storage."),
+                preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                action in
+            }
+            
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        })
+    }
+
+    func cleanup() {
+        for path in self.addedImageFiles.items {
+            let fileManager = NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch {
+            }
+        }
     }
     
     @IBAction func closeButtonPushed(sender: AnyObject) {
         for item in self.list!.items {
             if item.isDirty {
-                Utils.confrimSave(self, dismiss: true)
+                Utils.confrimSave(self, dismiss: true, block: {self.cleanup()})
                 return
             }
         }
@@ -1163,7 +1357,7 @@ class BaseEntryDetailTableViewController: BaseTableViewController, EntrySettingD
     @IBAction func backButtonPushed(sender: UIBarButtonItem) {
         for item in self.list!.items {
             if item.isDirty {
-                Utils.confrimSave(self)
+                Utils.confrimSave(self, block: {self.cleanup()})
                 return
             }
         }

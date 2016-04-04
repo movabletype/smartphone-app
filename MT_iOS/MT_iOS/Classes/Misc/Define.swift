@@ -11,6 +11,8 @@ import Foundation
 let NOTFOUND = -1
 let NOTSELECTED = -1
 
+let MAX_IMAGE_SIZE = 8000
+
 let MTIAssetDeletedNotification = "MTIAssetDeletedNotification"
 
 let HELP_URL = "http://www.movabletype.jp/documentation/mtios/help/"

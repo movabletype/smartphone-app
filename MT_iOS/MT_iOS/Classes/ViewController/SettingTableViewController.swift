@@ -37,6 +37,7 @@ class SettingTableViewController: BaseTableViewController {
         self.tableView.backgroundColor = Color.tableBg
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: self, action: "closeButtonPushed:")
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,6 +95,40 @@ class SettingTableViewController: BaseTableViewController {
         // Configure the cell...
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        switch indexPath.section {
+        case Section.Item.rawValue:
+            return 58.0
+        case Section.Logout.rawValue:
+            return 58.0
+        default:
+            return 0.0
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == Section.Logout.rawValue {
+            return 50.0
+        }
+        
+        return 0.0
+    }
+    
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == Section.Logout.rawValue {
+            let label = UILabel()
+            label.font = UIFont.systemFontOfSize(14.0)
+            label.textColor = Color.placeholderText
+            label.textAlignment = NSTextAlignment.Center
+            if let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String {
+                label.text = NSLocalizedString("Movable Type for iOS ver. ", comment: "Movable Type for iOS ver. ") +  version
+            }
+            return label
+        }
+        
+        return nil
     }
 
     /*

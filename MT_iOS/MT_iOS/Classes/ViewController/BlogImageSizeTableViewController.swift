@@ -9,11 +9,12 @@
 import UIKit
 
 protocol BlogImageSizeDelegate {
-    func blogImageSizeDone(controller: BlogImageSizeTableViewController, selected: Int)
+    func blogImageSizeDone(controller: BlogImageSizeTableViewController, selected: Int, customWidth: Int)
 }
 
-class BlogImageSizeTableViewController: BaseTableViewController {
+class BlogImageSizeTableViewController: BaseTableViewController, UITextFieldDelegate {
     var selected = NOTSELECTED
+    var customWidth = 0
     var delegate: BlogImageSizeDelegate?
     
     override func viewDidLoad() {
@@ -27,8 +28,24 @@ class BlogImageSizeTableViewController: BaseTableViewController {
         
         self.title = NSLocalizedString("Image Size", comment: "Image Size")
         self.tableView.backgroundColor = Color.tableBg
-
+        
+        self.tableView.delaysContentTouches = false
+        for case let view as UIScrollView in tableView.subviews {
+            view.delaysContentTouches = false
+        }
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
+        
+        self.tableView.registerNib(UINib(nibName: "ImageSizeTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageSizeTableViewCell")
+        self.tableView.registerNib(UINib(nibName: "ImageCustomSizeTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageCustomSizeTableViewCell")
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,21 +68,42 @@ class BlogImageSizeTableViewController: BaseTableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) 
-
-        self.adjustCellLayoutMargins(cell)
-        
-        // Configure the cell...
-        cell.textLabel?.text = Blog.ImageSize(rawValue: indexPath.row)?.label()
-        cell.detailTextLabel?.text = Blog.ImageSize(rawValue: indexPath.row)?.pix()
-        
-        if selected == indexPath.row {
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        if indexPath.row == Blog.ImageSize.Custom.rawValue {
+            let cell = tableView.dequeueReusableCellWithIdentifier("ImageCustomSizeTableViewCell", forIndexPath: indexPath) as! ImageCustomSizeTableViewCell
+            
+            self.adjustCellLayoutMargins(cell)
+            
+            // Configure the cell...
+            cell.nameLabel?.text = Blog.ImageSize(rawValue: indexPath.row)?.label()
+            
+            if self.customWidth > 0 {
+                cell.sizeField.text = "\(self.customWidth)"
+            }
+            cell.sizeField.placeholder = NSLocalizedString("Any size", comment: "Any size")
+            cell.sizeField.keyboardType = UIKeyboardType.NumberPad
+            cell.sizeField.returnKeyType = UIReturnKeyType.Done
+            cell.sizeField.autocorrectionType = UITextAutocorrectionType.No
+            cell.sizeField.delegate = self
+            cell.sizeField.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
+            cell.sizeField.addTarget(self, action: "textFieldTouchDown:", forControlEvents: UIControlEvents.TouchDown)
+            
+            cell.checkIcon.hidden = (selected != indexPath.row)
+            
+            return cell
         } else {
-            cell.accessoryType = UITableViewCellAccessoryType.None
+            let cell = tableView.dequeueReusableCellWithIdentifier("ImageSizeTableViewCell", forIndexPath: indexPath) as! ImageSizeTableViewCell
+            
+            self.adjustCellLayoutMargins(cell)
+            
+            // Configure the cell...
+            cell.nameLabel?.text = Blog.ImageSize(rawValue: indexPath.row)?.label()
+            
+            cell.sizeLabel?.text = Blog.ImageSize(rawValue: indexPath.row)?.pix()
+            
+            cell.checkIcon.hidden = (selected != indexPath.row)
+            
+            return cell
         }
-        
-        return cell
     }
 
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -78,6 +116,13 @@ class BlogImageSizeTableViewController: BaseTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selected = indexPath.row
+        
+        if selected == Blog.ImageSize.Custom.rawValue {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! ImageCustomSizeTableViewCell
+            Utils.performAfterDelay({
+                cell.sizeField.becomeFirstResponder()
+                }, delayTime: 0.0)
+        }
         
         self.tableView.reloadData()
     }
@@ -127,8 +172,54 @@ class BlogImageSizeTableViewController: BaseTableViewController {
     }
     */
 
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    @IBAction func textFieldChanged(field: UITextField) {
+        if let text = field.text {
+            if let width = Int(text) {
+                if width > MAX_IMAGE_SIZE {
+                    customWidth = MAX_IMAGE_SIZE
+                    field.text = "\(customWidth)"
+                } else {
+                    customWidth = width
+                }
+            } else {
+                customWidth = 0
+            }
+        }
+    }
+    
+    @IBAction func textFieldTouchDown(field: UITextField) {
+        selected = Blog.ImageSize.Custom.rawValue
+        Utils.performAfterDelay({
+            self.tableView.reloadData()
+            }, delayTime: 0.0)
+    }
+    
     @IBAction func doneButtonPushed(sender: AnyObject) {
+        if selected == Blog.ImageSize.Custom.rawValue {
+            if customWidth == 0 {
+                let alertController = UIAlertController(
+                    title: NSLocalizedString("Error", comment: "Error"),
+                    message: NSLocalizedString("Please enter a custom size.", comment: "Please enter a custom size."),
+                    preferredStyle: .Alert)
+                
+                let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                    action in
+                    return
+                }
+
+                alertController.addAction(okAction)
+
+                presentViewController(alertController, animated: true, completion: nil)
+                return
+            }
+        }
+        
         self.navigationController?.popViewControllerAnimated(true)
-        delegate?.blogImageSizeDone(self, selected: selected)
+        delegate?.blogImageSizeDone(self, selected: selected, customWidth: customWidth)
     }
 }

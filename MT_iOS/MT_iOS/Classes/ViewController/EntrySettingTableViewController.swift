@@ -189,6 +189,8 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
                 c.detailTextLabel?.text = Entry.EditMode.RichText.label()
             } else if editorMode == Entry.EditMode.PlainText {
                 c.detailTextLabel?.text = Entry.EditMode.PlainText.label()
+            } else if editorMode == Entry.EditMode.Markdown {
+                c.detailTextLabel?.text = Entry.EditMode.Markdown.label()
             }
             c.contentView.addSubview(separatorLineView)
             c.backgroundColor = Color.bg
@@ -315,6 +317,22 @@ class EntrySettingTableViewController: BaseTableViewController, DatePickerViewCo
     }
     
     @IBAction func doneButtonPushed(sender: AnyObject) {
+        if let date = unpublishDate {
+            if date.isInPast() {
+                let alertController = UIAlertController(
+                    title: NSLocalizedString("Error", comment: "Error"),
+                    message: NSLocalizedString("'Unpublished on' dates should be dates in the future.", comment: "'Unpublished on' dates should be dates in the future."),
+                    preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                    action in
+                }
+                alertController.addAction(okAction)
+                presentViewController(alertController, animated: true, completion: nil)
+                
+                return
+            }
+        }
+        
         object.date = publishDate
         object.unpublishedDate = unpublishDate
         object.setTagsFromString(tagObject.text)

@@ -29,7 +29,14 @@ class EntryDateItem: BaseEntryItem {
 
     override func value()-> String {
         if let date = self.date {
-            return Utils.dateTimeTextFromDate(date)
+            let api = DataAPI.sharedInstance
+            if api.apiVersion.isEmpty {
+                return Utils.dateTimeTextFromDate(date)
+            } else {
+                let dateTime = Utils.ISO8601StringFromDate(date)
+                let comps = dateTime.componentsSeparatedByString("T")
+                return comps[0]
+            }
         }
         
         return ""

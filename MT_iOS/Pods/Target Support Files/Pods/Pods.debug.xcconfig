@@ -1,7 +1,8 @@
+EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/Alamofire.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/LUKeychainAccess.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/NSDate_Escort.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SDWebImage.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SVProgressHUD.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SwiftyJSON.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/TMReachability.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/ZSSRichTextEditor.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "LUKeychainAccess" -framework "NSDate_Escort" -framework "SDWebImage" -framework "SVProgressHUD" -framework "SwiftyJSON" -framework "TMReachability" -framework "ZSSRichTextEditor"
+OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/Alamofire.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/LUKeychainAccess.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/MMMarkdown.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/NSDate_Escort.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/QBImagePickerController.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SDWebImage.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SVProgressHUD.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/SwiftyJSON.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/TMReachability.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/ZSSRichTextEditor.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "LUKeychainAccess" -framework "MMMarkdown" -framework "NSDate_Escort" -framework "QBImagePickerController" -framework "SDWebImage" -framework "SVProgressHUD" -framework "SwiftyJSON" -framework "TMReachability" -framework "ZSSRichTextEditor"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods
 PODS_ROOT = ${SRCROOT}/Pods

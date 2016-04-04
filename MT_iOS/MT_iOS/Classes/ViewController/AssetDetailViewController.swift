@@ -83,7 +83,7 @@ class AssetDetailViewController: BaseViewController {
             SVProgressHUD.showErrorWithStatus(error["message"].stringValue)
         }
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 api.deleteAsset(siteID: self.asset.blogID, assetID: self.asset.id, success: success, failure: failure)
             },

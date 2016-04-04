@@ -70,7 +70,7 @@ class CategoryList: ItemList {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 let params = ["limit":"9999", "sortOrder":"ascend"]
                 

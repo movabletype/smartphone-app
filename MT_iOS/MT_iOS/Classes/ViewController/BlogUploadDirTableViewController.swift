@@ -18,7 +18,7 @@ class BlogUploadDirTableViewController: BaseTableViewController {
     var directory = ""
     var delegate: BlogUploadDirDelegate?
     var field: UITextField?
-
+    var editable = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,9 @@ class BlogUploadDirTableViewController: BaseTableViewController {
             directory = (directory as NSString).substringFromIndex(1)
         }
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
+        if self.editable {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPushed:")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,6 +69,7 @@ class BlogUploadDirTableViewController: BaseTableViewController {
         field?.keyboardType = UIKeyboardType.URL
         field?.autocorrectionType = UITextAutocorrectionType.No
         field?.text = directory
+        field?.enabled = self.editable
         field?.becomeFirstResponder()
 
         return cell
@@ -133,13 +136,25 @@ class BlogUploadDirTableViewController: BaseTableViewController {
     */
     
     @IBAction func doneButtonPushed(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
         if field != nil {
             var dir = field!.text
-            if !dir!.hasPrefix("/") {
-                dir = "/" + dir!
+            if Utils.validatePath(dir!) {
+                if !dir!.hasPrefix("/") {
+                    dir = "/" + dir!
+                }
+                delegate?.blogUploadDirDone(self, directory: dir!)
+                self.navigationController?.popViewControllerAnimated(true)
+            } else {
+                let alertController = UIAlertController(
+                    title: NSLocalizedString("Error", comment: "Error"),
+                    message: NSLocalizedString("You must set a valid path.", comment: "You must set a valid path."),
+                    preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Default) {
+                    action in
+                }
+                alertController.addAction(okAction)
+                presentViewController(alertController, animated: true, completion: nil)
             }
-            delegate?.blogUploadDirDone(self, directory: dir!)
         }
     }
 

@@ -10,7 +10,8 @@ import UIKit
 import SwiftyJSON
 
 class CategoryListTableViewController: BaseCategoryListTableViewController, PrimaryCategorySelectorDelegate {
-
+    var primaryCategoryID: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,6 +19,9 @@ class CategoryListTableViewController: BaseCategoryListTableViewController, Prim
         
         list = CategoryList()
         (list as! CategoryList).blog = self.blog
+        
+        let items = (object as! EntryCategoryItem).selected
+        primaryCategoryID = (items.count > 0) ? items[0].id : ""
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -124,6 +128,7 @@ class CategoryListTableViewController: BaseCategoryListTableViewController, Prim
             let vc = PrimaryCategorySelectorTableViewController()
             let nav = UINavigationController(rootViewController: vc)
             vc.items = selectedObjects
+            vc.selected = primaryCategoryID
             vc.delegate = self
             self.presentViewController(nav, animated: true, completion: nil)
         } else {

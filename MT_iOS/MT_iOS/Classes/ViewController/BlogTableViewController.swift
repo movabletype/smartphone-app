@@ -67,6 +67,12 @@ class BlogTableViewController: BaseTableViewController {
                 )
             }
         )
+        
+        //V1.0.xとの互換性のため
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let user = app.currentUser {
+            self.blog.renameOldDataDir(user)
+        }
     }
     
     private func getCustomFields(completion: (Bool)-> Void) {
@@ -81,7 +87,7 @@ class BlogTableViewController: BaseTableViewController {
             completion(true)
         }
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 let params = ["includeShared":"system", "systemObject":"entry"]
                 api.listFields(siteID: self.blog.id, options: params, success:
@@ -127,7 +133,7 @@ class BlogTableViewController: BaseTableViewController {
             completion(true)
         }
         
-        api.authentication(authInfo.username, password: authInfo.password, remember: true,
+        api.authenticationV2(authInfo.username, password: authInfo.password, remember: true,
             success:{_ in
                 let params = ["fields":"permissions"]
                 api.listPermissionsForSite(self.blog.id, options: params, success: {

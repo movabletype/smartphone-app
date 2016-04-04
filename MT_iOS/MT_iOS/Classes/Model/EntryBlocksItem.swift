@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import MMMarkdown
 
 class EntryBlocksItem: EntryTextAreaItem {
     var blocks = [BaseEntryItem]()
+    var editMode = Entry.EditMode.RichText
    
     override init() {
         super.init()
@@ -31,9 +33,23 @@ class EntryBlocksItem: EntryTextAreaItem {
         var value = ""
         for block in blocks {
             if block is BlockImageItem {
-                value += block.value() + "\n"
+                value += block.value() + "\n\n"
             } else {
-                value += "<p>" + block.value() + "</p>" + "\n"
+                let sourceText = block.value()
+                if self.editMode == Entry.EditMode.Markdown {
+                    if isPreview {
+                        do {
+                            let markdown = try MMMarkdown.HTMLStringWithMarkdown(sourceText, extensions: MMMarkdownExtensions.GitHubFlavored)
+                            value += markdown + "\n\n"
+                        } catch _ {
+                            value += sourceText + "\n\n"
+                        }
+                    } else {
+                        value += sourceText + "\n\n"
+                    }
+                } else {
+                    value += "<p>" + sourceText + "</p>" + "\n\n"
+                }
             }
         }
         
@@ -47,7 +63,11 @@ class EntryBlocksItem: EntryTextAreaItem {
         
         if isImageCell() {
             let block = blocks[0] as! BlockImageItem
-            return block.url
+            if block.asset != nil {
+                return block.url
+            }
+            
+            return block.imageFilename
         } else {
             let block = blocks[0] as! BlockTextItem
             return block.text

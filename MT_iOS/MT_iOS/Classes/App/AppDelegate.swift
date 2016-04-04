@@ -96,19 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
     }
     
-    func signIn(auth: AuthInfo, showHud: Bool) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        if showHud {
-            SVProgressHUD.showWithStatus(NSLocalizedString("Sign In...", comment: "Sign In..."))
-        }
-        let api = DataAPI.sharedInstance
-        api.APIBaseURL = auth.endpoint
-        api.basicAuth.username = auth.basicAuthUsername
-        api.basicAuth.password = auth.basicAuthPassword
-        
-        self.authInfo = auth
-        self.authInfo.save()
-        
+    func getUser(auth: AuthInfo, showHud: Bool){
         let failure: (JSON!-> Void) = {
             (error: JSON!)-> Void in
             LOG("failure:\(error.description)")
@@ -124,8 +112,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 delayTime: 2.0
             )
         }
-        
-        api.authentication(auth.username, password: auth.password, remember: true,
+
+        let api = DataAPI.sharedInstance
+        api.authenticationV2(auth.username, password: auth.password, remember: true,
             success:{_ in
                 api.getUser("me",
                     success: {(user: JSON!)-> Void in
@@ -144,6 +133,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 )
             },
             failure: failure
+        )
+    }
+    
+    func signIn(auth: AuthInfo, showHud: Bool) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        if showHud {
+            SVProgressHUD.showWithStatus(NSLocalizedString("Sign In...", comment: "Sign In..."))
+        }
+        let api = DataAPI.sharedInstance
+        api.APIBaseURL = auth.endpoint
+        api.basicAuth.username = auth.basicAuthUsername
+        api.basicAuth.password = auth.basicAuthPassword
+        
+        self.authInfo = auth
+        self.authInfo.save()
+        
+        api.version(
+            success: {_ in
+                self.getUser(auth, showHud: showHud)
+            },
+            failure: {_ in
+                api.endpointVersion = "v2"
+                self.getUser(auth, showHud: showHud)
+            }
         )
     }
     
@@ -185,6 +198,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc.object = Entry(json: ["id":"", "status":"Draft"])
         vc.object.date = NSDate()
         vc.blog = blog
+        vc.object.editMode = blog.editorMode
         let nav = UINavigationController(rootViewController: vc)
         controller.presentViewController(nav, animated: true, completion:
             {_ in
@@ -198,6 +212,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc.object = Page(json: ["id":"", "status":"Draft"])
         vc.object.date = NSDate()
         vc.blog = blog
+        vc.object.editMode = blog.editorMode
         let nav = UINavigationController(rootViewController: vc)
         vc.title = NSLocalizedString("Create page", comment: "Create page")
         controller.presentViewController(nav, animated: true, completion:

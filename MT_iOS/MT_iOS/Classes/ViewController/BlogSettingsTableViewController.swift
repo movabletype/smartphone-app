@@ -8,11 +8,12 @@
 
 import UIKit
 
-class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate {
+class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDelegate, BlogImageQualityDelegate, BlogUploadDirDelegate, EditorModeDelegate {
     enum Item:Int {
         case UploadDir = 0,
         Size,
         Quality,
+        Editor,
         _Num
     }
     
@@ -21,6 +22,8 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
     var uploadDir = "/"
     var imageSize = Blog.ImageSize.M
     var imageQuality = Blog.ImageQuality.Normal
+    var imageCustomWidth = 0
+    var editorMode = Entry.EditMode.RichText
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,8 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
         uploadDir = blog.uploadDir
         imageSize = blog.imageSize
         imageQuality = blog.imageQuality
+        imageCustomWidth = blog.imageCustomWidth
+        editorMode = blog.editorMode
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,14 +83,32 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
             cell.textLabel?.text = NSLocalizedString("Upload Dir", comment: "Upload Dir")
             cell.imageView?.image = UIImage(named: "ico_upload")
             cell.detailTextLabel?.text = uploadDir
+            
+            cell.textLabel?.textColor = Color.cellText
+            cell.detailTextLabel?.textColor = Color.black
+            cell.imageView?.alpha = 1.0
         case Item.Size.rawValue:
             cell.textLabel?.text = NSLocalizedString("Image Size", comment: "Image Size")
             cell.imageView?.image = UIImage(named: "ico_size")
-            cell.detailTextLabel?.text = imageSize.label() + "(" + imageSize.pix() + ")"
+            if self.imageSize == Blog.ImageSize.Custom {
+                cell.detailTextLabel?.text = imageSize.label() + "(\(imageCustomWidth)px)"
+            } else {
+                cell.detailTextLabel?.text = imageSize.label() + "(" + imageSize.pix() + ")"
+            }
         case Item.Quality.rawValue:
             cell.textLabel?.text = NSLocalizedString("Image Quality", comment: "Image Quality")
             cell.imageView?.image = UIImage(named: "ico_quality")
             cell.detailTextLabel?.text = imageQuality.label()
+        case Item.Editor.rawValue:
+            cell.textLabel?.text = NSLocalizedString("Editor Mode", comment: "Editor Mode")
+            if editorMode == Entry.EditMode.RichText {
+                cell.detailTextLabel?.text = Entry.EditMode.RichText.label()
+            } else if editorMode == Entry.EditMode.PlainText {
+                cell.detailTextLabel?.text = Entry.EditMode.PlainText.label()
+            } else if editorMode == Entry.EditMode.Markdown {
+                cell.detailTextLabel?.text = Entry.EditMode.Markdown.label()
+            }
+            cell.imageView?.image = UIImage(named: "ico_editor")
         default:
             cell.textLabel?.text = ""
         }
@@ -146,17 +169,25 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
             let vc = storyboard.instantiateInitialViewController() as! BlogUploadDirTableViewController
             vc.directory = uploadDir
             vc.delegate = self
+            //vc.editable = self.blog.allowToChangeAtUpload
+            vc.editable = true
             self.navigationController?.pushViewController(vc, animated: true)
         case Item.Size.rawValue:
             let storyboard: UIStoryboard = UIStoryboard(name: "BlogImageSize", bundle: nil)
             let vc = storyboard.instantiateInitialViewController() as! BlogImageSizeTableViewController
             vc.selected = imageSize.rawValue
+            vc.customWidth = imageCustomWidth
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         case Item.Quality.rawValue:
             let storyboard: UIStoryboard = UIStoryboard(name: "BlogImageQuality", bundle: nil)
             let vc = storyboard.instantiateInitialViewController() as! BlogImageQualityTableViewController
             vc.selected = imageQuality.rawValue
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+        case Item.Editor.rawValue:
+            let vc = EditorModeTableViewController()
+            vc.oldSelected = self.editorMode
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         default:
@@ -182,12 +213,15 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
         blog.uploadDir = uploadDir
         blog.imageSize = imageSize
         blog.imageQuality = imageQuality
+        blog.imageCustomWidth = imageCustomWidth
+        blog.editorMode = editorMode
         blog.saveSettings()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func blogImageSizeDone(controller: BlogImageSizeTableViewController, selected: Int) {
+    func blogImageSizeDone(controller: BlogImageSizeTableViewController, selected: Int, customWidth: Int) {
         imageSize = Blog.ImageSize(rawValue: selected)!
+        imageCustomWidth = customWidth
         self.tableView.reloadData()
     }
     
@@ -201,5 +235,8 @@ class BlogSettingsTableViewController: BaseTableViewController, BlogImageSizeDel
         self.tableView.reloadData()
     }
 
-
+    func editorModeDone(controller: EditorModeTableViewController, selected: Entry.EditMode) {
+        self.editorMode = selected
+        self.tableView.reloadData()
+    }
 }

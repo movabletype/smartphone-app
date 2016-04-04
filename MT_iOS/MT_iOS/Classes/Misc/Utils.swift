@@ -18,15 +18,29 @@ class Utils {
         return userAgent
     }
 
-    class func dateFromISO8601String(string: String)->NSDate? {
+    class func dateFromISO8601StringWithFormat(string: String, format: String)->NSDate? {
         if string.isEmpty {
             return nil
         }
         let formatter: NSDateFormatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        formatter.timeZone = NSTimeZone(abbreviation: "GMT")
+        formatter.dateFormat = format
         return formatter.dateFromString(string)
     }
+    
+    class func dateTimeFromISO8601String(string: String)->NSDate? {
+        return Utils.dateFromISO8601StringWithFormat(string, format: "yyyy-MM-dd'T'HH:mm:ssZ")
+    }
 
+    class func dateFromISO8601String(string: String)->NSDate? {
+        return Utils.dateFromISO8601StringWithFormat(string, format: "yyyy-MM-dd")
+    }
+    
+    class func timeFromISO8601String(string: String)->NSDate? {
+        return Utils.dateFromISO8601StringWithFormat(string, format: "HH:mm:ssZ")
+    }
+    
     class func ISO8601StringFromDate(date: NSDate) -> String {
         let formatter = NSDateFormatter()
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
@@ -36,7 +50,6 @@ class Utils {
         return formatter.stringFromDate(date).stringByAppendingString("Z")
     }
 
-    
     class func dateTimeFromString(string: String)->NSDate? {
         if string.isEmpty {
             return nil
@@ -111,16 +124,18 @@ class Utils {
     }
     
     class func resizeImage(image: UIImage, width: CGFloat)-> UIImage {
+        //オリジナルサイズのとき
+        if width == 0.0 {
+            return image
+        }
+        
         var w = image.size.width
         var h = image.size.height
-        var scale = width / w
-        //オリジナルサイズのとき
-        if width == 0 {
-            w = image.size.width
-            scale = 1.0
-        } else {
-            w = width
+        let scale = width / w
+        if scale >= 1.0 {
+            return image
         }
+        w = width
         h = h * scale
         let size = CGSize(width: w, height: h)
         UIGraphicsBeginImageContext(size)
@@ -136,8 +151,13 @@ class Utils {
         return imageData!
     }
     
-    class func makeJPEGFilename()-> String {
-        let date = NSDate()
+    class func convertJpegData(image: UIImage, width: CGFloat, quality: CGFloat)->NSData {
+        let resizedImage = Utils.resizeImage(image, width: width)
+        let jpeg = Utils.convertImageToJPEG(resizedImage, quality: quality)
+        return jpeg
+    }
+    
+    class func makeJPEGFilename(date: NSDate)-> String {
         let filename = String(format: "mt-%04d%02d%02d%02d%02d%02d.jpg", arguments: [date.year, date.month, date.day, date.hour, date.minute, date.seconds])
         return filename
     }
@@ -154,7 +174,7 @@ class Utils {
         return language
     }
     
-    class func confrimSave(vc: UIViewController, dismiss: Bool = false) {
+    class func confrimSave(vc: UIViewController, dismiss: Bool = false, block: (() -> Void)? = nil) {
         let alertController = UIAlertController(
             title: NSLocalizedString("Confirm", comment: "Confirm"),
             message: NSLocalizedString("Are you sure not have to save?", comment: "Are you sure not have to save?"),
@@ -162,6 +182,11 @@ class Utils {
         
         let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .Destructive) {
             action in
+
+            if let block = block {
+                block()
+            }
+            
             if dismiss {
                 vc.dismissViewControllerAnimated(true, completion: nil)
             } else {
@@ -180,5 +205,26 @@ class Utils {
     
     class func trimSpace(src: String)-> String {
         return src.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    }
+    
+    class func regexpMatch(pattern: String, text: String)-> Bool {
+        let regexp = try! NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
+        let matches = regexp.matchesInString(text, options: [], range:NSMakeRange(0, text.characters.count))
+        return matches.count > 0
+    }
+    
+    class func validatePath(path: String)-> Bool {
+        let pattern = "[ \"%<>\\[\\\\\\]\\^`{\\|}~]"
+        let replaceString = path.stringByReplacingOccurrencesOfString(pattern, withString: "", options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
+        let api = DataAPI.sharedInstance
+        let str = api.urlencoding(replaceString)
+        if let _ = str.rangeOfString("%") {
+            return false
+        }
+        if let _ = path.rangeOfString("..") {
+            return false
+        }
+        
+        return true
     }
 }

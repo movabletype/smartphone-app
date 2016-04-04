@@ -9,6 +9,30 @@
 import UIKit
 import SwiftyJSON
 
+class UploadDestination: BaseObject {
+    var path: String = ""
+    var raw: String = ""
+    
+    override init(json: JSON) {
+        super.init(json: json)
+        
+        path = json["path"].stringValue
+        raw = json["raw"].stringValue
+    }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        aCoder.encodeObject(self.path, forKey: "path")
+        aCoder.encodeObject(self.raw, forKey: "raw")
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+        self.path = aDecoder.decodeObjectForKey("path") as! String
+        self.raw = aDecoder.decodeObjectForKey("raw") as! String
+    }
+}
+
 class Blog: BaseObject {
     enum ImageSize: Int {
         case Original = 0
@@ -17,6 +41,7 @@ class Blog: BaseObject {
         ,M
         ,S
         ,XS
+        ,Custom
         ,_Num
         
         func size()-> CGFloat {
@@ -33,6 +58,8 @@ class Blog: BaseObject {
                 return 640.0
             case .XS:
                 return 320.0
+            case .Custom:
+                return 0.0
             case ._Num:
                 return 0
             }
@@ -51,6 +78,8 @@ class Blog: BaseObject {
                 return "640px"
             case .XS:
                 return "320px"
+            case .Custom:
+                return ""
             case ._Num:
                 return ""
             }
@@ -69,6 +98,8 @@ class Blog: BaseObject {
                 return NSLocalizedString("Small", comment: "Small")
             case .XS:
                 return NSLocalizedString("X-Small", comment: "X-Small")
+            case .Custom:
+                return NSLocalizedString("Custom", comment: "Custom")
             case ._Num:
                 return ""
             }
@@ -155,6 +186,9 @@ class Blog: BaseObject {
     var parentName: String = ""
     var parentID: String = ""
     
+    var allowToChangeAtUpload = true
+    var uploadDestination: UploadDestination!
+
     var permissions: [String] = []
     var customfieldsForEntry: [CustomField] = []
     var customfieldsForPage: [CustomField] = []
@@ -163,9 +197,11 @@ class Blog: BaseObject {
     var imageSize: ImageSize = .M
     var imageQuality: ImageQuality = .Normal
     var imageAlign: ImageAlign = .None
+    var imageCustomWidth = 0
+    var editorMode: BaseEntry.EditMode = .RichText
     
     var endpoint = ""
-   
+    
     override init(json: JSON) {
         super.init(json: json)
         
@@ -173,6 +209,11 @@ class Blog: BaseObject {
         url = json["url"].stringValue
         parentName = json["parent"]["name"].stringValue
         parentID = json["parent"]["id"].stringValue
+        
+        if !json["allowToChangeAtUpload"].stringValue.isEmpty {
+            allowToChangeAtUpload = (json["allowToChangeAtUpload"].stringValue == "true")
+        }
+        uploadDestination = UploadDestination(json: json["uploadDestination"])
     }
     
     override func encodeWithCoder(aCoder: NSCoder) {
@@ -181,6 +222,8 @@ class Blog: BaseObject {
         aCoder.encodeObject(self.url, forKey: "url")
         aCoder.encodeObject(self.parentName, forKey: "parentName")
         aCoder.encodeObject(self.parentID, forKey: "parentID")
+        aCoder.encodeObject(self.allowToChangeAtUpload, forKey: "allowToChangeAtUpload")
+        aCoder.encodeObject(self.uploadDestination, forKey: "uploadDestination")
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -192,6 +235,12 @@ class Blog: BaseObject {
         }
         if let object: AnyObject = aDecoder.decodeObjectForKey("parentID") {
             self.parentID = object as! String
+        }
+        if let object: AnyObject = aDecoder.decodeObjectForKey("allowToChangeAtUpload") {
+            self.allowToChangeAtUpload = object as! Bool
+        }
+        if let object: AnyObject = aDecoder.decodeObjectForKey("uploadDestination") {
+            self.uploadDestination = object as! UploadDestination
         }
     }
 
@@ -296,41 +345,137 @@ class Blog: BaseObject {
     }
     
     //MARK: - Settings
-    func settingKey(name: String)-> String {
+    func settingKey(name: String, user: User? = nil)-> String {
+        if user != nil {
+            return self.endpoint + "_blog\(id)_user\(user!.id)_\(name)"
+        }
         return self.endpoint + "_blog\(id)_\(name)"
     }
     
-    func dataDirPath()-> String {
-        let dir = self.endpoint + "_blog\(id)"
-        return dir.stringByReplacingOccurrencesOfString("/", withString: "_", options: [], range: nil)
+    func dataDirPath(user: User? = nil)-> String {
+        var dir = self.endpoint + "_blog\(id)"
+        if user != nil {
+            dir = self.endpoint + "_blog\(id)_user\(user!.id)"
+        }
+        dir = dir.stringByReplacingOccurrencesOfString("/", withString: "_", options: [], range: nil)
+        
+        return dir
     }
     
-    func draftDirPath(object: BaseEntry)-> String {
-        var path = self.dataDirPath()
+    func renameOldDataDir(user: User) {
+        let fileManager = NSFileManager.defaultManager()
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let oldDir = self.dataDirPath()
+        let oldPath = paths[0].stringByAppendingPathComponent(oldDir)
+        let newDir = self.dataDirPath(user)
+        let newPath = paths[0].stringByAppendingPathComponent(newDir)
+        if fileManager.fileExistsAtPath(oldPath) {
+            do {
+                try fileManager.moveItemAtPath(oldPath, toPath: newPath)
+            } catch {
+            }
+        }
+    }
+    
+    func draftDirPath(object: BaseEntry, user: User? = nil)-> String {
+        var path = self.dataDirPath(user)
         path = path.stringByAppendingPathComponent(object is Entry ? "draft_entry" : "draft_page")
         
         return path
     }
     
-    func loadSettings()-> [[String:AnyObject]]? {
+    func loadSettings() {
         let defaults = NSUserDefaults.standardUserDefaults()
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let user = app.currentUser {
+            if let value: AnyObject = defaults.objectForKey(self.settingKey("blogsettings_uploaddir", user: user)) {
+                uploadDir = value as! String
+            }
+            if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagesize", user: user)) as? Int {
+                imageSize = Blog.ImageSize(rawValue: value)!
+            }
+            if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagequality", user: user)) as? Int {
+                imageQuality = Blog.ImageQuality(rawValue: value)!
+            }
+            if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagecustomwidth", user: user)) as? Int {
+                imageCustomWidth = value
+            }
+            if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_editormode", user: user)) as? Int {
+                editorMode = Entry.EditMode(rawValue: value)!
+            }
+        }
+
+        //V1.0.xとの互換性のため
+        var saveFlag = false
         if let value: AnyObject = defaults.objectForKey(self.settingKey("blogsettings_uploaddir")) {
             uploadDir = value as! String
+            defaults.removeObjectForKey(self.settingKey("blogsettings_uploaddir"))
+            saveFlag = true
         }
         if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagesize")) as? Int {
             imageSize = Blog.ImageSize(rawValue: value)!
+            defaults.removeObjectForKey(self.settingKey("blogsettings_imagesize"))
+            saveFlag = true
         }
         if let value: Int = defaults.objectForKey(self.settingKey("blogsettings_imagequality")) as? Int {
             imageQuality = Blog.ImageQuality(rawValue: value)!
+            defaults.removeObjectForKey(self.settingKey("blogsettings_imagequality"))
+            saveFlag = true
         }
-        return nil
+
+        if saveFlag {
+            self.saveSettings()
+        }
+        
+        return
     }
     
     func saveSettings() {
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(uploadDir, forKey:self.settingKey("blogsettings_uploaddir"))
-        defaults.setInteger(imageSize.rawValue, forKey:self.settingKey("blogsettings_imagesize"))
-        defaults.setInteger(imageQuality.rawValue, forKey:self.settingKey("blogsettings_imagequality"))
-        defaults.synchronize()
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let user = app.currentUser {
+            defaults.setObject(uploadDir, forKey:self.settingKey("blogsettings_uploaddir", user: user))
+            defaults.setInteger(imageSize.rawValue, forKey:self.settingKey("blogsettings_imagesize", user: user))
+            defaults.setInteger(imageQuality.rawValue, forKey:self.settingKey("blogsettings_imagequality", user: user))
+            defaults.setInteger(imageCustomWidth, forKey:self.settingKey("blogsettings_imagecustomwidth", user: user))
+            defaults.setInteger(editorMode.rawValue, forKey:self.settingKey("blogsettings_editormode", user: user))
+            defaults.synchronize()
+        }
     }
+    
+    //MARK: -
+    func adjustUploadDestination() {
+        //なにもしない
+    }
+    /*
+    func adjustUploadDestination() {
+        func setDestination(destination: UploadDestination) {
+            if !destination.raw.isEmpty {
+                self.uploadDir = destination.raw
+            } else {
+                self.uploadDir = "/"
+            }
+            self.saveSettings()
+        }
+        
+        if let uploadDestination = self.uploadDestination {
+            if allowToChangeAtUpload {
+                if self.uploadDir == "/" || self.uploadDir.isEmpty {
+                    setDestination(uploadDestination)
+                } else {
+                    //MTiOSの設定有効
+                }
+            } else {
+                setDestination(uploadDestination)
+            }
+        } else {
+            //MTiOSの設定有効
+        }
+        
+        if  self.uploadDir.isEmpty {
+            self.uploadDir = "/"
+        }
+    }
+    */
+    
 }

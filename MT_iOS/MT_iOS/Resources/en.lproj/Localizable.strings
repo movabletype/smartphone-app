@@ -466,3 +466,90 @@
 /* Fetch items... */
 "Fetch items..." = "Fetch assets...";
 
+/* 'Unpublished on' dates should be dates in the future. */
+"'Unpublished on' dates should be dates in the future." = "'Unpublished on' dates should be dates in the future.";
+
+/* Any size */
+"Any size" = "Any size";
+
+/* Authentication Required */
+"Authentication Required" = "Authentication Required";
+
+/* Custom */
+"Custom" = "Custom";
+
+/* Login */
+"Login" = "Login";
+
+/* Markdown */
+"Markdown" = "Markdown";
+
+/* Movable Type for iOS ver. */
+"Movable Type for iOS ver. " = "Movable Type for iOS ver. ";
+
+/* Need to upload the images to make a preview.\nAre you sure you want to continue a preview? */
+"Need to upload the images to make a preview.\nAre you sure you want to continue a preview?" = "Need to upload the images to make a preview.\nAre you sure you want to continue a preview?";
+
+/* NO */
+"NO" = "NO";
+
+/* Password */
+"Password" = "Password";
+
+/* Please enter a custom size. */
+"Please enter a custom size." = "Please enter a custom size.";
+
+/* Preview */
+"Preview" = "Preview";
+
+/* The selected image could not be saved to the storage. */
+"The selected image could not be saved to the storage." = "Failed to save the selected image to the storage.";
+
+/* There is the rest of the items. Are you sure you want to upload again? */
+"There is the rest of the items. Are you sure you want to upload again?" = "Upload is not completed. Are you sure you want to upload again?";
+
+/* This app does not have access to your photos or videos. */
+"This app does not have access to your photos or videos." = "This app does not have access to your photos or videos.";
+
+/* Unpublish */
+"Unpublish" = "Unpublish";
+
+/* Untitled entry */
+"Untitled entry" = "Untitled entry";
+
+/* Untitled page */
+"Untitled page" = "Untitled page";
+
+/* Upload error */
+"Upload error" = "Upload error";
+
+/* Upload */
+"Upload" = "Upload";
+
+/* Uploader */
+"Uploader" = "Uploader";
+
+/* Username */
+"Username" = "Username";
+
+/* YES */
+"YES" = "YES";
+
+/* You can enable access in Privacy Settings. */
+"You can enable access in Privacy Settings." = "You can enable access in Privacy Settings.";
+
+/* You can upload 8 photos at once. */
+"You can upload 8 photos at once." = "You can upload 8 photos at once.";
+
+/* You must set a valid path. */
+"You must set a valid path." = "You must set a valid path.";
+
+/* Sending entry... */
+"Sending entry..." = "Sending entry...";
+
+/* Sending page... */
+"Sending page..." = "Sending page...";
+
+/* Upload images... */
+"Upload images..." = "Upload images...";
+

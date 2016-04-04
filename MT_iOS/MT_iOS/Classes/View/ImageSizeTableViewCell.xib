@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ImageSizeTableViewCell" customModule="MT_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPu-it-DGH">
+                        <rect key="frame" x="41" y="12.5" width="39.5" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwK-5E-JBo">
+                        <rect key="frame" x="272" y="12.5" width="39.5" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_selectcheck" translatesAutoresizingMaskIntoConstraints="NO" id="kdn-jh-rP1">
+                        <rect key="frame" x="8" y="10" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="6V3-Hc-CJm"/>
+                            <constraint firstAttribute="height" constant="25" id="DQr-DR-Abf"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="fPu-it-DGH" firstAttribute="leading" secondItem="kdn-jh-rP1" secondAttribute="trailing" constant="8" id="JBP-aK-yQa"/>
+                    <constraint firstItem="kdn-jh-rP1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="be6-XB-jSW"/>
+                    <constraint firstAttribute="trailing" secondItem="bwK-5E-JBo" secondAttribute="trailing" constant="8" id="kd1-7T-9iq"/>
+                    <constraint firstItem="bwK-5E-JBo" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="og0-gX-VF9"/>
+                    <constraint firstItem="kdn-jh-rP1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="ow8-ae-QOK"/>
+                    <constraint firstItem="fPu-it-DGH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ypU-3q-Enq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="checkIcon" destination="kdn-jh-rP1" id="Tfp-rl-O7g"/>
+                <outlet property="nameLabel" destination="fPu-it-DGH" id="gkZ-CB-egb"/>
+                <outlet property="sizeLabel" destination="bwK-5E-JBo" id="Do5-eh-ypF"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ico_selectcheck" width="25" height="25"/>
+    </resources>
+</document>

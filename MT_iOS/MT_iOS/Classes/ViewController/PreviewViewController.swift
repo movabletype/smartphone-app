@@ -8,21 +8,53 @@
 
 import UIKit
 import SVProgressHUD
+import WebKit
 
-class PreviewViewController: BaseViewController, UIWebViewDelegate {
+class PreviewViewController: BaseViewController, WKUIDelegate, WKNavigationDelegate {
     var url: String!
     var html: String?
     
-    var webView: UIWebView!
+    var webView: WKWebView!
     var segmentedControl: UISegmentedControl!
     var indicator: UIActivityIndicatorView!
+    var processPool: WKProcessPool!
     
     private func makeWebView() {
         if self.webView != nil {
             self.webView.removeFromSuperview()
         }
-        self.webView = UIWebView(frame: self.view.bounds)
-        self.webView.scalesPageToFit = true
+        
+        self.processPool = WKProcessPool()
+        
+        if segmentedControl.selectedSegmentIndex == 1 {
+            var js = ""
+            js += "var metalist = document.getElementsByTagName('meta');"
+            js += "for(var i = 0; i < metalist.length; i++) {"
+            js += "  var name = metalist[i].getAttribute('name');"
+            js += "  if(name && name.toLowerCase() === 'viewport') {"
+            js += "    metalist[i].setAttribute('content', 'width=1024px');"
+            js += "    break;"
+            js += "  }"
+            js += "}"
+
+            let userScript = WKUserScript(source: js, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
+            
+            let controller = WKUserContentController()
+            controller.addUserScript(userScript)
+            
+            let configuration = WKWebViewConfiguration()
+            configuration.userContentController = controller
+            configuration.processPool = self.processPool;
+            
+            self.webView = WKWebView(frame: self.view.bounds, configuration: configuration)
+        } else {
+            let configuration = WKWebViewConfiguration()
+            configuration.processPool = self.processPool;
+            
+            self.webView = WKWebView(frame: self.view.bounds, configuration: configuration)
+        }
+        
+        //self.webView.scalesPageToFit = true
         self.view.addSubview(self.webView)
 
         let leading: NSLayoutConstraint = NSLayoutConstraint(
@@ -74,7 +106,8 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
 
         self.webView.addSubview(self.indicator)
         
-        self.webView.delegate = self
+        self.webView.UIDelegate = self
+        self.webView.navigationDelegate = self
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_close"), left: true, target: self, action: "closeButtonPushed:")
     }
@@ -92,7 +125,6 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
         segmentedControl .addTarget(self, action: "segmentedControlChanged:", forControlEvents: UIControlEvents.ValueChanged)
         segmentedControl.selectedSegmentIndex = 0
         self.navigationItem.titleView = segmentedControl
-        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -156,37 +188,30 @@ class PreviewViewController: BaseViewController, UIWebViewDelegate {
     }
     
     //MARK:-
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        return true
-    }
-    
-    func webViewDidStartLoad(webView: UIWebView) {
+    private func loadStart() {
         self.indicator.startAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     }
-    
-    func webViewDidFinishLoad(webView: UIWebView) {
+
+    private func loadFinish() {
         self.indicator.stopAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        
-        if self.segmentedControl.selectedSegmentIndex == 1 {
-            var js = ""
-            js += "var metalist = document.getElementsByTagName('meta');"
-            js += "for(var i = 0; i < metalist.length; i++) {"
-            js += "  var name = metalist[i].getAttribute('name');"
-            js += "  if(name && name.toLowerCase() === 'viewport') {"
-            js += "    metalist[i].setAttribute('content', 'width=1024px');"
-            js += "    break;"
-            js += "  }"
-            js += "}"
-            
-            webView.stringByEvaluatingJavaScriptFromString(js)
-        }
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        self.indicator.stopAnimating()
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        self.loadStart()
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        self.loadFinish()
+    }
+    
+    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+        self.loadFinish()
+    }
+    
+    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+        self.loadFinish()
     }
     
     //MARK: -

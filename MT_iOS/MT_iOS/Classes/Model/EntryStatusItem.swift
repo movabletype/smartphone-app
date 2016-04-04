@@ -10,6 +10,7 @@ import UIKit
 
 class EntryStatusItem: BaseEntryItem {
     var selected = NOTSELECTED
+    var unpublished = false
 
     override init() {
         super.init()
@@ -20,11 +21,16 @@ class EntryStatusItem: BaseEntryItem {
     override func encodeWithCoder(aCoder: NSCoder) {
         super.encodeWithCoder(aCoder)
         aCoder.encodeInteger(self.selected, forKey: "selected")
+        aCoder.encodeBool(self.unpublished, forKey: "unpublished")
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         self.selected = aDecoder.decodeIntegerForKey("selected")
+        self.unpublished = aDecoder.decodeBoolForKey("unpublished")
+        if self.selected == Entry.Status.Unpublish.rawValue {
+            self.unpublished = true
+        }
     }
 
 
@@ -36,7 +42,10 @@ class EntryStatusItem: BaseEntryItem {
     }
     
     override func dispValue()-> String {
-        return self.value()
+        if selected == NOTSELECTED {
+            return ""
+        }
+        return Entry.Status(rawValue: selected)!.label()
     }
     
     override func makeParams()-> [String : AnyObject] {

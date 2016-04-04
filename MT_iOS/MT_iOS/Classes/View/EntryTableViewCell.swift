@@ -30,17 +30,18 @@ class EntryTableViewCell: UITableViewCell {
                     self.timeLabel.text = ""
                 }
                 
+                self.statusIcon.hidden = false
                 if item.status == Entry.Status.Publish.text() {
                     self.statusIcon.image = UIImage(named: "ico_on")
                 } else if item.status == Entry.Status.Draft.text() {
                     self.statusIcon.image = UIImage(named: "ico_draft")
                 } else if item.status == Entry.Status.Future.text() {
                     self.statusIcon.image = UIImage(named: "ico_timer")
+                } else if item.status == Entry.Status.Unpublish.text() {
+                    self.statusIcon.image = UIImage(named: "ico_unpublush")
                 } else {
-                    self.statusIcon.image = UIImage(named: "ico_draft")
+                    self.statusIcon.hidden = true
                 }
-                self.statusIcon.hidden = false
-                
             } else {
                 self.titleLabel.text = ""
                 self.timeLabel.text = ""
